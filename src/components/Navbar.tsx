@@ -99,13 +99,13 @@ export default function Navbar() {
                 Lanjut Nonton
               </Link>
               <Link
-                href="#kategori"
+                href="/categories"
                 className="text-zinc-400 hover:text-white transition-colors"
               >
                 Kategori
               </Link>
               <Link
-                href="#favorit"
+                href="/collections"
                 className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
               >
                 <FolderHeart className="w-4 h-4 text-zinc-400" />
@@ -239,7 +239,7 @@ export default function Navbar() {
                   Lanjut Nonton
                 </Link>
                 <Link
-                  href="#kategori"
+                  href="/categories"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
                 >
@@ -247,7 +247,7 @@ export default function Navbar() {
                   Kategori
                 </Link>
                 <Link
-                  href="#favorit"
+                  href="/collections"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
                 >
