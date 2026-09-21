@@ -21,6 +21,7 @@ import {
   X,
   Check,
   FastForward,
+  Upload,
 } from "lucide-react";
 import { Anime } from "@/types/anime";
 import { ExtendedEpisode } from "@/data/mockEpisodes";
@@ -92,6 +93,9 @@ export default function AnimePlayer({
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
   const [selectedSub, setSelectedSub] = useState("id");
   const [selectedAudio, setSelectedAudio] = useState("ja");
+  const [subSize, setSubSize] = useState<"sm" | "md" | "lg">("md");
+  const [customSubName, setCustomSubName] = useState<string | null>(null);
+  const subFileInputRef = useRef<HTMLInputElement>(null);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [nextEpCountdown, setNextEpCountdown] = useState<number | null>(null);
 
@@ -101,6 +105,7 @@ export default function AnimePlayer({
     { id: "id", label: "Bahasa Indonesia (Resmi)" },
     { id: "en", label: "English" },
     { id: "ja-romaji", label: "Romaji / Karaoke" },
+    ...(customSubName ? [{ id: "custom", label: `Kustom: ${customSubName}` }] : []),
   ];
 
   const audioTracks = [
@@ -109,6 +114,28 @@ export default function AnimePlayer({
   ];
 
   const speeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
+
+  const handleSubtitleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setCustomSubName(file.name);
+      setSelectedSub("custom");
+      try {
+        localStorage.setItem("animeku_player_subtitle", "custom");
+      } catch (err) {}
+    }
+  };
+
+  const getSubtitleCue = () => {
+    if (selectedSub === "off") return null;
+    const cues: Record<string, string> = {
+      id: "Nona Frieren, apakah kita akan bersiap melanjutkan perjalanan ke utara?",
+      en: "Lady Frieren, shall we prepare to head further north?",
+      "ja-romaji": "Frieren-sama, kita e to mukau junbi wo shimashou ka?",
+      custom: `[${customSubName}] Menampilkan baris teks subtitle dari file lokal...`,
+    };
+    return cues[selectedSub] || cues.id;
+  };
 
   // Mouse activity timer to hide controls
   const handleMouseMove = () => {
@@ -379,6 +406,32 @@ export default function AnimePlayer({
         playsInline
       />
 
+      {/* Hidden Subtitle File Input */}
+      <input
+        ref={subFileInputRef}
+        type="file"
+        accept=".srt,.vtt,.ass"
+        onChange={handleSubtitleUpload}
+        className="hidden"
+      />
+
+      {/* On-Screen Live Subtitle Display */}
+      {selectedSub !== "off" && (
+        <div className="absolute bottom-24 left-4 right-4 flex justify-center pointer-events-none z-20 transition-all">
+          <div
+            className={`px-4 py-1.5 rounded-lg text-center max-w-2xl font-semibold select-none drop-shadow-md transition-all ${
+              subSize === "sm"
+                ? "text-sm sm:text-base"
+                : subSize === "lg"
+                ? "text-lg sm:text-2xl"
+                : "text-base sm:text-xl"
+            } text-yellow-300 bg-black/80 backdrop-blur-[2px] shadow-2xl border border-white/10`}
+          >
+            {getSubtitleCue()}
+          </div>
+        </div>
+      )}
+
       {/* Center Action Feedback Ripple */}
       {centerFeedback && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
@@ -639,6 +692,9 @@ export default function AnimePlayer({
                           onClick={() => {
                             setSelectedSub(sub.id);
                             setShowAudioSubMenu(false);
+                            try {
+                              localStorage.setItem("animeku_player_subtitle", sub.id);
+                            } catch (e) {}
                           }}
                           className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left transition-colors cursor-pointer ${
                             selectedSub === sub.id
@@ -646,11 +702,49 @@ export default function AnimePlayer({
                               : "hover:bg-zinc-800 text-zinc-300"
                           }`}
                         >
-                          <span>{sub.label}</span>
-                          {selectedSub === sub.id && <Check className="w-3.5 h-3.5" />}
+                          <span className="truncate">{sub.label}</span>
+                          {selectedSub === sub.id && <Check className="w-3.5 h-3.5 shrink-0" />}
                         </button>
                       ))}
+
+                      {/* Upload local subtitle button */}
+                      <button
+                        onClick={() => subFileInputRef.current?.click()}
+                        className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-left hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer text-xs mt-1 border border-dashed border-zinc-700"
+                      >
+                        <Upload className="w-3.5 h-3.5 text-zinc-400" />
+                        <span>Unggah Subtitle (.srt / .vtt)</span>
+                      </button>
                     </div>
+
+                    {/* Subtitle Size Options */}
+                    {selectedSub !== "off" && (
+                      <div className="mt-3 pt-2 border-t border-zinc-800/80">
+                        <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">
+                          Ukuran Teks Subtitle
+                        </span>
+                        <div className="flex items-center gap-1.5">
+                          {(["sm", "md", "lg"] as const).map((sz) => (
+                            <button
+                              key={sz}
+                              onClick={() => {
+                                setSubSize(sz);
+                                try {
+                                  localStorage.setItem("animeku_player_subtitle_size", sz);
+                                } catch (e) {}
+                              }}
+                              className={`flex-1 py-1 rounded text-center text-xs font-semibold transition-colors cursor-pointer ${
+                                subSize === sz
+                                  ? "bg-red-600 text-white shadow"
+                                  : "bg-zinc-800 hover:bg-zinc-700 text-zinc-300"
+                              }`}
+                            >
+                              {sz === "sm" ? "Kecil" : sz === "md" ? "Sedang" : "Besar"}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Audio */}
