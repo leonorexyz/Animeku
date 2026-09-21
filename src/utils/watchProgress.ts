@@ -51,6 +51,18 @@ export function saveWatchProgress(progress: {
 
     all[progress.animeId] = item;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+
+    // Sync with backend API asynchronously
+    fetch(`/api/anime/${progress.animeId}/progress`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        episodeId: progress.episodeId,
+        positionSeconds: item.positionSeconds,
+        durationSeconds: item.durationSeconds,
+        isCompleted: item.isCompleted,
+      }),
+    }).catch(() => {});
   } catch (err) {
     console.error("Failed to save watch progress to localStorage", err);
   }
@@ -62,6 +74,11 @@ export function removeWatchProgress(animeId: string): void {
     const all = getAllWatchProgress();
     delete all[animeId];
     localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+
+    // Sync deletion with backend API asynchronously
+    fetch(`/api/anime/${animeId}/progress`, {
+      method: "DELETE",
+    }).catch(() => {});
   } catch (err) {
     console.error("Failed to remove watch progress from localStorage", err);
   }

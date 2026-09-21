@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "018e3e0a7cb9b6b2060952ee32d27e9e549569a3",
+  "generatedForCommit": "2e5dee6b09844620dd7bf4b4f416328850832218",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -81,8 +81,14 @@
       "size": 2963
     },
     {
-      "path": "src/app/api/featured/route.ts",
+      "path": "src/app/api/continue-watching/route.ts",
       "reason": "new",
+      "language": "typescript",
+      "size": 4750
+    },
+    {
+      "path": "src/app/api/featured/route.ts",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 3147
     },
@@ -100,7 +106,7 @@
     },
     {
       "path": "src/app/page.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 7214
     },
