@@ -75,7 +75,7 @@ export default function DirectStreamLinkImporter({
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleTestStream = () => {
+  const handleTestStream = async () => {
     if (!streamUrl.trim()) {
       setErrorMessage("Silakan masukkan URL streaming terlebih dahulu.");
       setTestStatus("error");
@@ -95,11 +95,26 @@ export default function DirectStreamLinkImporter({
     setErrorMessage("");
     setIsPreviewActive(true);
 
-    // Simulate connection check
-    setTimeout(() => {
-      setIsTesting(false);
+    try {
+      const res = await fetch("/api/sources/link/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: streamUrl.trim() }),
+      });
+
+      const data = await res.json().catch(() => null);
+      if (res.ok && data?.valid) {
+        setTestStatus("success");
+      } else {
+        setTestStatus("error");
+        setErrorMessage(data?.error || "Tautan tidak dapat diakses atau format tidak didukung.");
+      }
+    } catch (e: any) {
+      // Jika fetch ke backend gagal, tetap izinkan browser mengetes native video
       setTestStatus("success");
-    }, 900);
+    } finally {
+      setIsTesting(false);
+    }
   };
 
   const handleVideoError = () => {
@@ -120,7 +135,7 @@ export default function DirectStreamLinkImporter({
     setIsPreviewActive(false);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!streamUrl.trim() || !animeTitle.trim()) {
       setErrorMessage("Judul anime dan URL streaming wajib diisi.");
@@ -129,7 +144,27 @@ export default function DirectStreamLinkImporter({
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/sources/link", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          animeTitle: animeTitle.trim(),
+          url: streamUrl.trim(),
+          episodeNumber: Number(episodeNumber) || 1,
+          episodeTitle: episodeTitle.trim() || `Episode ${episodeNumber}`,
+          quality,
+          serverLabel,
+        }),
+      });
+
+      const result = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(result?.error || "Gagal menyimpan tautan streaming ke database");
+      }
+
       setIsSubmitting(false);
       setSuccessToast(true);
 
@@ -150,7 +185,11 @@ export default function DirectStreamLinkImporter({
         setIsPreviewActive(false);
         setTestStatus("idle");
       }, 2500);
-    }, 750);
+    } catch (err: any) {
+      setIsSubmitting(false);
+      setTestStatus("error");
+      setErrorMessage(err?.message || "Terjadi kesalahan saat menyimpan link");
+    }
   };
 
   const handleCancel = () => {
