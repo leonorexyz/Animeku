@@ -153,6 +153,17 @@ export default function DirectStreamLinkImporter({
     }, 750);
   };
 
+  const handleCancel = () => {
+    setStreamUrl("");
+    setAnimeTitle("");
+    setEpisodeTitle("");
+    setIsPreviewActive(false);
+    setTestStatus("idle");
+    setErrorMessage("");
+  };
+
+  const hasUnsavedData = !!(streamUrl.trim() || animeTitle.trim() || episodeTitle.trim());
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -332,29 +343,41 @@ export default function DirectStreamLinkImporter({
         </div>
       </div>
 
-      {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full py-3.5 bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-sm rounded-xl shadow-lg hover:shadow-amber-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-      >
-        {isSubmitting ? (
-          <>
-            <RefreshCw className="w-4 h-4 animate-spin text-black" />
-            <span>Menyimpan Tautan Streaming...</span>
-          </>
-        ) : successToast ? (
-          <>
-            <CheckCircle2 className="w-4 h-4 text-emerald-900" />
-            <span>Tautan Streaming Berhasil Ditambahkan!</span>
-          </>
-        ) : (
-          <>
-            <Plus className="w-4 h-4" />
-            <span>Tambahkan Tautan Streaming ke Animeku</span>
-          </>
+      {/* Submit & Batal Buttons */}
+      <div className="flex items-center gap-3">
+        {hasUnsavedData && (
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={handleCancel}
+            className="px-5 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white font-bold text-xs sm:text-sm rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all cursor-pointer disabled:opacity-50"
+          >
+            Batal
+          </button>
         )}
-      </button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="flex-1 py-3.5 bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-sm rounded-xl shadow-lg hover:shadow-amber-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+        >
+          {isSubmitting ? (
+            <>
+              <RefreshCw className="w-4 h-4 animate-spin text-black" />
+              <span>Menyimpan Tautan Streaming...</span>
+            </>
+          ) : successToast ? (
+            <>
+              <CheckCircle2 className="w-4 h-4 text-emerald-900" />
+              <span>Tautan Streaming Berhasil Ditambahkan!</span>
+            </>
+          ) : (
+            <>
+              <Plus className="w-4 h-4" />
+              <span>Tambahkan Tautan Streaming ke Animeku</span>
+            </>
+          )}
+        </button>
+      </div>
     </form>
   );
 }

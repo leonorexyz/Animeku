@@ -103,18 +103,31 @@ export default function LocalFileImporter({
   const [targetTitle, setTargetTitle] = useState("");
   const [isImporting, setIsImporting] = useState(false);
   const [importSuccess, setImportSuccess] = useState(false);
+  const [importError, setImportError] = useState<string | null>(null);
   const [previewingFile, setPreviewingFile] = useState<File | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const folderInputRef = useRef<HTMLInputElement>(null);
 
+  const handleCancelImport = () => {
+    setParsedFiles([]);
+    setTargetTitle("");
+    setImportError(null);
+  };
+
   const processFiles = (files: File[]) => {
+    setImportError(null);
     const videoExtensions = [".mp4", ".mkv", ".webm", ".avi", ".mov", ".ts"];
     const validFiles = files.filter((f) =>
       videoExtensions.some((ext) => f.name.toLowerCase().endsWith(ext))
     );
 
-    if (validFiles.length === 0) return;
+    if (validFiles.length === 0) {
+      setImportError(
+        "Tidak ditemukan berkas video yang didukung (.mp4, .mkv, .webm, .avi, .mov). Pastikan folder berisi file video."
+      );
+      return;
+    }
 
     let autoTitle = targetTitle;
 
@@ -209,15 +222,24 @@ export default function LocalFileImporter({
   };
 
   const handleExecuteImport = () => {
+    setImportError(null);
     const selectedFiles = parsedFiles.filter((f) => f.selected);
-    if (selectedFiles.length === 0) return;
+    if (selectedFiles.length === 0) {
+      setImportError("Pilih minimal satu file video untuk diimpor.");
+      return;
+    }
+
+    if (!targetTitle.trim()) {
+      setImportError("Nama judul anime wajib diisi.");
+      return;
+    }
 
     setIsImporting(true);
     setTimeout(() => {
       setIsImporting(false);
       setImportSuccess(true);
       onImportComplete?.({
-        animeTitle: targetTitle || "Anime Koleksi Lokal",
+        animeTitle: targetTitle.trim(),
         files: selectedFiles,
       });
       setTimeout(() => {
@@ -429,30 +451,57 @@ export default function LocalFileImporter({
             ))}
           </div>
 
-          {/* Execute Button */}
-          <button
-            type="button"
-            disabled={isImporting || selectedCount === 0}
-            onClick={handleExecuteImport}
-            className="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-          >
-            {isImporting ? (
-              <>
-                <RefreshCw className="w-4 h-4 animate-spin" />
-                <span>Membuat Entri Katalog Lokal...</span>
-              </>
-            ) : importSuccess ? (
-              <>
-                <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-                <span>Berhasil Diimpor ke Koleksi!</span>
-              </>
-            ) : (
-              <>
-                <Plus className="w-4 h-4" />
-                <span>Impor {selectedCount} Episode ke Animeku</span>
-              </>
-            )}
-          </button>
+          {/* Error Banner */}
+          {importError && (
+            <div className="flex items-center justify-between p-3.5 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs animate-in fade-in">
+              <div className="flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+                <span>{importError}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setImportError(null)}
+                className="text-red-400 hover:text-white text-xs font-bold px-2 py-0.5 rounded hover:bg-red-900/50 cursor-pointer"
+              >
+                Tutup
+              </button>
+            </div>
+          )}
+
+          {/* Action Buttons: Batal & Execute */}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              disabled={isImporting}
+              onClick={handleCancelImport}
+              className="px-5 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white font-bold text-xs sm:text-sm rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all cursor-pointer disabled:opacity-50"
+            >
+              Batal
+            </button>
+            <button
+              type="button"
+              disabled={isImporting || selectedCount === 0}
+              onClick={handleExecuteImport}
+              className="flex-1 py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+            >
+              {isImporting ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  <span>Membuat Entri Katalog Lokal...</span>
+                </>
+              ) : importSuccess ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-300" />
+                  <span>Berhasil Diimpor ke Koleksi!</span>
+                </>
+              ) : (
+                <>
+                  <Plus className="w-4 h-4" />
+                  <span>Impor {selectedCount} Episode ke Animeku</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       )}
 

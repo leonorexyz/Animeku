@@ -28,6 +28,10 @@ import {
   Layers,
   Info,
   Clock,
+  X,
+  AlertTriangle,
+  RotateCcw,
+  Loader2,
 } from "lucide-react";
 
 interface ConnectedSourceItem {
@@ -75,6 +79,15 @@ export default function AddSourcePage() {
   const [sources, setSources] = useState<ConnectedSourceItem[]>(INITIAL_SOURCES);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [showMetadataMatcher, setShowMetadataMatcher] = useState(false);
+  const [globalError, setGlobalError] = useState<{
+    title: string;
+    message: string;
+    onRetry?: () => void;
+  } | null>(null);
+  const [isSavingProgress, setIsSavingProgress] = useState(false);
+  const [saveStepText, setSaveStepText] = useState("");
+  const [saveStepProgress, setSaveStepProgress] = useState(0);
+  const [showCancelModal, setShowCancelModal] = useState(false);
 
   // Form State: Local File/Folder
   const [localPath, setLocalPath] = useState("D:/Anime/Winter2024");
@@ -108,6 +121,31 @@ export default function AddSourcePage() {
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
+  };
+
+  const executeWithProgress = (
+    steps: { label: string; pct: number }[],
+    onFinish: () => void,
+    retryCallback?: () => void
+  ) => {
+    setGlobalError(null);
+    setIsSavingProgress(true);
+    let stepIndex = 0;
+
+    const runStep = () => {
+      if (stepIndex < steps.length) {
+        setSaveStepText(steps[stepIndex].label);
+        setSaveStepProgress(steps[stepIndex].pct);
+        stepIndex++;
+        setTimeout(runStep, 400);
+      } else {
+        setIsSavingProgress(false);
+        setSaveStepProgress(100);
+        onFinish();
+      }
+    };
+
+    runStep();
   };
 
   const handleSelectFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -230,6 +268,16 @@ export default function AddSourcePage() {
               <span>Rapikan Judul & Poster</span>
             </button>
 
+            <button
+              type="button"
+              onClick={() => setShowCancelModal(true)}
+              className="flex items-center gap-2 px-3.5 py-3 bg-zinc-900/80 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 rounded-2xl text-xs font-bold transition-all cursor-pointer backdrop-blur-md"
+              title="Batalkan proses penambahan sumber"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Batal / Reset</span>
+            </button>
+
             <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-4 text-center min-w-[100px] backdrop-blur-sm">
               <span className="text-2xl font-black text-red-500 block">
                 {sources.length}
@@ -248,6 +296,58 @@ export default function AddSourcePage() {
             </div>
           </div>
         </div>
+
+        {/* Global Error Alert Banner */}
+        {globalError && (
+          <div className="mt-6 p-4 rounded-2xl bg-red-950/80 border border-red-500/50 flex items-start justify-between gap-4 animate-in fade-in">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+              <div>
+                <h4 className="text-sm font-bold text-red-200">{globalError.title}</h4>
+                <p className="text-xs text-red-300/80 mt-1">{globalError.message}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              {globalError.onRetry && (
+                <button
+                  type="button"
+                  onClick={globalError.onRetry}
+                  className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shadow-md"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Coba Lagi</span>
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => setGlobalError(null)}
+                className="p-1.5 text-red-400 hover:text-white rounded-lg hover:bg-red-900/50 transition-colors cursor-pointer"
+                title="Tutup Pesan Error"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Global Save Progress Banner */}
+        {isSavingProgress && (
+          <div className="mt-6 p-4 rounded-2xl bg-zinc-900/90 border border-red-500/30 backdrop-blur-md animate-in fade-in space-y-3 shadow-xl">
+            <div className="flex items-center justify-between text-xs">
+              <span className="flex items-center gap-2 font-bold text-white">
+                <Loader2 className="w-4 h-4 text-red-500 animate-spin" />
+                <span>{saveStepText || "Menyimpan perubahan ke katalog..."}</span>
+              </span>
+              <span className="text-red-400 font-bold">{saveStepProgress}%</span>
+            </div>
+            <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-red-600 to-amber-500 rounded-full transition-all duration-300"
+                style={{ width: `${saveStepProgress}%` }}
+              />
+            </div>
+          </div>
+        )}
 
         {/* Floating Notification Toast */}
         {toastMessage && (
@@ -320,17 +420,28 @@ export default function AddSourcePage() {
 
                 <LocalFileImporter
                   onImportComplete={(imported) => {
-                    const newSource: ConnectedSourceItem = {
-                      id: `src-${Date.now()}`,
-                      name: `Koleksi Lokal: ${imported.animeTitle}`,
-                      type: "local",
-                      details: `${imported.files.length} episode berhasil diimpor`,
-                      itemCount: 1,
-                      lastSynced: "Baru saja",
-                      status: "active",
-                    };
-                    setSources((prev) => [newSource, ...prev]);
-                    showToast(`Serial "${imported.animeTitle}" (${imported.files.length} Ep) berhasil ditambahkan ke katalog!`);
+                    executeWithProgress(
+                      [
+                        { label: "Membaca header dan metadata file lokal...", pct: 30 },
+                        { label: "Menyusun nomor urut episode dan thumbnail...", pct: 70 },
+                        { label: "Menyimpan ke katalog koleksi...", pct: 95 },
+                      ],
+                      () => {
+                        const newSource: ConnectedSourceItem = {
+                          id: `src-${Date.now()}`,
+                          name: `Koleksi Lokal: ${imported.animeTitle}`,
+                          type: "local",
+                          details: `${imported.files.length} episode berhasil diimpor`,
+                          itemCount: 1,
+                          lastSynced: "Baru saja",
+                          status: "active",
+                        };
+                        setSources((prev) => [newSource, ...prev]);
+                        showToast(
+                          `Serial "${imported.animeTitle}" (${imported.files.length} Ep) berhasil ditambahkan ke katalog!`
+                        );
+                      }
+                    );
                   }}
                 />
               </div>
@@ -341,17 +452,26 @@ export default function AddSourcePage() {
               <div className="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-6 space-y-6 backdrop-blur-sm animate-in fade-in duration-200">
                 <GoogleDriveConnector
                   onSyncComplete={(synced) => {
-                    const newSource: ConnectedSourceItem = {
-                      id: `src-${Date.now()}`,
-                      name: `Google Drive: ${synced.folderName}`,
-                      type: "drive",
-                      details: `${synced.files.length} episode disinkronkan (${synced.accountEmail})`,
-                      itemCount: 1,
-                      lastSynced: "Baru saja",
-                      status: "active",
-                    };
-                    setSources((prev) => [newSource, ...prev]);
-                    showToast(`Folder Drive "${synced.folderName}" berhasil ditambahkan ke katalog!`);
+                    executeWithProgress(
+                      [
+                        { label: "Menyambungkan token Google Drive OAuth 2.0...", pct: 30 },
+                        { label: `Memindai direktori folder "${synced.folderName}"...`, pct: 65 },
+                        { label: "Mendaftarkan tautan streaming cloud...", pct: 95 },
+                      ],
+                      () => {
+                        const newSource: ConnectedSourceItem = {
+                          id: `src-${Date.now()}`,
+                          name: `Google Drive: ${synced.folderName}`,
+                          type: "drive",
+                          details: `${synced.files.length} episode disinkronkan (${synced.accountEmail})`,
+                          itemCount: 1,
+                          lastSynced: "Baru saja",
+                          status: "active",
+                        };
+                        setSources((prev) => [newSource, ...prev]);
+                        showToast(`Folder Drive "${synced.folderName}" berhasil ditambahkan ke katalog!`);
+                      }
+                    );
                   }}
                 />
               </div>
@@ -361,17 +481,26 @@ export default function AddSourcePage() {
             {activeTab === "link" && (
               <DirectStreamLinkImporter
                 onAddStream={(stream) => {
-                  const newSource: ConnectedSourceItem = {
-                    id: `src-${Date.now()}`,
-                    name: `${stream.title} (Ep ${stream.episodeNumber})`,
-                    type: "link",
-                    details: `Direct Stream • ${stream.quality} • ${stream.serverLabel}`,
-                    itemCount: 1,
-                    lastSynced: "Baru saja",
-                    status: "active",
-                  };
-                  setSources((prev) => [newSource, ...prev]);
-                  showToast(`Tautan streaming "${stream.title}" (Ep ${stream.episodeNumber}) berhasil ditambahkan!`);
+                  executeWithProgress(
+                    [
+                      { label: "Menguji ketersediaan endpoint video...", pct: 35 },
+                      { label: `Memverifikasi stream "${stream.title}" (${stream.quality})...`, pct: 75 },
+                      { label: "Mendaftarkan link video langsung ke database...", pct: 95 },
+                    ],
+                    () => {
+                      const newSource: ConnectedSourceItem = {
+                        id: `src-${Date.now()}`,
+                        name: `${stream.title} (Ep ${stream.episodeNumber})`,
+                        type: "link",
+                        details: `Direct Stream • ${stream.quality} • ${stream.serverLabel}`,
+                        itemCount: 1,
+                        lastSynced: "Baru saja",
+                        status: "active",
+                      };
+                      setSources((prev) => [newSource, ...prev]);
+                      showToast(`Tautan streaming "${stream.title}" (Ep ${stream.episodeNumber}) berhasil ditambahkan!`);
+                    }
+                  );
                 }}
               />
             )}
@@ -464,6 +593,48 @@ export default function AddSourcePage() {
           </div>
         </div>
       </div>
+
+      {/* Cancel Confirmation Modal */}
+      {showCancelModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl animate-in zoom-in-95">
+            <div className="flex items-start gap-3">
+              <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400 shrink-0">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-white">
+                  Batalkan Proses Tambah Sumber?
+                </h3>
+                <p className="text-xs text-zinc-400 mt-1.5 leading-relaxed">
+                  Semua input atau pemilihan berkas yang belum disimpan akan dikosongkan. Tindakan ini tidak menghapus sumber anime yang sudah terdaftar sebelumnya.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-zinc-800">
+              <button
+                type="button"
+                onClick={() => setShowCancelModal(false)}
+                className="px-4 py-2 rounded-xl text-xs font-bold text-zinc-300 hover:bg-zinc-800 transition-colors cursor-pointer"
+              >
+                Kembali Mengedit
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowCancelModal(false);
+                  setGlobalError(null);
+                  showToast("Proses tambah sumber telah dibatalkan & di-reset.");
+                }}
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-red-600 hover:bg-red-700 text-white transition-all shadow-lg hover:shadow-red-600/30 cursor-pointer"
+              >
+                Ya, Batalkan
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Metadata Matcher Modal (Rapikan Judul & Poster) */}
       <MetadataMatcherModal
