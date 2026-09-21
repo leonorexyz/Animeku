@@ -21,6 +21,7 @@ import {
   Clock,
   ArrowRight,
 } from "lucide-react";
+import DriveStatusCard from "@/components/DriveStatusCard";
 
 interface DriveFolder {
   id: string;
@@ -208,86 +209,32 @@ export default function GoogleDriveConnector({
         </div>
       )}
 
-      {/* Connection Header Card */}
-      <div className="p-6 rounded-2xl bg-zinc-950/60 border border-zinc-800 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-blue-600/15 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0 shadow-lg shadow-blue-600/10">
-              <Cloud className="w-6 h-6" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-base font-extrabold text-white">
-                  Google Drive Cloud Vault
-                </h3>
-                {isConnected ? (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Terhubung
-                  </span>
-                ) : (
-                  <span className="px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-400 text-[10px] font-bold">
-                    Terputus
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-zinc-400 mt-0.5">
-                {isConnected
-                  ? `Akun aktif: ${accountEmail}`
-                  : "Hubungkan akun Google Drive untuk streaming anime dari cloud"}
-              </p>
-            </div>
-          </div>
-
-          <div>
-            {isConnected ? (
-              <button
-                type="button"
-                onClick={handleDisconnect}
-                className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white text-xs font-semibold rounded-xl border border-white/10 transition-colors cursor-pointer"
-              >
-                Putuskan Akun
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={handleConnect}
-                disabled={isConnecting}
-                className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-lg shadow-blue-600/30 transition-all cursor-pointer disabled:opacity-50"
-              >
-                {isConnecting ? (
-                  <RefreshCw className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Cloud className="w-4 h-4" />
-                )}
-                <span>Masuk dengan Google</span>
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Storage Quota Bar (When connected) */}
-        {isConnected && (
-          <div className="space-y-2 pt-3 border-t border-zinc-900">
-            <div className="flex items-center justify-between text-xs text-zinc-400">
-              <span className="flex items-center gap-1.5">
-                <HardDrive className="w-3.5 h-3.5 text-blue-400" />
-                <span>Kapasitas Google One / Drive</span>
-              </span>
-              <span className="font-semibold text-zinc-300">
-                {storageUsedGb} GB dari {storageTotalGb} GB terpakai (
-                {Math.round((storageUsedGb / storageTotalGb) * 100)}%)
-              </span>
-            </div>
-            <div className="h-2 w-full bg-zinc-900 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-500"
-                style={{ width: `${(storageUsedGb / storageTotalGb) * 100}%` }}
-              />
-            </div>
-          </div>
-        )}
-      </div>
+      {/* Connection Status Card */}
+      <DriveStatusCard
+        isConnected={isConnected}
+        status={{
+          email: accountEmail,
+          name: "Animeku Cloud Storage",
+          connectedSince: "12 Januari 2024",
+          lastSynced: "5 menit yang lalu",
+          totalSpaceGb: storageTotalGb,
+          usedAnimeGb: 38.4,
+          usedOtherGb: 6.8,
+          linkedFoldersCount: MOCK_DRIVE_FOLDERS.length,
+          linkedEpisodesCount: 83,
+          tokenStatus: "valid",
+        }}
+        onConnect={handleConnect}
+        onDisconnect={(removeCatalog) => {
+          handleDisconnect();
+          if (removeCatalog) {
+            showToast("Indeks anime Google Drive telah dihapus dari katalog.");
+          }
+        }}
+        onManualSync={() => {
+          return new Promise((r) => setTimeout(r, 1000));
+        }}
+      />
 
       {/* Main Drive Operations Area (When connected) */}
       {isConnected && (
