@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "10b984dc5cb00edde115577deb260e30db05136a",
+  "generatedForCommit": "56a7fef3de2eac11a7a00eb29b2a4d475afc8f62",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -84,7 +84,13 @@
       "path": "src/app/page.tsx",
       "reason": "changed",
       "language": "typescript",
-      "size": 4668
+      "size": 4508
+    },
+    {
+      "path": "src/app/player/[id]/page.tsx",
+      "reason": "new",
+      "language": "typescript",
+      "size": 2301
     },
     {
       "path": "src/components/AnimeCard.tsx",
@@ -97,6 +103,12 @@
       "reason": "needs_summary",
       "language": "typescript",
       "size": 5521
+    },
+    {
+      "path": "src/components/AnimePlayer.tsx",
+      "reason": "new",
+      "language": "typescript",
+      "size": 24134
     },
     {
       "path": "src/components/AnimeRow.tsx",
@@ -136,13 +148,13 @@
     },
     {
       "path": "src/components/MobileBottomNav.tsx",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 2861
     },
     {
       "path": "src/components/Navbar.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 9723
     },
@@ -151,6 +163,12 @@
       "reason": "needs_summary",
       "language": "typescript",
       "size": 11618
+    },
+    {
+      "path": "src/data/mockEpisodes.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 3719
     },
     {
       "path": "src/types/anime.ts",

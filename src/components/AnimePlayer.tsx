@@ -44,16 +44,25 @@ export default function AnimePlayer({
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrubberRef = useRef<HTMLDivElement>(null);
 
   // Player state
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [bufferedPercent, setBufferedPercent] = useState(0);
   const [volume, setVolume] = useState(0.8);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [controlsTimeout, setControlsTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  // Center feedback indicator (play, pause, skip)
+  const [centerFeedback, setCenterFeedback] = useState<"play" | "pause" | "rewind" | "forward" | null>(null);
+
+  // Scrubber Hover Tooltip
+  const [hoverTime, setHoverTime] = useState<number | null>(null);
+  const [hoverPosition, setHoverPosition] = useState(0);
 
   // Settings & overlays
   const [showEpisodeDrawer, setShowEpisodeDrawer] = useState(false);
@@ -89,24 +98,34 @@ export default function AnimePlayer({
     setControlsTimeout(timeout);
   };
 
+  const triggerFeedback = (type: "play" | "pause" | "rewind" | "forward") => {
+    setCenterFeedback(type);
+    setTimeout(() => {
+      setCenterFeedback(null);
+    }, 600);
+  };
+
   // Toggle play/pause
   const togglePlay = useCallback(() => {
     if (!videoRef.current) return;
     if (isPlaying) {
       videoRef.current.pause();
+      triggerFeedback("pause");
+      setIsPlaying(false);
     } else {
       videoRef.current.play().catch(() => {});
+      triggerFeedback("play");
+      setIsPlaying(true);
     }
-    setIsPlaying(!isPlaying);
   }, [isPlaying]);
 
   // Skip time (-10s / +10s)
   const skip = (seconds: number) => {
     if (!videoRef.current) return;
-    videoRef.current.currentTime = Math.max(
-      0,
-      Math.min(duration, videoRef.current.currentTime + seconds)
-    );
+    const newTime = Math.max(0, Math.min(duration, videoRef.current.currentTime + seconds));
+    videoRef.current.currentTime = newTime;
+    setCurrentTime(newTime);
+    triggerFeedback(seconds < 0 ? "rewind" : "forward");
   };
 
   // Next episode logic
@@ -161,6 +180,12 @@ export default function AnimePlayer({
     const cur = videoRef.current.currentTime;
     setCurrentTime(cur);
 
+    // Calculate buffer
+    if (videoRef.current.buffered.length > 0 && duration > 0) {
+      const bufferedEnd = videoRef.current.buffered.end(videoRef.current.buffered.length - 1);
+      setBufferedPercent((bufferedEnd / duration) * 100);
+    }
+
     // Auto next episode trigger when 10 seconds remain
     if (duration > 20 && duration - cur <= 10 && nextEp && nextEpCountdown === null) {
       setNextEpCountdown(10);
@@ -187,12 +212,26 @@ export default function AnimePlayer({
     videoRef.current.volume = isMuted ? 0 : volume;
   };
 
-  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const targetTime = parseFloat(e.target.value);
-    setCurrentTime(targetTime);
-    if (videoRef.current) {
-      videoRef.current.currentTime = targetTime;
-    }
+  // Scrubber hover tracking
+  const handleScrubberMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!scrubberRef.current || duration === 0) return;
+    const rect = scrubberRef.current.getBoundingClientRect();
+    const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    setHoverPosition(pos * 100);
+    setHoverTime(pos * duration);
+  };
+
+  const handleScrubberMouseLeave = () => {
+    setHoverTime(null);
+  };
+
+  const handleScrubberClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!scrubberRef.current || duration === 0 || !videoRef.current) return;
+    const rect = scrubberRef.current.getBoundingClientRect();
+    const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const newTime = pos * duration;
+    videoRef.current.currentTime = newTime;
+    setCurrentTime(newTime);
   };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -225,7 +264,7 @@ export default function AnimePlayer({
     setShowSpeedMenu(false);
   };
 
-  // Keyboard shortcuts (Space, Left/Right, F, M)
+  // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
@@ -233,16 +272,35 @@ export default function AnimePlayer({
       }
       switch (e.code) {
         case "Space":
+        case "KeyK":
           e.preventDefault();
           togglePlay();
           break;
         case "ArrowLeft":
+        case "KeyJ":
           e.preventDefault();
           skip(-10);
           break;
         case "ArrowRight":
+        case "KeyL":
           e.preventDefault();
           skip(10);
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          setVolume((v) => {
+            const nextV = Math.min(1, v + 0.1);
+            if (videoRef.current) videoRef.current.volume = nextV;
+            return nextV;
+          });
+          break;
+        case "ArrowDown":
+          e.preventDefault();
+          setVolume((v) => {
+            const nextV = Math.max(0, v - 0.1);
+            if (videoRef.current) videoRef.current.volume = nextV;
+            return nextV;
+          });
           break;
         case "KeyF":
           e.preventDefault();
@@ -265,6 +323,8 @@ export default function AnimePlayer({
     return `${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
   };
 
+  const currentPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
+
   return (
     <div
       ref={containerRef}
@@ -282,9 +342,31 @@ export default function AnimePlayer({
         playsInline
       />
 
+      {/* Center Action Feedback Ripple */}
+      {centerFeedback && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+          <div className="p-6 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20 animate-in zoom-in-75 fade-in duration-300">
+            {centerFeedback === "play" && <Play className="w-12 h-12 fill-white ml-1" />}
+            {centerFeedback === "pause" && <Pause className="w-12 h-12 fill-white" />}
+            {centerFeedback === "rewind" && (
+              <div className="flex flex-col items-center">
+                <RotateCcw className="w-10 h-10" />
+                <span className="text-xs font-bold mt-1">-10s</span>
+              </div>
+            )}
+            {centerFeedback === "forward" && (
+              <div className="flex flex-col items-center">
+                <RotateCw className="w-10 h-10" />
+                <span className="text-xs font-bold mt-1">+10s</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Top Header Overlay */}
       <div
-        className={`absolute top-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-b from-black/90 via-black/40 to-transparent flex items-center justify-between z-30 transition-opacity duration-300 ${
+        className={`absolute top-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-b from-black/95 via-black/40 to-transparent flex items-center justify-between z-30 transition-opacity duration-300 ${
           showControls ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -318,7 +400,7 @@ export default function AnimePlayer({
         {/* Right Header Button: Episode List */}
         <button
           onClick={() => setShowEpisodeDrawer(!showEpisodeDrawer)}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 text-xs font-semibold text-zinc-200 border border-white/10 backdrop-blur-md transition-colors"
+          className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 text-xs font-semibold text-zinc-200 border border-white/10 backdrop-blur-md transition-colors cursor-pointer"
         >
           <ListVideo className="w-4 h-4 text-red-500" />
           <span className="hidden sm:inline">Daftar Episode</span>
@@ -347,14 +429,14 @@ export default function AnimePlayer({
           <div className="flex gap-2">
             <button
               onClick={playNextEpisode}
-              className="flex-1 py-1.5 px-3 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-red-600/30"
+              className="flex-1 py-1.5 px-3 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-red-600/30 cursor-pointer"
             >
               <Play className="w-3.5 h-3.5 fill-white" />
               Putar Sekarang
             </button>
             <button
               onClick={() => setNextEpCountdown(null)}
-              className="py-1.5 px-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-lg text-xs font-medium"
+              className="py-1.5 px-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-lg text-xs font-medium cursor-pointer"
             >
               Batal
             </button>
@@ -364,32 +446,56 @@ export default function AnimePlayer({
 
       {/* Bottom Controls Overlay */}
       <div
-        className={`absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-black/95 via-black/60 to-transparent z-30 transition-opacity duration-300 ${
+        className={`absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-black/95 via-black/70 to-transparent z-30 transition-opacity duration-300 ${
           showControls ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        {/* Scrubber Timeline Bar */}
-        <div className="relative mb-3 group/timeline">
-          <input
-            type="range"
-            min={0}
-            max={duration || 100}
-            step={0.1}
-            value={currentTime}
-            onChange={handleSeek}
-            className="w-full h-1.5 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-red-600 hover:h-2.5 transition-all"
-            aria-label="Progress timeline"
-          />
+        {/* Custom Interactive Scrubber Timeline Bar */}
+        <div
+          ref={scrubberRef}
+          onMouseMove={handleScrubberMouseMove}
+          onMouseLeave={handleScrubberMouseLeave}
+          onClick={handleScrubberClick}
+          className="relative w-full h-3 flex items-center cursor-pointer mb-3 group/timeline"
+        >
+          {/* Hover Time Tooltip */}
+          {hoverTime !== null && (
+            <div
+              className="absolute -top-8 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-[11px] font-bold text-white rounded border border-zinc-700 shadow-lg pointer-events-none"
+              style={{ left: `${hoverPosition}%` }}
+            >
+              {formatSeconds(hoverTime)}
+            </div>
+          )}
+
+          {/* Background rail */}
+          <div className="w-full h-1.5 group-hover/timeline:h-2 bg-zinc-700/60 rounded-full overflow-hidden transition-all">
+            {/* Buffer bar */}
+            <div
+              className="h-full bg-zinc-500/50 transition-all duration-300"
+              style={{ width: `${bufferedPercent}%` }}
+            />
+          </div>
+
+          {/* Played progress fill */}
+          <div
+            className="absolute left-0 top-0 bottom-0 flex items-center pointer-events-none"
+            style={{ width: `${currentPercent}%` }}
+          >
+            <div className="w-full h-1.5 group-hover/timeline:h-2 bg-red-600 rounded-full" />
+            {/* Scrub thumb handle */}
+            <div className="w-3.5 h-3.5 bg-red-600 rounded-full shadow-md scale-0 group-hover/timeline:scale-100 transition-transform -mr-1.5 shrink-0" />
+          </div>
         </div>
 
         {/* Controls Row */}
         <div className="flex items-center justify-between">
           {/* Left: Play, Skip, Volume, Time */}
           <div className="flex items-center space-x-3 sm:space-x-4">
-            {/* Play/Pause */}
+            {/* Play/Pause Button */}
             <button
               onClick={togglePlay}
-              className="p-2 rounded-full hover:bg-white/20 text-white transition-transform hover:scale-110"
+              className="p-2 rounded-full hover:bg-white/20 text-white transition-transform hover:scale-110 cursor-pointer"
               aria-label={isPlaying ? "Jeda video" : "Putar video"}
             >
               {isPlaying ? (
@@ -402,8 +508,8 @@ export default function AnimePlayer({
             {/* Skip -10s */}
             <button
               onClick={() => skip(-10)}
-              className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-              title="Mundur 10 detik"
+              className="p-2 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
+              title="Mundur 10 detik (J atau ←)"
             >
               <RotateCcw className="w-5 h-5" />
             </button>
@@ -411,8 +517,8 @@ export default function AnimePlayer({
             {/* Skip +10s */}
             <button
               onClick={() => skip(10)}
-              className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-              title="Maju 10 detik"
+              className="p-2 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
+              title="Maju 10 detik (L atau →)"
             >
               <RotateCw className="w-5 h-5" />
             </button>
@@ -421,7 +527,7 @@ export default function AnimePlayer({
             {nextEp && (
               <button
                 onClick={playNextEpisode}
-                className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
+                className="p-2 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
                 title={`Episode Selanjutnya (Ep ${nextEp.episodeNumber})`}
               >
                 <SkipForward className="w-5 h-5" />
@@ -432,8 +538,8 @@ export default function AnimePlayer({
             <div className="flex items-center space-x-2 group/volume">
               <button
                 onClick={toggleMute}
-                className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-                title={isMuted ? "Bunyikan" : "Bisukan"}
+                className="p-2 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
+                title={isMuted ? "Bunyikan (M)" : "Bisukan (M)"}
               >
                 {isMuted || volume === 0 ? (
                   <VolumeX className="w-5 h-5 text-red-400" />
@@ -468,7 +574,7 @@ export default function AnimePlayer({
                   setShowAudioSubMenu(!showAudioSubMenu);
                   setShowSpeedMenu(false);
                 }}
-                className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
+                className="p-2 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
                 title="Audio & Subtitle"
               >
                 <Subtitles className="w-5 h-5" />
@@ -489,7 +595,7 @@ export default function AnimePlayer({
                             setSelectedSub(sub.id);
                             setShowAudioSubMenu(false);
                           }}
-                          className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left transition-colors ${
+                          className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left transition-colors cursor-pointer ${
                             selectedSub === sub.id
                               ? "bg-red-600/20 text-red-400 font-bold"
                               : "hover:bg-zinc-800 text-zinc-300"
@@ -515,7 +621,7 @@ export default function AnimePlayer({
                             setSelectedAudio(aud.id);
                             setShowAudioSubMenu(false);
                           }}
-                          className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left transition-colors ${
+                          className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left transition-colors cursor-pointer ${
                             selectedAudio === aud.id
                               ? "bg-red-600/20 text-red-400 font-bold"
                               : "hover:bg-zinc-800 text-zinc-300"
@@ -538,7 +644,7 @@ export default function AnimePlayer({
                   setShowSpeedMenu(!showSpeedMenu);
                   setShowAudioSubMenu(false);
                 }}
-                className="p-2 rounded-full hover:bg-white/20 text-white text-xs font-bold transition-colors"
+                className="p-2 rounded-full hover:bg-white/20 text-white text-xs font-bold transition-colors cursor-pointer"
                 title="Kecepatan Putar"
               >
                 {playbackRate}x
@@ -553,7 +659,7 @@ export default function AnimePlayer({
                     <button
                       key={rate}
                       onClick={() => setSpeed(rate)}
-                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left transition-colors ${
+                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left transition-colors cursor-pointer ${
                         playbackRate === rate
                           ? "bg-red-600/20 text-red-400 font-bold"
                           : "hover:bg-zinc-800 text-zinc-300"
@@ -570,7 +676,7 @@ export default function AnimePlayer({
             {/* Picture-in-Picture */}
             <button
               onClick={togglePiP}
-              className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
+              className="p-2 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
               title="Jendela Mini (Picture-in-Picture)"
             >
               <Tv className="w-5 h-5" />
@@ -579,7 +685,7 @@ export default function AnimePlayer({
             {/* Fullscreen */}
             <button
               onClick={toggleFullscreen}
-              className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
+              className="p-2 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
               title={isFullscreen ? "Keluar Layar Penuh (F)" : "Layar Penuh (F)"}
             >
               {isFullscreen ? (
@@ -609,7 +715,7 @@ export default function AnimePlayer({
                 </h3>
                 <button
                   onClick={() => setShowEpisodeDrawer(false)}
-                  className="p-1 rounded-full text-zinc-400 hover:text-white"
+                  className="p-1 rounded-full text-zinc-400 hover:text-white cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
