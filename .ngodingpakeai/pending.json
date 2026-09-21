@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "14b500447b11cadb383c9b8f1a2c57e187faea9c",
+  "generatedForCommit": "d5e5bcdfdcdc291c1bedd9bf1dd2b0148404a4e7",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -162,7 +162,7 @@
       "path": "src/app/search/page.tsx",
       "reason": "changed",
       "language": "typescript",
-      "size": 13129
+      "size": 13329
     },
     {
       "path": "src/components/AnimeCard.tsx",
@@ -232,9 +232,9 @@
     },
     {
       "path": "src/components/LiveSearchInput.tsx",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 11213
+      "size": 13338
     },
     {
       "path": "src/components/MobileBottomNav.tsx",
@@ -261,8 +261,14 @@
       "size": 11117
     },
     {
-      "path": "src/components/SortControl.tsx",
+      "path": "src/components/SearchHistory.tsx",
       "reason": "new",
+      "language": "typescript",
+      "size": 4648
+    },
+    {
+      "path": "src/components/SortControl.tsx",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 4719
     },
@@ -349,6 +355,12 @@
       "reason": "needs_summary",
       "language": "typescript",
       "size": 1720
+    },
+    {
+      "path": "src/utils/searchHistory.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 2159
     },
     {
       "path": "src/utils/watchProgress.ts",

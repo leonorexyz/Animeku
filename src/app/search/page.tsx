@@ -9,6 +9,8 @@ import LiveSearchInput from "@/components/LiveSearchInput";
 import SearchFilters, { FilterState } from "@/components/SearchFilters";
 import SortControl from "@/components/SortControl";
 import SearchHistory from "@/components/SearchHistory";
+import SearchAnimeCard from "@/components/SearchAnimeCard";
+import SearchEmptyState from "@/components/SearchEmptyState";
 import {
   MOCK_FEATURED_ANIMES,
   MOCK_CONTINUE_WATCHING,
@@ -221,9 +223,9 @@ function SearchContent() {
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
                 {filteredAnime.map((anime) => (
                   <div key={anime.id} className="flex justify-center">
-                    <AnimeCard
+                    <SearchAnimeCard
                       anime={anime}
-                      variant="portrait"
+                      searchQuery={query}
                       onSelect={handleSelectAnime}
                       onPlay={handlePlayAnime}
                     />
@@ -306,30 +308,18 @@ function SearchContent() {
               </div>
             )
           ) : (
-            /* Empty State */
-            <div className="flex flex-col items-center justify-center py-20 px-4 text-center bg-zinc-900/30 border border-zinc-800/80 rounded-2xl space-y-4">
-              <div className="w-16 h-16 rounded-full bg-zinc-800/80 flex items-center justify-center text-zinc-500">
-                <Film className="w-8 h-8" />
-              </div>
-              <div className="space-y-1 max-w-md">
-                <h3 className="text-lg font-bold text-white">
-                  Tidak Ditemukan Anime yang Sesuai
-                </h3>
-                <p className="text-xs sm:text-sm text-zinc-400">
-                  {query
-                    ? `Tidak ada hasil untuk kata kunci "${query}". Coba periksa ejaan atau gunakan kata kunci lain.`
-                    : "Tidak ada judul anime yang sesuai dengan kombinasi filter saat ini."}
-                </p>
-              </div>
-
-              <button
-                onClick={handleResetFilters}
-                className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl shadow transition-all cursor-pointer"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>Reset Filter & Lihat Semua</span>
-              </button>
-            </div>
+            <SearchEmptyState
+              query={query}
+              hasActiveFilters={
+                filters.genre !== "Semua" ||
+                filters.category !== "all" ||
+                filters.year !== "all" ||
+                filters.status !== "all"
+              }
+              onResetFilters={handleResetFilters}
+              recommendations={allAnimeList}
+              onSelectAnime={handleSelectAnime}
+            />
           )}
         </section>
       </main>
