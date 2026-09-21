@@ -22,6 +22,9 @@ export const anime = sqliteTable("anime", {
   status: text("status", { enum: ["belum", "sedang", "tamat"] }).notNull().default("belum"),
   isFeatured: integer("is_featured", { mode: "boolean" }).notNull().default(false),
   isFavorite: integer("is_favorite", { mode: "boolean" }).notNull().default(false),
+  watchStatus: text("watch_status", {
+    enum: ["unwatched", "watching", "completed"],
+  }).default("unwatched"),
   rating: text("rating"),
   totalEpisodes: integer("total_episodes").default(12),
   genres: text("genres"),
@@ -29,7 +32,13 @@ export const anime = sqliteTable("anime", {
   sourcePath: text("source_path"),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
-});
+},
+(table) => [
+  index("anime_user_id_idx").on(table.userId),
+  index("anime_status_idx").on(table.status),
+  index("anime_is_favorite_idx").on(table.isFavorite),
+  index("anime_watch_status_idx").on(table.watchStatus),
+]);
 
 // 3. Episodes table
 export const episodes = sqliteTable(

@@ -3,6 +3,7 @@ import * as schema from "@/db/schema";
 import { seedDatabase } from "@/db/seed";
 import { NextResponse } from "next/server";
 import { eq, desc, and } from "drizzle-orm";
+import { syncAnimeWatchStatusFromProgress } from "@/services/watchStatusService";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -234,6 +235,14 @@ export async function POST(req: Request, { params }: RouteParams) {
       });
     }
 
+    // Auto-update status tontonan anime dari progres episode
+    let updatedStatusInfo = null;
+    try {
+      updatedStatusInfo = await syncAnimeWatchStatusFromProgress(animeId, userId);
+    } catch (statusErr) {
+      console.warn("Auto-update watch status error:", statusErr);
+    }
+
     return NextResponse.json({
       success: true,
       message: "Progres tontonan judul berhasil disimpan",
@@ -245,6 +254,8 @@ export async function POST(req: Request, { params }: RouteParams) {
         isCompleted: completedFlag,
         lastWatchedAt: now,
       },
+      watchStatus: updatedStatusInfo?.watchStatus,
+      status: updatedStatusInfo?.newStatus,
     });
   } catch (error: any) {
     console.error("POST /api/anime/[id]/progress error:", error);
@@ -269,6 +280,13 @@ export async function DELETE(req: Request, { params }: RouteParams) {
     await db
       .delete(schema.watchProgress)
       .where(eq(schema.watchProgress.animeId, animeId));
+
+    // Reset status tontonan anime setelah progres dihapus
+    try {
+      await syncAnimeWatchStatusFromProgress(animeId);
+    } catch (err) {
+      console.warn("Reset watch status error after delete:", err);
+    }
 
     return NextResponse.json({
       success: true,

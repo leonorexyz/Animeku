@@ -30,7 +30,9 @@ export interface Anime {
   posterUrl: string;
   coverUrl: string;
   status: "belum" | "sedang" | "tamat";
+  watchStatus?: "unwatched" | "watching" | "completed";
   isFeatured?: boolean;
+  isFavorite?: boolean;
   rating?: string;
   genres: string[];
   totalEpisodes: number;

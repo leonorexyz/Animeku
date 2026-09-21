@@ -3,6 +3,7 @@ import * as schema from "@/db/schema";
 import { seedDatabase } from "@/db/seed";
 import { NextResponse } from "next/server";
 import { eq, and, desc } from "drizzle-orm";
+import { syncAnimeWatchStatusFromProgress } from "@/services/watchStatusService";
 
 export async function GET(req: Request) {
   try {
@@ -141,6 +142,14 @@ export async function POST(req: Request) {
       });
     }
 
+    // Auto-update status tontonan anime dari progres episode
+    let updatedStatusInfo = null;
+    try {
+      updatedStatusInfo = await syncAnimeWatchStatusFromProgress(animeId, userId);
+    } catch (statusErr) {
+      console.warn("Auto-update watch status error:", statusErr);
+    }
+
     return NextResponse.json({
       success: true,
       data: {
@@ -150,6 +159,8 @@ export async function POST(req: Request) {
         durationSeconds: dur,
         isCompleted,
         lastWatchedAt: now,
+        watchStatus: updatedStatusInfo?.watchStatus,
+        status: updatedStatusInfo?.newStatus,
       },
       message: "Posisi tonton berhasil disimpan",
     });
