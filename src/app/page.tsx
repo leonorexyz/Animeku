@@ -15,7 +15,7 @@ import {
   MOCK_CONTINUE_WATCHING,
   MOCK_CATEGORIES,
 } from "@/data/mockAnime";
-import { Anime } from "@/types/anime";
+import { Anime, CategorySection } from "@/types/anime";
 import { getAllWatchProgress } from "@/utils/watchProgress";
 import { useRouter } from "next/navigation";
 import { SlidersHorizontal } from "lucide-react";
@@ -25,6 +25,18 @@ export default function Home() {
   const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
   const [isEmptyCatalog, setIsEmptyCatalog] = useState(false);
   const [continueWatching, setContinueWatching] = useState<Anime[]>(MOCK_CONTINUE_WATCHING);
+  const [categories, setCategories] = useState<CategorySection[]>(MOCK_CATEGORIES);
+
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+          setCategories(res.data);
+        }
+      })
+      .catch((err) => console.warn("Failed to fetch /api/categories:", err));
+  }, []);
 
   useEffect(() => {
     const saved = getAllWatchProgress();
@@ -154,7 +166,7 @@ export default function Home() {
 
             {/* Rak-Rak Kategori (Shelves by Category & Genre) */}
             <div id="kategori" className="space-y-6">
-              {MOCK_CATEGORIES.map((category) => (
+              {categories.map((category) => (
                 <AnimeRow
                   key={category.id}
                   title={category.name}

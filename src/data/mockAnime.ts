@@ -1,4 +1,4 @@
-import { Anime, WatchProgress } from "@/types/anime";
+import { Anime, WatchProgress, CategorySection } from "@/types/anime";
 
 export const MOCK_FEATURED_ANIME: Anime = {
   id: "anime-1",
@@ -261,25 +261,29 @@ export const MOCK_CATALOG_DATA: Anime[] = [
   }
 ];
 
-export const MOCK_CATEGORIES = [
+export const MOCK_CATEGORIES: CategorySection[] = [
   {
     id: "cat-trending",
     name: "🔥 Sedang Tren Minggu Ini",
+    type: "category",
     items: [MOCK_CATALOG_DATA[0], MOCK_CATALOG_DATA[1], MOCK_CATALOG_DATA[2], MOCK_CONTINUE_WATCHING[0], MOCK_CATALOG_DATA[3]],
   },
   {
     id: "cat-action",
     name: "⚡ Aksi & Petualangan Penuh Adrenalin",
+    type: "category",
     items: [MOCK_CONTINUE_WATCHING[1], MOCK_CONTINUE_WATCHING[2], MOCK_CATALOG_DATA[0], MOCK_CATALOG_DATA[4], MOCK_CONTINUE_WATCHING[3]],
   },
   {
     id: "cat-drama",
     name: "🌸 Drama, Slice of Life & Romantis",
+    type: "category",
     items: [MOCK_CATALOG_DATA[1], MOCK_CATALOG_DATA[2], MOCK_CATALOG_DATA[5], MOCK_CATALOG_DATA[7], MOCK_CONTINUE_WATCHING[0]],
   },
   {
     id: "cat-mystery",
     name: "🔍 Misteri & Sci-Fi Menegangkan",
+    type: "category",
     items: [MOCK_CATALOG_DATA[5], MOCK_CATALOG_DATA[6], MOCK_CATALOG_DATA[1], MOCK_CONTINUE_WATCHING[3], MOCK_CATALOG_DATA[4]],
   },
 ];

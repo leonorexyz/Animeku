@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "f0d7bb30fc378a9f3027631c09ce9367c92d9e6f",
+  "generatedForCommit": "498b22dc54b710cad0b5728b5cefa0fe286fe28f",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -22,9 +22,9 @@
     },
     {
       "path": ".gitignore",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": null,
-      "size": 439
+      "size": 485
     },
     {
       "path": ".ngodingpakeaiignore",
@@ -39,6 +39,12 @@
       "size": 18850
     },
     {
+      "path": "drizzle.config.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 214
+    },
+    {
       "path": "next.config.ts",
       "reason": "needs_summary",
       "language": "typescript",
@@ -46,15 +52,15 @@
     },
     {
       "path": "package-lock.json",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "json",
-      "size": 58029
+      "size": 116962
     },
     {
       "path": "package.json",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "json",
-      "size": 593
+      "size": 765
     },
     {
       "path": "postcss.config.mjs",
@@ -82,7 +88,7 @@
     },
     {
       "path": "src/app/page.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 6417
     },
@@ -106,7 +112,7 @@
     },
     {
       "path": "src/components/AnimePlayer.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 44793
     },
@@ -124,7 +130,7 @@
     },
     {
       "path": "src/components/ContinueWatchingRow.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 4812
     },
@@ -171,6 +177,48 @@
       "size": 3719
     },
     {
+      "path": "src/db/index.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 295
+    },
+    {
+      "path": "src/db/migrate.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 980
+    },
+    {
+      "path": "src/db/migrations/0000_jazzy_millenium_guard.sql",
+      "reason": "new",
+      "language": "sql",
+      "size": 3717
+    },
+    {
+      "path": "src/db/migrations/meta/0000_snapshot.json",
+      "reason": "new",
+      "language": "json",
+      "size": 19536
+    },
+    {
+      "path": "src/db/migrations/meta/_journal.json",
+      "reason": "new",
+      "language": "json",
+      "size": 211
+    },
+    {
+      "path": "src/db/schema.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 6572
+    },
+    {
+      "path": "src/db/seed.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 3551
+    },
+    {
       "path": "src/types/anime.ts",
       "reason": "needs_summary",
       "language": "typescript",
@@ -178,7 +226,7 @@
     },
     {
       "path": "src/utils/watchProgress.ts",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 2112
     },
