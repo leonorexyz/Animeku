@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Search,
   Bell,
@@ -15,10 +16,20 @@ import {
 } from "lucide-react";
 
 export default function Navbar() {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      router.push(`/search`);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,6 +83,13 @@ export default function Navbar() {
                 Beranda
               </Link>
               <Link
+                href="/search"
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
+              >
+                <Search className="w-4 h-4 text-zinc-400" />
+                Eksplorasi
+              </Link>
+              <Link
                 href="#continue-watching"
                 className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
               >
@@ -105,8 +123,11 @@ export default function Navbar() {
             {/* Search bar */}
             <div className="relative flex items-center">
               {searchOpen ? (
-                <div className="flex items-center bg-zinc-900/95 border border-zinc-700 rounded-full px-3 py-1.5 shadow-inner">
-                  <Search className="w-4 h-4 text-zinc-400 mr-2 shrink-0" />
+                <form
+                  onSubmit={handleSearchSubmit}
+                  className="flex items-center bg-zinc-900/95 border border-zinc-700 rounded-full px-3 py-1.5 shadow-inner"
+                >
+                  <Search className="w-4 h-4 text-zinc-400 mr-2 shrink-0 cursor-pointer" onClick={handleSearchSubmit} />
                   <input
                     type="text"
                     placeholder="Cari judul..."
@@ -118,17 +139,18 @@ export default function Navbar() {
                   />
                   {searchQuery && (
                     <button
+                      type="button"
                       onClick={() => setSearchQuery("")}
-                      className="text-xs text-zinc-400 hover:text-white ml-1"
+                      className="text-xs text-zinc-400 hover:text-white ml-1 cursor-pointer"
                     >
                       ✕
                     </button>
                   )}
-                </div>
+                </form>
               ) : (
                 <button
                   onClick={() => setSearchOpen(true)}
-                  className="p-2 text-zinc-300 hover:text-white hover:bg-zinc-800/60 rounded-full transition-colors"
+                  className="p-2 text-zinc-300 hover:text-white hover:bg-zinc-800/60 rounded-full transition-colors cursor-pointer"
                   title="Cari anime"
                 >
                   <Search className="w-5 h-5" />
@@ -190,6 +212,14 @@ export default function Navbar() {
                 >
                   <Film className="w-4 h-4 text-red-500" />
                   Beranda
+                </Link>
+                <Link
+                  href="/search"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                >
+                  <Search className="w-4 h-4 text-red-500" />
+                  Pencarian & Eksplorasi
                 </Link>
                 <Link
                   href="#continue-watching"
