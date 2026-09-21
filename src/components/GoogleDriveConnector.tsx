@@ -137,6 +137,9 @@ export default function GoogleDriveConnector({
   const [storageUsedGb, setStorageUsedGb] = useState(45.2);
   const [storageTotalGb] = useState(100);
 
+  const [driveFolders, setDriveFolders] = useState<DriveFolder[]>(MOCK_DRIVE_FOLDERS);
+  const [driveFilesMap, setDriveFilesMap] = useState<Record<string, DriveVideoFile[]>>(MOCK_DRIVE_FILES);
+
   // Folder selection state
   const [selectedFolderId, setSelectedFolderId] = useState<string>("fld-1");
   const [folderUrlInput, setFolderUrlInput] = useState("");
@@ -164,7 +167,26 @@ export default function GoogleDriveConnector({
         console.warn("Could not check Google Drive status:", err);
       }
     }
+
+    async function loadFolders() {
+      try {
+        const res = await fetch("/api/sources/drive/folders");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.folders) && data.folders.length > 0) {
+            setDriveFolders(data.folders);
+            if (!data.folders.some((f: any) => f.id === selectedFolderId)) {
+              setSelectedFolderId(data.folders[0].id);
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Could not load Google Drive folders:", err);
+      }
+    }
+
     checkDriveStatus();
+    loadFolders();
   }, []);
 
   const showToast = (msg: string) => {
@@ -218,18 +240,35 @@ export default function GoogleDriveConnector({
     }
   };
 
-  const handleScanFolder = (folderId: string) => {
+  const handleScanFolder = async (folderId: string) => {
+    if (!folderId) return;
     setIsScanning(true);
     setSelectedFolderId(folderId);
-    setTimeout(() => {
-      setIsScanning(false);
+    try {
+      const res = await fetch(`/api/sources/drive/folders?folderId=${encodeURIComponent(folderId)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.files)) {
+          setDriveFilesMap((prev) => ({
+            ...prev,
+            [folderId]: data.files,
+          }));
+          if (data.folder && !driveFolders.some((f) => f.id === folderId)) {
+            setDriveFolders((prev) => [data.folder, ...prev]);
+          }
+        }
+      }
       showToast("Folder berhasil dipindai dan file video terdeteksi!");
-    }, 700);
+    } catch (err) {
+      showToast("Gagal memindai folder Google Drive");
+    } finally {
+      setIsScanning(false);
+    }
   };
 
-  const handleImportSelectedFolder = () => {
-    const selectedFolder = MOCK_DRIVE_FOLDERS.find((f) => f.id === selectedFolderId);
-    const files = MOCK_DRIVE_FILES[selectedFolderId] || [
+  const handleImportSelectedFolder = async () => {
+    const selectedFolder = driveFolders.find((f) => f.id === selectedFolderId);
+    const files = driveFilesMap[selectedFolderId] || [
       {
         id: `dr-auto-1`,
         name: `${selectedFolder?.name || "Anime"} - Episode 01.mp4`,
@@ -240,17 +279,31 @@ export default function GoogleDriveConnector({
       },
     ];
 
-    onSyncComplete?.({
-      folderName: selectedFolder?.name || "Folder Google Drive",
-      files,
-      accountEmail,
-    });
-    showToast(`Folder "${selectedFolder?.name}" (${files.length} Ep) berhasil disinkronkan ke Animeku!`);
+    try {
+      await fetch("/api/sources/drive/folders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          folderId: selectedFolderId,
+          folderName: selectedFolder?.name || "Folder Google Drive",
+          files,
+        }),
+      });
+
+      onSyncComplete?.({
+        folderName: selectedFolder?.name || "Folder Google Drive",
+        files,
+        accountEmail,
+      });
+      showToast(`Folder "${selectedFolder?.name}" (${files.length} Ep) berhasil disinkronkan ke Animeku!`);
+    } catch (e) {
+      showToast("Gagal menyinkronkan folder Google Drive ke katalog");
+    }
   };
 
-  const selectedFolder = MOCK_DRIVE_FOLDERS.find((f) => f.id === selectedFolderId);
+  const selectedFolder = driveFolders.find((f) => f.id === selectedFolderId);
   const activeFiles = selectedFolderId
-    ? MOCK_DRIVE_FILES[selectedFolderId] || []
+    ? driveFilesMap[selectedFolderId] || []
     : [];
 
   return (
@@ -274,7 +327,7 @@ export default function GoogleDriveConnector({
           totalSpaceGb: storageTotalGb,
           usedAnimeGb: 38.4,
           usedOtherGb: 6.8,
-          linkedFoldersCount: MOCK_DRIVE_FOLDERS.length,
+          linkedFoldersCount: driveFolders.length,
           linkedEpisodesCount: 83,
           tokenStatus: "valid",
         }}
@@ -310,7 +363,7 @@ export default function GoogleDriveConnector({
                 type="button"
                 onClick={() => {
                   if (folderUrlInput.trim()) {
-                    showToast("Folder Drive kustom berhasil ditambahkan ke daftar!");
+                    handleScanFolder(folderUrlInput.trim());
                     setFolderUrlInput("");
                   }
                 }}
@@ -329,12 +382,12 @@ export default function GoogleDriveConnector({
                 <span>Pilih Folder Koleksi di Drive Anda</span>
               </span>
               <span className="text-[11px] text-zinc-500">
-                {MOCK_DRIVE_FOLDERS.length} folder ditemukan
+                {driveFolders.length} folder ditemukan
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {MOCK_DRIVE_FOLDERS.map((fld) => {
+              {driveFolders.map((fld) => {
                 const isSelected = selectedFolderId === fld.id;
                 return (
                   <div
