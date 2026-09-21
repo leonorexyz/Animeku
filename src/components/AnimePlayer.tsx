@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { Anime } from "@/types/anime";
 import { ExtendedEpisode } from "@/data/mockEpisodes";
+import { saveWatchProgress, getWatchProgressForAnime } from "@/utils/watchProgress";
 
 interface AnimePlayerProps {
   anime: Anime;
@@ -47,6 +48,7 @@ export default function AnimePlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrubberRef = useRef<HTMLDivElement>(null);
+  const lastSavedTimeRef = useRef<number>(0);
 
   // Player state
   const [isPlaying, setIsPlaying] = useState(false);
@@ -110,6 +112,7 @@ export default function AnimePlayer({
   ];
 
   const [audioToast, setAudioToast] = useState<string | null>(null);
+  const [resumeToast, setResumeToast] = useState<{ seconds: number } | null>(null);
 
   const audioTracks = [
     { id: "ja-51", label: "Jepang (Original Dolby 5.1)", badge: "JP 5.1" },
@@ -204,6 +207,8 @@ export default function AnimePlayer({
       setCurrentEp(nextEp);
       setNextEpCountdown(null);
       setCurrentTime(0);
+      lastSavedTimeRef.current = 0;
+      setResumeToast(null);
       if (videoRef.current) {
         videoRef.current.currentTime = 0;
         videoRef.current.play().catch(() => {});
@@ -326,9 +331,37 @@ export default function AnimePlayer({
     if (autoplayNext && duration > 20 && duration - cur <= 8 && nextEp && nextEpCountdown === null) {
       setNextEpCountdown(8);
     }
+
+    // Save watch progress periodically every 4 seconds
+    if (Math.abs(cur - lastSavedTimeRef.current) >= 4) {
+      lastSavedTimeRef.current = cur;
+      saveWatchProgress({
+        animeId: anime.id,
+        animeTitle: anime.title,
+        animePoster: anime.posterUrl,
+        episodeId: currentEp.id,
+        episodeNumber: currentEp.episodeNumber,
+        episodeTitle: currentEp.title,
+        positionSeconds: cur,
+        durationSeconds: duration || videoRef.current.duration || 0,
+      });
+    }
   };
 
   const handleVideoEnded = () => {
+    if (duration > 0) {
+      saveWatchProgress({
+        animeId: anime.id,
+        animeTitle: anime.title,
+        animePoster: anime.posterUrl,
+        episodeId: currentEp.id,
+        episodeNumber: currentEp.episodeNumber,
+        episodeTitle: currentEp.title,
+        positionSeconds: duration,
+        durationSeconds: duration,
+      });
+    }
+
     if (autoplayNext && nextEp) {
       setNextEpCountdown(5);
     }
@@ -349,9 +382,26 @@ export default function AnimePlayer({
 
   const handleLoadedMetadata = () => {
     if (!videoRef.current) return;
-    setDuration(videoRef.current.duration);
+    const dur = videoRef.current.duration;
+    setDuration(dur);
     videoRef.current.playbackRate = playbackRate;
     videoRef.current.volume = isMuted ? 0 : volume;
+
+    // Check localStorage for saved watch progress
+    const saved = getWatchProgressForAnime(anime.id);
+    if (
+      saved &&
+      saved.episodeId === currentEp.id &&
+      saved.positionSeconds > 5 &&
+      dur > 0 &&
+      saved.positionSeconds < dur - 10 &&
+      !saved.isCompleted
+    ) {
+      videoRef.current.currentTime = saved.positionSeconds;
+      setCurrentTime(saved.positionSeconds);
+      setResumeToast({ seconds: saved.positionSeconds });
+      setTimeout(() => setResumeToast(null), 6000);
+    }
   };
 
   // Scrubber hover tracking
@@ -602,6 +652,37 @@ export default function AnimePlayer({
           <span className="hidden sm:inline">Daftar Episode</span>
         </button>
       </div>
+
+      {/* Resume Watch Toast Notification */}
+      {resumeToast && (
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 px-4 py-2.5 bg-zinc-900/95 border border-red-500/40 text-white text-xs font-semibold rounded-full shadow-2xl backdrop-blur-md animate-in fade-in slide-in-from-top-3">
+          <span>
+            Melanjutkan dari{" "}
+            <span className="text-red-400 font-mono font-bold">
+              {formatSeconds(resumeToast.seconds)}
+            </span>
+          </span>
+          <button
+            onClick={() => {
+              if (videoRef.current) {
+                videoRef.current.currentTime = 0;
+                setCurrentTime(0);
+              }
+              setResumeToast(null);
+            }}
+            className="text-xs text-zinc-300 hover:text-white underline cursor-pointer"
+          >
+            Mulai dari awal
+          </button>
+          <button
+            onClick={() => setResumeToast(null)}
+            className="text-zinc-400 hover:text-white text-xs cursor-pointer ml-1"
+            aria-label="Tutup"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {/* Next Episode Auto Countdown Popup */}
       {nextEpCountdown !== null && nextEp && (
@@ -1033,6 +1114,8 @@ export default function AnimePlayer({
                       setCurrentEp(ep);
                       setShowEpisodeDrawer(false);
                       setCurrentTime(0);
+                      lastSavedTimeRef.current = 0;
+                      setResumeToast(null);
                       if (videoRef.current) {
                         videoRef.current.currentTime = 0;
                         videoRef.current.play().catch(() => {});

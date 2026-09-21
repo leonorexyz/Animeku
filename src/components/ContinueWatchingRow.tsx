@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, PlayCircle, Sparkles } from "lucide-react";
 import ContinueWatchingCard from "./ContinueWatchingCard";
 import { Anime } from "@/types/anime";
+import { removeWatchProgress } from "@/utils/watchProgress";
 
 interface ContinueWatchingRowProps {
   items: Anime[];
@@ -45,6 +46,7 @@ export default function ContinueWatchingRow({
 
   const handleRemove = (animeId: string) => {
     setItems((prev) => prev.filter((a) => a.id !== animeId));
+    removeWatchProgress(animeId);
   };
 
   if (items.length === 0) return null;

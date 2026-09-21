@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HeroBanner from "@/components/HeroBanner";
 import AnimeRow from "@/components/AnimeRow";
@@ -16,6 +16,7 @@ import {
   MOCK_CATEGORIES,
 } from "@/data/mockAnime";
 import { Anime } from "@/types/anime";
+import { getAllWatchProgress } from "@/utils/watchProgress";
 import { useRouter } from "next/navigation";
 import { SlidersHorizontal } from "lucide-react";
 
@@ -23,6 +24,59 @@ export default function Home() {
   const router = useRouter();
   const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
   const [isEmptyCatalog, setIsEmptyCatalog] = useState(false);
+  const [continueWatching, setContinueWatching] = useState<Anime[]>(MOCK_CONTINUE_WATCHING);
+
+  useEffect(() => {
+    const saved = getAllWatchProgress();
+    const savedEntries = Object.values(saved);
+    if (savedEntries.length === 0) return;
+
+    const allKnownAnimes = new Map<string, Anime>();
+    MOCK_FEATURED_ANIMES.forEach((a) => allKnownAnimes.set(a.id, a));
+    MOCK_CONTINUE_WATCHING.forEach((a) => allKnownAnimes.set(a.id, a));
+    MOCK_CATEGORIES.forEach((cat) =>
+      cat.items.forEach((a) => allKnownAnimes.set(a.id, a))
+    );
+
+    const mergedList: Anime[] = [];
+    const sortedSaved = [...savedEntries].sort(
+      (a, b) => new Date(b.lastWatchedAt).getTime() - new Date(a.lastWatchedAt).getTime()
+    );
+
+    const handledIds = new Set<string>();
+
+    for (const item of sortedSaved) {
+      const known = allKnownAnimes.get(item.animeId);
+      if (known) {
+        mergedList.push({
+          ...known,
+          progress: item,
+        });
+      } else {
+        mergedList.push({
+          id: item.animeId,
+          title: item.animeTitle,
+          synopsis: "Tontonan anime yang sedang berjalan.",
+          year: new Date().getFullYear(),
+          posterUrl: item.animePoster || "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&auto=format&fit=crop&q=80",
+          coverUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1600&auto=format&fit=crop&q=80",
+          status: item.isCompleted ? "tamat" : "sedang",
+          genres: ["Anime"],
+          totalEpisodes: item.episodeNumber || 12,
+          progress: item,
+        });
+      }
+      handledIds.add(item.animeId);
+    }
+
+    for (const mockItem of MOCK_CONTINUE_WATCHING) {
+      if (!handledIds.has(mockItem.id)) {
+        mergedList.push(mockItem);
+      }
+    }
+
+    setContinueWatching(mergedList);
+  }, []);
 
   const handlePlay = (anime: Anime) => {
     router.push(`/player/${anime.id}`);
@@ -92,7 +146,7 @@ export default function Home() {
             {/* Row: Lanjut Nonton (Continue Watching) */}
             <div id="continue-watching">
               <ContinueWatchingRow
-                items={MOCK_CONTINUE_WATCHING}
+                items={continueWatching}
                 onPlay={handlePlay}
                 onSelect={handleSelectAnime}
               />
