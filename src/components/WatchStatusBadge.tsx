@@ -66,9 +66,15 @@ export default function WatchStatusBadge({
     setMeta(getAnimeWatchStatus(animeId, progress, fallbackStatus));
 
     const handleUpdate = (e: Event) => {
-      const custom = e as CustomEvent<{ animeId: string; status: UserWatchStatus }>;
+      const custom = e as CustomEvent<{
+        animeId: string;
+        status?: UserWatchStatus;
+        progress?: WatchProgress | null;
+      }>;
       if (custom.detail && custom.detail.animeId === animeId) {
-        setMeta(getAnimeWatchStatus(animeId, progress, fallbackStatus));
+        const liveProg =
+          custom.detail.progress !== undefined ? custom.detail.progress : progress;
+        setMeta(getAnimeWatchStatus(animeId, liveProg, fallbackStatus));
       }
     };
 

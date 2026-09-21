@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Play, Star, Plus, Check, Info, Film, Sparkles } from "lucide-react";
-import { Anime } from "@/types/anime";
+import { Anime, WatchProgress } from "@/types/anime";
 import FavoriteButton from "@/components/FavoriteButton";
 import WatchStatusBadge from "@/components/WatchStatusBadge";
 
@@ -22,12 +22,36 @@ export default function AnimeCard({
   const [isHovered, setIsHovered] = useState(false);
   const [imgError, setImgError] = useState(false);
 
-  const hasProgress = !!anime.progress;
-  const progressPercent = hasProgress
-    ? Math.round(
-        (anime.progress!.positionSeconds / anime.progress!.durationSeconds) * 100
-      )
-    : 0;
+  const [currentProgress, setCurrentProgress] = useState<WatchProgress | undefined>(
+    anime.progress
+  );
+
+  useEffect(() => {
+    setCurrentProgress(anime.progress);
+
+    const handleProgUpdate = (e: Event) => {
+      const custom = e as CustomEvent<{
+        animeId: string;
+        progress?: WatchProgress | null;
+      }>;
+      if (custom.detail && custom.detail.animeId === anime.id) {
+        setCurrentProgress(custom.detail.progress || undefined);
+      }
+    };
+
+    window.addEventListener("animeku:progress_updated", handleProgUpdate);
+    return () => {
+      window.removeEventListener("animeku:progress_updated", handleProgUpdate);
+    };
+  }, [anime.id, anime.progress]);
+
+  const hasProgress = !!currentProgress && currentProgress.positionSeconds > 0;
+  const progressPercent =
+    hasProgress && currentProgress.durationSeconds > 0
+      ? Math.round(
+          (currentProgress.positionSeconds / currentProgress.durationSeconds) * 100
+        )
+      : 0;
 
   const imageUrl = variant === "continue" ? anime.coverUrl : anime.posterUrl;
 
@@ -78,7 +102,7 @@ export default function AnimeCard({
           )}
           <WatchStatusBadge
             animeId={anime.id}
-            progress={anime.progress}
+            progress={currentProgress}
             fallbackStatus={anime.status}
             size="xs"
             interactive={true}
@@ -160,10 +184,10 @@ export default function AnimeCard({
         </h3>
 
         {/* Variant detail */}
-        {variant === "continue" && anime.progress ? (
+        {variant === "continue" && currentProgress ? (
           <div className="mt-1 flex items-center justify-between text-[11px] text-zinc-400">
             <span className="truncate text-zinc-300 font-medium">
-              Ep {anime.progress.episodeNumber}: {anime.progress.episodeTitle}
+              Ep {currentProgress.episodeNumber}: {currentProgress.episodeTitle}
             </span>
             <span className="text-red-400 shrink-0 font-bold ml-1.5">
               {progressPercent}%
