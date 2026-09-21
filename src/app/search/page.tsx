@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import AnimeCard from "@/components/AnimeCard";
 import LiveSearchInput from "@/components/LiveSearchInput";
 import SearchFilters, { FilterState } from "@/components/SearchFilters";
+import SortControl from "@/components/SortControl";
 import {
   MOCK_FEATURED_ANIMES,
   MOCK_CONTINUE_WATCHING,
@@ -23,6 +24,7 @@ import {
   RotateCcw,
   Star,
   Check,
+  Play,
 } from "lucide-react";
 
 function SearchContent() {
@@ -38,6 +40,7 @@ function SearchContent() {
     status: "all",
     sortBy: "rating-desc",
   });
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   // Combine and deduplicate all anime from mock sources
   const allAnimeList = useMemo(() => {
@@ -196,21 +199,108 @@ function SearchContent() {
           totalResults={filteredAnime.length}
         />
 
+        {/* Dedicated Sort and View Mode Control */}
+        <SortControl
+          sortBy={filters.sortBy}
+          onChangeSort={(newSort) =>
+            setFilters((prev) => ({ ...prev, sortBy: newSort }))
+          }
+          viewMode={viewMode}
+          onChangeViewMode={setViewMode}
+          totalResults={filteredAnime.length}
+        />
+
         {/* Results Section */}
         <section className="space-y-4">
           {filteredAnime.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
-              {filteredAnime.map((anime) => (
-                <div key={anime.id} className="flex justify-center">
-                  <AnimeCard
-                    anime={anime}
-                    variant="portrait"
-                    onSelect={handleSelectAnime}
-                    onPlay={handlePlayAnime}
-                  />
-                </div>
-              ))}
-            </div>
+            viewMode === "grid" ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
+                {filteredAnime.map((anime) => (
+                  <div key={anime.id} className="flex justify-center">
+                    <AnimeCard
+                      anime={anime}
+                      variant="portrait"
+                      onSelect={handleSelectAnime}
+                      onPlay={handlePlayAnime}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              /* List View Mode */
+              <div className="space-y-3">
+                {filteredAnime.map((anime) => (
+                  <div
+                    key={anime.id}
+                    onClick={() => handleSelectAnime(anime)}
+                    className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-3 sm:p-4 bg-zinc-900/50 hover:bg-zinc-800/80 border border-zinc-800/80 hover:border-red-500/40 rounded-xl transition-all cursor-pointer group"
+                  >
+                    {/* Poster Thumbnail */}
+                    <div className="w-20 sm:w-24 aspect-[2/3] rounded-lg overflow-hidden bg-zinc-800 shrink-0 shadow-md">
+                      <img
+                        src={anime.posterUrl || anime.coverUrl}
+                        alt={anime.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                      />
+                    </div>
+
+                    {/* Information */}
+                    <div className="flex-1 min-w-0 space-y-1.5">
+                      <div className="flex flex-wrap items-center gap-2 text-xs">
+                        {anime.rating && (
+                          <span className="flex items-center gap-1 text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded font-bold">
+                            <Star className="w-3 h-3 fill-amber-400" />
+                            {anime.rating}
+                          </span>
+                        )}
+                        <span className="text-zinc-400">{anime.year}</span>
+                        <span className="text-zinc-600">•</span>
+                        <span className="text-emerald-400 capitalize">
+                          {anime.status === "tamat" ? "Tamat" : "Tayang"}
+                        </span>
+                        <span className="text-zinc-600">•</span>
+                        <span className="text-zinc-400">
+                          {anime.totalEpisodes} Episode
+                        </span>
+                      </div>
+
+                      <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-red-400 transition-colors">
+                        {anime.title}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-zinc-400 line-clamp-2 leading-relaxed">
+                        {anime.synopsis}
+                      </p>
+
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {anime.genres.map((g) => (
+                          <span
+                            key={g}
+                            className="text-[10px] px-2 py-0.5 rounded bg-zinc-800 text-zinc-400"
+                          >
+                            {g}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="flex sm:flex-col items-center gap-2 self-end sm:self-center shrink-0">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePlayAnime(anime);
+                        }}
+                        className="flex items-center gap-1.5 px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold transition-transform active:scale-95 cursor-pointer"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-white" />
+                        <span>Tonton</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )
           ) : (
             /* Empty State */
             <div className="flex flex-col items-center justify-center py-20 px-4 text-center bg-zinc-900/30 border border-zinc-800/80 rounded-2xl space-y-4">

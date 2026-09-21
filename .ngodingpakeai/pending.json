@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "8aa06ddac3921ca4628c67dddd6a0f9f7d56315b",
+  "generatedForCommit": "79d6daeb59c632cc4da35c20fd1957aa0a103191",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -162,7 +162,7 @@
       "path": "src/app/search/page.tsx",
       "reason": "changed",
       "language": "typescript",
-      "size": 11484
+      "size": 8875
     },
     {
       "path": "src/components/AnimeCard.tsx",
@@ -232,7 +232,7 @@
     },
     {
       "path": "src/components/LiveSearchInput.tsx",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 11213
     },
@@ -244,7 +244,7 @@
     },
     {
       "path": "src/components/Navbar.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 10760
     },
@@ -253,6 +253,12 @@
       "reason": "needs_summary",
       "language": "typescript",
       "size": 5539
+    },
+    {
+      "path": "src/components/SearchFilters.tsx",
+      "reason": "new",
+      "language": "typescript",
+      "size": 11117
     },
     {
       "path": "src/data/mockAnime.ts",
