@@ -14,6 +14,7 @@ import {
   X,
   Layers,
 } from "lucide-react";
+import LiveSearchInput from "@/components/LiveSearchInput";
 
 export default function Navbar() {
   const router = useRouter();
@@ -120,33 +121,29 @@ export default function Navbar() {
               <span>Katalog Pribadi</span>
             </div>
 
-            {/* Search bar */}
+            {/* Search bar with live suggestions */}
             <div className="relative flex items-center">
               {searchOpen ? (
-                <form
-                  onSubmit={handleSearchSubmit}
-                  className="flex items-center bg-zinc-900/95 border border-zinc-700 rounded-full px-3 py-1.5 shadow-inner"
-                >
-                  <Search className="w-4 h-4 text-zinc-400 mr-2 shrink-0 cursor-pointer" onClick={handleSearchSubmit} />
-                  <input
-                    type="text"
-                    placeholder="Cari judul..."
+                <div className="relative w-48 sm:w-72 flex items-center">
+                  <LiveSearchInput
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={setSearchQuery}
+                    placeholder="Cari judul..."
                     autoFocus
-                    onBlur={() => !searchQuery && setSearchOpen(false)}
-                    className="bg-transparent text-xs sm:text-sm text-white focus:outline-none w-28 sm:w-52"
+                    showDropdown={true}
+                    inputClassName="!py-1.5 !pl-8 !pr-8 !text-xs !rounded-full !bg-zinc-900/95 !border-zinc-700 shadow-lg"
                   />
-                  {searchQuery && (
-                    <button
-                      type="button"
-                      onClick={() => setSearchQuery("")}
-                      className="text-xs text-zinc-400 hover:text-white ml-1 cursor-pointer"
-                    >
-                      ✕
-                    </button>
-                  )}
-                </form>
+                  <button
+                    onClick={() => {
+                      setSearchOpen(false);
+                      setSearchQuery("");
+                    }}
+                    className="ml-1.5 p-1 text-zinc-400 hover:text-white text-xs rounded-full hover:bg-zinc-800 transition-colors cursor-pointer"
+                    title="Tutup pencarian"
+                  >
+                    ✕
+                  </button>
+                </div>
               ) : (
                 <button
                   onClick={() => setSearchOpen(true)}

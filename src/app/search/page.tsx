@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimeCard from "@/components/AnimeCard";
+import LiveSearchInput from "@/components/LiveSearchInput";
 import {
   MOCK_FEATURED_ANIMES,
   MOCK_CONTINUE_WATCHING,
@@ -164,26 +165,13 @@ function SearchContent() {
             </div>
           </div>
 
-          {/* Search Input Box */}
-          <div className="relative flex items-center">
-            <Search className="absolute left-4 w-5 h-5 text-zinc-400 pointer-events-none" />
-            <input
-              type="text"
-              placeholder="Ketik judul anime, genre (misal: Action, Fantasy), atau kata kunci sinopsis..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full pl-12 pr-12 py-3.5 bg-zinc-900/90 hover:bg-zinc-900 border border-zinc-700/80 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl text-white placeholder-zinc-500 text-sm sm:text-base outline-none transition-all shadow-inner"
-            />
-            {query && (
-              <button
-                onClick={() => setQuery("")}
-                className="absolute right-4 p-1 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
-                title="Hapus pencarian"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </div>
+          {/* Live Search Input with Instant Suggestions */}
+          <LiveSearchInput
+            value={query}
+            onChange={setQuery}
+            placeholder="Ketik judul anime, genre (misal: Action, Fantasy), atau kata kunci sinopsis..."
+            showDropdown={true}
+          />
         </section>
 
         {/* Filter and Sorting Controls */}
