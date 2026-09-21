@@ -1,142 +1,142 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "aaf46b98789003307437b05901292e81275e7e45",
+  "generatedForCommit": "300c20e35a179c3056f30a12961697c7209097f9",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "markdown",
       "size": 19096
     },
     {
       "path": ".codex/skills/ngodingpakeai/SKILL.md",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "markdown",
       "size": 19096
     },
     {
       "path": ".gitattributes",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": null,
       "size": 66
     },
     {
       "path": ".gitignore",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": null,
       "size": 439
     },
     {
       "path": ".ngodingpakeaiignore",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": null,
       "size": 269
     },
     {
       "path": "AGENTS.md",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "markdown",
       "size": 18850
     },
     {
       "path": "next.config.ts",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 219
     },
     {
       "path": "package-lock.json",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "json",
       "size": 58029
     },
     {
       "path": "package.json",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "json",
       "size": 593
     },
     {
       "path": "postcss.config.mjs",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "javascript",
       "size": 94
     },
     {
       "path": "README.md",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "markdown",
       "size": 11
     },
     {
       "path": "src/app/globals.css",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "css",
       "size": 767
     },
     {
       "path": "src/app/layout.tsx",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 556
     },
     {
       "path": "src/app/page.tsx",
-      "reason": "new",
+      "reason": "changed",
       "language": "typescript",
-      "size": 2602
+      "size": 2628
     },
     {
       "path": "src/components/AnimeCard.tsx",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 5718
     },
     {
       "path": "src/components/AnimeDetailModal.tsx",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 5521
     },
     {
       "path": "src/components/AnimeRow.tsx",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 3644
     },
     {
       "path": "src/components/Footer.tsx",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 811
     },
     {
       "path": "src/components/HeroBanner.tsx",
-      "reason": "new",
+      "reason": "changed",
       "language": "typescript",
-      "size": 5381
+      "size": 9276
     },
     {
       "path": "src/components/Navbar.tsx",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 5349
     },
     {
       "path": "src/data/mockAnime.ts",
-      "reason": "new",
+      "reason": "changed",
       "language": "typescript",
-      "size": 10188
+      "size": 11618
     },
     {
       "path": "src/types/anime.ts",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 911
     },
     {
       "path": "tsconfig.json",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "json",
       "size": 602
     }

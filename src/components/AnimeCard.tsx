@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Play, Star, Plus, Check, Info } from "lucide-react";
+import { Play, Star, Plus, Check, Info, Film, Sparkles } from "lucide-react";
 import { Anime } from "@/types/anime";
 
 interface AnimeCardProps {
@@ -19,52 +19,77 @@ export default function AnimeCard({
 }: AnimeCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const hasProgress = !!anime.progress;
   const progressPercent = hasProgress
-    ? Math.round((anime.progress!.positionSeconds / anime.progress!.durationSeconds) * 100)
+    ? Math.round(
+        (anime.progress!.positionSeconds / anime.progress!.durationSeconds) * 100
+      )
     : 0;
+
+  const imageUrl = variant === "continue" ? anime.coverUrl : anime.posterUrl;
 
   return (
     <div
-      className={`group relative flex-none rounded-lg overflow-hidden cursor-pointer transition-all duration-300 select-none ${
+      role="article"
+      aria-label={`Anime: ${anime.title}`}
+      className={`group relative flex-none rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border border-white/5 hover:border-red-500/40 ${
         variant === "continue"
-          ? "w-[260px] sm:w-[300px]"
+          ? "w-[260px] sm:w-[310px]"
           : "w-[155px] sm:w-[190px] md:w-[215px]"
-      } hover:scale-105 hover:z-20 hover:shadow-2xl hover:shadow-black/80`}
+      } hover:scale-105 hover:z-20 hover:shadow-2xl hover:shadow-black/90`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onSelect?.(anime)}
     >
       {/* Media Wrapper */}
       <div
-        className={`relative w-full bg-zinc-800 ${
+        className={`relative w-full bg-gradient-to-br from-zinc-800 to-zinc-900 ${
           variant === "continue" ? "aspect-video" : "aspect-[2/3]"
         } overflow-hidden`}
       >
-        <img
-          src={variant === "continue" ? anime.coverUrl : anime.posterUrl}
-          alt={anime.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          loading="lazy"
-        />
+        {!imgError ? (
+          <img
+            src={imageUrl}
+            alt={anime.title}
+            onError={() => setImgError(true)}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            loading="lazy"
+          />
+        ) : (
+          /* Fallback Poster Placeholder */
+          <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gradient-to-b from-zinc-800 via-zinc-900 to-black text-center">
+            <Film className="w-10 h-10 text-zinc-600 mb-2" />
+            <span className="text-xs font-bold text-zinc-300 line-clamp-2">
+              {anime.title}
+            </span>
+          </div>
+        )}
 
         {/* Status / Rating Badge */}
-        <div className="absolute top-2 left-2 flex items-center gap-1.5 z-10">
+        <div className="absolute top-2 left-2 flex flex-wrap items-center gap-1.5 z-10">
           {anime.rating && (
-            <span className="flex items-center gap-1 bg-black/70 backdrop-blur-md text-amber-400 text-[10px] sm:text-xs font-bold px-1.5 py-0.5 rounded border border-white/10">
+            <span className="flex items-center gap-1 bg-black/75 backdrop-blur-md text-amber-400 text-[10px] sm:text-xs font-bold px-1.5 py-0.5 rounded border border-white/10 shadow">
               <Star className="w-2.5 h-2.5 fill-amber-400" />
               {anime.rating}
             </span>
           )}
-          <span className="bg-zinc-900/80 backdrop-blur-md text-zinc-300 text-[10px] px-1.5 py-0.5 rounded border border-white/10 uppercase font-medium">
+          <span className="bg-zinc-950/80 backdrop-blur-md text-zinc-300 text-[10px] px-1.5 py-0.5 rounded border border-white/10 uppercase font-medium">
             {anime.status === "tamat" ? "Tamat" : "Ongoing"}
           </span>
         </div>
 
-        {/* Hover Overlay with Quick Play Button */}
+        {/* Resolution / Quality Badge */}
+        <div className="absolute top-2 right-2 z-10">
+          <span className="bg-black/60 backdrop-blur-md text-zinc-300 text-[9px] px-1.5 py-0.5 rounded border border-white/10 font-bold tracking-wider">
+            1080P
+          </span>
+        </div>
+
+        {/* Hover Overlay with Action Buttons */}
         <div
-          className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-3 transition-opacity duration-200 ${
+          className={`absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-3 transition-opacity duration-200 ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -74,8 +99,9 @@ export default function AnimeCard({
                 e.stopPropagation();
                 onPlay?.(anime);
               }}
-              className="p-2.5 bg-red-600 hover:bg-red-500 rounded-full text-white shadow-lg transition-transform hover:scale-110"
+              className="p-2.5 bg-red-600 hover:bg-red-500 rounded-full text-white shadow-lg shadow-red-600/40 transition-transform hover:scale-115 active:scale-95 cursor-pointer"
               title="Putar Sekarang"
+              aria-label={`Putar ${anime.title}`}
             >
               <Play className="w-4 h-4 fill-white" />
             </button>
@@ -86,22 +112,28 @@ export default function AnimeCard({
                   e.stopPropagation();
                   setIsFavorited(!isFavorited);
                 }}
-                className={`p-2 rounded-full border transition-colors ${
+                className={`p-2 rounded-full border transition-all cursor-pointer ${
                   isFavorited
-                    ? "bg-emerald-600/80 border-emerald-500 text-white"
-                    : "bg-zinc-800/80 hover:bg-zinc-700 border-zinc-600 text-zinc-200"
+                    ? "bg-emerald-600/90 border-emerald-500 text-white"
+                    : "bg-zinc-900/80 hover:bg-zinc-800 border-zinc-700 text-zinc-200 hover:text-white"
                 }`}
-                title="Favorit"
+                title={isFavorited ? "Hapus dari Favorit" : "Tambah ke Favorit"}
+                aria-label="Toggle Favorit"
               >
-                {isFavorited ? <Check className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+                {isFavorited ? (
+                  <Check className="w-3.5 h-3.5" />
+                ) : (
+                  <Plus className="w-3.5 h-3.5" />
+                )}
               </button>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   onSelect?.(anime);
                 }}
-                className="p-2 bg-zinc-800/80 hover:bg-zinc-700 rounded-full border border-zinc-600 text-zinc-200"
-                title="Detail"
+                className="p-2 bg-zinc-900/80 hover:bg-zinc-800 rounded-full border border-zinc-700 text-zinc-200 hover:text-white transition-colors cursor-pointer"
+                title="Detail Anime"
+                aria-label="Lihat Detail"
               >
                 <Info className="w-3.5 h-3.5" />
               </button>
@@ -113,7 +145,7 @@ export default function AnimeCard({
         {hasProgress && (
           <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-zinc-800/90 overflow-hidden">
             <div
-              className="h-full bg-red-600 rounded-r-sm transition-all duration-300"
+              className="h-full bg-red-600 rounded-r-sm transition-all duration-500"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -121,24 +153,29 @@ export default function AnimeCard({
       </div>
 
       {/* Card Info Below Image */}
-      <div className="p-2.5 bg-zinc-900/95 border-t border-white/5">
-        <h3 className="text-white text-xs sm:text-sm font-semibold truncate group-hover:text-red-400 transition-colors">
+      <div className="p-3 bg-zinc-900/95 border-t border-white/5">
+        <h3 className="text-white text-xs sm:text-sm font-bold truncate group-hover:text-red-400 transition-colors">
           {anime.title}
         </h3>
 
-        {/* Variant detail (continue watching shows episode info) */}
+        {/* Variant detail */}
         {variant === "continue" && anime.progress ? (
           <div className="mt-1 flex items-center justify-between text-[11px] text-zinc-400">
-            <span className="truncate text-zinc-300">
+            <span className="truncate text-zinc-300 font-medium">
               Ep {anime.progress.episodeNumber}: {anime.progress.episodeTitle}
             </span>
-            <span className="text-red-400 shrink-0 font-medium ml-1.5">{progressPercent}%</span>
+            <span className="text-red-400 shrink-0 font-bold ml-1.5">
+              {progressPercent}%
+            </span>
           </div>
         ) : (
           <div className="mt-1 flex items-center justify-between text-[11px] text-zinc-400">
-            <span>{anime.year}</span>
-            <span className="truncate max-w-[100px] text-zinc-500">
-              {anime.genres.slice(0, 2).join(", ")}
+            <span className="font-medium text-zinc-300">{anime.year}</span>
+            <span className="text-[10px] bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded border border-white/5">
+              {anime.totalEpisodes} Ep
+            </span>
+            <span className="truncate max-w-[80px] text-zinc-400">
+              {anime.genres[0]}
             </span>
           </div>
         )}
