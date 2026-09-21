@@ -16,22 +16,16 @@ import {
   MOCK_CATEGORIES,
 } from "@/data/mockAnime";
 import { Anime } from "@/types/anime";
+import { useRouter } from "next/navigation";
 import { SlidersHorizontal } from "lucide-react";
 
 export default function Home() {
+  const router = useRouter();
   const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
-  const [playingAnime, setPlayingAnime] = useState<Anime | null>(null);
   const [isEmptyCatalog, setIsEmptyCatalog] = useState(false);
 
   const handlePlay = (anime: Anime) => {
-    setPlayingAnime(anime);
-    alert(
-      `Memutar ${anime.title} ${
-        anime.progress
-          ? `(Melanjutkan Episode ${anime.progress.episodeNumber})`
-          : "Episode 1"
-      }`
-    );
+    router.push(`/player/${anime.id}`);
   };
 
   const handleSelectAnime = (anime: Anime) => {
