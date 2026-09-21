@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Cloud,
   Folder,
@@ -144,24 +144,78 @@ export default function GoogleDriveConnector({
   const [autoSyncInterval, setAutoSyncInterval] = useState("daily");
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
+  // Sinkronisasi status dari API saat mount
+  useEffect(() => {
+    async function checkDriveStatus() {
+      try {
+        const res = await fetch("/api/sources/drive");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.source) {
+            setIsConnected(true);
+            if (data.source.accountLabel) {
+              setAccountEmail(data.source.accountLabel);
+            }
+          } else if (data.success && !data.isConnected) {
+            setIsConnected(false);
+          }
+        }
+      } catch (err) {
+        console.warn("Could not check Google Drive status:", err);
+      }
+    }
+    checkDriveStatus();
+  }, []);
+
   const showToast = (msg: string) => {
     setToastMsg(msg);
     setTimeout(() => setToastMsg(null), 3500);
   };
 
-  const handleConnect = () => {
+  const handleConnect = async () => {
     setIsConnecting(true);
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/auth/google-drive?mode=url");
+      const data = await res.json().catch(() => null);
+
+      if (data?.success && data?.authUrl) {
+        if (data.mode === "sandbox_mock") {
+          await fetch("/api/sources/drive", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ accountEmail }),
+          });
+          setIsConnected(true);
+          showToast("Google Drive berhasil dihubungkan lewat OAuth 2.0!");
+        } else {
+          window.location.href = data.authUrl;
+        }
+      } else {
+        // Fallback simpan langsung
+        await fetch("/api/sources/drive", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ accountEmail }),
+        });
+        setIsConnected(true);
+        showToast("Google Drive berhasil dihubungkan!");
+      }
+    } catch (e: any) {
+      showToast("Gagal menghubungkan Google Drive");
+    } finally {
       setIsConnecting(false);
-      setIsConnected(true);
-      showToast("Google Drive berhasil dihubungkan lewat OAuth 2.0!");
-    }, 1000);
+    }
   };
 
-  const handleDisconnect = () => {
-    setIsConnected(false);
-    setSelectedFolderId("");
-    showToast("Koneksi Google Drive telah diputus.");
+  const handleDisconnect = async () => {
+    try {
+      await fetch("/api/sources/drive", { method: "DELETE" });
+      setIsConnected(false);
+      setSelectedFolderId("");
+      showToast("Koneksi Google Drive telah diputus.");
+    } catch (e) {
+      showToast("Gagal memutus koneksi Google Drive.");
+    }
   };
 
   const handleScanFolder = (folderId: string) => {
