@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "d5e5bcdfdcdc291c1bedd9bf1dd2b0148404a4e7",
+  "generatedForCommit": "d6b15bdaa0c15af0d9c4d50b204d212107a92464",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -162,7 +162,7 @@
       "path": "src/app/search/page.tsx",
       "reason": "changed",
       "language": "typescript",
-      "size": 13329
+      "size": 12592
     },
     {
       "path": "src/components/AnimeCard.tsx",
@@ -232,7 +232,7 @@
     },
     {
       "path": "src/components/LiveSearchInput.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 13338
     },
@@ -255,6 +255,18 @@
       "size": 5539
     },
     {
+      "path": "src/components/SearchAnimeCard.tsx",
+      "reason": "new",
+      "language": "typescript",
+      "size": 6719
+    },
+    {
+      "path": "src/components/SearchEmptyState.tsx",
+      "reason": "new",
+      "language": "typescript",
+      "size": 4887
+    },
+    {
       "path": "src/components/SearchFilters.tsx",
       "reason": "needs_summary",
       "language": "typescript",
@@ -262,7 +274,7 @@
     },
     {
       "path": "src/components/SearchHistory.tsx",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 4648
     },
@@ -358,7 +370,7 @@
     },
     {
       "path": "src/utils/searchHistory.ts",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 2159
     },

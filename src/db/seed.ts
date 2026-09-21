@@ -105,6 +105,21 @@ export async function seedDatabase() {
             sourceType: (ep.sourceType as "local" | "drive" | "link") || "link",
             sourceUrl: ep.sourceUrl,
             thumbnailUrl: ep.thumbnailUrl,
+            synopsis: (ep as any).synopsis || `Episode ${ep.episodeNumber} dari ${a.title}.`,
+            createdAt: new Date().toISOString(),
+          })
+          .onConflictDoNothing();
+
+        // Seed default episode source
+        await db
+          .insert(schema.episodeSources)
+          .values({
+            id: `src-${ep.id}-main`,
+            episodeId: ep.id,
+            sourceType: (ep.sourceType as "local" | "drive" | "link") || "link",
+            sourceUrl: ep.sourceUrl,
+            quality: "1080p",
+            label: "Server Utama (HD)",
             createdAt: new Date().toISOString(),
           })
           .onConflictDoNothing();
@@ -112,6 +127,21 @@ export async function seedDatabase() {
     } catch (err) {
       console.error(`Error inserting anime ${a.id}:`, err);
     }
+  }
+
+  // Seed sample favorites for default user
+  for (const favId of ["snk", "jujutsu-kaisen", "frieren"]) {
+    try {
+      await db
+        .insert(schema.favorites)
+        .values({
+          id: `fav-${defaultUser.id}-${favId}`,
+          userId: defaultUser.id,
+          animeId: favId,
+          createdAt: new Date().toISOString(),
+        })
+        .onConflictDoNothing();
+    } catch (e) {}
   }
 
   console.log("Database successfully seeded!");

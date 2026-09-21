@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, real, index, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { relations } from "drizzle-orm";
 
 // 1. Users table
@@ -27,35 +27,48 @@ export const anime = sqliteTable("anime", {
 });
 
 // 3. Episodes table
-export const episodes = sqliteTable("episodes", {
-  id: text("id").primaryKey(),
-  animeId: text("anime_id")
-    .notNull()
-    .references(() => anime.id, { onDelete: "cascade" }),
-  title: text("title").notNull(),
-  episodeNumber: integer("episode_number").notNull(),
-  durationSeconds: integer("duration_seconds").notNull().default(0),
-  sourceType: text("source_type", { enum: ["local", "drive", "link"] })
-    .notNull()
-    .default("link"),
-  sourceUrl: text("source_url").notNull(),
-  thumbnailUrl: text("thumbnail_url"),
-  synopsis: text("synopsis"),
-  createdAt: text("created_at").notNull(),
-});
+export const episodes = sqliteTable(
+  "episodes",
+  {
+    id: text("id").primaryKey(),
+    animeId: text("anime_id")
+      .notNull()
+      .references(() => anime.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    episodeNumber: integer("episode_number").notNull(),
+    durationSeconds: integer("duration_seconds").notNull().default(0),
+    sourceType: text("source_type", { enum: ["local", "drive", "link"] })
+      .notNull()
+      .default("link"),
+    sourceUrl: text("source_url").notNull(),
+    thumbnailUrl: text("thumbnail_url"),
+    synopsis: text("synopsis"),
+    createdAt: text("created_at").notNull(),
+  },
+  (table) => [
+    index("episodes_anime_id_idx").on(table.animeId),
+    uniqueIndex("episodes_anime_number_idx").on(table.animeId, table.episodeNumber),
+  ]
+);
 
 // 3.1 Episode Sources table (multiple video streams/mirrors per episode)
-export const episodeSources = sqliteTable("episode_sources", {
-  id: text("id").primaryKey(),
-  episodeId: text("episode_id")
-    .notNull()
-    .references(() => episodes.id, { onDelete: "cascade" }),
-  quality: text("quality").default("1080p"),
-  sourceType: text("source_type", { enum: ["local", "drive", "link"] }).notNull(),
-  sourceUrl: text("source_url").notNull(),
-  label: text("label").default("Server Utama"),
-  createdAt: text("created_at").notNull(),
-});
+export const episodeSources = sqliteTable(
+  "episode_sources",
+  {
+    id: text("id").primaryKey(),
+    episodeId: text("episode_id")
+      .notNull()
+      .references(() => episodes.id, { onDelete: "cascade" }),
+    quality: text("quality").default("1080p"),
+    sourceType: text("source_type", { enum: ["local", "drive", "link"] }).notNull(),
+    sourceUrl: text("source_url").notNull(),
+    label: text("label").default("Server Utama"),
+    createdAt: text("created_at").notNull(),
+  },
+  (table) => [
+    index("episode_sources_episode_id_idx").on(table.episodeId),
+  ]
+);
 
 // 4. Categories table
 export const categories = sqliteTable("categories", {
@@ -96,14 +109,21 @@ export const watchProgress = sqliteTable("watch_progress", {
 });
 
 // 7. Favorites table
-export const favorites = sqliteTable("favorites", {
-  id: text("id").primaryKey(),
-  userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
-  animeId: text("anime_id")
-    .notNull()
-    .references(() => anime.id, { onDelete: "cascade" }),
-  createdAt: text("created_at").notNull(),
-});
+export const favorites = sqliteTable(
+  "favorites",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
+    animeId: text("anime_id")
+      .notNull()
+      .references(() => anime.id, { onDelete: "cascade" }),
+    createdAt: text("created_at").notNull(),
+  },
+  (table) => [
+    uniqueIndex("favorites_user_anime_idx").on(table.userId, table.animeId),
+    index("favorites_anime_id_idx").on(table.animeId),
+  ]
+);
 
 // 8. Connected Sources table
 export const connectedSources = sqliteTable("connected_sources", {
