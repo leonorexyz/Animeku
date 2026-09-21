@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "ea541152a3a8d6cf1721f51c032a9f480e5f33ef",
+  "generatedForCommit": "a91e7e86ee9add134abaeb5d9516789fdcfc98d5",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -108,7 +108,7 @@
       "path": "src/components/AnimePlayer.tsx",
       "reason": "changed",
       "language": "typescript",
-      "size": 30818
+      "size": 35191
     },
     {
       "path": "src/components/AnimeRow.tsx",

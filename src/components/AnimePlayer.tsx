@@ -108,10 +108,24 @@ export default function AnimePlayer({
     ...(customSubName ? [{ id: "custom", label: `Kustom: ${customSubName}` }] : []),
   ];
 
+  const [audioToast, setAudioToast] = useState<string | null>(null);
+
   const audioTracks = [
-    { id: "ja", label: "Jepang (Original Dolby 5.1)" },
-    { id: "en", label: "English Dub" },
+    { id: "ja-51", label: "Jepang (Original Dolby 5.1)", badge: "JP 5.1" },
+    { id: "ja-stereo", label: "Jepang (Stereo AAC)", badge: "JP 2.0" },
+    { id: "en-dub", label: "English Dub (Stereo)", badge: "EN Dub" },
+    { id: "id-dub", label: "Indonesia Dub (Stereo)", badge: "ID Dub" },
   ];
+
+  const handleAudioChange = (aud: { id: string; label: string }) => {
+    setSelectedAudio(aud.id);
+    setShowAudioSubMenu(false);
+    setAudioToast(`Audio aktif: ${aud.label}`);
+    setTimeout(() => setAudioToast(null), 3000);
+    try {
+      localStorage.setItem("animeku_player_audio", aud.id);
+    } catch (err) {}
+  };
 
   const speeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
 
@@ -477,6 +491,10 @@ export default function AnimePlayer({
               </span>
               <span className="text-xs text-zinc-400">•</span>
               <span className="text-xs text-zinc-300">1080p Full HD</span>
+              <span className="text-xs text-zinc-400">•</span>
+              <span className="text-xs bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded border border-white/10">
+                {audioTracks.find((a) => a.id === selectedAudio)?.badge || "JP 5.1"}
+              </span>
             </div>
             <h1 className="text-sm sm:text-lg font-extrabold text-white">
               {anime.title}{" "}
@@ -486,6 +504,13 @@ export default function AnimePlayer({
             </h1>
           </div>
         </div>
+
+        {/* Audio Toast Notification */}
+        {audioToast && (
+          <div className="absolute top-16 left-1/2 -translate-x-1/2 px-4 py-2 bg-zinc-900/95 border border-zinc-700 text-white text-xs font-semibold rounded-full shadow-2xl backdrop-blur-md animate-in fade-in slide-in-from-top-2">
+            {audioToast}
+          </div>
+        )}
 
         {/* Right Header Button: Episode List */}
         <button
@@ -756,18 +781,20 @@ export default function AnimePlayer({
                       {audioTracks.map((aud) => (
                         <button
                           key={aud.id}
-                          onClick={() => {
-                            setSelectedAudio(aud.id);
-                            setShowAudioSubMenu(false);
-                          }}
+                          onClick={() => handleAudioChange(aud)}
                           className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left transition-colors cursor-pointer ${
                             selectedAudio === aud.id
                               ? "bg-red-600/20 text-red-400 font-bold"
                               : "hover:bg-zinc-800 text-zinc-300"
                           }`}
                         >
-                          <span>{aud.label}</span>
-                          {selectedAudio === aud.id && <Check className="w-3.5 h-3.5" />}
+                          <span className="truncate">{aud.label}</span>
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            <span className="text-[10px] bg-zinc-800 text-zinc-400 px-1 rounded border border-white/5">
+                              {aud.badge}
+                            </span>
+                            {selectedAudio === aud.id && <Check className="w-3.5 h-3.5 text-red-400" />}
+                          </div>
                         </button>
                       ))}
                     </div>
