@@ -177,7 +177,27 @@ export default function MetadataMatcherModal({
     }, 600);
   };
 
-  const handleConfirmApply = () => {
+  const handleConfirmApply = async () => {
+    try {
+      await fetch("/api/metadata/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: selectedCandidate.title,
+          synopsis: selectedCandidate.synopsis,
+          year: selectedCandidate.year,
+          rating: selectedCandidate.rating,
+          status: selectedCandidate.status,
+          genres: selectedCandidate.genres,
+          posterUrl: selectedCandidate.posterUrl,
+          coverUrl: selectedCandidate.coverUrl,
+          totalEpisodes: selectedCandidate.totalEpisodes,
+          episodes: selectedCandidate.episodes,
+        }),
+      });
+    } catch (err) {
+      console.warn("Could not persist metadata to API:", err);
+    }
     onApplyMetadata(selectedCandidate);
     onClose();
   };
