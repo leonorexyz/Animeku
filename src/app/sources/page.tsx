@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LocalFileImporter from "@/components/LocalFileImporter";
 import GoogleDriveConnector from "@/components/GoogleDriveConnector";
+import DirectStreamLinkImporter from "@/components/DirectStreamLinkImporter";
 import {
   HardDrive,
   Cloud,
@@ -346,101 +347,21 @@ export default function AddSourcePage() {
 
             {/* TAB 3: LINK STREAMING LANGSUNG */}
             {activeTab === "link" && (
-              <form
-                onSubmit={handleAddLinkSource}
-                className="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-6 space-y-6 backdrop-blur-sm animate-in fade-in duration-200"
-              >
-                <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-                  <div className="flex items-center gap-2">
-                    <Link2 className="w-5 h-5 text-amber-400" />
-                    <h2 className="text-lg font-bold text-white">
-                      Tambah Tautan Streaming Langsung
-                    </h2>
-                  </div>
-                  <span className="text-xs text-zinc-400 bg-zinc-800/80 px-2.5 py-1 rounded-full border border-white/5">
-                    HLS, .m3u8, .mp4
-                  </span>
-                </div>
-
-                {/* Stream Title */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-zinc-300 uppercase tracking-wider block">
-                    Judul Anime
-                  </label>
-                  <input
-                    type="text"
-                    value={streamTitle}
-                    onChange={(e) => setStreamTitle(e.target.value)}
-                    placeholder="Contoh: Jujutsu Kaisen Season 2"
-                    className="w-full bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-200 focus:border-red-500 outline-none transition-colors"
-                  />
-                </div>
-
-                {/* Stream URL */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-zinc-300 uppercase tracking-wider block">
-                    URL Sumber Video Stream
-                  </label>
-                  <input
-                    type="url"
-                    value={streamUrl}
-                    onChange={(e) => setStreamUrl(e.target.value)}
-                    placeholder="https://cdn.example.com/anime/stream.m3u8 atau .mp4"
-                    className="w-full bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-200 focus:border-red-500 outline-none transition-colors"
-                  />
-                </div>
-
-                {/* Episode & Quality Grid */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-zinc-300 uppercase tracking-wider block">
-                      Nomor Episode
-                    </label>
-                    <input
-                      type="number"
-                      min="1"
-                      value={streamEpisode}
-                      onChange={(e) => setStreamEpisode(e.target.value)}
-                      className="w-full bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-200 focus:border-red-500 outline-none"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-zinc-300 uppercase tracking-wider block">
-                      Resolusi Kualitas
-                    </label>
-                    <select
-                      value={streamQuality}
-                      onChange={(e) => setStreamQuality(e.target.value)}
-                      className="w-full bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-200 focus:border-red-500 outline-none cursor-pointer"
-                    >
-                      <option value="1080p">1080p Ultra HD</option>
-                      <option value="720p">720p HD</option>
-                      <option value="480p">480p SD</option>
-                      <option value="auto">Auto Adaptive</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Submit Stream Link */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-extrabold rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>Menambahkan Tautan...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Plus className="w-4 h-4" />
-                      <span>Tambahkan Tautan Streaming</span>
-                    </>
-                  )}
-                </button>
-              </form>
+              <DirectStreamLinkImporter
+                onAddStream={(stream) => {
+                  const newSource: ConnectedSourceItem = {
+                    id: `src-${Date.now()}`,
+                    name: `${stream.title} (Ep ${stream.episodeNumber})`,
+                    type: "link",
+                    details: `Direct Stream • ${stream.quality} • ${stream.serverLabel}`,
+                    itemCount: 1,
+                    lastSynced: "Baru saja",
+                    status: "active",
+                  };
+                  setSources((prev) => [newSource, ...prev]);
+                  showToast(`Tautan streaming "${stream.title}" (Ep ${stream.episodeNumber}) berhasil ditambahkan!`);
+                }}
+              />
             )}
           </div>
 
