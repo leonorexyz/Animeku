@@ -107,24 +107,46 @@ export const animeSources = sqliteTable(
 );
 
 // 4. Categories table
-export const categories = sqliteTable("categories", {
-  id: text("id").primaryKey(),
-  userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
-  name: text("name").notNull(),
-  type: text("type").notNull().default("category"), // "category" | "genre"
-  sortOrder: integer("sort_order").notNull().default(0),
-});
+export const categories = sqliteTable(
+  "categories",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    type: text("type", { enum: ["category", "genre", "collection"] })
+      .notNull()
+      .default("category"),
+    description: text("description"),
+    colorTheme: text("color_theme").default("red"),
+    sortOrder: integer("sort_order").notNull().default(0),
+    createdAt: text("created_at"),
+    updatedAt: text("updated_at"),
+  },
+  (table) => [
+    index("categories_user_id_idx").on(table.userId),
+    index("categories_type_idx").on(table.type),
+    index("categories_sort_order_idx").on(table.sortOrder),
+  ]
+);
 
 // 5. Anime-Categories pivot table
-export const animeCategories = sqliteTable("anime_categories", {
-  id: text("id").primaryKey(),
-  animeId: text("anime_id")
-    .notNull()
-    .references(() => anime.id, { onDelete: "cascade" }),
-  categoryId: text("category_id")
-    .notNull()
-    .references(() => categories.id, { onDelete: "cascade" }),
-});
+export const animeCategories = sqliteTable(
+  "anime_categories",
+  {
+    id: text("id").primaryKey(),
+    animeId: text("anime_id")
+      .notNull()
+      .references(() => anime.id, { onDelete: "cascade" }),
+    categoryId: text("category_id")
+      .notNull()
+      .references(() => categories.id, { onDelete: "cascade" }),
+  },
+  (table) => [
+    index("anime_categories_anime_id_idx").on(table.animeId),
+    index("anime_categories_category_id_idx").on(table.categoryId),
+    uniqueIndex("anime_categories_unique_idx").on(table.animeId, table.categoryId),
+  ]
+);
 
 // 6. Watch Progress table
 export const watchProgress = sqliteTable("watch_progress", {

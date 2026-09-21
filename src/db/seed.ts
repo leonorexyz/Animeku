@@ -40,8 +40,12 @@ export async function seedDatabase() {
           id: cat.id,
           userId: defaultUser.id,
           name: cat.name,
-          type: (cat as any).type || "category",
-          sortOrder: 0,
+          type: (cat.type as "category" | "genre" | "collection") || "category",
+          description: `Kategori kurasi: ${cat.name}`,
+          colorTheme: cat.id.includes("action") ? "amber" : cat.id.includes("drama") ? "rose" : cat.id.includes("weekend") ? "purple" : "red",
+          sortOrder: cat.sortOrder || 0,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
         })
         .onConflictDoNothing();
     } catch (e) {}
