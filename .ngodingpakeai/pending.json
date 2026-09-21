@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "2454c6d0a7e6f2914cb11f5e5f93a9f3075fedc7",
+  "generatedForCommit": "7221a91c1ea53045155b11c61c435e431761cf4c",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -76,9 +76,9 @@
     },
     {
       "path": "src/app/anime/[id]/page.tsx",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 10781
+      "size": 11145
     },
     {
       "path": "src/app/api/anime/[id]/episodes/route.ts",
@@ -91,6 +91,12 @@
       "reason": "needs_summary",
       "language": "typescript",
       "size": 4674
+    },
+    {
+      "path": "src/app/api/anime/[id]/route.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 6376
     },
     {
       "path": "src/app/api/categories/route.ts",
@@ -322,7 +328,7 @@
     },
     {
       "path": "src/db/migrations/0002_add_anime_episode_favorites_indexes.sql",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "sql",
       "size": 566
     },
@@ -346,13 +352,13 @@
     },
     {
       "path": "src/db/schema.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 7943
     },
     {
       "path": "src/db/seed.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 4519
     },
