@@ -221,7 +221,7 @@ export default function LocalFileImporter({
     );
   };
 
-  const handleExecuteImport = () => {
+  const handleExecuteImport = async () => {
     setImportError(null);
     const selectedFiles = parsedFiles.filter((f) => f.selected);
     if (selectedFiles.length === 0) {
@@ -235,7 +235,28 @@ export default function LocalFileImporter({
     }
 
     setIsImporting(true);
-    setTimeout(() => {
+    try {
+      // Hubungkan ke endpoint API POST /api/sources/local
+      const res = await fetch("/api/sources/local", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          animeTitle: targetTitle.trim(),
+          files: selectedFiles.map((f) => ({
+            name: f.name,
+            episodeNumber: f.episodeNumber,
+            seasonNumber: f.seasonNumber,
+            quality: f.quality,
+            fileSize: f.file?.size || 0,
+          })),
+        }),
+      });
+
+      if (!res.ok) {
+        const errorJson = await res.json().catch(() => null);
+        throw new Error(errorJson?.error || "Gagal mendaftarkan berkas ke database");
+      }
+
       setIsImporting(false);
       setImportSuccess(true);
       onImportComplete?.({
@@ -247,7 +268,10 @@ export default function LocalFileImporter({
         setParsedFiles([]);
         setTargetTitle("");
       }, 2500);
-    }, 1200);
+    } catch (err: any) {
+      setIsImporting(false);
+      setImportError(err?.message || "Terjadi kesalahan saat mengimpor file lokal.");
+    }
   };
 
   const selectedCount = parsedFiles.filter((f) => f.selected).length;
