@@ -1,0 +1,373 @@
+"use client";
+
+import React, { use, useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import AnimeCard from "@/components/AnimeCard";
+import {
+  MOCK_FEATURED_ANIME,
+  MOCK_FEATURED_ANIMES,
+  MOCK_CONTINUE_WATCHING,
+  MOCK_CATEGORIES,
+  MOCK_CATALOG_DATA,
+} from "@/data/mockAnime";
+import { MOCK_EPISODES, ExtendedEpisode } from "@/data/mockEpisodes";
+import { Anime } from "@/types/anime";
+import { getWatchProgressForAnime } from "@/utils/watchProgress";
+import {
+  Play,
+  Plus,
+  Check,
+  Star,
+  Calendar,
+  Clock,
+  Film,
+  ArrowLeft,
+  Share2,
+  Volume2,
+  VolumeX,
+  Sparkles,
+} from "lucide-react";
+
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default function AnimeDetailPage({ params }: PageProps) {
+  const router = useRouter();
+  const resolvedParams = use(params);
+  const animeId = resolvedParams.id;
+
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [selectedSeason, setSelectedSeason] = useState(1);
+  const [copiedToast, setCopiedToast] = useState(false);
+
+  // Find anime from mock data
+  const allAnimes: Anime[] = [
+    ...MOCK_FEATURED_ANIMES,
+    ...MOCK_CONTINUE_WATCHING,
+    ...MOCK_CATALOG_DATA,
+  ];
+  MOCK_CATEGORIES.forEach((cat) => allAnimes.push(...cat.items));
+
+  const anime: Anime =
+    allAnimes.find((a) => a.id === animeId) || MOCK_FEATURED_ANIME;
+
+  // Episodes for this anime
+  const episodes: ExtendedEpisode[] =
+    MOCK_EPISODES[anime.id] ||
+    Array.from({ length: anime.totalEpisodes || 12 }, (_, i) => ({
+      id: `${anime.id}-ep-${i + 1}`,
+      animeId: anime.id,
+      title: `Episode ${i + 1}`,
+      episodeNumber: i + 1,
+      durationSeconds: 1440,
+      sourceType: "link" as const,
+      sourceUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      thumbnailUrl:
+        anime.coverUrl ||
+        "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80",
+      synopsis: `Kelanjutan kisah petualangan ${anime.title} pada babak ke-${i + 1}.`,
+    }));
+
+  // Watch progress
+  const [savedProgress, setSavedProgress] = useState<any>(null);
+  useEffect(() => {
+    const p = getWatchProgressForAnime(anime.id);
+    if (p) setSavedProgress(p);
+  }, [anime.id]);
+
+  // Similar anime recommendations
+  const similarAnimes = allAnimes
+    .filter((a) => a.id !== anime.id)
+    .slice(0, 6);
+
+  const handlePlayEpisode = (ep: ExtendedEpisode) => {
+    router.push(`/player/${anime.id}`);
+  };
+
+  const handleShare = () => {
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(window.location.href);
+      setCopiedToast(true);
+      setTimeout(() => setCopiedToast(false), 3000);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#141414] text-white flex flex-col selection:bg-red-600 selection:text-white">
+      {/* Top Navbar */}
+      <Navbar />
+
+      {/* Main Hero Header Banner */}
+      <div className="relative w-full h-[70vh] sm:h-[80vh] min-h-[500px]">
+        {/* Backdrop Image */}
+        <div className="absolute inset-0">
+          <img
+            src={anime.coverUrl}
+            alt={anime.title}
+            className="w-full h-full object-cover object-center brightness-90"
+          />
+          {/* Multi-layered Gradients */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/70 to-transparent" />
+        </div>
+
+        {/* Floating Back Button */}
+        <div className="absolute top-24 left-4 sm:left-8 z-30">
+          <Link
+            href="/"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 hover:bg-zinc-800 text-white text-xs font-semibold backdrop-blur-md border border-white/10 transition-transform hover:scale-105"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Kembali ke Katalog</span>
+          </Link>
+        </div>
+
+        {/* Hero Content Information */}
+        <div className="absolute bottom-12 left-4 sm:left-8 lg:left-12 max-w-2xl z-20 space-y-4">
+          {/* Metadata Badges */}
+          <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold">
+            {anime.rating && (
+              <span className="flex items-center gap-1 text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30">
+                <Star className="w-3.5 h-3.5 fill-amber-400" />
+                {anime.rating} Skor
+              </span>
+            )}
+            <span className="text-zinc-300 bg-zinc-800/80 px-2 py-0.5 rounded border border-white/10">
+              {anime.year}
+            </span>
+            <span className="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30 uppercase tracking-wider text-[10px]">
+              {anime.status === "tamat" ? "Tamat" : "Sedang Tayang"}
+            </span>
+            <span className="text-zinc-300 bg-zinc-800/80 px-2 py-0.5 rounded border border-white/10">
+              {anime.totalEpisodes || episodes.length} Episode
+            </span>
+            <span className="text-red-400 bg-red-600/10 px-1.5 py-0.5 rounded border border-red-500/30 text-[10px]">
+              Ultra HD 4K
+            </span>
+          </div>
+
+          {/* Title */}
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-lg">
+            {anime.title}
+          </h1>
+
+          {/* Synopsis */}
+          <p className="text-sm sm:text-base text-zinc-300 line-clamp-3 sm:line-clamp-4 leading-relaxed drop-shadow">
+            {anime.synopsis}
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <button
+              onClick={() => router.push(`/player/${anime.id}`)}
+              className="flex items-center gap-2.5 px-6 py-3 bg-red-600 hover:bg-red-700 text-white text-sm sm:text-base font-bold rounded-lg shadow-lg hover:shadow-red-600/30 transition-all hover:scale-105 cursor-pointer"
+            >
+              <Play className="w-5 h-5 fill-white" />
+              <span>
+                {savedProgress
+                  ? `Lanjutkan Ep ${savedProgress.episodeNumber}`
+                  : "Mulai Nonton Ep 1"}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setIsFavorite(!isFavorite)}
+              className={`flex items-center gap-2 px-4 py-3 rounded-lg border text-sm font-semibold backdrop-blur-md transition-all cursor-pointer ${
+                isFavorite
+                  ? "bg-red-600/20 border-red-500 text-red-400"
+                  : "bg-zinc-900/80 hover:bg-zinc-800 border-white/10 text-white"
+              }`}
+            >
+              {isFavorite ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+              <span>{isFavorite ? "Tersimpan" : "Daftar Saya"}</span>
+            </button>
+
+            <button
+              onClick={handleShare}
+              className="p-3 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-white/10 text-white backdrop-blur-md transition-colors cursor-pointer"
+              title="Bagikan Tautan Anime"
+            >
+              <Share2 className="w-4 h-4" />
+            </button>
+          </div>
+
+          {copiedToast && (
+            <div className="text-xs text-emerald-400 font-semibold animate-in fade-in">
+              ✓ Tautan anime berhasil disalin ke clipboard!
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Main Detail Content Container */}
+      <div className="relative z-20 px-4 sm:px-8 lg:px-12 space-y-12 pb-16">
+        {/* Episodes Section */}
+        <section className="space-y-6 pt-6">
+          <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-black text-white tracking-wide">
+                Daftar Episode
+              </h2>
+              <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+                Musim 1 • Total {episodes.length} Episode
+              </p>
+            </div>
+
+            {/* Season Selector Filter */}
+            <select
+              value={selectedSeason}
+              onChange={(e) => setSelectedSeason(Number(e.target.value))}
+              className="bg-zinc-900 border border-zinc-700 text-xs sm:text-sm font-semibold text-zinc-200 rounded-lg px-3 py-1.5 focus:outline-none focus:border-red-500 cursor-pointer"
+            >
+              <option value={1}>Musim 1</option>
+              <option value={2}>Musim 2 (Segera)</option>
+            </select>
+          </div>
+
+          {/* Episode Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {episodes.map((ep) => (
+              <div
+                key={ep.id}
+                onClick={() => handlePlayEpisode(ep)}
+                className="group relative bg-zinc-900/70 hover:bg-zinc-800/90 border border-zinc-800/80 hover:border-red-500/50 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer flex flex-col"
+              >
+                {/* Thumbnail with Overlay Play */}
+                <div className="relative aspect-video w-full overflow-hidden bg-zinc-950">
+                  <img
+                    src={ep.thumbnailUrl}
+                    alt={ep.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 flex items-center justify-center transition-colors">
+                    <div className="w-10 h-10 rounded-full bg-red-600/90 group-hover:bg-red-600 flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
+                      <Play className="w-5 h-5 fill-white text-white ml-0.5" />
+                    </div>
+                  </div>
+                  <span className="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/80 rounded text-[11px] font-mono text-zinc-300">
+                    {Math.floor(ep.durationSeconds / 60)}:00
+                  </span>
+                </div>
+
+                {/* Episode Info */}
+                <div className="p-3.5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between text-xs text-zinc-400 mb-1">
+                      <span className="font-bold text-red-400">
+                        Episode {ep.episodeNumber}
+                      </span>
+                      <span className="text-[10px] uppercase bg-zinc-800 px-1.5 py-0.5 rounded">
+                        HD
+                      </span>
+                    </div>
+                    <h3 className="text-sm font-bold text-white group-hover:text-red-400 transition-colors line-clamp-1">
+                      {ep.title}
+                    </h3>
+                    <p className="text-xs text-zinc-400 line-clamp-2 mt-1.5 leading-relaxed">
+                      {ep.synopsis}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* About Anime / Detail & Metadata */}
+        <section className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6">
+          <h2 className="text-lg sm:text-xl font-extrabold text-white">
+            Tentang <span className="text-red-500">{anime.title}</span>
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+            <div className="space-y-1">
+              <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block">
+                Sinopsis Lengkap
+              </span>
+              <p className="text-zinc-300 leading-relaxed text-xs sm:text-sm">
+                {anime.synopsis}
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block mb-1">
+                  Genre
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {anime.genres.map((g) => (
+                    <span
+                      key={g}
+                      className="px-2.5 py-1 rounded-full bg-zinc-800 text-xs font-medium text-zinc-300 border border-white/5"
+                    >
+                      {g}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block mb-1">
+                  Tahun Rilis
+                </span>
+                <span className="text-zinc-200 font-semibold">{anime.year}</span>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block mb-1">
+                  Tersedia Audio & Subtitle
+                </span>
+                <p className="text-xs text-zinc-300">
+                  Audio: Jepang (Dolby 5.1), Indonesia Dub, English Dub
+                </p>
+                <p className="text-xs text-zinc-300 mt-0.5">
+                  Subtitle: Bahasa Indonesia, English, Romaji
+                </p>
+              </div>
+
+              <div>
+                <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block mb-1">
+                  Format Sumber Video
+                </span>
+                <span className="text-xs text-zinc-300">
+                  File Lokal, Google Drive API, HTTP Direct Stream
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Similar Recommendations Shelf */}
+        <section className="space-y-4">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-red-500" />
+            <h2 className="text-xl sm:text-2xl font-black text-white tracking-wide">
+              Judul Serupa yang Mungkin Anda Suka
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+            {similarAnimes.map((sim) => (
+              <AnimeCard
+                key={sim.id}
+                anime={sim}
+                onPlay={(a) => router.push(`/player/${a.id}`)}
+                onSelect={(a) => router.push(`/anime/${a.id}`)}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
+}
