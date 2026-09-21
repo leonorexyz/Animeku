@@ -137,12 +137,19 @@ export const connectedSources = sqliteTable("connected_sources", {
 });
 
 // 9. Search History table
-export const searchHistory = sqliteTable("search_history", {
-  id: text("id").primaryKey(),
-  userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
-  keyword: text("keyword").notNull(),
-  createdAt: text("created_at").notNull(),
-});
+export const searchHistory = sqliteTable(
+  "search_history",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
+    keyword: text("keyword").notNull(),
+    createdAt: text("created_at").notNull(),
+  },
+  (table) => [
+    index("search_history_user_idx").on(table.userId),
+    index("search_history_created_idx").on(table.createdAt),
+  ]
+);
 
 // 10. App Settings table
 export const appSettings = sqliteTable("app_settings", {

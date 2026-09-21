@@ -32,6 +32,13 @@ export function addSearchHistory(query: string): string[] {
       })
     );
 
+    // Sync ke API di latar belakang
+    fetch("/api/search/history", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ keyword: clean }),
+    }).catch(() => {});
+
     return updated;
   } catch (err) {
     console.error("Failed to update search history in localStorage", err);
@@ -52,6 +59,11 @@ export function removeSearchHistoryItem(query: string): string[] {
       })
     );
 
+    // Sync ke API di latar belakang
+    fetch(`/api/search/history?keyword=${encodeURIComponent(query)}`, {
+      method: "DELETE",
+    }).catch(() => {});
+
     return updated;
   } catch (err) {
     console.error("Failed to remove search history item", err);
@@ -68,7 +80,39 @@ export function clearSearchHistory(): void {
         detail: { history: [] },
       })
     );
+
+    // Sync ke API di latar belakang
+    fetch("/api/search/history?action=clear", {
+      method: "DELETE",
+    }).catch(() => {});
   } catch (err) {
     console.error("Failed to clear search history", err);
   }
 }
+
+export async function syncSearchHistoryFromApi(): Promise<{
+  history: string[];
+  trending: string[];
+}> {
+  if (typeof window === "undefined") return { history: [], trending: [] };
+  try {
+    const res = await fetch("/api/search/history");
+    const data = await res.json();
+    if (data.success && Array.isArray(data.history)) {
+      if (data.history.length > 0) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data.history));
+      }
+      return {
+        history: data.history,
+        trending: data.trending || [],
+      };
+    }
+  } catch (err) {
+    console.error("Failed to fetch search history from API", err);
+  }
+  return {
+    history: getSearchHistory(),
+    trending: [],
+  };
+}
+
