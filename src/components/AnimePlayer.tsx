@@ -211,31 +211,103 @@ export default function AnimePlayer({
     }
   };
 
-  // Handle Fullscreen toggle
-  const toggleFullscreen = () => {
-    if (!containerRef.current) return;
-    if (!document.fullscreenElement) {
-      containerRef.current.requestFullscreen?.().catch(() => {});
-      setIsFullscreen(true);
-    } else {
-      document.exitFullscreen?.().catch(() => {});
-      setIsFullscreen(false);
-    }
-  };
+  const [isPiP, setIsPiP] = useState(false);
 
-  // Picture in Picture
+  // Handle Fullscreen toggle with vendor support
+  const toggleFullscreen = useCallback(() => {
+    if (!containerRef.current) return;
+    const doc = document as any;
+    const el = containerRef.current as any;
+
+    if (
+      !doc.fullscreenElement &&
+      !doc.webkitFullscreenElement &&
+      !doc.mozFullScreenElement &&
+      !doc.msFullscreenElement
+    ) {
+      if (el.requestFullscreen) {
+        el.requestFullscreen().catch(() => {});
+      } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen();
+      } else if (el.mozRequestFullScreen) {
+        el.mozRequestFullScreen();
+      } else if (el.msRequestFullscreen) {
+        el.msRequestFullscreen();
+      }
+    } else {
+      if (doc.exitFullscreen) {
+        doc.exitFullscreen().catch(() => {});
+      } else if (doc.webkitExitFullscreen) {
+        doc.webkitExitFullscreen();
+      } else if (doc.mozCancelFullScreen) {
+        doc.mozCancelFullScreen();
+      } else if (doc.msExitFullscreen) {
+        doc.msExitFullscreen();
+      }
+    }
+  }, []);
+
+  // Listen to fullscreen changes across browsers
+  useEffect(() => {
+    const handleFsChange = () => {
+      const doc = document as any;
+      setIsFullscreen(
+        !!(
+          doc.fullscreenElement ||
+          doc.webkitFullscreenElement ||
+          doc.mozFullScreenElement ||
+          doc.msFullscreenElement
+        )
+      );
+    };
+
+    document.addEventListener("fullscreenchange", handleFsChange);
+    document.addEventListener("webkitfullscreenchange", handleFsChange);
+    document.addEventListener("mozfullscreenchange", handleFsChange);
+    document.addEventListener("MSFullscreenChange", handleFsChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFsChange);
+      document.removeEventListener("webkitfullscreenchange", handleFsChange);
+      document.removeEventListener("mozfullscreenchange", handleFsChange);
+      document.removeEventListener("MSFullscreenChange", handleFsChange);
+    };
+  }, []);
+
+  // Handle Picture-in-Picture
   const togglePiP = async () => {
     if (!videoRef.current) return;
     try {
       if (document.pictureInPictureElement) {
         await document.exitPictureInPicture();
-      } else {
+        setIsPiP(false);
+      } else if (document.pictureInPictureEnabled) {
         await videoRef.current.requestPictureInPicture();
+        setIsPiP(true);
+      } else {
+        alert("Browser Anda tidak mendukung Picture-in-Picture.");
       }
     } catch (err) {
-      console.warn("PiP not supported or rejected", err);
+      console.warn("PiP error", err);
     }
   };
+
+  // PiP event listeners
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleEnterPiP = () => setIsPiP(true);
+    const handleLeavePiP = () => setIsPiP(false);
+
+    video.addEventListener("enterpictureinpicture", handleEnterPiP);
+    video.addEventListener("leavepictureinpicture", handleLeavePiP);
+
+    return () => {
+      video.removeEventListener("enterpictureinpicture", handleEnterPiP);
+      video.removeEventListener("leavepictureinpicture", handleLeavePiP);
+    };
+  }, []);
 
   // Video event handlers
   const handleTimeUpdate = () => {
@@ -416,6 +488,7 @@ export default function AnimePlayer({
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onClick={togglePlay}
+        onDoubleClick={toggleFullscreen}
         className="w-full h-full object-contain cursor-pointer"
         playsInline
       />
@@ -842,8 +915,12 @@ export default function AnimePlayer({
             {/* Picture-in-Picture */}
             <button
               onClick={togglePiP}
-              className="p-2 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
-              title="Jendela Mini (Picture-in-Picture)"
+              className={`p-2 rounded-full transition-colors cursor-pointer ${
+                isPiP
+                  ? "bg-red-600 text-white shadow"
+                  : "hover:bg-white/20 text-white"
+              }`}
+              title={isPiP ? "Keluar Jendela Mini" : "Jendela Mini (Picture-in-Picture)"}
             >
               <Tv className="w-5 h-5" />
             </button>
