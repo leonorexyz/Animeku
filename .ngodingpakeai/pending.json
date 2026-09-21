@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "939456f394c3a02967c22e65fc5921d5a23d8a72",
+  "generatedForCommit": "17ec0499a102b576c541d1355abe8765592b4446",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -75,6 +75,12 @@
       "size": 11
     },
     {
+      "path": "src/app/api/anime/[id]/episodes/route.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 1053
+    },
+    {
       "path": "src/app/api/anime/[id]/progress/route.ts",
       "reason": "needs_summary",
       "language": "typescript",
@@ -91,6 +97,12 @@
       "reason": "needs_summary",
       "language": "typescript",
       "size": 4750
+    },
+    {
+      "path": "src/app/api/episodes/[id]/route.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 3913
     },
     {
       "path": "src/app/api/featured/route.ts",
@@ -208,7 +220,7 @@
     },
     {
       "path": "src/db/migrate.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 1258
     },
@@ -220,7 +232,7 @@
     },
     {
       "path": "src/db/migrations/0001_dizzy_madame_masque.sql",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "sql",
       "size": 576
     },
@@ -232,19 +244,19 @@
     },
     {
       "path": "src/db/migrations/meta/0001_snapshot.json",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "json",
       "size": 22056
     },
     {
       "path": "src/db/migrations/meta/_journal.json",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "json",
       "size": 358
     },
     {
       "path": "src/db/schema.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 7445
     },
