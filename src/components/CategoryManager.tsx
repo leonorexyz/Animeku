@@ -147,7 +147,7 @@ export default function CategoryManager({
     );
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) {
       setFormError("Nama kategori/koleksi wajib diisi.");
@@ -156,6 +156,23 @@ export default function CategoryManager({
 
     if (editingId) {
       // Update existing
+      try {
+        await fetch(`/api/categories/${editingId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name.trim(),
+            type,
+            sortOrder,
+            description: description.trim(),
+            colorTheme,
+            animeIds: selectedAnimeIds,
+          }),
+        });
+      } catch (err) {
+        console.warn("Could not sync category update to API:", err);
+      }
+
       const updatedList = categories.map((cat) => {
         if (cat.id === editingId) {
           return {
@@ -176,8 +193,30 @@ export default function CategoryManager({
       showToast(`Kategori "${name.trim()}" berhasil diperbarui!`);
     } else {
       // Create new
+      let assignedId = `cat-${Date.now()}`;
+      try {
+        const res = await fetch("/api/categories", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name.trim(),
+            type,
+            sortOrder: Number(sortOrder) || categories.length + 1,
+            description: description.trim(),
+            colorTheme,
+            animeIds: selectedAnimeIds,
+          }),
+        });
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data?.id) assignedId = json.data.id;
+        }
+      } catch (err) {
+        console.warn("Could not sync category creation to API:", err);
+      }
+
       const newCategory: CategoryItem = {
-        id: `cat-${Date.now()}`,
+        id: assignedId,
         name: name.trim(),
         type,
         sortOrder: Number(sortOrder) || categories.length + 1,
@@ -195,7 +234,13 @@ export default function CategoryManager({
     handleCancelForm();
   };
 
-  const handleDelete = (id: string, catName: string) => {
+  const handleDelete = async (id: string, catName: string) => {
+    try {
+      await fetch(`/api/categories/${id}`, { method: "DELETE" });
+    } catch (err) {
+      console.warn("Could not sync category delete to API:", err);
+    }
+
     const updatedList = categories.filter((c) => c.id !== id);
     setCategories(updatedList);
     onDeleteCategory?.(id);
