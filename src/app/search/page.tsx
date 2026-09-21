@@ -8,6 +8,7 @@ import AnimeCard from "@/components/AnimeCard";
 import LiveSearchInput from "@/components/LiveSearchInput";
 import SearchFilters, { FilterState } from "@/components/SearchFilters";
 import SortControl from "@/components/SortControl";
+import SearchHistory from "@/components/SearchHistory";
 import {
   MOCK_FEATURED_ANIMES,
   MOCK_CONTINUE_WATCHING,
@@ -189,6 +190,9 @@ function SearchContent() {
             placeholder="Ketik judul anime, genre (misal: Action, Fantasy), atau kata kunci sinopsis..."
             showDropdown={true}
           />
+
+          {/* Search History & Trending Suggestions */}
+          <SearchHistory onSelectQuery={(selectedQuery) => setQuery(selectedQuery)} />
         </section>
 
         {/* Filter and Sorting Controls Component */}
