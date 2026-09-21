@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "9de195581701587edb0c985b99a2a4c65a63aaa8",
+  "generatedForCommit": "9f8cb41a90aad00992ca3c003f234a9f8b4728ef",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -73,6 +73,12 @@
       "reason": "needs_summary",
       "language": "markdown",
       "size": 11
+    },
+    {
+      "path": "src/app/add-source/page.tsx",
+      "reason": "new",
+      "language": "typescript",
+      "size": 46
     },
     {
       "path": "src/app/anime/[id]/page.tsx",
@@ -166,7 +172,7 @@
     },
     {
       "path": "src/app/api/search/history/route.ts",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 5677
     },
@@ -211,6 +217,12 @@
       "reason": "needs_summary",
       "language": "typescript",
       "size": 12592
+    },
+    {
+      "path": "src/app/sources/page.tsx",
+      "reason": "new",
+      "language": "typescript",
+      "size": 30050
     },
     {
       "path": "src/components/AnimeCard.tsx",
@@ -292,9 +304,9 @@
     },
     {
       "path": "src/components/Navbar.tsx",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 10760
+      "size": 11618
     },
     {
       "path": "src/components/PlayAndResumeButtons.tsx",
@@ -376,7 +388,7 @@
     },
     {
       "path": "src/db/migrations/0003_add_search_history_indexes.sql",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "sql",
       "size": 202
     },
@@ -400,7 +412,7 @@
     },
     {
       "path": "src/db/schema.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 8095
     },
@@ -430,7 +442,7 @@
     },
     {
       "path": "src/utils/searchHistory.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 3384
     },

@@ -4,6 +4,7 @@ import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import LocalFileImporter from "@/components/LocalFileImporter";
 import {
   HardDrive,
   Cloud,
@@ -290,15 +291,12 @@ export default function AddSourcePage() {
 
             {/* TAB 1: FILE & FOLDER LOKAL */}
             {activeTab === "local" && (
-              <form
-                onSubmit={handleAddLocalSource}
-                className="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-6 space-y-6 backdrop-blur-sm animate-in fade-in duration-200"
-              >
+              <div className="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-6 space-y-6 backdrop-blur-sm animate-in fade-in duration-200">
                 <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
                   <div className="flex items-center gap-2">
                     <HardDrive className="w-5 h-5 text-red-500" />
                     <h2 className="text-lg font-bold text-white">
-                      Pindai File atau Folder Komputer
+                      Impor File & Folder Lokal
                     </h2>
                   </div>
                   <span className="text-xs text-zinc-400 bg-zinc-800/80 px-2.5 py-1 rounded-full border border-white/5">
@@ -306,108 +304,22 @@ export default function AddSourcePage() {
                   </span>
                 </div>
 
-                {/* Directory Input */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-zinc-300 uppercase tracking-wider block">
-                    Direktori Folder Koleksi Anime
-                  </label>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      value={localPath}
-                      onChange={(e) => setLocalPath(e.target.value)}
-                      placeholder="Misal: D:/Anime/Series atau C:/Users/Videos"
-                      className="flex-1 bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-200 focus:border-red-500 outline-none transition-colors"
-                    />
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      multiple
-                      accept="video/mp4,video/x-matroska,video/webm,video/*"
-                      onChange={handleSelectFiles}
-                      className="hidden"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      className="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold text-xs rounded-xl border border-white/10 hover:border-white/20 transition-all cursor-pointer whitespace-nowrap"
-                    >
-                      Pilih Berkas...
-                    </button>
-                  </div>
-                  <p className="text-[11px] text-zinc-500 flex items-center gap-1.5">
-                    <Info className="w-3.5 h-3.5" />
-                    Animeku akan mengenali pola nomor episode dan resolusi video secara otomatis.
-                  </p>
-                </div>
-
-                {/* Detected Files Preview */}
-                {detectedLocalFiles.length > 0 && (
-                  <div className="space-y-2.5">
-                    <div className="flex items-center justify-between text-xs font-bold text-zinc-400">
-                      <span>File Terdeteksi ({detectedLocalFiles.length})</span>
-                      <span className="text-emerald-400">Siap Ditambahkan</span>
-                    </div>
-                    <div className="max-h-48 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
-                      {detectedLocalFiles.map((file, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-center justify-between p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/80 text-xs text-zinc-300"
-                        >
-                          <div className="flex items-center gap-2.5 truncate max-w-[80%]">
-                            <FileVideo className="w-4 h-4 text-red-400 shrink-0" />
-                            <span className="truncate font-medium">{file.name}</span>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
-                            <span className="text-[10px] bg-red-600/20 text-red-400 px-1.5 py-0.5 rounded font-bold">
-                              Ep {file.ep}
-                            </span>
-                            <span className="text-[11px] text-zinc-500">{file.size}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Auto Match Metadata Toggle */}
-                <div className="flex items-center justify-between p-3.5 rounded-xl bg-zinc-950/60 border border-zinc-800/80">
-                  <div className="space-y-0.5">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-white">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                      <span>Rapikan Judul & Poster Otomatis</span>
-                    </div>
-                    <p className="text-[11px] text-zinc-400">
-                      Cari sinopsis, poster resolusi tinggi, dan genre anime dari basis data daring.
-                    </p>
-                  </div>
-                  <input
-                    type="checkbox"
-                    checked={autoMatchMetadata}
-                    onChange={(e) => setAutoMatchMetadata(e.target.checked)}
-                    className="w-4 h-4 accent-red-600 rounded cursor-pointer"
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-extrabold rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>Memproses & Menambahkan File...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Plus className="w-4 h-4" />
-                      <span>Simpan & Tambahkan ke Koleksi Saya</span>
-                    </>
-                  )}
-                </button>
-              </form>
+                <LocalFileImporter
+                  onImportComplete={(imported) => {
+                    const newSource: ConnectedSourceItem = {
+                      id: `src-${Date.now()}`,
+                      name: `Koleksi Lokal: ${imported.animeTitle}`,
+                      type: "local",
+                      details: `${imported.files.length} episode berhasil diimpor`,
+                      itemCount: 1,
+                      lastSynced: "Baru saja",
+                      status: "active",
+                    };
+                    setSources((prev) => [newSource, ...prev]);
+                    showToast(`Serial "${imported.animeTitle}" (${imported.files.length} Ep) berhasil ditambahkan ke katalog!`);
+                  }}
+                />
+              </div>
             )}
 
             {/* TAB 2: GOOGLE DRIVE */}
