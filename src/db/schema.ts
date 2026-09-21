@@ -21,6 +21,7 @@ export const anime = sqliteTable("anime", {
   coverUrl: text("cover_url").notNull(),
   status: text("status", { enum: ["belum", "sedang", "tamat"] }).notNull().default("belum"),
   isFeatured: integer("is_featured", { mode: "boolean" }).notNull().default(false),
+  isFavorite: integer("is_favorite", { mode: "boolean" }).notNull().default(false),
   rating: text("rating"),
   totalEpisodes: integer("total_episodes").default(12),
   genres: text("genres"),

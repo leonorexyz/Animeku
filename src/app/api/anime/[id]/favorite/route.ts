@@ -84,6 +84,16 @@ export async function POST(req: Request, { params }: RouteParams) {
           .delete(schema.favorites)
           .where(eq(schema.favorites.id, existing.id));
       }
+
+      try {
+        await db
+          .update(schema.anime)
+          .set({ isFavorite: false })
+          .where(eq(schema.anime.id, animeId));
+      } catch (err) {
+        console.error("Error updating anime isFavorite:", err);
+      }
+
       return NextResponse.json({
         success: true,
         animeId,
@@ -101,6 +111,15 @@ export async function POST(req: Request, { params }: RouteParams) {
         animeId,
         createdAt: now,
       });
+    }
+
+    try {
+      await db
+        .update(schema.anime)
+        .set({ isFavorite: true })
+        .where(eq(schema.anime.id, animeId));
+    } catch (err) {
+      console.error("Error updating anime isFavorite:", err);
     }
 
     return NextResponse.json({
@@ -138,6 +157,15 @@ export async function DELETE(req: Request, { params }: RouteParams) {
           eq(schema.favorites.animeId, animeId)
         )
       );
+
+    try {
+      await db
+        .update(schema.anime)
+        .set({ isFavorite: false })
+        .where(eq(schema.anime.id, animeId));
+    } catch (err) {
+      console.error("Error updating anime isFavorite:", err);
+    }
 
     return NextResponse.json({
       success: true,

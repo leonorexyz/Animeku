@@ -33,6 +33,11 @@ export async function GET(req: Request) {
     }
 
     // Ambil seluruh daftar anime favorit pengguna beserta informasi animenya
+    const { searchParams: queryParams } = new URL(req.url);
+    const search = queryParams.get("q") || queryParams.get("search");
+    const status = queryParams.get("status");
+    const sort = queryParams.get("sort") || "recent"; // "recent" | "title" | "year" | "rating"
+
     const favoriteRows = await db
       .select({
         favoriteId: schema.favorites.id,
@@ -45,7 +50,32 @@ export async function GET(req: Request) {
       .where(eq(schema.favorites.userId, DEFAULT_USER_ID))
       .orderBy(desc(schema.favorites.createdAt));
 
-    const data = favoriteRows.map((row) => ({
+    let filteredRows = favoriteRows;
+
+    if (search) {
+      const q = search.toLowerCase();
+      filteredRows = filteredRows.filter(
+        (row) =>
+          row.anime.title.toLowerCase().includes(q) ||
+          (row.anime.synopsis && row.anime.synopsis.toLowerCase().includes(q))
+      );
+    }
+
+    if (status) {
+      filteredRows = filteredRows.filter((row) => row.anime.status === status);
+    }
+
+    if (sort === "title") {
+      filteredRows.sort((a, b) => a.anime.title.localeCompare(b.anime.title));
+    } else if (sort === "year") {
+      filteredRows.sort((a, b) => (b.anime.year || 0) - (a.anime.year || 0));
+    } else if (sort === "rating") {
+      filteredRows.sort(
+        (a, b) => parseFloat(b.anime.rating || "0") - parseFloat(a.anime.rating || "0")
+      );
+    }
+
+    const data = filteredRows.map((row) => ({
       favoriteId: row.favoriteId,
       animeId: row.animeId,
       createdAt: row.createdAt,
@@ -58,6 +88,9 @@ export async function GET(req: Request) {
         coverUrl: row.anime.coverUrl,
         status: row.anime.status,
         rating: row.anime.rating,
+        isFavorite: true,
+        genres: row.anime.genres,
+        totalEpisodes: row.anime.totalEpisodes,
       },
     }));
 
@@ -106,6 +139,16 @@ export async function POST(req: Request) {
           .delete(schema.favorites)
           .where(eq(schema.favorites.id, existing.id));
       }
+
+      try {
+        await db
+          .update(schema.anime)
+          .set({ isFavorite: false })
+          .where(eq(schema.anime.id, animeId));
+      } catch (err) {
+        console.error("Error updating anime isFavorite:", err);
+      }
+
       return NextResponse.json({
         success: true,
         isFavorite: false,
@@ -123,6 +166,15 @@ export async function POST(req: Request) {
         animeId,
         createdAt: now,
       });
+    }
+
+    try {
+      await db
+        .update(schema.anime)
+        .set({ isFavorite: true })
+        .where(eq(schema.anime.id, animeId));
+    } catch (err) {
+      console.error("Error updating anime isFavorite:", err);
     }
 
     return NextResponse.json({
@@ -169,6 +221,15 @@ export async function DELETE(req: Request) {
           eq(schema.favorites.animeId, animeId)
         )
       );
+
+    try {
+      await db
+        .update(schema.anime)
+        .set({ isFavorite: false })
+        .where(eq(schema.anime.id, animeId));
+    } catch (err) {
+      console.error("Error updating anime isFavorite:", err);
+    }
 
     return NextResponse.json({
       success: true,
