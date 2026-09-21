@@ -20,6 +20,7 @@ import {
   X,
   Play,
 } from "lucide-react";
+import LocalVideoPreviewModal from "@/components/LocalVideoPreviewModal";
 
 export interface ParsedVideoFile {
   id: string;
@@ -102,6 +103,7 @@ export default function LocalFileImporter({
   const [targetTitle, setTargetTitle] = useState("");
   const [isImporting, setIsImporting] = useState(false);
   const [importSuccess, setImportSuccess] = useState(false);
+  const [previewingFile, setPreviewingFile] = useState<File | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const folderInputRef = useRef<HTMLInputElement>(null);
@@ -406,6 +408,16 @@ export default function LocalFileImporter({
 
                   <button
                     type="button"
+                    onClick={() => setPreviewingFile(item.file)}
+                    className="flex items-center gap-1.5 px-2.5 py-1 text-zinc-300 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 rounded-lg text-[11px] font-medium transition-all cursor-pointer"
+                    title="Pratinjau Video & Ambil Thumbnail"
+                  >
+                    <Play className="w-3 h-3 text-red-500 fill-red-500" />
+                    <span>Pratinjau</span>
+                  </button>
+
+                  <button
+                    type="button"
                     onClick={() => handleRemoveFile(item.id)}
                     className="p-1.5 text-zinc-500 hover:text-red-400 hover:bg-zinc-800 rounded-lg transition-colors cursor-pointer"
                     title="Hapus dari daftar"
@@ -442,6 +454,15 @@ export default function LocalFileImporter({
             )}
           </button>
         </div>
+      )}
+
+      {/* Local Video Preview Modal */}
+      {previewingFile && (
+        <LocalVideoPreviewModal
+          file={previewingFile}
+          isOpen={!!previewingFile}
+          onClose={() => setPreviewingFile(null)}
+        />
       )}
     </div>
   );
