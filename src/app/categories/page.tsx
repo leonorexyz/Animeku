@@ -19,7 +19,10 @@ import {
   ChevronRight,
   X,
   RefreshCw,
+  SlidersHorizontal,
+  Grid3X3,
 } from "lucide-react";
+import CategoryManager, { CategoryItem } from "@/components/CategoryManager";
 
 interface CategoryWithMeta {
   id: string;
@@ -136,6 +139,7 @@ export default function CategoriesPage() {
   const [selectedSort, setSelectedSort] = useState<"order" | "name" | "count">("order");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<"browse" | "manage">("browse");
 
   // Form State: Create Category
   const [newCatName, setNewCatName] = useState("");
@@ -279,6 +283,19 @@ export default function CategoriesPage() {
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
+              onClick={() => setViewMode(viewMode === "browse" ? "manage" : "browse")}
+              className={`flex items-center gap-2 px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-lg cursor-pointer border ${
+                viewMode === "manage"
+                  ? "bg-red-600 border-red-500 text-white shadow-red-600/30"
+                  : "bg-zinc-900/80 hover:bg-zinc-800 border-zinc-800 text-zinc-300 hover:text-white"
+              }`}
+            >
+              <SlidersHorizontal className="w-4 h-4 text-red-500" />
+              <span>{viewMode === "manage" ? "Tampilan Katalog" : "Kelola Daftar & Form"}</span>
+            </button>
+
+            <button
+              type="button"
               onClick={() => setIsModalOpen(true)}
               className="flex items-center gap-2 px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-lg hover:shadow-red-600/30 hover:scale-105 cursor-pointer"
             >
@@ -391,7 +408,14 @@ export default function CategoriesPage() {
 
       {/* Main Categories Sections List */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-20 space-y-12">
-        {filteredCategories.length === 0 ? (
+        {viewMode === "manage" ? (
+          <CategoryManager
+            availableAnime={MOCK_CATALOG_DATA}
+            onSaveCategory={(cat) => {
+              showToast(`Kategori "${cat.name}" berhasil disimpan!`);
+            }}
+          />
+        ) : filteredCategories.length === 0 ? (
           <div className="py-20 text-center bg-zinc-900/30 border border-zinc-800/60 rounded-3xl p-8 max-w-lg mx-auto">
             <Compass className="w-12 h-12 text-zinc-600 mx-auto mb-3" />
             <h3 className="text-lg font-bold text-white">Tidak ada kategori ditemukan</h3>
