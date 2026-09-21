@@ -126,7 +126,8 @@ export default function PlayAndResumeButtons({
         )}
 
         {/* My List / Favorit */}
-        <FavoriteButton animeId={animeId} animeTitle={animeTitle} size="md" />
+        <FavoriteButton animeId={animeId} animeTitle={animeTitle} size="md" variant="netflix-list" showLabel={true} />
+        <FavoriteButton animeId={animeId} animeTitle={animeTitle} size="md" variant="heart" showLabel={false} />
 
         {/* Share Button */}
         <button

@@ -80,8 +80,16 @@ export default function AnimeCard({
           </span>
         </div>
 
-        {/* Resolution / Quality Badge */}
-        <div className="absolute top-2 right-2 z-10">
+        {/* Resolution / Quality Badge & Quick Favorite Toggle */}
+        <div className="absolute top-2 right-2 z-10 flex items-center gap-1.5">
+          <FavoriteButton
+            animeId={anime.id}
+            animeTitle={anime.title}
+            variant="heart"
+            size="sm"
+            showLabel={false}
+            className="!p-1.5 !rounded-full !bg-black/60 hover:!bg-black/80 !border-white/10"
+          />
           <span className="bg-black/60 backdrop-blur-md text-zinc-300 text-[9px] px-1.5 py-0.5 rounded border border-white/10 font-bold tracking-wider">
             1080P
           </span>

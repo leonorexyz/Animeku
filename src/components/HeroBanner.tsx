@@ -14,6 +14,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Anime } from "@/types/anime";
+import FavoriteButton from "@/components/FavoriteButton";
 
 interface HeroBannerProps {
   anime?: Anime;
@@ -32,7 +33,6 @@ export default function HeroBanner({
   const featuredList = animes.length > 0 ? animes : anime ? [anime] : [];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
-  const [isFavorited, setIsFavorited] = useState<Record<string, boolean>>({});
 
   const currentAnime = featuredList[currentIndex];
 
@@ -55,10 +55,6 @@ export default function HeroBanner({
           100
       )
     : 0;
-
-  const toggleFavorite = (id: string) => {
-    setIsFavorited((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
 
   return (
     <section className="relative w-full h-[75vh] min-h-[540px] max-h-[760px] flex items-end overflow-hidden">
@@ -172,25 +168,22 @@ export default function HeroBanner({
               Detail Info
             </button>
 
-            <button
-              onClick={() => toggleFavorite(currentAnime.id)}
-              className={`p-2.5 rounded-md backdrop-blur-sm border transition-all cursor-pointer ${
-                isFavorited[currentAnime.id]
-                  ? "bg-emerald-600/90 border-emerald-500 text-white"
-                  : "bg-zinc-900/80 hover:bg-zinc-800 border-white/15 text-zinc-300 hover:text-white"
-              }`}
-              title={
-                isFavorited[currentAnime.id]
-                  ? "Tersimpan di Favorit"
-                  : "Tambah ke Favorit"
-              }
-            >
-              {isFavorited[currentAnime.id] ? (
-                <Check className="w-5 h-5" />
-              ) : (
-                <Plus className="w-5 h-5" />
-              )}
-            </button>
+            <FavoriteButton
+              animeId={currentAnime.id}
+              animeTitle={currentAnime.title}
+              size="md"
+              variant="netflix-list"
+              showLabel={true}
+              className="!py-2.5 !rounded-md"
+            />
+            <FavoriteButton
+              animeId={currentAnime.id}
+              animeTitle={currentAnime.title}
+              size="md"
+              variant="heart"
+              showLabel={false}
+              className="!p-2.5 !rounded-md"
+            />
           </div>
         </div>
       </div>

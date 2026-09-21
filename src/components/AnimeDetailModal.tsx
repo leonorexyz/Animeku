@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { X, Play, Plus, Star, Calendar, Clock, Film, FolderHeart } from "lucide-react";
 import { Anime } from "@/types/anime";
 import AnimeCategoryPickerModal from "@/components/AnimeCategoryPickerModal";
+import FavoriteButton from "@/components/FavoriteButton";
 
 interface AnimeDetailModalProps {
   anime: Anime | null;
@@ -75,16 +76,35 @@ export default function AnimeDetailModal({
               </div>
             </div>
 
-            <button
-              onClick={() => {
-                onClose();
-                onPlay?.(anime);
-              }}
-              className="flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-lg font-bold shadow-lg shadow-red-600/30 transition-transform hover:scale-105"
-            >
-              <Play className="w-4 h-4 fill-white" />
-              Putar
-            </button>
+            <div className="flex items-center gap-2.5">
+              <button
+                onClick={() => {
+                  onClose();
+                  onPlay?.(anime);
+                }}
+                className="flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-lg font-bold shadow-lg shadow-red-600/30 transition-transform hover:scale-105 cursor-pointer"
+              >
+                <Play className="w-4 h-4 fill-white" />
+                Putar
+              </button>
+
+              <FavoriteButton
+                animeId={anime.id}
+                animeTitle={anime.title}
+                size="md"
+                variant="netflix-list"
+                showLabel={true}
+              />
+
+              <FavoriteButton
+                animeId={anime.id}
+                animeTitle={anime.title}
+                size="md"
+                variant="heart"
+                showLabel={false}
+                className="!p-2.5 !rounded-lg"
+              />
+            </div>
           </div>
         </div>
 
