@@ -23,6 +23,8 @@ import {
   Grid3X3,
 } from "lucide-react";
 import CategoryManager, { CategoryItem } from "@/components/CategoryManager";
+import WatchStatusFilter, { FilterWatchStatus } from "@/components/WatchStatusFilter";
+import { getAnimeWatchStatus } from "@/utils/watchStatus";
 
 interface CategoryWithMeta {
   id: string;
@@ -135,6 +137,7 @@ const INITIAL_MOCK_SECTIONS: CategoryWithMeta[] = [
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<CategoryWithMeta[]>(INITIAL_MOCK_SECTIONS);
   const [activeTab, setActiveTab] = useState<"all" | "category" | "genre" | "collection">("all");
+  const [watchStatusFilter, setWatchStatusFilter] = useState<FilterWatchStatus>("all");
   const [searchFilter, setSearchFilter] = useState("");
   const [selectedSort, setSelectedSort] = useState<"order" | "name" | "count">("order");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -151,6 +154,39 @@ export default function CategoriesPage() {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3000);
   };
+
+  // Unique anime list across all categories
+  const allUniqueAnime = React.useMemo(() => {
+    const map = new Map<string, Anime>();
+    categories.forEach((cat) => {
+      cat.items.forEach((item) => {
+        if (item && item.id && !map.has(item.id)) {
+          map.set(item.id, item);
+        }
+      });
+    });
+    return Array.from(map.values());
+  }, [categories]);
+
+  const watchCounts = React.useMemo(() => {
+    let watching = 0;
+    let completed = 0;
+    let unwatched = 0;
+
+    allUniqueAnime.forEach((item) => {
+      const ws = getAnimeWatchStatus(item.id, item.progress, item.status);
+      if (ws.status === "watching") watching++;
+      else if (ws.status === "completed") completed++;
+      else unwatched++;
+    });
+
+    return {
+      all: allUniqueAnime.length,
+      watching,
+      completed,
+      unwatched,
+    };
+  }, [allUniqueAnime]);
 
   // Try fetching API data, falling back smoothly to mock data
   useEffect(() => {
@@ -186,30 +222,42 @@ export default function CategoriesPage() {
     fetchApiCategories();
   }, []);
 
-  // Filter based on tab & search query
+  // Filter based on tab, watch status & search query
   const filteredCategories = categories
     .filter((cat) => {
       if (activeTab === "all") return true;
       return cat.type === activeTab;
     })
-    .filter((cat) => {
-      if (!searchFilter.trim()) return true;
-      const query = searchFilter.toLowerCase();
-      const matchName = cat.name.toLowerCase().includes(query);
-      const matchItem = cat.items.some((item) =>
-        item.title.toLowerCase().includes(query)
-      );
-      return matchName || matchItem;
+    .map((cat) => {
+      const matchingItems = cat.items.filter((item) => {
+        // Watch Status filter
+        if (watchStatusFilter !== "all") {
+          const ws = getAnimeWatchStatus(item.id, item.progress, item.status);
+          if (ws.status !== watchStatusFilter) return false;
+        }
+        // Search query
+        if (searchFilter.trim()) {
+          const query = searchFilter.toLowerCase();
+          const matchName = cat.name.toLowerCase().includes(query);
+          const matchTitle = item.title.toLowerCase().includes(query);
+          return matchName || matchTitle;
+        }
+        return true;
+      });
+
+      return {
+        ...cat,
+        items: matchingItems,
+      };
     })
+    .filter((cat) => cat.items.length > 0)
     .sort((a, b) => {
       if (selectedSort === "name") return a.name.localeCompare(b.name);
       if (selectedSort === "count") return b.items.length - a.items.length;
       return a.sortOrder - b.sortOrder;
     });
 
-  const totalAnimeCount = Array.from(
-    new Set(categories.flatMap((c) => c.items.map((i) => i.id)))
-  ).length;
+  const totalAnimeCount = allUniqueAnime.length;
 
   const handleCreateCategory = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -403,6 +451,25 @@ export default function CategoriesPage() {
               <option value="count">Urutkan: Jumlah Judul</option>
             </select>
           </div>
+        </div>
+
+        {/* Watch Status Filter Row */}
+        <div className="mt-4 pt-4 border-t border-zinc-800/60 flex items-center justify-between flex-wrap gap-3">
+          <WatchStatusFilter
+            activeStatus={watchStatusFilter}
+            onChange={setWatchStatusFilter}
+            counts={watchCounts}
+            size="sm"
+          />
+          {watchStatusFilter !== "all" && (
+            <button
+              type="button"
+              onClick={() => setWatchStatusFilter("all")}
+              className="text-xs text-red-400 hover:text-red-300 font-semibold cursor-pointer transition-colors"
+            >
+              Reset Status Tontonan
+            </button>
+          )}
         </div>
       </section>
 

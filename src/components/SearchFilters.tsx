@@ -18,7 +18,15 @@ export interface FilterState {
   year: string;
   status: string;
   sortBy: string;
+  watchStatus?: string;
 }
+
+export const WATCH_STATUS_OPTIONS = [
+  { label: "Semua Tontonan", value: "all" },
+  { label: "Sedang Ditonton", value: "watching" },
+  { label: "Selesai Ditonton", value: "completed" },
+  { label: "Belum Ditonton", value: "unwatched" },
+];
 
 export const GENRE_OPTIONS = [
   "Semua",
@@ -89,6 +97,7 @@ export default function SearchFilters({
     filters.category !== "all" ||
     filters.year !== "all" ||
     filters.status !== "all" ||
+    (!!filters.watchStatus && filters.watchStatus !== "all") ||
     filters.sortBy !== "rating-desc";
 
   const handleUpdate = (key: keyof FilterState, val: string) => {
@@ -193,6 +202,19 @@ export default function SearchFilters({
                   </button>
                 </span>
               )}
+              {filters.watchStatus && filters.watchStatus !== "all" && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs">
+                  Tontonan:{" "}
+                  {WATCH_STATUS_OPTIONS.find((w) => w.value === filters.watchStatus)
+                    ?.label || filters.watchStatus}
+                  <button
+                    onClick={() => handleUpdate("watchStatus", "all")}
+                    className="hover:text-white cursor-pointer ml-0.5"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              )}
             </div>
           )}
 
@@ -242,8 +264,8 @@ export default function SearchFilters({
             </div>
           </div>
 
-          {/* 3. Kategori, Status & Sort Selector Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-zinc-800/60">
+          {/* 3. Kategori, Status, Status Tontonan & Sort Selector Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2 border-t border-zinc-800/60">
             {/* Kategori Selector */}
             <div className="space-y-1">
               <label className="text-xs text-zinc-400 font-medium flex items-center gap-1">
@@ -263,7 +285,7 @@ export default function SearchFilters({
               </select>
             </div>
 
-            {/* Status Selector */}
+            {/* Status Tayang Selector */}
             <div className="space-y-1">
               <label className="text-xs text-zinc-400 font-medium">
                 Status Tayang
@@ -276,6 +298,24 @@ export default function SearchFilters({
                 {STATUS_OPTIONS.map((st) => (
                   <option key={st.value} value={st.value}>
                     {st.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Status Tontonan Selector */}
+            <div className="space-y-1">
+              <label className="text-xs text-zinc-400 font-medium">
+                Status Tontonan
+              </label>
+              <select
+                value={filters.watchStatus || "all"}
+                onChange={(e) => handleUpdate("watchStatus", e.target.value)}
+                className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:border-red-500 outline-none cursor-pointer"
+              >
+                {WATCH_STATUS_OPTIONS.map((ws) => (
+                  <option key={ws.value} value={ws.value}>
+                    {ws.label}
                   </option>
                 ))}
               </select>

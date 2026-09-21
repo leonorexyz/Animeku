@@ -18,6 +18,7 @@ import {
   MOCK_CATALOG_DATA,
 } from "@/data/mockAnime";
 import { Anime } from "@/types/anime";
+import { getAnimeWatchStatus } from "@/utils/watchStatus";
 import {
   Search,
   SlidersHorizontal,
@@ -41,6 +42,7 @@ function SearchContent() {
     category: "all",
     year: "all",
     status: "all",
+    watchStatus: "all",
     sortBy: "rating-desc",
   });
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -114,9 +116,17 @@ function SearchContent() {
           }
         }
 
-        // Status filter
+        // Status Tayang filter
         if (filters.status !== "all") {
           if (item.status !== filters.status) {
+            return false;
+          }
+        }
+
+        // Status Tontonan filter (Belum Ditonton, Sedang Ditonton, Selesai Ditonton)
+        if (filters.watchStatus && filters.watchStatus !== "all") {
+          const ws = getAnimeWatchStatus(item.id, item.progress, item.status);
+          if (ws.status !== filters.watchStatus) {
             return false;
           }
         }
@@ -148,6 +158,7 @@ function SearchContent() {
       category: "all",
       year: "all",
       status: "all",
+      watchStatus: "all",
       sortBy: "rating-desc",
     });
   };

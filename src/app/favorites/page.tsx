@@ -20,6 +20,8 @@ import {
   toggleFavoriteAnime,
   syncFavoritesFromApi,
 } from "@/utils/favorites";
+import WatchStatusFilter, { FilterWatchStatus } from "@/components/WatchStatusFilter";
+import { getAnimeWatchStatus } from "@/utils/watchStatus";
 import {
   Heart,
   FolderHeart,
@@ -48,6 +50,7 @@ export default function FavoritesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState<string>("all");
   const [selectedStatus, setSelectedStatus] = useState<"all" | "sedang" | "tamat">("all");
+  const [selectedWatchStatus, setSelectedWatchStatus] = useState<FilterWatchStatus>("all");
   const [sortBy, setSortBy] = useState<"recent" | "rating" | "title" | "year">("recent");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
@@ -112,6 +115,26 @@ export default function FavoritesPage() {
     new Set(favoriteAnimes.flatMap((a) => a.genres || []))
   );
 
+  const favoriteWatchCounts = React.useMemo(() => {
+    let watching = 0;
+    let completed = 0;
+    let unwatched = 0;
+
+    favoriteAnimes.forEach((a) => {
+      const ws = getAnimeWatchStatus(a.id, a.progress, a.status);
+      if (ws.status === "watching") watching++;
+      else if (ws.status === "completed") completed++;
+      else unwatched++;
+    });
+
+    return {
+      all: favoriteAnimes.length,
+      watching,
+      completed,
+      unwatched,
+    };
+  }, [favoriteAnimes]);
+
   // Filter and sort items
   const filteredAnimes = favoriteAnimes
     .filter((a) => {
@@ -129,6 +152,11 @@ export default function FavoritesPage() {
 
       if (selectedStatus !== "all") {
         if (a.status !== selectedStatus) return false;
+      }
+
+      if (selectedWatchStatus !== "all") {
+        const ws = getAnimeWatchStatus(a.id, a.progress, a.status);
+        if (ws.status !== selectedWatchStatus) return false;
       }
 
       return true;
@@ -333,6 +361,25 @@ export default function FavoritesPage() {
                   <List className="w-3.5 h-3.5" />
                 </button>
               </div>
+            </div>
+
+            {/* Watch Status Filter Row */}
+            <div className="pt-3 border-t border-zinc-800/60 flex items-center justify-between flex-wrap gap-3">
+              <WatchStatusFilter
+                activeStatus={selectedWatchStatus}
+                onChange={setSelectedWatchStatus}
+                counts={favoriteWatchCounts}
+                size="sm"
+              />
+              {selectedWatchStatus !== "all" && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedWatchStatus("all")}
+                  className="text-xs text-red-400 hover:text-red-300 font-semibold cursor-pointer transition-colors"
+                >
+                  Reset Status Tontonan
+                </button>
+              )}
             </div>
           </div>
         )}
