@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "1abca256da758b03fb3c2a7d28e37e4669752261",
+  "generatedForCommit": "9de195581701587edb0c985b99a2a4c65a63aaa8",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -165,8 +165,14 @@
       "size": 5671
     },
     {
+      "path": "src/app/api/search/history/route.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 5677
+    },
+    {
       "path": "src/app/api/search/route.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 7744
     },
@@ -322,7 +328,7 @@
     },
     {
       "path": "src/components/SortControl.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 4856
     },
@@ -369,6 +375,12 @@
       "size": 566
     },
     {
+      "path": "src/db/migrations/0003_add_search_history_indexes.sql",
+      "reason": "new",
+      "language": "sql",
+      "size": 202
+    },
+    {
       "path": "src/db/migrations/meta/0000_snapshot.json",
       "reason": "needs_summary",
       "language": "json",
@@ -388,9 +400,9 @@
     },
     {
       "path": "src/db/schema.ts",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 7943
+      "size": 8095
     },
     {
       "path": "src/db/seed.ts",
@@ -418,13 +430,13 @@
     },
     {
       "path": "src/utils/searchHistory.ts",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 2159
+      "size": 3384
     },
     {
       "path": "src/utils/searchSorting.ts",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 3500
     },

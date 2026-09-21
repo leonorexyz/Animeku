@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   Layers,
+  Plus,
 } from "lucide-react";
 import LiveSearchInput from "@/components/LiveSearchInput";
 
@@ -110,16 +111,27 @@ export default function Navbar() {
                 <FolderHeart className="w-4 h-4 text-zinc-400" />
                 Koleksi
               </Link>
+              <Link
+                href="/sources"
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
+              >
+                <Plus className="w-3.5 h-3.5 text-red-500" />
+                Tambah Sumber
+              </Link>
             </nav>
           </div>
 
           {/* Right: Search, Source status, Profile */}
           <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Active Source indicator */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-xs text-zinc-300">
+            <Link
+              href="/sources"
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-300 hover:text-white transition-colors cursor-pointer"
+              title="Kelola Sumber Anime"
+            >
               <HardDrive className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Katalog Pribadi</span>
-            </div>
+              <span>Sumber Terhubung</span>
+            </Link>
 
             {/* Search bar with live suggestions */}
             <div className="relative flex items-center">
@@ -241,6 +253,14 @@ export default function Navbar() {
                 >
                   <FolderHeart className="w-4 h-4 text-zinc-400" />
                   Koleksi Favorit
+                </Link>
+                <Link
+                  href="/sources"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                >
+                  <Plus className="w-4 h-4 text-red-500" />
+                  Tambah Sumber
                 </Link>
               </nav>
             </div>
