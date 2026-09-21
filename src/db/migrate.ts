@@ -3,26 +3,36 @@ import fs from "fs";
 import path from "path";
 
 export async function runMigrations() {
-  const migrationPath = path.join(
-    process.cwd(),
-    "src/db/migrations/0000_jazzy_millenium_guard.sql"
-  );
-  if (!fs.existsSync(migrationPath)) {
+  const migrationsDir = path.join(process.cwd(), "src/db/migrations");
+  if (!fs.existsSync(migrationsDir)) {
     return;
   }
-  const sql = fs.readFileSync(migrationPath, "utf-8");
-  const statements = sql
-    .split("--> statement-breakpoint")
-    .map((s) => s.trim())
-    .filter((s) => s.length > 0);
 
-  for (const statement of statements) {
-    try {
-      await client.execute(statement);
-    } catch (err: any) {
-      // Ignore if table/index already exists
-      if (!err?.message?.includes("already exists")) {
-        console.error("Migration statement error:", err);
+  const files = fs
+    .readdirSync(migrationsDir)
+    .filter((f) => f.endsWith(".sql"))
+    .sort();
+
+  for (const file of files) {
+    const fullPath = path.join(migrationsDir, file);
+    const sql = fs.readFileSync(fullPath, "utf-8");
+    const statements = sql
+      .split("--> statement-breakpoint")
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+
+    for (const statement of statements) {
+      try {
+        await client.execute(statement);
+      } catch (err: any) {
+        // Ignore duplicate tables/columns
+        const msg = err?.message || "";
+        if (
+          !msg.includes("already exists") &&
+          !msg.includes("duplicate column")
+        ) {
+          console.warn(`Migration statement warning in ${file}:`, msg);
+        }
       }
     }
   }

@@ -40,6 +40,20 @@ export const episodes = sqliteTable("episodes", {
     .default("link"),
   sourceUrl: text("source_url").notNull(),
   thumbnailUrl: text("thumbnail_url"),
+  synopsis: text("synopsis"),
+  createdAt: text("created_at").notNull(),
+});
+
+// 3.1 Episode Sources table (multiple video streams/mirrors per episode)
+export const episodeSources = sqliteTable("episode_sources", {
+  id: text("id").primaryKey(),
+  episodeId: text("episode_id")
+    .notNull()
+    .references(() => episodes.id, { onDelete: "cascade" }),
+  quality: text("quality").default("1080p"),
+  sourceType: text("source_type", { enum: ["local", "drive", "link"] }).notNull(),
+  sourceUrl: text("source_url").notNull(),
+  label: text("label").default("Server Utama"),
   createdAt: text("created_at").notNull(),
 });
 
@@ -76,6 +90,8 @@ export const watchProgress = sqliteTable("watch_progress", {
   positionSeconds: integer("position_seconds").notNull().default(0),
   durationSeconds: integer("duration_seconds").notNull().default(0),
   isCompleted: integer("is_completed", { mode: "boolean" }).notNull().default(false),
+  audioTrack: text("audio_track"),
+  subtitleTrack: text("subtitle_track"),
   lastWatchedAt: text("last_watched_at").notNull(),
 });
 
@@ -149,7 +165,15 @@ export const episodesRelations = relations(episodes, ({ one, many }) => ({
     fields: [episodes.animeId],
     references: [anime.id],
   }),
+  sources: many(episodeSources),
   watchProgresses: many(watchProgress),
+}));
+
+export const episodeSourcesRelations = relations(episodeSources, ({ one }) => ({
+  episode: one(episodes, {
+    fields: [episodeSources.episodeId],
+    references: [episodes.id],
+  }),
 }));
 
 export const categoriesRelations = relations(categories, ({ one, many }) => ({
