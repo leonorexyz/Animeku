@@ -56,3 +56,18 @@ export function toggleFavoriteAnime(animeId: string): boolean {
     return false;
   }
 }
+
+export async function syncFavoritesFromApi(): Promise<string[]> {
+  if (typeof window === "undefined") return [];
+  try {
+    const res = await fetch("/api/favorites");
+    const json = await res.json();
+    if (json.success && Array.isArray(json.favoriteIds)) {
+      localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(json.favoriteIds));
+      return json.favoriteIds;
+    }
+  } catch (err) {
+    console.error("Failed to sync favorites from API", err);
+  }
+  return getFavoriteAnimeIds();
+}
