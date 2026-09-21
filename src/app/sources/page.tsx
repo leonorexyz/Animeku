@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LocalFileImporter from "@/components/LocalFileImporter";
+import GoogleDriveConnector from "@/components/GoogleDriveConnector";
 import {
   HardDrive,
   Cloud,
@@ -324,85 +325,23 @@ export default function AddSourcePage() {
 
             {/* TAB 2: GOOGLE DRIVE */}
             {activeTab === "drive" && (
-              <form
-                onSubmit={handleAddDriveSource}
-                className="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-6 space-y-6 backdrop-blur-sm animate-in fade-in duration-200"
-              >
-                <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-                  <div className="flex items-center gap-2">
-                    <Cloud className="w-5 h-5 text-blue-400" />
-                    <h2 className="text-lg font-bold text-white">
-                      Sambungkan Google Drive
-                    </h2>
-                  </div>
-                  <span className="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-full font-semibold">
-                    OAuth Terhubung
-                  </span>
-                </div>
-
-                {/* Connected Account Card */}
-                <div className="flex items-center justify-between p-4 rounded-xl bg-zinc-950/60 border border-zinc-800">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-                      <Cloud className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div>
-                      <span className="text-xs text-zinc-400 block font-medium">
-                        Akun Google Terhubung
-                      </span>
-                      <span className="text-sm font-bold text-white">
-                        {driveAccount}
-                      </span>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setDriveAccount("animeku.alt@gmail.com");
-                      showToast("Akun Google Drive berhasil diperbarui.");
-                    }}
-                    className="text-xs text-zinc-400 hover:text-white underline cursor-pointer"
-                  >
-                    Ganti Akun
-                  </button>
-                </div>
-
-                {/* Drive Folder URL / ID */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-zinc-300 uppercase tracking-wider block">
-                    Tautan Folder Google Drive (Shared / My Drive)
-                  </label>
-                  <input
-                    type="url"
-                    value={driveFolderUrl}
-                    onChange={(e) => setDriveFolderUrl(e.target.value)}
-                    placeholder="https://drive.google.com/drive/folders/..."
-                    className="w-full bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-200 focus:border-red-500 outline-none transition-colors"
-                  />
-                  <p className="text-[11px] text-zinc-500">
-                    Pastikan izin akses folder terbuka untuk akun Anda atau diatur sebagai "Siapa saja yang memiliki tautan".
-                  </p>
-                </div>
-
-                {/* Submit Drive Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-extrabold rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>Menyinkronkan Folder Drive...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Cloud className="w-4 h-4" />
-                      <span>Sinkronkan Folder Google Drive</span>
-                    </>
-                  )}
-                </button>
-              </form>
+              <div className="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-6 space-y-6 backdrop-blur-sm animate-in fade-in duration-200">
+                <GoogleDriveConnector
+                  onSyncComplete={(synced) => {
+                    const newSource: ConnectedSourceItem = {
+                      id: `src-${Date.now()}`,
+                      name: `Google Drive: ${synced.folderName}`,
+                      type: "drive",
+                      details: `${synced.files.length} episode disinkronkan (${synced.accountEmail})`,
+                      itemCount: 1,
+                      lastSynced: "Baru saja",
+                      status: "active",
+                    };
+                    setSources((prev) => [newSource, ...prev]);
+                    showToast(`Folder Drive "${synced.folderName}" berhasil ditambahkan ke katalog!`);
+                  }}
+                />
+              </div>
             )}
 
             {/* TAB 3: LINK STREAMING LANGSUNG */}
