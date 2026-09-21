@@ -92,10 +92,40 @@ export default function AnimeDetailPage({ params }: PageProps) {
   const [savedProgress, setSavedProgress] = useState<any>(null);
   const [allProgress, setAllProgress] = useState<Record<string, WatchProgress>>({});
   useEffect(() => {
+    // Ambil dari local storage dahulu untuk respons cepat
     const p = getWatchProgressForAnime(anime.id);
     if (p) setSavedProgress(p);
     const all = getAllWatchProgress();
     setAllProgress(all);
+
+    // Sinkronkan dengan database via API
+    fetch(`/api/anime/${anime.id}/progress`)
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && json.data) {
+          setSavedProgress(json.data);
+          if (json.data.allProgress && Array.isArray(json.data.allProgress)) {
+            const mapped: Record<string, WatchProgress> = { ...all };
+            json.data.allProgress.forEach((item: any) => {
+              mapped[item.episodeId] = {
+                id: item.id,
+                animeId: anime.id,
+                animeTitle: anime.title,
+                animePoster: anime.posterUrl,
+                episodeId: item.episodeId,
+                episodeNumber: item.episodeNumber || 1,
+                episodeTitle: item.title || "",
+                positionSeconds: item.positionSeconds,
+                durationSeconds: item.durationSeconds,
+                isCompleted: item.isCompleted,
+                lastWatchedAt: item.lastWatchedAt,
+              };
+            });
+            setAllProgress(mapped);
+          }
+        }
+      })
+      .catch(() => {});
   }, [anime.id]);
 
   // Similar anime recommendations
