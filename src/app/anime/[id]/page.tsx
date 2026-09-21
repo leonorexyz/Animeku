@@ -45,7 +45,20 @@ export default function AnimeDetailPage({ params }: PageProps) {
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [copiedToast, setCopiedToast] = useState(false);
 
-  // Find anime from mock data
+  const [dbAnimeData, setDbAnimeData] = useState<any>(null);
+
+  useEffect(() => {
+    fetch(`/api/anime/${animeId}`)
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && json.data) {
+          setDbAnimeData(json.data);
+        }
+      })
+      .catch(() => {});
+  }, [animeId]);
+
+  // Find anime from API or mock data
   const allAnimes: Anime[] = [
     ...MOCK_FEATURED_ANIMES,
     ...MOCK_CONTINUE_WATCHING,
@@ -54,10 +67,11 @@ export default function AnimeDetailPage({ params }: PageProps) {
   MOCK_CATEGORIES.forEach((cat) => allAnimes.push(...cat.items));
 
   const anime: Anime =
-    allAnimes.find((a) => a.id === animeId) || MOCK_FEATURED_ANIME;
+    dbAnimeData || allAnimes.find((a) => a.id === animeId) || MOCK_FEATURED_ANIME;
 
   // Episodes for this anime
   const episodes: ExtendedEpisode[] =
+    dbAnimeData?.episodes ||
     MOCK_EPISODES[anime.id] ||
     Array.from({ length: anime.totalEpisodes || 12 }, (_, i) => ({
       id: `${anime.id}-ep-${i + 1}`,
