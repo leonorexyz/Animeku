@@ -15,6 +15,7 @@ import {
   Layers,
   Plus,
   Heart,
+  Settings,
 } from "lucide-react";
 import LiveSearchInput from "@/components/LiveSearchInput";
 
@@ -126,6 +127,14 @@ export default function Navbar() {
                 <Plus className="w-3.5 h-3.5 text-red-500" />
                 Tambah Sumber
               </Link>
+              <Link
+                href="/settings"
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
+                title="Pengaturan Aplikasi"
+              >
+                <Settings className="w-3.5 h-3.5 text-zinc-400 hover:text-white" />
+                Pengaturan
+              </Link>
             </nav>
           </div>
 
@@ -181,11 +190,15 @@ export default function Navbar() {
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#141414]"></span>
             </button>
 
-            {/* Profile Avatar */}
+            {/* Profile Avatar / Settings Link */}
             <div className="flex items-center space-x-2 pl-2 border-l border-zinc-800">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-tr from-amber-600 to-red-600 flex items-center justify-center text-white font-bold text-xs ring-2 ring-zinc-700/50">
+              <Link
+                href="/settings"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-tr from-amber-600 to-red-600 flex items-center justify-center text-white font-bold text-xs ring-2 ring-zinc-700/50 hover:ring-red-500 transition-all hover:scale-105 cursor-pointer"
+                title="Buka Pengaturan"
+              >
                 AK
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -208,24 +221,25 @@ export default function Navbar() {
                   <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-black">
                     A
                   </div>
-                  <span className="font-black text-white text-lg tracking-tight">
+                  <span className="font-bold text-white tracking-tight">
                     ANIME<span className="text-red-500">KU</span>
                   </span>
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800"
+                  className="p-1.5 text-zinc-400 hover:text-white rounded-lg hover:bg-zinc-800"
+                  aria-label="Tutup menu navigasi"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Drawer Links */}
-              <nav className="space-y-2">
+              {/* Drawer Navigation Links */}
+              <nav className="space-y-1">
                 <Link
                   href="/"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-white bg-red-600/10 text-red-400 border border-red-500/20"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
                 >
                   <Film className="w-4 h-4 text-red-500" />
                   Beranda
@@ -235,8 +249,8 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
                 >
-                  <Search className="w-4 h-4 text-red-500" />
-                  Pencarian & Eksplorasi
+                  <Search className="w-4 h-4 text-zinc-400" />
+                  Eksplorasi
                 </Link>
                 <Link
                   href="#continue-watching"
@@ -277,6 +291,14 @@ export default function Navbar() {
                 >
                   <Plus className="w-4 h-4 text-red-500" />
                   Tambah Sumber
+                </Link>
+                <Link
+                  href="/settings"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                >
+                  <Settings className="w-4 h-4 text-zinc-400" />
+                  Pengaturan
                 </Link>
               </nav>
             </div>
