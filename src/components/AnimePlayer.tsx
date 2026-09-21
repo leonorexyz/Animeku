@@ -7,6 +7,7 @@ import {
   Pause,
   RotateCcw,
   RotateCw,
+  Volume1,
   Volume2,
   VolumeX,
   Maximize,
@@ -53,9 +54,30 @@ export default function AnimePlayer({
   const [bufferedPercent, setBufferedPercent] = useState(0);
   const [volume, setVolume] = useState(0.8);
   const [isMuted, setIsMuted] = useState(false);
+  const previousVolumeRef = useRef(0.8);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [controlsTimeout, setControlsTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  // Load volume preferences from localStorage
+  useEffect(() => {
+    try {
+      const savedVol = localStorage.getItem("animeku_player_volume");
+      const savedMuted = localStorage.getItem("animeku_player_muted");
+      if (savedVol !== null) {
+        const v = parseFloat(savedVol);
+        if (!isNaN(v)) {
+          setVolume(v);
+          if (v > 0) previousVolumeRef.current = v;
+        }
+      }
+      if (savedMuted === "true") {
+        setIsMuted(true);
+      }
+    } catch (e) {
+      // Ignore localStorage access issues in sandbox
+    }
+  }, []);
 
   // Center feedback indicator (play, pause, skip)
   const [centerFeedback, setCenterFeedback] = useState<"play" | "pause" | "rewind" | "forward" | null>(null);
@@ -238,21 +260,36 @@ export default function AnimePlayer({
     const val = parseFloat(e.target.value);
     setVolume(val);
     setIsMuted(val === 0);
+    if (val > 0) previousVolumeRef.current = val;
     if (videoRef.current) {
       videoRef.current.volume = val;
       videoRef.current.muted = val === 0;
     }
+    try {
+      localStorage.setItem("animeku_player_volume", val.toString());
+      localStorage.setItem("animeku_player_muted", (val === 0).toString());
+    } catch (e) {}
   };
 
   const toggleMute = () => {
     if (!videoRef.current) return;
-    if (isMuted) {
+    if (isMuted || volume === 0) {
+      const restored = previousVolumeRef.current > 0 ? previousVolumeRef.current : 0.8;
       videoRef.current.muted = false;
-      videoRef.current.volume = volume || 0.8;
+      videoRef.current.volume = restored;
+      setVolume(restored);
       setIsMuted(false);
+      try {
+        localStorage.setItem("animeku_player_volume", restored.toString());
+        localStorage.setItem("animeku_player_muted", "false");
+      } catch (e) {}
     } else {
+      previousVolumeRef.current = volume;
       videoRef.current.muted = true;
       setIsMuted(true);
+      try {
+        localStorage.setItem("animeku_player_muted", "true");
+      } catch (e) {}
     }
   };
 
@@ -535,28 +572,36 @@ export default function AnimePlayer({
             )}
 
             {/* Volume Control */}
-            <div className="flex items-center space-x-2 group/volume">
+            <div className="flex items-center space-x-1.5 group/volume bg-zinc-900/60 hover:bg-zinc-800/80 px-2 py-1 rounded-full border border-transparent hover:border-white/10 transition-all">
               <button
                 onClick={toggleMute}
-                className="p-2 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
+                className="p-1 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
                 title={isMuted ? "Bunyikan (M)" : "Bisukan (M)"}
+                aria-label={isMuted ? "Bunyikan audio" : "Bisukan audio"}
               >
                 {isMuted || volume === 0 ? (
                   <VolumeX className="w-5 h-5 text-red-400" />
+                ) : volume <= 0.5 ? (
+                  <Volume1 className="w-5 h-5 text-zinc-200" />
                 ) : (
-                  <Volume2 className="w-5 h-5" />
+                  <Volume2 className="w-5 h-5 text-white" />
                 )}
               </button>
-              <input
-                type="range"
-                min={0}
-                max={1}
-                step={0.05}
-                value={isMuted ? 0 : volume}
-                onChange={handleVolumeChange}
-                className="w-16 sm:w-20 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-red-600 hidden group-hover/volume:inline-block transition-all"
-                aria-label="Volume"
-              />
+              <div className="hidden group-hover/volume:flex items-center space-x-2 animate-in fade-in duration-150">
+                <input
+                  type="range"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={isMuted ? 0 : volume}
+                  onChange={handleVolumeChange}
+                  className="w-16 sm:w-20 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-red-600 transition-all"
+                  aria-label="Volume"
+                />
+                <span className="text-[10px] font-mono text-zinc-400 w-7 text-right">
+                  {isMuted ? "0%" : `${Math.round(volume * 100)}%`}
+                </span>
+              </div>
             </div>
 
             {/* Time Stamp */}
