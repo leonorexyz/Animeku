@@ -22,6 +22,10 @@ export const anime = sqliteTable("anime", {
   status: text("status", { enum: ["belum", "sedang", "tamat"] }).notNull().default("belum"),
   isFeatured: integer("is_featured", { mode: "boolean" }).notNull().default(false),
   rating: text("rating"),
+  totalEpisodes: integer("total_episodes").default(12),
+  genres: text("genres"),
+  sourceType: text("source_type", { enum: ["local", "drive", "link"] }).default("link"),
+  sourcePath: text("source_path"),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 });
@@ -43,6 +47,8 @@ export const episodes = sqliteTable(
     sourceUrl: text("source_url").notNull(),
     thumbnailUrl: text("thumbnail_url"),
     synopsis: text("synopsis"),
+    fileSize: integer("file_size").default(0),
+    videoQuality: text("video_quality").default("1080p"),
     createdAt: text("created_at").notNull(),
   },
   (table) => [
@@ -59,14 +65,44 @@ export const episodeSources = sqliteTable(
     episodeId: text("episode_id")
       .notNull()
       .references(() => episodes.id, { onDelete: "cascade" }),
+    animeId: text("anime_id").references(() => anime.id, { onDelete: "cascade" }),
     quality: text("quality").default("1080p"),
     sourceType: text("source_type", { enum: ["local", "drive", "link"] }).notNull(),
     sourceUrl: text("source_url").notNull(),
     label: text("label").default("Server Utama"),
+    fileSize: integer("file_size").default(0),
+    fileFormat: text("file_format").default("mp4"),
+    driveFileId: text("drive_file_id"),
+    localPath: text("local_path"),
+    status: text("status").default("ready"),
     createdAt: text("created_at").notNull(),
   },
   (table) => [
     index("episode_sources_episode_id_idx").on(table.episodeId),
+    index("episode_sources_anime_id_idx").on(table.animeId),
+  ]
+);
+
+// 3.2 Anime Sources table (connected folders, drive targets, or stream feed sources)
+export const animeSources = sqliteTable(
+  "anime_sources",
+  {
+    id: text("id").primaryKey(),
+    animeId: text("anime_id")
+      .notNull()
+      .references(() => anime.id, { onDelete: "cascade" }),
+    sourceType: text("source_type", { enum: ["local", "drive", "link"] }).notNull(),
+    sourceName: text("source_name").notNull(),
+    sourcePathOrUrl: text("source_path_or_url").notNull(),
+    driveFolderId: text("drive_folder_id"),
+    totalEpisodesDetected: integer("total_episodes_detected").default(0),
+    status: text("status").notNull().default("active"),
+    lastSyncedAt: text("last_synced_at"),
+    createdAt: text("created_at").notNull(),
+  },
+  (table) => [
+    index("anime_sources_anime_id_idx").on(table.animeId),
+    index("anime_sources_type_idx").on(table.sourceType),
   ]
 );
 
@@ -182,6 +218,8 @@ export const animeRelations = relations(anime, ({ one, many }) => ({
     references: [users.id],
   }),
   episodes: many(episodes),
+  sources: many(animeSources),
+  episodeSources: many(episodeSources),
   animeCategories: many(animeCategories),
   watchProgresses: many(watchProgress),
   favorites: many(favorites),
@@ -200,6 +238,17 @@ export const episodeSourcesRelations = relations(episodeSources, ({ one }) => ({
   episode: one(episodes, {
     fields: [episodeSources.episodeId],
     references: [episodes.id],
+  }),
+  anime: one(anime, {
+    fields: [episodeSources.animeId],
+    references: [anime.id],
+  }),
+}));
+
+export const animeSourcesRelations = relations(animeSources, ({ one }) => ({
+  anime: one(anime, {
+    fields: [animeSources.animeId],
+    references: [anime.id],
   }),
 }));
 
