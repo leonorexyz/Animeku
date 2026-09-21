@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "8829989c1e45729464ae79e7fb773f415c7c0bca",
+  "generatedForCommit": "939456f394c3a02967c22e65fc5921d5a23d8a72",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -76,7 +76,7 @@
     },
     {
       "path": "src/app/api/anime/[id]/progress/route.ts",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 4674
     },
@@ -208,9 +208,9 @@
     },
     {
       "path": "src/db/migrate.ts",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 980
+      "size": 1258
     },
     {
       "path": "src/db/migrations/0000_jazzy_millenium_guard.sql",
@@ -219,22 +219,34 @@
       "size": 3717
     },
     {
+      "path": "src/db/migrations/0001_dizzy_madame_masque.sql",
+      "reason": "new",
+      "language": "sql",
+      "size": 576
+    },
+    {
       "path": "src/db/migrations/meta/0000_snapshot.json",
       "reason": "needs_summary",
       "language": "json",
       "size": 19536
     },
     {
-      "path": "src/db/migrations/meta/_journal.json",
-      "reason": "needs_summary",
+      "path": "src/db/migrations/meta/0001_snapshot.json",
+      "reason": "new",
       "language": "json",
-      "size": 211
+      "size": 22056
+    },
+    {
+      "path": "src/db/migrations/meta/_journal.json",
+      "reason": "changed",
+      "language": "json",
+      "size": 358
     },
     {
       "path": "src/db/schema.ts",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 6572
+      "size": 7445
     },
     {
       "path": "src/db/seed.ts",
@@ -250,7 +262,7 @@
     },
     {
       "path": "src/utils/watchProgress.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 2672
     },
