@@ -26,6 +26,7 @@ import {
 import { Anime } from "@/types/anime";
 import { ExtendedEpisode } from "@/data/mockEpisodes";
 import { saveWatchProgress, getWatchProgressForAnime } from "@/utils/watchProgress";
+import { getStoredAppSettings } from "@/utils/appSettings";
 
 interface AnimePlayerProps {
   anime: Anime;
@@ -76,6 +77,22 @@ export default function AnimePlayer({
       }
       if (savedMuted === "true") {
         setIsMuted(true);
+      }
+
+      // Terapkan preferensi pemutar dari pengaturan global aplikasi
+      const appSettings = getStoredAppSettings();
+      if (appSettings) {
+        if (appSettings.playbackSpeed) {
+          setPlaybackRate(appSettings.playbackSpeed);
+        }
+        if (appSettings.defaultSubtitle) {
+          setSelectedSub(
+            appSettings.defaultSubtitle === "none" ? "off" : appSettings.defaultSubtitle
+          );
+        }
+        if (appSettings.autoPlayNext !== undefined) {
+          setAutoplayNext(appSettings.autoPlayNext);
+        }
       }
     } catch (e) {
       // Ignore localStorage access issues in sandbox

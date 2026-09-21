@@ -7,6 +7,11 @@ import MobileBottomNav from "@/components/MobileBottomNav";
 import { MOCK_SETTINGS, AppSettings } from "@/data/mockSettings";
 import { useTheme, ThemeMode } from "@/context/ThemeContext";
 import {
+  getStoredAppSettings,
+  saveStoredAppSettings,
+  resetStoredAppSettings,
+} from "@/utils/appSettings";
+import {
   Palette,
   PlaySquare,
   HardDrive,
@@ -33,12 +38,15 @@ import {
 export default function SettingsPage() {
   const { theme: globalTheme, setTheme: setGlobalTheme, resolvedTheme } = useTheme();
   const [activeTab, setActiveTab] = useState<"appearance" | "player" | "storage" | "profile">("appearance");
-  const [settings, setSettings] = useState<AppSettings>({
-    ...MOCK_SETTINGS,
-    theme: (globalTheme as any) || "netflix",
-  });
+  const [settings, setSettings] = useState<AppSettings>(MOCK_SETTINGS);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+
+  // Load from localStorage on mount
+  React.useEffect(() => {
+    const stored = getStoredAppSettings();
+    setSettings(stored);
+  }, []);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -47,15 +55,18 @@ export default function SettingsPage() {
 
   const handleSave = () => {
     setIsSaving(true);
+    saveStoredAppSettings(settings);
     setTimeout(() => {
       setIsSaving(false);
-      showToast("Pengaturan berhasil disimpan!");
-    }, 600);
+      showToast("Pengaturan berhasil disimpan dan diterapkan!");
+    }, 400);
   };
 
   const handleReset = () => {
     if (confirm("Kembalikan semua preferensi ke pengaturan awal pabrik?")) {
-      setSettings(MOCK_SETTINGS);
+      const def = resetStoredAppSettings();
+      setSettings(def);
+      setGlobalTheme(def.theme as ThemeMode);
       showToast("Pengaturan telah direset ke nilai default.");
     }
   };
