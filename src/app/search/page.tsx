@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimeCard from "@/components/AnimeCard";
 import LiveSearchInput from "@/components/LiveSearchInput";
+import SearchFilters, { FilterState } from "@/components/SearchFilters";
 import {
   MOCK_FEATURED_ANIMES,
   MOCK_CONTINUE_WATCHING,
@@ -24,41 +25,19 @@ import {
   Check,
 } from "lucide-react";
 
-const ALL_GENRES = [
-  "Semua",
-  "Action",
-  "Adventure",
-  "Fantasy",
-  "Sci-Fi",
-  "Drama",
-  "Supernatural",
-  "Mystery",
-  "Shounen",
-];
-
-const ALL_STATUSES = [
-  { label: "Semua Status", value: "all" },
-  { label: "Sedang Tayang", value: "ongoing" },
-  { label: "Tamat", value: "tamat" },
-];
-
-const SORT_OPTIONS = [
-  { label: "Skor Tertinggi", value: "rating-desc" },
-  { label: "Tahun Terbaru", value: "year-desc" },
-  { label: "Judul (A-Z)", value: "title-asc" },
-  { label: "Judul (Z-A)", value: "title-desc" },
-];
-
 function SearchContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") || "";
 
   const [query, setQuery] = useState(initialQuery);
-  const [selectedGenre, setSelectedGenre] = useState<string>("Semua");
-  const [selectedStatus, setSelectedStatus] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<string>("rating-desc");
-  const [showFiltersMobile, setShowFiltersMobile] = useState(false);
+  const [filters, setFilters] = useState<FilterState>({
+    genre: "Semua",
+    category: "all",
+    year: "all",
+    status: "all",
+    sortBy: "rating-desc",
+  });
 
   // Combine and deduplicate all anime from mock sources
   const allAnimeList = useMemo(() => {
@@ -94,15 +73,44 @@ function SearchContent() {
         }
 
         // Genre filter
-        if (selectedGenre !== "Semua") {
-          if (!item.genres || !item.genres.includes(selectedGenre)) {
+        if (filters.genre !== "Semua") {
+          if (!item.genres || !item.genres.includes(filters.genre)) {
             return false;
           }
         }
 
+        // Category filter
+        if (filters.category !== "all") {
+          if (filters.category === "movie") {
+            const isMovie =
+              item.totalEpisodes === 1 ||
+              item.genres.includes("Movie") ||
+              item.title.toLowerCase().includes("movie");
+            if (!isMovie) return false;
+          } else if (filters.category === "special") {
+            const isSpecial =
+              item.title.toLowerCase().includes("ova") ||
+              item.title.toLowerCase().includes("special");
+            if (!isSpecial) return false;
+          } else if (filters.category === "tv") {
+            const isTV = item.totalEpisodes > 1;
+            if (!isTV) return false;
+          }
+        }
+
+        // Year filter
+        if (filters.year !== "all") {
+          if (filters.year === "older") {
+            if ((item.year || 0) > 2019) return false;
+          } else {
+            const targetYear = parseInt(filters.year, 10);
+            if (item.year !== targetYear) return false;
+          }
+        }
+
         // Status filter
-        if (selectedStatus !== "all") {
-          if (item.status !== selectedStatus) {
+        if (filters.status !== "all") {
+          if (item.status !== filters.status) {
             return false;
           }
         }
@@ -110,11 +118,13 @@ function SearchContent() {
         return true;
       })
       .sort((a, b) => {
-        switch (sortBy) {
+        switch (filters.sortBy) {
           case "rating-desc":
             return parseFloat(b.rating || "0") - parseFloat(a.rating || "0");
           case "year-desc":
             return (b.year || 0) - (a.year || 0);
+          case "year-asc":
+            return (a.year || 0) - (b.year || 0);
           case "title-asc":
             return a.title.localeCompare(b.title);
           case "title-desc":
@@ -123,13 +133,17 @@ function SearchContent() {
             return 0;
         }
       });
-  }, [allAnimeList, query, selectedGenre, selectedStatus, sortBy]);
+  }, [allAnimeList, query, filters]);
 
   const handleResetFilters = () => {
     setQuery("");
-    setSelectedGenre("Semua");
-    setSelectedStatus("all");
-    setSortBy("rating-desc");
+    setFilters({
+      genre: "Semua",
+      category: "all",
+      year: "all",
+      status: "all",
+      sortBy: "rating-desc",
+    });
   };
 
   const handleSelectAnime = (anime: Anime) => {
@@ -174,82 +188,13 @@ function SearchContent() {
           />
         </section>
 
-        {/* Filter and Sorting Controls */}
-        <section className="bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-4 sm:p-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-300">
-              <SlidersHorizontal className="w-4 h-4 text-red-500" />
-              <span>Filter & Urutkan</span>
-            </div>
-
-            {(query || selectedGenre !== "Semua" || selectedStatus !== "all" || sortBy !== "rating-desc") && (
-              <button
-                onClick={handleResetFilters}
-                className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 font-semibold cursor-pointer transition-colors"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>Reset Semua Filter</span>
-              </button>
-            )}
-          </div>
-
-          {/* Genre Chips */}
-          <div className="space-y-1.5">
-            <span className="text-[11px] uppercase tracking-wider font-bold text-zinc-500 block">
-              Genre:
-            </span>
-            <div className="flex flex-wrap gap-1.5">
-              {ALL_GENRES.map((genre) => (
-                <button
-                  key={genre}
-                  onClick={() => setSelectedGenre(genre)}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                    selectedGenre === genre
-                      ? "bg-red-600 text-white shadow-md shadow-red-600/20"
-                      : "bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-800"
-                  }`}
-                >
-                  {genre}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Secondary Controls: Status & Sort */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-zinc-800/60">
-            {/* Status Selector */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-zinc-400 shrink-0 font-medium">Status:</span>
-              <select
-                value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:border-red-500 outline-none cursor-pointer"
-              >
-                {ALL_STATUSES.map((st) => (
-                  <option key={st.value} value={st.value}>
-                    {st.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Sort Selector */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-zinc-400 shrink-0 font-medium">Urutkan:</span>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:border-red-500 outline-none cursor-pointer"
-              >
-                {SORT_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </section>
+        {/* Filter and Sorting Controls Component */}
+        <SearchFilters
+          filters={filters}
+          onChange={setFilters}
+          onReset={handleResetFilters}
+          totalResults={filteredAnime.length}
+        />
 
         {/* Results Section */}
         <section className="space-y-4">
