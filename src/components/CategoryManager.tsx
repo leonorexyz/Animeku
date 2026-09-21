@@ -264,6 +264,18 @@ export default function CategoryManager({
     const reordered = copy.map((c, idx) => ({ ...c, sortOrder: idx + 1 }));
     setCategories(reordered);
     onReorder?.(reordered);
+
+    // Persist new order to backend API
+    fetch("/api/categories/order", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        orders: reordered.map((c) => ({ id: c.id, sortOrder: c.sortOrder })),
+      }),
+    }).catch((err) => {
+      console.warn("Gagal menyimpan urutan kategori ke API:", err);
+    });
+
     showToast("Urutan kategori berhasil diubah!");
   };
 
