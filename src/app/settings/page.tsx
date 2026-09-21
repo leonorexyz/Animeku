@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import { MOCK_SETTINGS, AppSettings } from "@/data/mockSettings";
+import { useTheme, ThemeMode } from "@/context/ThemeContext";
 import {
   Palette,
   PlaySquare,
@@ -30,8 +31,12 @@ import {
 } from "lucide-react";
 
 export default function SettingsPage() {
+  const { theme: globalTheme, setTheme: setGlobalTheme, resolvedTheme } = useTheme();
   const [activeTab, setActiveTab] = useState<"appearance" | "player" | "storage" | "profile">("appearance");
-  const [settings, setSettings] = useState<AppSettings>(MOCK_SETTINGS);
+  const [settings, setSettings] = useState<AppSettings>({
+    ...MOCK_SETTINGS,
+    theme: (globalTheme as any) || "netflix",
+  });
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -187,32 +192,64 @@ export default function SettingsPage() {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                     {[
-                      { id: "netflix", label: "Netflix Dark", desc: "Hitam sinematik dengan aksen merah", bg: "bg-[#141414] border-red-600" },
-                      { id: "dark", label: "Midnight Zinc", desc: "Abu-abu gelap modern bertekstur", bg: "bg-zinc-900 border-zinc-700" },
-                      { id: "oled", label: "OLED Pitch Black", desc: "Hitam absolut hemat daya", bg: "bg-black border-zinc-800" },
-                    ].map((themeOpt) => (
-                      <div
-                        key={themeOpt.id}
-                        onClick={() => setSettings({ ...settings, theme: themeOpt.id as any })}
-                        className={`p-4 rounded-xl border-2 transition-all cursor-pointer flex flex-col justify-between ${
-                          settings.theme === themeOpt.id
-                            ? "border-red-500 bg-red-950/20 shadow-lg shadow-red-900/20"
-                            : "border-zinc-800 hover:border-zinc-700 bg-zinc-900/40"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-bold text-white">{themeOpt.label}</span>
-                          {settings.theme === themeOpt.id && (
-                            <div className="w-4 h-4 rounded-full bg-red-600 flex items-center justify-center text-white">
-                              <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      {
+                        id: "netflix",
+                        label: "Netflix Dark",
+                        desc: "Hitam sinematik dengan aksen merah Netflix.",
+                        icon: Moon,
+                      },
+                      {
+                        id: "light",
+                        label: "Mode Terang",
+                        desc: "Latar putih bersih dengan kontras tinggi untuk siang hari.",
+                        icon: Sun,
+                      },
+                      {
+                        id: "oled",
+                        label: "OLED Pitch Black",
+                        desc: "Hitam pekat 100% tanpa backlight, hemat baterai.",
+                        icon: Moon,
+                      },
+                      {
+                        id: "system",
+                        label: "Sistem (Otomatis)",
+                        desc: "Menyesuaikan dengan preferensi perangkat OS Anda.",
+                        icon: Monitor,
+                      },
+                    ].map((themeOpt) => {
+                      const IconComponent = themeOpt.icon;
+                      const isSelected = (globalTheme || settings.theme) === themeOpt.id;
+                      return (
+                        <div
+                          key={themeOpt.id}
+                          onClick={() => {
+                            setGlobalTheme(themeOpt.id as ThemeMode);
+                            setSettings({ ...settings, theme: themeOpt.id as any });
+                            showToast(`Tema diubah ke ${themeOpt.label}`);
+                          }}
+                          className={`p-4 rounded-xl border-2 transition-all cursor-pointer flex flex-col justify-between ${
+                            isSelected
+                              ? "border-red-500 bg-red-950/20 shadow-lg shadow-red-900/20"
+                              : "border-zinc-800 hover:border-zinc-700 bg-zinc-900/40"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2">
+                              <IconComponent className="w-4 h-4 text-red-500" />
+                              <span className="text-sm font-bold text-white">{themeOpt.label}</span>
                             </div>
-                          )}
+                            {isSelected && (
+                              <div className="w-4 h-4 rounded-full bg-red-600 flex items-center justify-center text-white">
+                                <Check className="w-2.5 h-2.5 stroke-[3]" />
+                              </div>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-zinc-400">{themeOpt.desc}</p>
                         </div>
-                        <p className="text-[11px] text-zinc-400">{themeOpt.desc}</p>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
