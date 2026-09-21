@@ -42,7 +42,6 @@ export default function AnimeDetailPage({ params }: PageProps) {
   const resolvedParams = use(params);
   const animeId = resolvedParams.id;
 
-  const [isFavorite, setIsFavorite] = useState(false);
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [copiedToast, setCopiedToast] = useState(false);
 
@@ -175,10 +174,9 @@ export default function AnimeDetailPage({ params }: PageProps) {
           <div className="pt-2">
             <PlayAndResumeButtons
               animeId={anime.id}
+              animeTitle={anime.title}
               totalEpisodes={anime.totalEpisodes || episodes.length}
               savedProgress={savedProgress}
-              isFavorite={isFavorite}
-              onToggleFavorite={() => setIsFavorite(!isFavorite)}
               onShare={handleShare}
               onPlay={handlePlay}
             />

@@ -1,25 +1,24 @@
 "use client";
 
 import React from "react";
-import { Play, RotateCcw, Plus, Check, Share2, Clock } from "lucide-react";
+import { Play, RotateCcw, Share2, Clock } from "lucide-react";
 import { WatchProgress } from "@/types/anime";
+import FavoriteButton from "@/components/FavoriteButton";
 
 interface PlayAndResumeButtonsProps {
   animeId: string;
+  animeTitle?: string;
   totalEpisodes?: number;
   savedProgress: WatchProgress | null;
-  isFavorite: boolean;
-  onToggleFavorite: () => void;
   onShare: () => void;
   onPlay: (episodeNumber?: number) => void;
 }
 
 export default function PlayAndResumeButtons({
   animeId,
+  animeTitle,
   totalEpisodes = 12,
   savedProgress,
-  isFavorite,
-  onToggleFavorite,
   onShare,
   onPlay,
 }: PlayAndResumeButtonsProps) {
@@ -127,24 +126,7 @@ export default function PlayAndResumeButtons({
         )}
 
         {/* My List / Favorit */}
-        <button
-          onClick={onToggleFavorite}
-          className={`flex items-center gap-2 px-4 py-3.5 rounded-xl border text-sm font-semibold backdrop-blur-md transition-all cursor-pointer ${
-            isFavorite
-              ? "bg-red-600/20 border-red-500 text-red-400"
-              : "bg-zinc-900/90 hover:bg-zinc-800 border-white/10 text-white"
-          }`}
-          aria-label={isFavorite ? "Hapus dari Daftar Saya" : "Tambah ke Daftar Saya"}
-        >
-          {isFavorite ? (
-            <Check className="w-4 h-4 text-red-400" />
-          ) : (
-            <Plus className="w-4 h-4 text-zinc-300" />
-          )}
-          <span className="hidden sm:inline">
-            {isFavorite ? "Tersimpan di Daftar" : "Daftar Saya"}
-          </span>
-        </button>
+        <FavoriteButton animeId={animeId} animeTitle={animeTitle} size="md" />
 
         {/* Share Button */}
         <button

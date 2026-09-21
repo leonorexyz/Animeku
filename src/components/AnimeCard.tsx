@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Play, Star, Plus, Check, Info, Film, Sparkles } from "lucide-react";
 import { Anime } from "@/types/anime";
+import FavoriteButton from "@/components/FavoriteButton";
 
 interface AnimeCardProps {
   anime: Anime;
@@ -18,7 +19,6 @@ export default function AnimeCard({
   variant = "portrait",
 }: AnimeCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const [isFavorited, setIsFavorited] = useState(false);
   const [imgError, setImgError] = useState(false);
 
   const hasProgress = !!anime.progress;
@@ -107,25 +107,13 @@ export default function AnimeCard({
             </button>
 
             <div className="flex items-center gap-1.5">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsFavorited(!isFavorited);
-                }}
-                className={`p-2 rounded-full border transition-all cursor-pointer ${
-                  isFavorited
-                    ? "bg-emerald-600/90 border-emerald-500 text-white"
-                    : "bg-zinc-900/80 hover:bg-zinc-800 border-zinc-700 text-zinc-200 hover:text-white"
-                }`}
-                title={isFavorited ? "Hapus dari Favorit" : "Tambah ke Favorit"}
-                aria-label="Toggle Favorit"
-              >
-                {isFavorited ? (
-                  <Check className="w-3.5 h-3.5" />
-                ) : (
-                  <Plus className="w-3.5 h-3.5" />
-                )}
-              </button>
+              <FavoriteButton
+                animeId={anime.id}
+                animeTitle={anime.title}
+                size="sm"
+                showLabel={false}
+                className="!rounded-full !p-2"
+              />
               <button
                 onClick={(e) => {
                   e.stopPropagation();
