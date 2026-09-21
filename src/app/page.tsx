@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroBanner from "@/components/HeroBanner";
 import AnimeRow from "@/components/AnimeRow";
+import ContinueWatchingRow from "@/components/ContinueWatchingRow";
 import AnimeDetailModal from "@/components/AnimeDetailModal";
 import Footer from "@/components/Footer";
 import {
@@ -49,10 +50,8 @@ export default function Home() {
       <div className="relative z-20 -mt-12 sm:-mt-20 space-y-6">
         {/* Row: Lanjut Nonton (Continue Watching) */}
         <div id="continue-watching">
-          <AnimeRow
-            title="▶ Lanjut Nonton"
+          <ContinueWatchingRow
             items={MOCK_CONTINUE_WATCHING}
-            variant="continue"
             onPlay={handlePlay}
             onSelect={handleSelectAnime}
           />
