@@ -14,6 +14,7 @@ import {
   X,
   Layers,
   Plus,
+  Heart,
 } from "lucide-react";
 import LiveSearchInput from "@/components/LiveSearchInput";
 
@@ -110,6 +111,13 @@ export default function Navbar() {
               >
                 <FolderHeart className="w-4 h-4 text-zinc-400" />
                 Koleksi
+              </Link>
+              <Link
+                href="/favorites"
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
+              >
+                <Heart className="w-4 h-4 text-red-500" />
+                Favorit
               </Link>
               <Link
                 href="/sources"
@@ -252,7 +260,15 @@ export default function Navbar() {
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
                 >
                   <FolderHeart className="w-4 h-4 text-zinc-400" />
-                  Koleksi Favorit
+                  Koleksi & Kategori
+                </Link>
+                <Link
+                  href="/favorites"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                >
+                  <Heart className="w-4 h-4 text-red-500" />
+                  Daftar Favorit
                 </Link>
                 <Link
                   href="/sources"
