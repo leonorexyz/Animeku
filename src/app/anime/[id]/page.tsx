@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimeCard from "@/components/AnimeCard";
+import EpisodeList from "@/components/EpisodeList";
 import {
   MOCK_FEATURED_ANIME,
   MOCK_FEATURED_ANIMES,
@@ -14,8 +15,8 @@ import {
   MOCK_CATALOG_DATA,
 } from "@/data/mockAnime";
 import { MOCK_EPISODES, ExtendedEpisode } from "@/data/mockEpisodes";
-import { Anime } from "@/types/anime";
-import { getWatchProgressForAnime } from "@/utils/watchProgress";
+import { Anime, WatchProgress } from "@/types/anime";
+import { getAllWatchProgress, getWatchProgressForAnime } from "@/utils/watchProgress";
 import {
   Play,
   Plus,
@@ -75,9 +76,12 @@ export default function AnimeDetailPage({ params }: PageProps) {
 
   // Watch progress
   const [savedProgress, setSavedProgress] = useState<any>(null);
+  const [allProgress, setAllProgress] = useState<Record<string, WatchProgress>>({});
   useEffect(() => {
     const p = getWatchProgressForAnime(anime.id);
     if (p) setSavedProgress(p);
+    const all = getAllWatchProgress();
+    setAllProgress(all);
   }, [anime.id]);
 
   // Similar anime recommendations
@@ -207,75 +211,12 @@ export default function AnimeDetailPage({ params }: PageProps) {
       {/* Main Detail Content Container */}
       <div className="relative z-20 px-4 sm:px-8 lg:px-12 space-y-12 pb-16">
         {/* Episodes Section */}
-        <section className="space-y-6 pt-6">
-          <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
-            <div>
-              <h2 className="text-xl sm:text-2xl font-black text-white tracking-wide">
-                Daftar Episode
-              </h2>
-              <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-                Musim 1 • Total {episodes.length} Episode
-              </p>
-            </div>
-
-            {/* Season Selector Filter */}
-            <select
-              value={selectedSeason}
-              onChange={(e) => setSelectedSeason(Number(e.target.value))}
-              className="bg-zinc-900 border border-zinc-700 text-xs sm:text-sm font-semibold text-zinc-200 rounded-lg px-3 py-1.5 focus:outline-none focus:border-red-500 cursor-pointer"
-            >
-              <option value={1}>Musim 1</option>
-              <option value={2}>Musim 2 (Segera)</option>
-            </select>
-          </div>
-
-          {/* Episode Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {episodes.map((ep) => (
-              <div
-                key={ep.id}
-                onClick={() => handlePlayEpisode(ep)}
-                className="group relative bg-zinc-900/70 hover:bg-zinc-800/90 border border-zinc-800/80 hover:border-red-500/50 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer flex flex-col"
-              >
-                {/* Thumbnail with Overlay Play */}
-                <div className="relative aspect-video w-full overflow-hidden bg-zinc-950">
-                  <img
-                    src={ep.thumbnailUrl}
-                    alt={ep.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 flex items-center justify-center transition-colors">
-                    <div className="w-10 h-10 rounded-full bg-red-600/90 group-hover:bg-red-600 flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
-                      <Play className="w-5 h-5 fill-white text-white ml-0.5" />
-                    </div>
-                  </div>
-                  <span className="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/80 rounded text-[11px] font-mono text-zinc-300">
-                    {Math.floor(ep.durationSeconds / 60)}:00
-                  </span>
-                </div>
-
-                {/* Episode Info */}
-                <div className="p-3.5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between text-xs text-zinc-400 mb-1">
-                      <span className="font-bold text-red-400">
-                        Episode {ep.episodeNumber}
-                      </span>
-                      <span className="text-[10px] uppercase bg-zinc-800 px-1.5 py-0.5 rounded">
-                        HD
-                      </span>
-                    </div>
-                    <h3 className="text-sm font-bold text-white group-hover:text-red-400 transition-colors line-clamp-1">
-                      {ep.title}
-                    </h3>
-                    <p className="text-xs text-zinc-400 line-clamp-2 mt-1.5 leading-relaxed">
-                      {ep.synopsis}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        <section className="pt-6">
+          <EpisodeList
+            episodes={episodes}
+            progressMap={allProgress}
+            onPlayEpisode={handlePlayEpisode}
+          />
         </section>
 
         {/* About Anime / Detail & Metadata */}
