@@ -7,6 +7,7 @@ import AnimeRow from "@/components/AnimeRow";
 import ContinueWatchingRow from "@/components/ContinueWatchingRow";
 import AnimeDetailModal from "@/components/AnimeDetailModal";
 import EmptyCatalogState from "@/components/EmptyCatalogState";
+import MobileBottomNav from "@/components/MobileBottomNav";
 import Footer from "@/components/Footer";
 import {
   MOCK_FEATURED_ANIME,
@@ -129,6 +130,9 @@ export default function Home() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Mobile Bottom Navigation Bar (Ala Netflix Mobile) */}
+      <MobileBottomNav onAddClick={() => setIsEmptyCatalog(true)} />
     </main>
   );
 }
