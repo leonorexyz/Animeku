@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight, ChevronRight as ChevronSmall } from "lucide-react";
 import AnimeCard from "./AnimeCard";
 import { Anime } from "@/types/anime";
@@ -9,6 +10,10 @@ interface AnimeRowProps {
   title: string;
   items: Anime[];
   variant?: "portrait" | "continue";
+  badge?: string;
+  type?: "category" | "genre" | "collection" | "continue_watching";
+  categoryHref?: string;
+  sortOrder?: number;
   onPlay?: (anime: Anime) => void;
   onSelect?: (anime: Anime) => void;
 }
@@ -17,6 +22,10 @@ export default function AnimeRow({
   title,
   items,
   variant = "portrait",
+  badge,
+  type = "category",
+  categoryHref,
+  sortOrder,
   onPlay,
   onSelect,
 }: AnimeRowProps) {
@@ -91,6 +100,19 @@ export default function AnimeRow({
           <h2 className="text-lg sm:text-xl font-black text-white tracking-tight flex items-center gap-2 group-hover/row:text-red-400 transition-colors">
             {title}
           </h2>
+          {badge && (
+            <span
+              className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                type === "genre"
+                  ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                  : type === "collection"
+                  ? "bg-purple-500/10 text-purple-400 border border-purple-500/20"
+                  : "bg-red-600/10 text-red-400 border border-red-500/20"
+              }`}
+            >
+              {badge}
+            </span>
+          )}
           <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-zinc-800/80 text-[11px] font-medium text-zinc-400 border border-white/5">
             {items.length} Judul
           </span>
@@ -108,10 +130,13 @@ export default function AnimeRow({
           </div>
 
           {/* Explore all link */}
-          <button className="text-xs text-zinc-400 hover:text-white font-medium flex items-center gap-0.5 transition-colors group/link cursor-pointer">
+          <Link
+            href={categoryHref || "/categories"}
+            className="text-xs text-zinc-400 hover:text-white font-medium flex items-center gap-0.5 transition-colors group/link cursor-pointer"
+          >
             <span>Jelajahi</span>
             <ChevronSmall className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
-          </button>
+          </Link>
         </div>
       </div>
 

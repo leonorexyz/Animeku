@@ -40,6 +40,7 @@ export interface Anime {
 export interface CategorySection {
   id: string;
   name: string;
-  type: "category" | "genre" | "continue_watching";
+  type: "category" | "genre" | "continue_watching" | "collection";
+  sortOrder?: number;
   items: Anime[];
 }

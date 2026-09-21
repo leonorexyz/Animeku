@@ -174,18 +174,33 @@ export default function Home() {
               />
             </div>
 
-            {/* Rak-Rak Kategori (Shelves by Category & Genre) */}
+            {/* Rak-Rak Kategori (Shelves by Category & Genre sesuai urutan dengan mock) */}
             <div id="kategori" className="space-y-6">
-              {categories.map((category) => (
-                <AnimeRow
-                  key={category.id}
-                  title={category.name}
-                  items={category.items}
-                  variant="portrait"
-                  onPlay={handlePlay}
-                  onSelect={handleSelectAnime}
-                />
-              ))}
+              {[...categories]
+                .sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99))
+                .map((category) => {
+                  const badgeLabel =
+                    category.type === "genre"
+                      ? "Genre"
+                      : category.type === "collection"
+                      ? "Koleksi Khusus"
+                      : "Kategori";
+
+                  return (
+                    <AnimeRow
+                      key={category.id}
+                      title={category.name}
+                      items={category.items}
+                      variant="portrait"
+                      badge={badgeLabel}
+                      type={category.type}
+                      sortOrder={category.sortOrder}
+                      categoryHref="/categories"
+                      onPlay={handlePlay}
+                      onSelect={handleSelectAnime}
+                    />
+                  );
+                })}
             </div>
           </div>
         </>
