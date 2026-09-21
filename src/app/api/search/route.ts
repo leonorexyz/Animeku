@@ -10,6 +10,7 @@ import {
   MOCK_CATALOG_DATA,
 } from "@/data/mockAnime";
 import { Anime } from "@/types/anime";
+import { sortAnimeList } from "@/utils/searchSorting";
 
 const DEFAULT_USER_ID = "user-default";
 
@@ -179,23 +180,8 @@ export async function GET(req: Request) {
       results = results.filter((item) => item.status === status);
     }
 
-    // Pengurutan (Sorting)
-    results.sort((a, b) => {
-      switch (sortBy) {
-        case "rating-desc":
-          return parseFloat(b.rating || "0") - parseFloat(a.rating || "0");
-        case "year-desc":
-          return b.year - a.year;
-        case "year-asc":
-          return a.year - b.year;
-        case "title-asc":
-          return a.title.localeCompare(b.title);
-        case "title-desc":
-          return b.title.localeCompare(a.title);
-        default:
-          return 0;
-      }
-    });
+    // Pengurutan cerdas (Sorting)
+    results = sortAnimeList(results, sortBy, q);
 
     const total = results.length;
     const paginated = results.slice(offset, offset + limit);
