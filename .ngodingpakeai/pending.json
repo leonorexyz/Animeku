@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "5cc4aa2a32c8808494479506c27f783df6b74c82",
+  "generatedForCommit": "f0d7bb30fc378a9f3027631c09ce9367c92d9e6f",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -82,9 +82,9 @@
     },
     {
       "path": "src/app/page.tsx",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 4508
+      "size": 6417
     },
     {
       "path": "src/app/player/[id]/page.tsx",
@@ -108,7 +108,7 @@
       "path": "src/components/AnimePlayer.tsx",
       "reason": "changed",
       "language": "typescript",
-      "size": 41836
+      "size": 44793
     },
     {
       "path": "src/components/AnimeRow.tsx",
@@ -124,9 +124,9 @@
     },
     {
       "path": "src/components/ContinueWatchingRow.tsx",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 4717
+      "size": 4812
     },
     {
       "path": "src/components/EmptyCatalogState.tsx",
@@ -175,6 +175,12 @@
       "reason": "needs_summary",
       "language": "typescript",
       "size": 911
+    },
+    {
+      "path": "src/utils/watchProgress.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 2112
     },
     {
       "path": "tsconfig.json",
