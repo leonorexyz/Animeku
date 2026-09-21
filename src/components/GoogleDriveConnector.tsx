@@ -229,12 +229,16 @@ export default function GoogleDriveConnector({
     }
   };
 
-  const handleDisconnect = async () => {
+  const handleDisconnect = async (removeCatalog = false) => {
     try {
-      await fetch("/api/sources/drive", { method: "DELETE" });
+      await fetch(`/api/sources/drive?removeCatalog=${removeCatalog}`, { method: "DELETE" });
       setIsConnected(false);
       setSelectedFolderId("");
-      showToast("Koneksi Google Drive telah diputus.");
+      showToast(
+        removeCatalog
+          ? "Koneksi Google Drive diputus & katalog dihapus."
+          : "Koneksi Google Drive telah diputus."
+      );
     } catch (e) {
       showToast("Gagal memutus koneksi Google Drive.");
     }
@@ -333,10 +337,7 @@ export default function GoogleDriveConnector({
         }}
         onConnect={handleConnect}
         onDisconnect={(removeCatalog) => {
-          handleDisconnect();
-          if (removeCatalog) {
-            showToast("Indeks anime Google Drive telah dihapus dari katalog.");
-          }
+          handleDisconnect(removeCatalog);
         }}
         onManualSync={() => {
           return new Promise((r) => setTimeout(r, 1000));

@@ -126,28 +126,16 @@ export async function POST(req: Request) {
   }
 }
 
+import { executeDriveDisconnect } from "@/lib/driveDisconnect";
+
 /**
  * DELETE /api/sources/drive
- * Memutus koneksi akun Google Drive
+ * Memutus koneksi akun Google Drive (dengan dukungan opsi hapus katalog)
  */
 export async function DELETE(req: Request) {
   try {
-    await seedDatabase();
-    const defaultUserId = "user-default";
-
-    await db
-      .delete(schema.connectedSources)
-      .where(
-        and(
-          eq(schema.connectedSources.userId, defaultUserId),
-          eq(schema.connectedSources.provider, "drive")
-        )
-      );
-
-    return NextResponse.json({
-      success: true,
-      message: "Koneksi Google Drive berhasil diputus",
-    });
+    const result = await executeDriveDisconnect(req);
+    return NextResponse.json(result);
   } catch (error: any) {
     console.error("DELETE /api/sources/drive error:", error);
     return NextResponse.json(
