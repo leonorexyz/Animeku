@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
-import { X, Play, Plus, Star, Calendar, Clock, Film } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { X, Play, Plus, Star, Calendar, Clock, Film, FolderHeart } from "lucide-react";
 import { Anime } from "@/types/anime";
+import AnimeCategoryPickerModal from "@/components/AnimeCategoryPickerModal";
 
 interface AnimeDetailModalProps {
   anime: Anime | null;
@@ -15,6 +16,15 @@ export default function AnimeDetailModal({
   onClose,
   onPlay,
 }: AnimeDetailModalProps) {
+  const [showCategoryPicker, setShowCategoryPicker] = useState(false);
+  const [assignedCategories, setAssignedCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (anime && anime.genres) {
+      setAssignedCategories(anime.genres);
+    }
+  }, [anime]);
+
   if (!anime) return null;
 
   return (
@@ -90,13 +100,23 @@ export default function AnimeDetailModal({
             </p>
           </div>
 
-          {/* Genres */}
+          {/* Genres & Categories */}
           <div>
-            <h4 className="text-xs uppercase tracking-wider text-zinc-400 font-semibold mb-2">
-              Genre & Kategori
-            </h4>
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="text-xs uppercase tracking-wider text-zinc-400 font-semibold">
+                Genre & Kategori
+              </h4>
+              <button
+                type="button"
+                onClick={() => setShowCategoryPicker(true)}
+                className="inline-flex items-center gap-1 text-xs text-red-400 hover:text-red-300 font-bold transition-colors cursor-pointer"
+              >
+                <FolderHeart className="w-3.5 h-3.5" />
+                <span>Atur Kategori</span>
+              </button>
+            </div>
             <div className="flex flex-wrap gap-2">
-              {anime.genres.map((g) => (
+              {(assignedCategories.length > 0 ? assignedCategories : anime.genres).map((g) => (
                 <span
                   key={g}
                   className="text-xs bg-zinc-800 text-zinc-200 px-3 py-1 rounded-full border border-zinc-700"
@@ -140,6 +160,18 @@ export default function AnimeDetailModal({
           </div>
         </div>
       </div>
+
+      {/* Category Picker Modal */}
+      {showCategoryPicker && (
+        <AnimeCategoryPickerModal
+          isOpen={showCategoryPicker}
+          onClose={() => setShowCategoryPicker(false)}
+          anime={anime}
+          onSave={(cats) => {
+            setAssignedCategories(cats.map((c) => c.name));
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -31,7 +31,9 @@ import {
   Volume2,
   VolumeX,
   Sparkles,
+  FolderHeart,
 } from "lucide-react";
+import AnimeCategoryPickerModal, { CategoryOption } from "@/components/AnimeCategoryPickerModal";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -44,6 +46,8 @@ export default function AnimeDetailPage({ params }: PageProps) {
 
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [copiedToast, setCopiedToast] = useState(false);
+  const [showCategoryPicker, setShowCategoryPicker] = useState(false);
+  const [assignedCategories, setAssignedCategories] = useState<string[]>([]);
 
   const [dbAnimeData, setDbAnimeData] = useState<any>(null);
 
@@ -53,6 +57,9 @@ export default function AnimeDetailPage({ params }: PageProps) {
       .then((json) => {
         if (json.success && json.data) {
           setDbAnimeData(json.data);
+          if (json.data.genres) {
+            setAssignedCategories(json.data.genres);
+          }
         }
       })
       .catch(() => {});
@@ -278,6 +285,33 @@ export default function AnimeDetailPage({ params }: PageProps) {
                 </div>
               </div>
 
+              {/* Kategori & Koleksi Pengguna */}
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block">
+                    Kategori & Koleksi
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setShowCategoryPicker(true)}
+                    className="inline-flex items-center gap-1 text-[11px] text-red-400 hover:text-red-300 font-bold transition-colors cursor-pointer"
+                  >
+                    <FolderHeart className="w-3 h-3" />
+                    <span>Kelola</span>
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {(assignedCategories.length > 0 ? assignedCategories : anime.genres).map((c) => (
+                    <span
+                      key={c}
+                      className="px-2.5 py-1 rounded-full bg-red-600/10 text-xs font-semibold text-red-400 border border-red-500/20"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
               <div>
                 <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block mb-1">
                   Tahun Rilis
@@ -332,6 +366,16 @@ export default function AnimeDetailPage({ params }: PageProps) {
           </div>
         </section>
       </div>
+
+      {/* Anime Category Picker Modal */}
+      <AnimeCategoryPickerModal
+        isOpen={showCategoryPicker}
+        onClose={() => setShowCategoryPicker(false)}
+        anime={anime}
+        onSave={(cats) => {
+          setAssignedCategories(cats.map((c) => c.name));
+        }}
+      />
 
       {/* Footer */}
       <Footer />
