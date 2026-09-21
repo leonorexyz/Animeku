@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Play, Star, Plus, Check, Info, Film, Sparkles } from "lucide-react";
 import { Anime } from "@/types/anime";
 import FavoriteButton from "@/components/FavoriteButton";
+import WatchStatusBadge from "@/components/WatchStatusBadge";
 
 interface AnimeCardProps {
   anime: Anime;
@@ -67,17 +68,21 @@ export default function AnimeCard({
           </div>
         )}
 
-        {/* Status / Rating Badge */}
-        <div className="absolute top-2 left-2 flex flex-wrap items-center gap-1.5 z-10">
+        {/* Status / Rating & Watch Status Badge */}
+        <div className="absolute top-2 left-2 flex flex-wrap items-center gap-1.5 z-10 max-w-[70%]">
           {anime.rating && (
             <span className="flex items-center gap-1 bg-black/75 backdrop-blur-md text-amber-400 text-[10px] sm:text-xs font-bold px-1.5 py-0.5 rounded border border-white/10 shadow">
               <Star className="w-2.5 h-2.5 fill-amber-400" />
               {anime.rating}
             </span>
           )}
-          <span className="bg-zinc-950/80 backdrop-blur-md text-zinc-300 text-[10px] px-1.5 py-0.5 rounded border border-white/10 uppercase font-medium">
-            {anime.status === "tamat" ? "Tamat" : "Ongoing"}
-          </span>
+          <WatchStatusBadge
+            animeId={anime.id}
+            progress={anime.progress}
+            fallbackStatus={anime.status}
+            size="xs"
+            interactive={true}
+          />
         </div>
 
         {/* Resolution / Quality Badge & Quick Favorite Toggle */}

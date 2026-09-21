@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import AnimeCard from "@/components/AnimeCard";
 import EpisodeList from "@/components/EpisodeList";
 import PlayAndResumeButtons from "@/components/PlayAndResumeButtons";
+import WatchStatusBadge from "@/components/WatchStatusBadge";
 import {
   MOCK_FEATURED_ANIME,
   MOCK_FEATURED_ANIMES,
@@ -209,6 +210,14 @@ export default function AnimeDetailPage({ params }: PageProps) {
             <span className="text-red-400 bg-red-600/10 px-1.5 py-0.5 rounded border border-red-500/30 text-[10px]">
               Ultra HD 4K
             </span>
+            <WatchStatusBadge
+              animeId={anime.id}
+              progress={savedProgress}
+              fallbackStatus={anime.status}
+              size="sm"
+              interactive={true}
+              showDropdown={true}
+            />
           </div>
 
           {/* Title */}
@@ -317,6 +326,22 @@ export default function AnimeDetailPage({ params }: PageProps) {
                   Tahun Rilis
                 </span>
                 <span className="text-zinc-200 font-semibold">{anime.year}</span>
+              </div>
+
+              <div>
+                <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block mb-1">
+                  Status Tontonan Anda
+                </span>
+                <div className="flex items-center gap-2 pt-0.5">
+                  <WatchStatusBadge
+                    animeId={anime.id}
+                    progress={savedProgress}
+                    fallbackStatus={anime.status}
+                    size="md"
+                    interactive={true}
+                    showDropdown={true}
+                  />
+                </div>
               </div>
             </div>
 

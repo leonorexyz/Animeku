@@ -5,6 +5,7 @@ import { X, Play, Plus, Star, Calendar, Clock, Film, FolderHeart } from "lucide-
 import { Anime } from "@/types/anime";
 import AnimeCategoryPickerModal from "@/components/AnimeCategoryPickerModal";
 import FavoriteButton from "@/components/FavoriteButton";
+import WatchStatusBadge from "@/components/WatchStatusBadge";
 
 interface AnimeDetailModalProps {
   anime: Anime | null;
@@ -73,6 +74,15 @@ export default function AnimeDetailModal({
                 <span className="text-emerald-400 font-semibold uppercase">
                   {anime.status === "tamat" ? "Tamat" : "Sedang Tayang"}
                 </span>
+                <span className="text-zinc-400">•</span>
+                <WatchStatusBadge
+                  animeId={anime.id}
+                  progress={anime.progress}
+                  fallbackStatus={anime.status}
+                  size="sm"
+                  interactive={true}
+                  showDropdown={true}
+                />
               </div>
             </div>
 
