@@ -26,6 +26,7 @@ export default function Home() {
   const [isEmptyCatalog, setIsEmptyCatalog] = useState(false);
   const [continueWatching, setContinueWatching] = useState<Anime[]>(MOCK_CONTINUE_WATCHING);
   const [categories, setCategories] = useState<CategorySection[]>(MOCK_CATEGORIES);
+  const [featuredAnimes, setFeaturedAnimes] = useState<Anime[]>(MOCK_FEATURED_ANIMES);
 
   useEffect(() => {
     fetch("/api/categories")
@@ -36,6 +37,15 @@ export default function Home() {
         }
       })
       .catch((err) => console.warn("Failed to fetch /api/categories:", err));
+
+    fetch("/api/featured")
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+          setFeaturedAnimes(res.data);
+        }
+      })
+      .catch((err) => console.warn("Failed to fetch /api/featured:", err));
   }, []);
 
   useEffect(() => {
@@ -148,7 +158,7 @@ export default function Home() {
         <>
           {/* Sorotan Utama (Hero Banner) */}
           <HeroBanner
-            animes={MOCK_FEATURED_ANIMES}
+            animes={featuredAnimes}
             onPlay={handlePlay}
             onInfo={handleSelectAnime}
           />
