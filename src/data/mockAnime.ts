@@ -27,6 +27,37 @@ export const MOCK_FEATURED_ANIME: Anime = {
     lastWatchedAt: "2026-09-20T19:30:00Z",
   },
 };
+export const MOCK_FEATURED_ANIMES: Anime[] = [
+  MOCK_FEATURED_ANIME,
+  {
+    id: "anime-2",
+    title: "Jujutsu Kaisen: Shibuya Incident",
+    synopsis:
+      "Trik kutukan terencana meletus di Shibuya pada malam Halloween. Gojo Satoru dikepung oleh roh kutukan tingkat khusus, sementara para penyihir jujutsu muda harus mempertaruhkan nyawa demi menyelamatkan kota dari kehancuran total.",
+    year: 2023,
+    posterUrl: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=600&auto=format&fit=crop&q=80",
+    coverUrl: "https://images.unsplash.com/photo-1563089145-599997674d42?w=1600&auto=format&fit=crop&q=80",
+    status: "sedang",
+    isFeatured: true,
+    rating: "8.8",
+    genres: ["Aksi", "Supernatural", "Fantasi Gelap"],
+    totalEpisodes: 23,
+  },
+  {
+    id: "anime-3",
+    title: "Solo Leveling",
+    synopsis:
+      "Di dunia di mana monster bermunculan melalui gerbang dimensi misterius, hunter terlemah umat manusia Sung Jin-woo mendapatkan kesempatan kedua melalui sistem misterius yang hanya bisa dilihat oleh dirinya.",
+    year: 2024,
+    posterUrl: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&auto=format&fit=crop&q=80",
+    coverUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600&auto=format&fit=crop&q=80",
+    status: "sedang",
+    isFeatured: true,
+    rating: "8.5",
+    genres: ["Aksi", "Fantasi", "Petualangan"],
+    totalEpisodes: 12,
+  },
+];
 
 export const MOCK_CONTINUE_WATCHING: Anime[] = [
   {

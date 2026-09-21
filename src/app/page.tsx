@@ -8,6 +8,7 @@ import AnimeDetailModal from "@/components/AnimeDetailModal";
 import Footer from "@/components/Footer";
 import {
   MOCK_FEATURED_ANIME,
+  MOCK_FEATURED_ANIMES,
   MOCK_CONTINUE_WATCHING,
   MOCK_CATEGORIES,
 } from "@/data/mockAnime";
@@ -39,7 +40,7 @@ export default function Home() {
 
       {/* Sorotan Utama (Hero Banner) */}
       <HeroBanner
-        anime={MOCK_FEATURED_ANIME}
+        animes={MOCK_FEATURED_ANIMES}
         onPlay={handlePlay}
         onInfo={handleSelectAnime}
       />
