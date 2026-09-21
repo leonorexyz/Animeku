@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "af6a92d96c161421310f5b6450d9cd6f7d17ee09",
+  "generatedForCommit": "7bf302c829c9fff8fcb1c55a452afd5f1ed148b3",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -220,9 +220,9 @@
     },
     {
       "path": "src/app/sources/page.tsx",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 22469
+      "size": 18583
     },
     {
       "path": "src/components/AnimeCard.tsx",
@@ -261,8 +261,14 @@
       "size": 4812
     },
     {
-      "path": "src/components/DriveStatusCard.tsx",
+      "path": "src/components/DirectStreamLinkImporter.tsx",
       "reason": "new",
+      "language": "typescript",
+      "size": 12651
+    },
+    {
+      "path": "src/components/DriveStatusCard.tsx",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 12995
     },
@@ -292,7 +298,7 @@
     },
     {
       "path": "src/components/GoogleDriveConnector.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 13945
     },

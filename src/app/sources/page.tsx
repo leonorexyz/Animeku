@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import LocalFileImporter from "@/components/LocalFileImporter";
 import GoogleDriveConnector from "@/components/GoogleDriveConnector";
 import DirectStreamLinkImporter from "@/components/DirectStreamLinkImporter";
+import MetadataMatcherModal, { AnimeCandidate } from "@/components/MetadataMatcherModal";
 import {
   HardDrive,
   Cloud,
@@ -73,6 +74,7 @@ export default function AddSourcePage() {
   const [activeTab, setActiveTab] = useState<"local" | "drive" | "link">("local");
   const [sources, setSources] = useState<ConnectedSourceItem[]>(INITIAL_SOURCES);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [showMetadataMatcher, setShowMetadataMatcher] = useState(false);
 
   // Form State: Local File/Folder
   const [localPath, setLocalPath] = useState("D:/Anime/Winter2024");
@@ -216,9 +218,19 @@ export default function AddSourcePage() {
             </p>
           </div>
 
-          {/* Quick Stats Cards */}
-          <div className="flex items-center gap-3">
-            <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-4 text-center min-w-[110px] backdrop-blur-sm">
+          {/* Quick Stats & Action Cards */}
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setShowMetadataMatcher(true)}
+              className="flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-amber-500/20 to-rose-500/20 hover:from-amber-500/30 hover:to-rose-500/30 text-amber-300 hover:text-amber-200 border border-amber-500/30 rounded-2xl text-xs font-bold transition-all shadow-lg hover:scale-105 cursor-pointer backdrop-blur-md"
+              title="Buka alat pencocok judul dan poster resmi"
+            >
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span>Rapikan Judul & Poster</span>
+            </button>
+
+            <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-4 text-center min-w-[100px] backdrop-blur-sm">
               <span className="text-2xl font-black text-red-500 block">
                 {sources.length}
               </span>
@@ -226,7 +238,7 @@ export default function AddSourcePage() {
                 Sumber Aktif
               </span>
             </div>
-            <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-4 text-center min-w-[110px] backdrop-blur-sm">
+            <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-4 text-center min-w-[100px] backdrop-blur-sm">
               <span className="text-2xl font-black text-emerald-400 block">
                 {sources.reduce((acc, s) => acc + s.itemCount, 0)}
               </span>
@@ -452,6 +464,15 @@ export default function AddSourcePage() {
           </div>
         </div>
       </div>
+
+      {/* Metadata Matcher Modal (Rapikan Judul & Poster) */}
+      <MetadataMatcherModal
+        isOpen={showMetadataMatcher}
+        onClose={() => setShowMetadataMatcher(false)}
+        onApplyMetadata={(cand) => {
+          showToast(`Metadata & poster resmi untuk "${cand.title}" berhasil diterapkan!`);
+        }}
+      />
 
       <Footer />
     </div>
