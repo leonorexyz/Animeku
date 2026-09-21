@@ -11,10 +11,13 @@ import { notFound } from "next/navigation";
 
 interface PlayerPageProps {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ ep?: string }>;
 }
 
-export default async function PlayerPage({ params }: PlayerPageProps) {
+export default async function PlayerPage({ params, searchParams }: PlayerPageProps) {
   const { id } = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const requestedEpNum = resolvedSearchParams.ep ? parseInt(resolvedSearchParams.ep, 10) : undefined;
 
   // Search across all mock anime
   const allAnime: Anime[] = [
@@ -59,10 +62,15 @@ export default async function PlayerPage({ params }: PlayerPageProps) {
     },
   ];
 
-  // If anime has continue watching progress, use that episode
-  const initialEp = anime.progress
-    ? episodes.find((e) => e.episodeNumber === anime.progress!.episodeNumber) || episodes[0]
-    : episodes[0];
+  // If specific episode requested via query param, use it; otherwise check continue watching progress
+  let initialEp = episodes[0];
+  if (requestedEpNum) {
+    const matched = episodes.find((e) => e.episodeNumber === requestedEpNum);
+    if (matched) initialEp = matched;
+  } else if (anime.progress) {
+    const matched = episodes.find((e) => e.episodeNumber === anime.progress!.episodeNumber);
+    if (matched) initialEp = matched;
+  }
 
   return (
     <main className="w-full h-screen bg-black overflow-hidden">

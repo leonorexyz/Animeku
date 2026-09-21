@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimeCard from "@/components/AnimeCard";
 import EpisodeList from "@/components/EpisodeList";
+import PlayAndResumeButtons from "@/components/PlayAndResumeButtons";
 import {
   MOCK_FEATURED_ANIME,
   MOCK_FEATURED_ANIMES,
@@ -89,8 +90,13 @@ export default function AnimeDetailPage({ params }: PageProps) {
     .filter((a) => a.id !== anime.id)
     .slice(0, 6);
 
+  const handlePlay = (episodeNumber?: number) => {
+    const targetEp = episodeNumber || (savedProgress?.episodeNumber ?? 1);
+    router.push(`/player/${anime.id}?ep=${targetEp}`);
+  };
+
   const handlePlayEpisode = (ep: ExtendedEpisode) => {
-    router.push(`/player/${anime.id}`);
+    router.push(`/player/${anime.id}?ep=${ep.episodeNumber}`);
   };
 
   const handleShare = () => {
@@ -165,39 +171,17 @@ export default function AnimeDetailPage({ params }: PageProps) {
             {anime.synopsis}
           </p>
 
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <button
-              onClick={() => router.push(`/player/${anime.id}`)}
-              className="flex items-center gap-2.5 px-6 py-3 bg-red-600 hover:bg-red-700 text-white text-sm sm:text-base font-bold rounded-lg shadow-lg hover:shadow-red-600/30 transition-all hover:scale-105 cursor-pointer"
-            >
-              <Play className="w-5 h-5 fill-white" />
-              <span>
-                {savedProgress
-                  ? `Lanjutkan Ep ${savedProgress.episodeNumber}`
-                  : "Mulai Nonton Ep 1"}
-              </span>
-            </button>
-
-            <button
-              onClick={() => setIsFavorite(!isFavorite)}
-              className={`flex items-center gap-2 px-4 py-3 rounded-lg border text-sm font-semibold backdrop-blur-md transition-all cursor-pointer ${
-                isFavorite
-                  ? "bg-red-600/20 border-red-500 text-red-400"
-                  : "bg-zinc-900/80 hover:bg-zinc-800 border-white/10 text-white"
-              }`}
-            >
-              {isFavorite ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-              <span>{isFavorite ? "Tersimpan" : "Daftar Saya"}</span>
-            </button>
-
-            <button
-              onClick={handleShare}
-              className="p-3 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-white/10 text-white backdrop-blur-md transition-colors cursor-pointer"
-              title="Bagikan Tautan Anime"
-            >
-              <Share2 className="w-4 h-4" />
-            </button>
+          {/* Action Buttons: Play, Continue, My List, Share */}
+          <div className="pt-2">
+            <PlayAndResumeButtons
+              animeId={anime.id}
+              totalEpisodes={anime.totalEpisodes || episodes.length}
+              savedProgress={savedProgress}
+              isFavorite={isFavorite}
+              onToggleFavorite={() => setIsFavorite(!isFavorite)}
+              onShare={handleShare}
+              onPlay={handlePlay}
+            />
           </div>
 
           {copiedToast && (
