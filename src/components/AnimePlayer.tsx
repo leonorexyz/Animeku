@@ -98,6 +98,7 @@ export default function AnimePlayer({
   const subFileInputRef = useRef<HTMLInputElement>(null);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [nextEpCountdown, setNextEpCountdown] = useState<number | null>(null);
+  const [autoplayNext, setAutoplayNext] = useState(true);
 
   // Subtitle & Audio options
   const subtitles = [
@@ -321,9 +322,15 @@ export default function AnimePlayer({
       setBufferedPercent((bufferedEnd / duration) * 100);
     }
 
-    // Auto next episode trigger when 10 seconds remain
-    if (duration > 20 && duration - cur <= 10 && nextEp && nextEpCountdown === null) {
-      setNextEpCountdown(10);
+    // Auto next episode trigger when 8 seconds remain if autoplay is active
+    if (autoplayNext && duration > 20 && duration - cur <= 8 && nextEp && nextEpCountdown === null) {
+      setNextEpCountdown(8);
+    }
+  };
+
+  const handleVideoEnded = () => {
+    if (autoplayNext && nextEp) {
+      setNextEpCountdown(5);
     }
   };
 
@@ -489,6 +496,7 @@ export default function AnimePlayer({
         onLoadedMetadata={handleLoadedMetadata}
         onClick={togglePlay}
         onDoubleClick={toggleFullscreen}
+        onEnded={handleVideoEnded}
         className="w-full h-full object-contain cursor-pointer"
         playsInline
       />
@@ -597,34 +605,87 @@ export default function AnimePlayer({
 
       {/* Next Episode Auto Countdown Popup */}
       {nextEpCountdown !== null && nextEp && (
-        <div className="absolute bottom-28 right-8 z-40 bg-zinc-950/95 border border-zinc-700 rounded-xl p-4 shadow-2xl backdrop-blur-md max-w-sm animate-in slide-in-from-bottom-5">
-          <div className="flex items-center justify-between gap-4 mb-2">
-            <span className="text-xs font-bold text-red-400 uppercase tracking-wide">
-              Episode Selanjutnya ({nextEpCountdown}s)
-            </span>
+        <div className="absolute bottom-28 right-6 sm:right-8 z-40 bg-zinc-950/95 border border-zinc-700/80 rounded-2xl p-4 shadow-2xl backdrop-blur-md max-w-sm w-[90vw] animate-in slide-in-from-bottom-5">
+          {/* Header with Circular Countdown Progress */}
+          <div className="flex items-center justify-between gap-3 mb-3">
+            <div className="flex items-center gap-2.5">
+              <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
+                <svg className="w-8 h-8 -rotate-90">
+                  <circle
+                    cx="16"
+                    cy="16"
+                    r="13"
+                    className="stroke-zinc-700"
+                    strokeWidth="3"
+                    fill="none"
+                  />
+                  <circle
+                    cx="16"
+                    cy="16"
+                    r="13"
+                    className="stroke-red-600 transition-all duration-1000"
+                    strokeWidth="3"
+                    strokeDasharray={81.68}
+                    strokeDashoffset={81.68 * (1 - nextEpCountdown / 8)}
+                    fill="none"
+                  />
+                </svg>
+                <span className="absolute text-xs font-bold text-white font-mono">
+                  {nextEpCountdown}
+                </span>
+              </div>
+              <div>
+                <span className="text-[11px] font-bold text-red-400 uppercase tracking-wider block">
+                  Episode Selanjutnya
+                </span>
+                <span className="text-[10px] text-zinc-400">Putar otomatis dalam {nextEpCountdown} detik</span>
+              </div>
+            </div>
+
             <button
               onClick={() => setNextEpCountdown(null)}
-              className="text-zinc-400 hover:text-white"
+              className="p-1 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
+              title="Batalkan putar otomatis"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          <p className="text-sm font-bold text-white mb-3">
-            Ep {nextEp.episodeNumber}: {nextEp.title}
-          </p>
+          {/* Episode Preview Card */}
+          <div className="flex gap-3 bg-zinc-900/80 p-2.5 rounded-xl border border-white/5 mb-3">
+            <div className="relative w-24 aspect-video rounded-lg overflow-hidden bg-zinc-800 shrink-0">
+              <img
+                src={nextEp.thumbnailUrl}
+                alt={nextEp.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute bottom-1 right-1 bg-black/80 text-[9px] px-1 rounded text-zinc-300">
+                24:00
+              </div>
+            </div>
+            <div className="flex-1 min-w-0 flex flex-col justify-center">
+              <p className="text-xs font-bold text-white truncate">
+                Ep {nextEp.episodeNumber}: {nextEp.title}
+              </p>
+              <p className="text-[11px] text-zinc-400 line-clamp-2 mt-0.5">
+                {nextEp.synopsis}
+              </p>
+            </div>
+          </div>
 
-          <div className="flex gap-2">
+          {/* Action Buttons */}
+          <div className="flex items-center justify-between gap-2">
             <button
               onClick={playNextEpisode}
-              className="flex-1 py-1.5 px-3 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-red-600/30 cursor-pointer"
+              className="flex-1 py-2 px-4 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-red-600/40 transition-transform active:scale-95 cursor-pointer"
             >
               <Play className="w-3.5 h-3.5 fill-white" />
               Putar Sekarang
             </button>
+
             <button
               onClick={() => setNextEpCountdown(null)}
-              className="py-1.5 px-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-lg text-xs font-medium cursor-pointer"
+              className="py-2 px-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white rounded-lg text-xs font-medium transition-colors cursor-pointer"
             >
               Batal
             </button>
