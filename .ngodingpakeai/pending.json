@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "7bf302c829c9fff8fcb1c55a452afd5f1ed148b3",
+  "generatedForCommit": "85273ad8e0431e432c8a62b2ea36e907de1e7bb9",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -84,7 +84,7 @@
       "path": "src/app/anime/[id]/page.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 12308
+      "size": 15111
     },
     {
       "path": "src/app/api/anime/filters/route.ts",
@@ -99,6 +99,18 @@
       "size": 52
     },
     {
+      "path": "src/app/api/anime/[id]/categories/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 4237
+    },
+    {
+      "path": "src/app/api/anime/[id]/episodes/order/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 2937
+    },
+    {
       "path": "src/app/api/anime/[id]/episodes/route.ts",
       "reason": "needs_summary",
       "language": "typescript",
@@ -108,13 +120,19 @@
       "path": "src/app/api/anime/[id]/favorite/route.ts",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 3848
+      "size": 4542
+    },
+    {
+      "path": "src/app/api/anime/[id]/metadata/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 7931
     },
     {
       "path": "src/app/api/anime/[id]/progress/route.ts",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 8443
+      "size": 9126
     },
     {
       "path": "src/app/api/anime/[id]/route.ts",
@@ -123,10 +141,46 @@
       "size": 6376
     },
     {
+      "path": "src/app/api/anime/[id]/status/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 3221
+    },
+    {
+      "path": "src/app/api/auth/google-drive/callback/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 5671
+    },
+    {
+      "path": "src/app/api/auth/google-drive/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 2960
+    },
+    {
+      "path": "src/app/api/categories/order/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 4956
+    },
+    {
       "path": "src/app/api/categories/route.ts",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 2963
+      "size": 7856
+    },
+    {
+      "path": "src/app/api/categories/[id]/anime/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 4695
+    },
+    {
+      "path": "src/app/api/categories/[id]/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 5464
     },
     {
       "path": "src/app/api/continue-watching/route.ts",
@@ -150,7 +204,7 @@
       "path": "src/app/api/favorites/route.ts",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 4968
+      "size": 6835
     },
     {
       "path": "src/app/api/featured/route.ts",
@@ -159,10 +213,16 @@
       "size": 3147
     },
     {
+      "path": "src/app/api/metadata/save/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 5363
+    },
+    {
       "path": "src/app/api/player/progress/route.ts",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 4250
+      "size": 4719
     },
     {
       "path": "src/app/api/search/filters/route.ts",
@@ -183,28 +243,112 @@
       "size": 7744
     },
     {
+      "path": "src/app/api/sources/drive/disconnect/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 1184
+    },
+    {
+      "path": "src/app/api/sources/drive/folders/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 15646
+    },
+    {
+      "path": "src/app/api/sources/drive/folders/[id]/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 908
+    },
+    {
+      "path": "src/app/api/sources/drive/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 4206
+    },
+    {
+      "path": "src/app/api/sources/link/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 9101
+    },
+    {
+      "path": "src/app/api/sources/link/validate/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 5917
+    },
+    {
+      "path": "src/app/api/sources/local/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 17496
+    },
+    {
+      "path": "src/app/api/sources/local/upload/route.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 46
+    },
+    {
       "path": "src/app/api/stream/route.ts",
       "reason": "needs_summary",
       "language": "typescript",
       "size": 2740
     },
     {
+      "path": "src/app/categories/page.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 27488
+    },
+    {
+      "path": "src/app/collections/page.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 46
+    },
+    {
+      "path": "src/app/favorit/page.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 45
+    },
+    {
+      "path": "src/app/favorites/page.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 24353
+    },
+    {
       "path": "src/app/globals.css",
       "reason": "needs_summary",
       "language": "css",
-      "size": 767
+      "size": 1881
+    },
+    {
+      "path": "src/app/koleksi/page.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 46
     },
     {
       "path": "src/app/layout.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 556
+      "size": 1479
     },
     {
       "path": "src/app/page.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 7214
+      "size": 7853
+    },
+    {
+      "path": "src/app/pengaturan/page.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 76
     },
     {
       "path": "src/app/player/[id]/page.tsx",
@@ -216,37 +360,61 @@
       "path": "src/app/search/page.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 12592
+      "size": 13041
+    },
+    {
+      "path": "src/app/settings/page.tsx",
+      "reason": "changed",
+      "language": "typescript",
+      "size": 26991
     },
     {
       "path": "src/app/sources/page.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
-      "size": 18583
+      "size": 27299
     },
     {
       "path": "src/components/AnimeCard.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 6788
+      "size": 9106
+    },
+    {
+      "path": "src/components/AnimeCategoryPickerModal.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 17583
     },
     {
       "path": "src/components/AnimeDetailModal.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 5521
+      "size": 7856
     },
     {
       "path": "src/components/AnimePlayer.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 44793
+      "size": 45409
     },
     {
       "path": "src/components/AnimeRow.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 6273
+      "size": 7103
+    },
+    {
+      "path": "src/components/CardSizeSelector.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 6628
+    },
+    {
+      "path": "src/components/CategoryManager.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 25591
     },
     {
       "path": "src/components/ContinueWatchingCard.tsx",
@@ -262,9 +430,9 @@
     },
     {
       "path": "src/components/DirectStreamLinkImporter.tsx",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "typescript",
-      "size": 12651
+      "size": 14832
     },
     {
       "path": "src/components/DriveStatusCard.tsx",
@@ -300,13 +468,13 @@
       "path": "src/components/GoogleDriveConnector.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 13945
+      "size": 17521
     },
     {
       "path": "src/components/HeroBanner.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 9276
+      "size": 8876
     },
     {
       "path": "src/components/LiveSearchInput.tsx",
@@ -318,13 +486,19 @@
       "path": "src/components/LocalFileImporter.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 16542
+      "size": 19264
     },
     {
       "path": "src/components/LocalVideoPreviewModal.tsx",
       "reason": "needs_summary",
       "language": "typescript",
       "size": 9910
+    },
+    {
+      "path": "src/components/MetadataMatcherModal.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 19423
     },
     {
       "path": "src/components/MobileBottomNav.tsx",
@@ -336,13 +510,19 @@
       "path": "src/components/Navbar.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 11618
+      "size": 13291
     },
     {
       "path": "src/components/PlayAndResumeButtons.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 5539
+      "size": 5692
+    },
+    {
+      "path": "src/components/PlayerPreferencesPanel.tsx",
+      "reason": "new",
+      "language": "typescript",
+      "size": 12166
     },
     {
       "path": "src/components/SearchAnimeCard.tsx",
@@ -360,7 +540,7 @@
       "path": "src/components/SearchFilters.tsx",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 11117
+      "size": 12967
     },
     {
       "path": "src/components/SearchHistory.tsx",
@@ -375,16 +555,40 @@
       "size": 4856
     },
     {
+      "path": "src/components/WatchStatusBadge.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 7408
+    },
+    {
+      "path": "src/components/WatchStatusFilter.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 3646
+    },
+    {
+      "path": "src/context/ThemeContext.tsx",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 3427
+    },
+    {
       "path": "src/data/mockAnime.ts",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 11742
+      "size": 12026
     },
     {
       "path": "src/data/mockEpisodes.ts",
       "reason": "needs_summary",
       "language": "typescript",
       "size": 3719
+    },
+    {
+      "path": "src/data/mockSettings.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 1143
     },
     {
       "path": "src/db/index.ts",
@@ -423,6 +627,30 @@
       "size": 202
     },
     {
+      "path": "src/db/migrations/0004_add_anime_episode_sources_schema.sql",
+      "reason": "needs_summary",
+      "language": "sql",
+      "size": 2062
+    },
+    {
+      "path": "src/db/migrations/0005_add_categories_and_relations_schema.sql",
+      "reason": "needs_summary",
+      "language": "sql",
+      "size": 987
+    },
+    {
+      "path": "src/db/migrations/0006_add_anime_is_favorite.sql",
+      "reason": "needs_summary",
+      "language": "sql",
+      "size": 174
+    },
+    {
+      "path": "src/db/migrations/0007_add_anime_watch_status.sql",
+      "reason": "needs_summary",
+      "language": "sql",
+      "size": 165
+    },
+    {
       "path": "src/db/migrations/meta/0000_snapshot.json",
       "reason": "needs_summary",
       "language": "json",
@@ -444,13 +672,19 @@
       "path": "src/db/schema.ts",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 8095
+      "size": 11070
     },
     {
       "path": "src/db/seed.ts",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 4519
+      "size": 4860
+    },
+    {
+      "path": "src/lib/driveDisconnect.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 2786
     },
     {
       "path": "src/services/streamingService.ts",
@@ -459,10 +693,22 @@
       "size": 4235
     },
     {
+      "path": "src/services/watchStatusService.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 4981
+    },
+    {
       "path": "src/types/anime.ts",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 911
+      "size": 1028
+    },
+    {
+      "path": "src/utils/appSettings.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 2341
     },
     {
       "path": "src/utils/favorites.ts",
@@ -486,7 +732,13 @@
       "path": "src/utils/watchProgress.ts",
       "reason": "needs_summary",
       "language": "typescript",
-      "size": 2672
+      "size": 4649
+    },
+    {
+      "path": "src/utils/watchStatus.ts",
+      "reason": "needs_summary",
+      "language": "typescript",
+      "size": 4157
     },
     {
       "path": "tsconfig.json",

@@ -13,6 +13,7 @@ import {
 } from "@/utils/appSettings";
 import CardSizeSelector, { CardSizeOption } from "@/components/CardSizeSelector";
 import PlayerPreferencesPanel from "@/components/PlayerPreferencesPanel";
+import ConnectedSourcesList from "@/components/ConnectedSourcesList";
 import {
   Palette,
   PlaySquare,
@@ -364,6 +365,9 @@ export default function SettingsPage() {
             {/* 3. Tab Sumber & Penyimpanan */}
             {activeTab === "storage" && (
               <div className="space-y-6 animate-in fade-in duration-200">
+                {/* Daftar Sumber Terhubung */}
+                <ConnectedSourcesList onNotification={showToast} />
+
                 <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 shadow-md space-y-4">
                   <div className="flex items-start justify-between">
                     <div>
