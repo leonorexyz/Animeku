@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "e522d17bb25b0a77efb6958494dc6f45621f3dd6",
+  "generatedForCommit": "407609d29e313ae37a95fb89e0dd8457f23c6b80",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -243,6 +243,12 @@
       "size": 7744
     },
     {
+      "path": "src/app/api/settings/route.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 7393
+    },
+    {
       "path": "src/app/api/sources/drive/disconnect/route.ts",
       "reason": "needs_summary",
       "language": "typescript",
@@ -370,9 +376,9 @@
     },
     {
       "path": "src/app/settings/page.tsx",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 29678
+      "size": 30114
     },
     {
       "path": "src/app/sources/page.tsx",
@@ -670,7 +676,7 @@
     },
     {
       "path": "src/db/migrations/0008_enhance_user_settings_schema.sql",
-      "reason": "new",
+      "reason": "needs_summary",
       "language": "sql",
       "size": 1387
     },
@@ -694,13 +700,13 @@
     },
     {
       "path": "src/db/schema.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 12077
     },
     {
       "path": "src/db/seed.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 6037
     },
@@ -730,9 +736,9 @@
     },
     {
       "path": "src/utils/appSettings.ts",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 2341
+      "size": 3436
     },
     {
       "path": "src/utils/favorites.ts",
