@@ -12,6 +12,7 @@ import {
   resetStoredAppSettings,
 } from "@/utils/appSettings";
 import CardSizeSelector, { CardSizeOption } from "@/components/CardSizeSelector";
+import PlayerPreferencesPanel from "@/components/PlayerPreferencesPanel";
 import {
   Palette,
   PlaySquare,
@@ -333,126 +334,30 @@ export default function SettingsPage() {
 
             {/* 2. Tab Pemutar Video */}
             {activeTab === "player" && (
-              <div className="space-y-6 animate-in fade-in duration-200">
-                {/* Resolusi & Subtitle */}
-                <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 shadow-md space-y-5">
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <PlaySquare className="w-4 h-4 text-red-500" />
-                    Preferensi Audio & Video
-                  </h3>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
-                        Kualitas Video Bawaan
-                      </label>
-                      <select
-                        value={settings.defaultQuality}
-                        onChange={(e) => setSettings({ ...settings, defaultQuality: e.target.value as any })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-800/80 border border-zinc-700 text-xs text-white focus:outline-none focus:border-red-500 cursor-pointer"
-                      >
-                        <option value="auto">Otomatis (Adaptif Bandwidth)</option>
-                        <option value="1080p">1080p FHD (Tertinggi)</option>
-                        <option value="720p">720p HD (Seimbang)</option>
-                        <option value="480p">480p SD (Hemat Kuota)</option>
-                        <option value="360p">360p Rendah</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
-                        Track Subtitle Utama
-                      </label>
-                      <select
-                        value={settings.defaultSubtitle}
-                        onChange={(e) => setSettings({ ...settings, defaultSubtitle: e.target.value as any })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-800/80 border border-zinc-700 text-xs text-white focus:outline-none focus:border-red-500 cursor-pointer"
-                      >
-                        <option value="id">Bahasa Indonesia</option>
-                        <option value="en">English</option>
-                        <option value="none">Nonaktifkan Subtitle Bawaan</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
-                      Kecepatan Pemutaran Favorit ({settings.playbackSpeed}x)
-                    </label>
-                    <div className="flex items-center gap-2">
-                      {[0.75, 1.0, 1.25, 1.5, 2.0].map((spd) => (
-                        <button
-                          key={spd}
-                          type="button"
-                          onClick={() => setSettings({ ...settings, playbackSpeed: spd })}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                            settings.playbackSpeed === spd
-                              ? "bg-red-600 text-white shadow-sm"
-                              : "bg-zinc-800 text-zinc-400 hover:text-white"
-                          }`}
-                        >
-                          {spd}x
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Otomasi Pemutaran */}
-                <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 shadow-md divide-y divide-zinc-800">
-                  <div className="flex items-center justify-between pb-4">
-                    <div>
-                      <div className="text-sm font-semibold text-white">Lanjut Episode Otomatis (Auto-Next)</div>
-                      <div className="text-xs text-zinc-400">
-                        Otomatis memutar episode selanjutnya ketika tontonan selesai
-                      </div>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={settings.autoPlayNext}
-                        onChange={(e) => setSettings({ ...settings, autoPlayNext: e.target.checked })}
-                        className="sr-only peer"
-                      />
-                      <div className="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
-                    </label>
-                  </div>
-
-                  <div className="flex items-center justify-between py-4">
-                    <div>
-                      <div className="text-sm font-semibold text-white">Ingat Posisi Terakhir (Resume)</div>
-                      <div className="text-xs text-zinc-400">
-                        Melanjutkan pemutaran video dari detik terakhir Anda berhenti
-                      </div>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={settings.resumePlayback}
-                        onChange={(e) => setSettings({ ...settings, resumePlayback: e.target.checked })}
-                        className="sr-only peer"
-                      />
-                      <div className="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
-                    </label>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4">
-                    <div>
-                      <div className="text-sm font-semibold text-white">Tombol Lompat Intro (Skip Intro)</div>
-                      <div className="text-xs text-zinc-400">
-                        Durasi lompatan default saat menekan tombol lewati lagu pembuka ({settings.skipIntroSeconds} detik)
-                      </div>
-                    </div>
-                    <input
-                      type="number"
-                      min={10}
-                      max={180}
-                      value={settings.skipIntroSeconds}
-                      onChange={(e) => setSettings({ ...settings, skipIntroSeconds: Number(e.target.value) || 85 })}
-                      className="w-20 px-3 py-1.5 rounded-lg bg-zinc-800 border border-zinc-700 text-xs text-white text-center focus:outline-none focus:border-red-500"
-                    />
-                  </div>
-                </div>
+              <div className="animate-in fade-in duration-200">
+                <PlayerPreferencesPanel
+                  settings={settings}
+                  onChange={(updated) => {
+                    const newSettings = { ...settings, ...updated };
+                    setSettings(newSettings);
+                    saveStoredAppSettings(newSettings);
+                    showToast("Preferensi pemutar berhasil diperbarui!");
+                  }}
+                  onReset={() => {
+                    const resetPlayerSettings = {
+                      defaultQuality: MOCK_SETTINGS.defaultQuality,
+                      defaultSubtitle: MOCK_SETTINGS.defaultSubtitle,
+                      playbackSpeed: MOCK_SETTINGS.playbackSpeed,
+                      autoPlayNext: MOCK_SETTINGS.autoPlayNext,
+                      skipIntroSeconds: MOCK_SETTINGS.skipIntroSeconds,
+                      resumePlayback: MOCK_SETTINGS.resumePlayback,
+                    };
+                    const newSettings = { ...settings, ...resetPlayerSettings };
+                    setSettings(newSettings);
+                    saveStoredAppSettings(newSettings);
+                    showToast("Preferensi pemutar telah direset ke nilai awal.");
+                  }}
+                />
               </div>
             )}
 
