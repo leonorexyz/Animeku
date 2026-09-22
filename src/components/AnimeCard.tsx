@@ -5,12 +5,14 @@ import { Play, Star, Plus, Check, Info, Film, Sparkles } from "lucide-react";
 import { Anime, WatchProgress } from "@/types/anime";
 import FavoriteButton from "@/components/FavoriteButton";
 import WatchStatusBadge from "@/components/WatchStatusBadge";
+import { getStoredAppSettings } from "@/utils/appSettings";
 
 interface AnimeCardProps {
   anime: Anime;
   onPlay?: (anime: Anime) => void;
   onSelect?: (anime: Anime) => void;
   variant?: "portrait" | "continue";
+  size?: "small" | "medium" | "large";
 }
 
 export default function AnimeCard({
@@ -18,13 +20,43 @@ export default function AnimeCard({
   onPlay,
   onSelect,
   variant = "portrait",
+  size,
 }: AnimeCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [cardSize, setCardSize] = useState<"small" | "medium" | "large">(
+    size || "medium"
+  );
 
   const [currentProgress, setCurrentProgress] = useState<WatchProgress | undefined>(
     anime.progress
   );
+
+  useEffect(() => {
+    if (size) {
+      setCardSize(size);
+      return;
+    }
+
+    try {
+      const current = getStoredAppSettings();
+      if (current?.cardSize) {
+        setCardSize(current.cardSize);
+      }
+    } catch {}
+
+    const handleSettingsUpdate = (e: Event) => {
+      const custom = e as CustomEvent<{ cardSize?: "small" | "medium" | "large" }>;
+      if (custom.detail?.cardSize) {
+        setCardSize(custom.detail.cardSize);
+      }
+    };
+
+    window.addEventListener("animeku:settings_updated", handleSettingsUpdate);
+    return () => {
+      window.removeEventListener("animeku:settings_updated", handleSettingsUpdate);
+    };
+  }, [size]);
 
   useEffect(() => {
     setCurrentProgress(anime.progress);
@@ -55,15 +87,24 @@ export default function AnimeCard({
 
   const imageUrl = variant === "continue" ? anime.coverUrl : anime.posterUrl;
 
+  const getWidthClass = () => {
+    if (variant === "continue") {
+      return "w-[260px] sm:w-[310px]";
+    }
+    if (cardSize === "small") {
+      return "w-[135px] sm:w-[160px] md:w-[175px]";
+    }
+    if (cardSize === "large") {
+      return "w-[195px] sm:w-[235px] md:w-[265px]";
+    }
+    return "w-[155px] sm:w-[190px] md:w-[215px]";
+  };
+
   return (
     <div
       role="article"
       aria-label={`Anime: ${anime.title}`}
-      className={`group relative flex-none rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border border-white/5 hover:border-red-500/40 ${
-        variant === "continue"
-          ? "w-[260px] sm:w-[310px]"
-          : "w-[155px] sm:w-[190px] md:w-[215px]"
-      } hover:scale-105 hover:z-20 hover:shadow-2xl hover:shadow-black/90`}
+      className={`group relative flex-none rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border border-white/5 hover:border-red-500/40 ${getWidthClass()} hover:scale-105 hover:z-20 hover:shadow-2xl hover:shadow-black/90`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onSelect?.(anime)}

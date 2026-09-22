@@ -11,6 +11,7 @@ import {
   saveStoredAppSettings,
   resetStoredAppSettings,
 } from "@/utils/appSettings";
+import CardSizeSelector, { CardSizeOption } from "@/components/CardSizeSelector";
 import {
   Palette,
   PlaySquare,
@@ -264,38 +265,34 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                {/* Section: Ukuran Kartu Anime */}
-                <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 shadow-md space-y-4">
+                {/* Section: Ukuran Kartu Anime dengan Preview Langsung */}
+                <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 shadow-md space-y-5">
                   <div>
                     <h3 className="text-base font-bold text-white flex items-center gap-2">
                       <Film className="w-4 h-4 text-red-500" />
-                      Ukuran Kartu Poster Anime
+                      Ukuran Kartu Poster Anime & Pratinjau
                     </h3>
                     <p className="text-xs text-zinc-400 mt-1">
-                      Atur skala visual kartu di rak beranda dan halaman eksplorasi.
+                      Pilih ukuran kartu anime yang Anda inginkan dengan simulasi pratinjau interaktif di bawah.
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3">
-                    {[
-                      { id: "small", label: "Ringkas (Kecil)", desc: "Menampilkan lebih banyak judul sekaligus" },
-                      { id: "medium", label: "Standar (Sedang)", desc: "Keseimbangan proporsional Netflix" },
-                      { id: "large", label: "Besar (Lebar)", desc: "Detail poster lebih tajam dan jelas" },
-                    ].map((sz) => (
-                      <button
-                        key={sz.id}
-                        onClick={() => setSettings({ ...settings, cardSize: sz.id as any })}
-                        className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-                          settings.cardSize === sz.id
-                            ? "border-red-500 bg-red-950/20 text-white"
-                            : "border-zinc-800 hover:border-zinc-700 text-zinc-400 bg-zinc-900/40"
-                        }`}
-                      >
-                        <div className="text-xs font-bold text-white mb-1">{sz.label}</div>
-                        <div className="text-[10px] text-zinc-400">{sz.desc}</div>
-                      </button>
-                    ))}
-                  </div>
+                  <CardSizeSelector
+                    currentSize={settings.cardSize}
+                    onChange={(newSize) => {
+                      setSettings({ ...settings, cardSize: newSize });
+                      saveStoredAppSettings({ cardSize: newSize });
+                      showToast(
+                        `Ukuran kartu diubah ke ${
+                          newSize === "small"
+                            ? "Kecil (Ringkas)"
+                            : newSize === "large"
+                            ? "Besar (Lebar)"
+                            : "Sedang (Standar)"
+                        }`
+                      );
+                    }}
+                  />
                 </div>
 
                 {/* Section: Tampilan Tambahan */}
