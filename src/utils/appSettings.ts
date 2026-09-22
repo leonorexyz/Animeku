@@ -88,3 +88,39 @@ export function resetStoredAppSettings(): AppSettings {
     return MOCK_SETTINGS;
   }
 }
+
+/**
+ * Mengambil pengaturan dari server database via API /api/settings
+ * dan menyinkronkannya dengan cache lokal.
+ */
+export async function fetchRemoteAppSettings(): Promise<AppSettings> {
+  try {
+    const res = await fetch("/api/settings", { cache: "no-store" });
+    const data = await res.json();
+    if (data.success && data.settings) {
+      saveStoredAppSettings(data.settings);
+      return data.settings;
+    }
+  } catch (err) {
+    console.warn("Gagal memuat pengaturan dari server, menggunakan cache lokal:", err);
+  }
+  return getStoredAppSettings();
+}
+
+/**
+ * Menyimpan pengaturan ke server database via API /api/settings
+ */
+export async function syncAppSettingsToRemote(settings: Partial<AppSettings>): Promise<boolean> {
+  try {
+    const res = await fetch("/api/settings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(settings),
+    });
+    const data = await res.json();
+    return Boolean(data.success);
+  } catch (err) {
+    console.warn("Gagal sinkronisasi pengaturan ke server:", err);
+    return false;
+  }
+}

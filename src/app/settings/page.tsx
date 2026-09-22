@@ -10,6 +10,8 @@ import {
   getStoredAppSettings,
   saveStoredAppSettings,
   resetStoredAppSettings,
+  fetchRemoteAppSettings,
+  syncAppSettingsToRemote,
 } from "@/utils/appSettings";
 import CardSizeSelector, { CardSizeOption } from "@/components/CardSizeSelector";
 import PlayerPreferencesPanel from "@/components/PlayerPreferencesPanel";
@@ -47,10 +49,17 @@ export default function SettingsPage() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  // Load from localStorage on mount
+  // Load from database API with localStorage fallback on mount
   React.useEffect(() => {
     const stored = getStoredAppSettings();
     setSettings(stored);
+
+    fetchRemoteAppSettings().then((remote) => {
+      setSettings(remote);
+      if (remote.theme) {
+        setGlobalTheme(remote.theme as ThemeMode);
+      }
+    });
   }, []);
 
   const showToast = (msg: string) => {
@@ -58,20 +67,24 @@ export default function SettingsPage() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsSaving(true);
+    // Simpan ke local storage
     saveStoredAppSettings(settings);
-    setTimeout(() => {
-      setIsSaving(false);
-      showToast("Pengaturan berhasil disimpan dan diterapkan!");
-    }, 400);
+    // Simpan ke database via API
+    await syncAppSettingsToRemote(settings);
+    setIsSaving(false);
+    showToast("Pengaturan berhasil disimpan dan disinkronkan ke server!");
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
     if (confirm("Kembalikan semua preferensi ke pengaturan awal pabrik?")) {
       const def = resetStoredAppSettings();
       setSettings(def);
       setGlobalTheme(def.theme as ThemeMode);
+      try {
+        await fetch("/api/settings", { method: "DELETE" });
+      } catch (e) {}
       showToast("Pengaturan telah direset ke nilai default.");
     }
   };

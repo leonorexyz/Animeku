@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "6fea7d5d7711626aa2560e16f578bca8d792cff5",
+  "generatedForCommit": "e522d17bb25b0a77efb6958494dc6f45621f3dd6",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -370,7 +370,7 @@
     },
     {
       "path": "src/app/settings/page.tsx",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 29678
     },
@@ -669,6 +669,12 @@
       "size": 165
     },
     {
+      "path": "src/db/migrations/0008_enhance_user_settings_schema.sql",
+      "reason": "new",
+      "language": "sql",
+      "size": 1387
+    },
+    {
       "path": "src/db/migrations/meta/0000_snapshot.json",
       "reason": "needs_summary",
       "language": "json",
@@ -688,15 +694,15 @@
     },
     {
       "path": "src/db/schema.ts",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 11070
+      "size": 12077
     },
     {
       "path": "src/db/seed.ts",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 4860
+      "size": 6037
     },
     {
       "path": "src/lib/driveDisconnect.ts",
