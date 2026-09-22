@@ -79,23 +79,23 @@ export default function ConnectedSourcesList({ onNotification }: ConnectedSource
 
     setIsDisconnecting(true);
     try {
-      if (targetSource.provider === "drive") {
-        const res = await fetch("/api/sources/drive/disconnect", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ removeCatalog }),
-        });
-        const data = await res.json();
+      const res = await fetch("/api/sources/disconnect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          provider: targetSource.provider,
+          sourceId: targetSource.id,
+          removeCatalog,
+        }),
+      });
+      const data = await res.json();
 
-        if (data.success) {
-          onNotification?.(
-            data.message || "Sambungan Google Drive berhasil diputus."
-          );
-        } else {
-          onNotification?.("Gagal memutus sambungan: " + (data.error || "Terjadi kesalahan"));
-        }
+      if (data.success) {
+        onNotification?.(
+          data.message || `Sambungan ${targetSource.name} berhasil diputus.`
+        );
       } else {
-        onNotification?.("Sumber ini merupakan default sistem dan tidak dapat dinonaktifkan.");
+        onNotification?.("Gagal memutus sambungan: " + (data.error || "Terjadi kesalahan"));
       }
     } catch (err: any) {
       console.error("Disconnect error:", err);
