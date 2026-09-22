@@ -1,11 +1,53 @@
 import { db } from "./index";
 import * as schema from "./schema";
+import { eq } from "drizzle-orm";
 import { runMigrations } from "./migrate";
 import { MOCK_CATEGORIES, MOCK_FEATURED_ANIMES } from "@/data/mockAnime";
 import { MOCK_EPISODES } from "@/data/mockEpisodes";
 
 export async function seedDatabase() {
   await runMigrations();
+
+  const defaultUserId = "user-default";
+
+  // Ensure default user settings exist
+  try {
+    const existingSettings = await db
+      .select()
+      .from(schema.appSettings)
+      .where(eq(schema.appSettings.userId, defaultUserId))
+      .limit(1);
+
+    if (existingSettings.length === 0) {
+      const now = new Date().toISOString();
+      await db
+        .insert(schema.appSettings)
+        .values({
+          id: `settings-${defaultUserId}`,
+          userId: defaultUserId,
+          theme: "netflix",
+          cardSize: "medium",
+          heroBannerAutoPlay: true,
+          compactSidebar: false,
+          language: "id",
+          defaultSubtitle: "id",
+          defaultQuality: "1080p",
+          playbackSpeed: 1.0,
+          autoPlayNext: true,
+          skipIntroSeconds: 85,
+          resumePlayback: true,
+          autoSyncDrive: true,
+          syncIntervalHours: 6,
+          cacheLimitMb: 500,
+          allowCellularStream: true,
+          createdAt: now,
+          updatedAt: now,
+        })
+        .onConflictDoNothing();
+    }
+  } catch (err) {
+    console.error("Error ensuring default appSettings:", err);
+  }
 
   // Check if anime catalog already exists
   try {

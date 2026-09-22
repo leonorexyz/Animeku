@@ -220,15 +220,34 @@ export const searchHistory = sqliteTable(
 );
 
 // 10. App Settings table
-export const appSettings = sqliteTable("app_settings", {
-  id: text("id").primaryKey(),
-  userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
-  theme: text("theme").default("dark"),
-  cardSize: text("card_size").default("medium"),
-  defaultSubtitle: text("default_subtitle").default("id"),
-  defaultQuality: text("default_quality").default("1080p"),
-  playbackSpeed: real("playback_speed").default(1.0),
-});
+export const appSettings = sqliteTable(
+  "app_settings",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
+    theme: text("theme").default("netflix"),
+    cardSize: text("card_size").default("medium"),
+    heroBannerAutoPlay: integer("hero_banner_auto_play", { mode: "boolean" }).default(true),
+    compactSidebar: integer("compact_sidebar", { mode: "boolean" }).default(false),
+    language: text("language").default("id"),
+    defaultSubtitle: text("default_subtitle").default("id"),
+    defaultQuality: text("default_quality").default("1080p"),
+    playbackSpeed: real("playback_speed").default(1.0),
+    autoPlayNext: integer("auto_play_next", { mode: "boolean" }).default(true),
+    skipIntroSeconds: integer("skip_intro_seconds").default(85),
+    resumePlayback: integer("resume_playback", { mode: "boolean" }).default(true),
+    autoSyncDrive: integer("auto_sync_drive", { mode: "boolean" }).default(true),
+    syncIntervalHours: integer("sync_interval_hours").default(6),
+    cacheLimitMb: integer("cache_limit_mb").default(500),
+    allowCellularStream: integer("allow_cellular_stream", { mode: "boolean" }).default(true),
+    createdAt: text("created_at").notNull(),
+    updatedAt: text("updated_at").notNull(),
+  },
+  (table) => [
+    uniqueIndex("app_settings_user_id_unique").on(table.userId),
+    index("app_settings_user_id_idx").on(table.userId),
+  ]
+);
 
 // Relations
 export const usersRelations = relations(users, ({ many, one }) => ({
