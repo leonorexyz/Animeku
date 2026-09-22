@@ -14,6 +14,7 @@ import {
 import CardSizeSelector, { CardSizeOption } from "@/components/CardSizeSelector";
 import PlayerPreferencesPanel from "@/components/PlayerPreferencesPanel";
 import ConnectedSourcesList from "@/components/ConnectedSourcesList";
+import AboutAndHelpSection from "@/components/AboutAndHelpSection";
 import {
   Palette,
   PlaySquare,
@@ -36,11 +37,12 @@ import {
   ShieldCheck,
   ChevronRight,
   Info,
+  HelpCircle,
 } from "lucide-react";
 
 export default function SettingsPage() {
   const { theme: globalTheme, setTheme: setGlobalTheme, resolvedTheme } = useTheme();
-  const [activeTab, setActiveTab] = useState<"appearance" | "player" | "storage" | "profile">("appearance");
+  const [activeTab, setActiveTab] = useState<"appearance" | "player" | "storage" | "profile" | "help">("appearance");
   const [settings, setSettings] = useState<AppSettings>(MOCK_SETTINGS);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
@@ -185,6 +187,21 @@ export default function SettingsPage() {
               <div className="flex-1">
                 <div>Profil & Cadangan</div>
                 <div className="text-[11px] font-normal text-zinc-500">Akun & ekspor data</div>
+              </div>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("help")}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all cursor-pointer text-left ${
+                activeTab === "help"
+                  ? "bg-red-600/15 text-red-500 border border-red-500/30 shadow-sm"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900/60"
+              }`}
+            >
+              <HelpCircle className="w-4 h-4 shrink-0" />
+              <div className="flex-1">
+                <div>Tentang & Bantuan</div>
+                <div className="text-[11px] font-normal text-zinc-500">Panduan & hotkeys</div>
               </div>
             </button>
           </aside>
@@ -527,6 +544,13 @@ export default function SettingsPage() {
                     </button>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {/* 5. Tab Tentang & Bantuan */}
+            {activeTab === "help" && (
+              <div className="animate-in fade-in duration-200">
+                <AboutAndHelpSection />
               </div>
             )}
           </section>
