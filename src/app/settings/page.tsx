@@ -126,10 +126,38 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        {/* Mobile Tab Bar (Horizontal Scrollable Pills) */}
+        <div className="md:hidden sticky top-16 z-20 -mx-4 px-4 py-2.5 bg-[#141414]/95 backdrop-blur-md border-b border-zinc-800/80 mt-4 overflow-x-auto scrollbar-none flex items-center gap-2">
+          {[
+            { id: "appearance", label: "Tampilan", icon: Palette },
+            { id: "player", label: "Pemutar", icon: PlaySquare },
+            { id: "storage", label: "Sumber", icon: HardDrive },
+            { id: "profile", label: "Profil", icon: User },
+            { id: "help", label: "Bantuan", icon: HelpCircle },
+          ].map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer shrink-0 ${
+                  isActive
+                    ? "bg-red-600 text-white shadow-md shadow-red-600/30"
+                    : "bg-zinc-900/90 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800/80"
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5" />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* Tab Navigation & Content Container */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-8">
-          {/* Left: Tab Sidebar */}
-          <aside className="md:col-span-1 space-y-1.5">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-6 md:mt-8">
+          {/* Desktop Left: Tab Sidebar */}
+          <aside className="hidden md:block md:col-span-1 space-y-1.5 sticky top-24 self-start">
             <button
               onClick={() => setActiveTab("appearance")}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all cursor-pointer text-left ${
