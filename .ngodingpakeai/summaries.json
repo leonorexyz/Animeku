@@ -1,0 +1,395 @@
+{
+  ".claude/skills/ngodingpakeai/SKILL.md": {
+    "summary": "Instruksi dan referensi integrasi agent Claude dengan NgodingPakeAI CLI untuk sinkronisasi kode, perencanaan reverse, dan eksekusi task."
+  },
+  ".codex/skills/ngodingpakeai/SKILL.md": {
+    "summary": "Dokumentasi keahlian agent Codex untuk berinteraksi dengan alur sinkronisasi repositori dan manajemen task NgodingPakeAI."
+  },
+  ".gitattributes": {
+    "summary": "Konfigurasi Git attributes untuk normalisasi line endings dan penanganan berkas teks lintas sistem operasi."
+  },
+  ".gitignore": {
+    "summary": "Daftar berkas dan folder yang diabaikan dari pelacakan git seperti node_modules, build Next.js, berkas environment, dan database SQLite lokal."
+  },
+  ".ngodingpakeaiignore": {
+    "summary": "Aturan pengabaian berkas saat pemindaian metadata dan pembuatan ringkasan oleh NgodingPakeAI CLI."
+  },
+  "AGENTS.md": {
+    "summary": "Aturan utama dan pedoman perilaku agent AI untuk sinkronisasi proyek, alur task per layer dan fase, serta kepatuhan aturan eksekusi."
+  },
+  "drizzle.config.ts": {
+    "summary": "Konfigurasi Drizzle ORM dan Drizzle Kit yang mendefinisikan schema TypeScript, direktori migrasi, dan dialect SQLite/libSQL."
+  },
+  "next.config.ts": {
+    "summary": "Konfigurasi Next.js untuk aplikasi Animeku, memuat pengaturan routing, gambar remote, dan optimasi build."
+  },
+  "package-lock.json": {
+    "summary": "Pohon dependensi npm terperinci yang mengunci versi pasti dari paket dependensi aplikasi Animeku."
+  },
+  "package.json": {
+    "summary": "Manifest proyek npm yang memuat dependensi utama Next.js, React 19, Tailwind CSS v4, Lucide Icons, Drizzle ORM, serta skrip build."
+  },
+  "postcss.config.mjs": {
+    "summary": "Konfigurasi plugin PostCSS untuk memproses utilitas Tailwind CSS v4 pada styling aplikasi."
+  },
+  "README.md": {
+    "summary": "Dokumen perkenalan dan informasi singkat repositori aplikasi streaming anime personal Animeku Player."
+  },
+  "src/app/add-source/page.tsx": {
+    "summary": "Halaman antarmuka untuk menambahkan sumber media baru, mengarahkan pengguna ke opsi unggah lokal, Google Drive, atau tautan."
+  },
+  "src/app/anime/[id]/page.tsx": {
+    "summary": "Halaman detail informasi anime yang menampilkan sinopsis, status favorit, daftar episode, modal kategori, dan pemutar video terkait."
+  },
+  "src/app/api/anime/filters/route.ts": {
+    "summary": "Endpoint API GET /api/anime/filters untuk mengambil daftar filter genre, status, dan rentang tahun anime."
+  },
+  "src/app/api/anime/search/route.ts": {
+    "summary": "Endpoint API GET /api/anime/search untuk pencarian anime multi-parameter dengan teks dan pagination."
+  },
+  "src/app/api/anime/[id]/categories/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/anime/[id]/categories untuk membaca dan memperbarui relasi kategori suatu anime."
+  },
+  "src/app/api/anime/[id]/episodes/order/route.ts": {
+    "summary": "Endpoint API POST /api/anime/[id]/episodes/order untuk mengubah urutan nomor episode anime."
+  },
+  "src/app/api/anime/[id]/episodes/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/anime/[id]/episodes untuk mengambil daftar episode dan menambahkan episode baru."
+  },
+  "src/app/api/anime/[id]/favorite/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/anime/[id]/favorite untuk memeriksa dan mengubah status favorit anime."
+  },
+  "src/app/api/anime/[id]/metadata/route.ts": {
+    "summary": "Endpoint API GET dan PATCH /api/anime/[id]/metadata untuk memperbarui data poster, cover, dan sinopsis anime."
+  },
+  "src/app/api/anime/[id]/progress/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/anime/[id]/progress untuk melacak progres durasi tontonan anime."
+  },
+  "src/app/api/anime/[id]/route.ts": {
+    "summary": "Endpoint API GET, PUT, DELETE /api/anime/[id] untuk mengambil detail, memperbarui, atau menghapus anime dari database."
+  },
+  "src/app/api/anime/[id]/status/route.ts": {
+    "summary": "Endpoint API GET dan PATCH /api/anime/[id]/status untuk mengambil dan mengubah watchStatus anime (unwatched, watching, completed)."
+  },
+  "src/app/api/auth/google-drive/callback/route.ts": {
+    "summary": "Endpoint API GET /api/auth/google-drive/callback untuk menerima authorization code Google OAuth dan menyimpan token."
+  },
+  "src/app/api/auth/google-drive/route.ts": {
+    "summary": "Endpoint API GET /api/auth/google-drive untuk menginisialisasi alur OAuth2 otentikasi Google Drive."
+  },
+  "src/app/api/categories/order/route.ts": {
+    "summary": "Endpoint API GET, PUT, POST /api/categories/order untuk mengatur dan menyimpan urutan rak kategori pada beranda."
+  },
+  "src/app/api/categories/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/categories untuk mengambil seluruh kategori dan membuat kategori baru."
+  },
+  "src/app/api/categories/[id]/anime/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/categories/[id]/anime untuk mengambil anime dalam kategori atau menambahkan anime ke kategori."
+  },
+  "src/app/api/categories/[id]/route.ts": {
+    "summary": "Endpoint API GET, PUT, DELETE /api/categories/[id] untuk mengelola detail atau menghapus kategori."
+  },
+  "src/app/api/continue-watching/route.ts": {
+    "summary": "Endpoint API GET /api/continue-watching untuk mengambil daftar anime dan episode yang belum selesai ditonton beserta progresnya."
+  },
+  "src/app/api/episodes/[id]/next/route.ts": {
+    "summary": "Endpoint API GET /api/episodes/[id]/next untuk mengambil informasi episode berikutnya secara otomatis."
+  },
+  "src/app/api/episodes/[id]/route.ts": {
+    "summary": "Endpoint API GET, PUT, DELETE /api/episodes/[id] untuk mengambil detail, mengedit, atau menghapus suatu episode."
+  },
+  "src/app/api/favorites/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/favorites untuk mengambil daftar lengkap anime favorit pengguna dengan dukungan filter."
+  },
+  "src/app/api/featured/route.ts": {
+    "summary": "Endpoint API GET /api/featured untuk mengambil data anime utama yang ditampilkan pada hero banner beranda."
+  },
+  "src/app/api/metadata/save/route.ts": {
+    "summary": "Endpoint API POST /api/metadata/save untuk menyimpan hasil pencocokan metadata eksternal ke dalam basis data anime."
+  },
+  "src/app/api/player/progress/route.ts": {
+    "summary": "Endpoint API POST /api/player/progress untuk mencatat posisi detik tontonan episode dan memperbarui status tontonan."
+  },
+  "src/app/api/search/filters/route.ts": {
+    "summary": "Endpoint API GET /api/search/filters untuk menyediakan opsi kategori dan filter yang tersedia di sistem pencarian."
+  },
+  "src/app/api/search/history/route.ts": {
+    "summary": "Endpoint API GET, POST, DELETE /api/search/history untuk mengelola riwayat kata kunci pencarian pengguna."
+  },
+  "src/app/api/search/route.ts": {
+    "summary": "Endpoint API GET /api/search untuk pencarian teks anime dengan pencocokan judul, sinopsis, dan genre."
+  },
+  "src/app/api/settings/route.ts": {
+    "summary": "Endpoint API GET, POST, DELETE /api/settings untuk mengambil, menyimpan ke database, dan mereset preferensi pengaturan pengguna."
+  },
+  "src/app/api/sources/disconnect/route.ts": {
+    "summary": "Endpoint API POST dan DELETE /api/sources/disconnect untuk memutuskan sambungan sumber media terhubung dengan opsi pembersihan katalog."
+  },
+  "src/app/api/sources/drive/disconnect/route.ts": {
+    "summary": "Endpoint API POST dan DELETE /api/sources/drive/disconnect untuk mencabut token Google Drive dan membersihkan indeksnya."
+  },
+  "src/app/api/sources/drive/folders/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/sources/drive/folders untuk mengambil daftar folder anime dan mendaftarkan folder baru dari Google Drive."
+  },
+  "src/app/api/sources/drive/folders/[id]/route.ts": {
+    "summary": "Endpoint API GET dan DELETE /api/sources/drive/folders/[id] untuk melihat detail atau menghapus folder drive terhubung."
+  },
+  "src/app/api/sources/drive/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/sources/drive untuk memeriksa status sambungan Google Drive dan menghubungkan akun secara manual."
+  },
+  "src/app/api/sources/link/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/sources/link untuk mengambil daftar tautan streaming langsung dan menambahkan URL streaming baru."
+  },
+  "src/app/api/sources/link/validate/route.ts": {
+    "summary": "Endpoint API POST /api/sources/link/validate untuk menguji validitas dan ketersediaan tautan video streaming eksternal."
+  },
+  "src/app/api/sources/local/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/sources/local untuk memindai berkas video pada folder server lokal dan memasukkannya ke katalog."
+  },
+  "src/app/api/sources/local/upload/route.ts": {
+    "summary": "Endpoint API POST /api/sources/local/upload untuk menangani pengunggahan berkas video langsung dari komputer pengguna ke server."
+  },
+  "src/app/api/sources/route.ts": {
+    "summary": "Endpoint API GET dan POST /api/sources untuk mengambil daftar lengkap sumber terhubung (Drive, Local, Link) beserta ringkasan statistik."
+  },
+  "src/app/api/stream/route.ts": {
+    "summary": "Endpoint API GET /api/stream untuk melayani streaming berkas video lokal dengan dukungan pemutaran parsial HTTP range request."
+  },
+  "src/app/api/version/route.ts": {
+    "summary": "Endpoint API GET /api/version yang mengembalikan metadata versi aplikasi, rilis Netflix Edition, tanggal build, dan lingkungan runtime."
+  },
+  "src/app/categories/page.tsx": {
+    "summary": "Halaman penjelajahan dan kurasi kategori anime dengan navigasi rak dan CategoryManager."
+  },
+  "src/app/collections/page.tsx": {
+    "summary": "Halaman koleksi kategori anime yang menampilkan grid kartu anime berdasarkan filter koleksi."
+  },
+  "src/app/favorit/page.tsx": {
+    "summary": "Halaman favorit berbahasa Indonesia yang menyajikan daftar anime yang ditandai sebagai favorit oleh pengguna."
+  },
+  "src/app/favorites/page.tsx": {
+    "summary": "Halaman daftar favorit anime dengan filter status tontonan, pencarian judul, dan pengurutan dinamis."
+  },
+  "src/app/globals.css": {
+    "summary": "Berkas CSS global yang mendefinisikan variabel tema Netflix dark, light, dan OLED hitam pekat serta gaya scrollbar kustom."
+  },
+  "src/app/koleksi/page.tsx": {
+    "summary": "Alias halaman koleksi anime dan kurasi folder personal pengguna."
+  },
+  "src/app/layout.tsx": {
+    "summary": "Root layout aplikasi Next.js yang membungkus antarmuka dengan ThemeProvider, script anti-FOUC, dan font sistem."
+  },
+  "src/app/page.tsx": {
+    "summary": "Halaman beranda utama bergaya Netflix yang menampilkan HeroBanner, ContinueWatchingRow, dan rak anime berdasarkan kategori."
+  },
+  "src/app/pengaturan/page.tsx": {
+    "summary": "Halaman alias berbahasa Indonesia untuk rute pengaturan aplikasi (/settings)."
+  },
+  "src/app/player/[id]/page.tsx": {
+    "summary": "Halaman khusus pemutar video anime layar penuh dengan dukungan AnimePlayer, pintasan keyboard, dan auto-resume."
+  },
+  "src/app/search/page.tsx": {
+    "summary": "Halaman pencarian interaktif lengkap dengan SearchFilters, SearchHistory, SortControl, dan LiveSearchInput."
+  },
+  "src/app/settings/page.tsx": {
+    "summary": "Halaman pengaturan komprehensif dengan tab responsif untuk tema, pemutar video, sumber penyimpanan, profil, dan bantuan."
+  },
+  "src/app/sources/page.tsx": {
+    "summary": "Halaman manajemen sumber video yang menggabungkan LocalFileImporter, GoogleDriveConnector, dan DirectStreamLinkImporter."
+  },
+  "src/components/AboutAndHelpSection.tsx": {
+    "summary": "Komponen bagian Tentang dan Bantuan yang memuat panduan cepat Google Drive, berkas lokal, hotkeys keyboard, dan info rilis."
+  },
+  "src/components/AnimeCard.tsx": {
+    "summary": "Komponen kartu anime bergaya Netflix dengan preview hover, poster, rating, genre, dan ukuran kartu dinamis."
+  },
+  "src/components/AnimeCategoryPickerModal.tsx": {
+    "summary": "Modal interaktif untuk menetapkan dan mengubah kategori atau genre khusus pada suatu judul anime."
+  },
+  "src/components/AnimeDetailModal.tsx": {
+    "summary": "Modal dialog pratinjau sinematik anime yang menampilkan sinopsis lengkap, trailer, daftar episode, dan tombol tonton."
+  },
+  "src/components/AnimePlayer.tsx": {
+    "summary": "Komponen pemutar video HTML5 kustom lengkap dengan kontrol play/pause, hotkeys keyboard, skip intro, resolusi, dan subtitle."
+  },
+  "src/components/AnimeRow.tsx": {
+    "summary": "Komponen baris gulir horizontal bergaya Netflix untuk menampilkan rak kategori anime dengan tombol navigasi geser."
+  },
+  "src/components/CardSizeSelector.tsx": {
+    "summary": "Komponen pemilih ukuran kartu anime (small, medium, large) dengan pratinjau visual langsung di pengaturan."
+  },
+  "src/components/CategoryManager.tsx": {
+    "summary": "Komponen pengelola kategori anime untuk menambah, mengubah nama, memindahkan urutan rak, dan menghapus kategori."
+  },
+  "src/components/ConnectedSourcesList.tsx": {
+    "summary": "Komponen daftar sumber terhubung yang menampilkan status Google Drive, disk lokal, CDN eksternal, dan aksi putus sambungan."
+  },
+  "src/components/ContinueWatchingCard.tsx": {
+    "summary": "Komponen kartu anime pada rak 'Lanjut Menonton' yang menampilkan bilah progres detik tontonan dan sisa durasi."
+  },
+  "src/components/ContinueWatchingRow.tsx": {
+    "summary": "Komponen baris khusus di beranda yang menyajikan anime yang sedang aktif ditonton dengan resume instan."
+  },
+  "src/components/DirectStreamLinkImporter.tsx": {
+    "summary": "Komponen form untuk mengimpor tautan video streaming langsung (MP4, WebM, HLS m3u8) ke dalam katalog."
+  },
+  "src/components/DriveStatusCard.tsx": {
+    "summary": "Komponen kartu status koneksi Google Drive yang menampilkan detail akun terhubung dan jumlah folder anime aktif."
+  },
+  "src/components/EmptyCatalogState.tsx": {
+    "summary": "Tampilan visual saat katalog anime masih kosong, menyajikan panduan langkah pertama untuk menambahkan video."
+  },
+  "src/components/EpisodeList.tsx": {
+    "summary": "Komponen daftar episode anime dengan thumbnail, durasi, nomor episode, sinopsis singkat, dan status tontonan."
+  },
+  "src/components/FavoriteButton.tsx": {
+    "summary": "Tombol interaktif berbentuk hati untuk menambahkan atau menghapus anime dari daftar favorit pengguna."
+  },
+  "src/components/Footer.tsx": {
+    "summary": "Komponen footer aplikasi Animeku Player dengan tautan navigasi, informasi hak cipta personal, dan info versi."
+  },
+  "src/components/GoogleDriveConnector.tsx": {
+    "summary": "Komponen antarmuka untuk otentikasi Google Drive, pemindaian folder anime, dan sinkronisasi episode cloud."
+  },
+  "src/components/HeroBanner.tsx": {
+    "summary": "Komponen spanduk sorotan anime utama bergaya Netflix dengan video preview, sinopsis ringkas, dan tombol Putar Cepat."
+  },
+  "src/components/LiveSearchInput.tsx": {
+    "summary": "Komponen input pencarian langsung dengan fitur debounce, riwayat pencarian cepat, dan pembersihan kata kunci."
+  },
+  "src/components/LocalFileImporter.tsx": {
+    "summary": "Komponen drag-and-drop untuk mengunggah dan memindai berkas video anime dari penyimpanan komputer/server lokal."
+  },
+  "src/components/LocalVideoPreviewModal.tsx": {
+    "summary": "Modal pemutar cepat untuk menguji pemutaran berkas video lokal sebelum ditambahkan secara permanen ke katalog."
+  },
+  "src/components/MetadataMatcherModal.tsx": {
+    "summary": "Modal pencocokan otomatis metadata anime untuk melengkapi poster, tahun rilis, sinopsis, dan genre yang belum terisi."
+  },
+  "src/components/MobileBottomNav.tsx": {
+    "summary": "Bilah navigasi bawah khusus tampilan mobile dengan tombol pintas ke Beranda, Lanjut Nonton, Tambah, dan Kategori."
+  },
+  "src/components/Navbar.tsx": {
+    "summary": "Bilah navigasi atas responsif bergaya Netflix dengan logo Animeku, menu navigasi, tombol cari, tema, dan profil."
+  },
+  "src/components/PlayAndResumeButtons.tsx": {
+    "summary": "Komponen tombol putar pertama kali atau lanjutkan dari posisi tontonan terakhir."
+  },
+  "src/components/PlayerPreferencesPanel.tsx": {
+    "summary": "Panel preferensi pemutar video di halaman pengaturan untuk mengatur kualitas default, subtitle, kecepatan, dan auto-skip."
+  },
+  "src/components/SearchAnimeCard.tsx": {
+    "summary": "Komponen kartu hasil pencarian anime yang menonjolkan kecocokan judul, genre, tahun, dan tipe sumber."
+  },
+  "src/components/SearchEmptyState.tsx": {
+    "summary": "Tampilan informatif saat pencarian tidak menemukan hasil, menyajikan saran kata kunci populer."
+  },
+  "src/components/SearchFilters.tsx": {
+    "summary": "Komponen panel filter pencarian anime berdasarkan genre, status rilis, tahun, dan tipe sumber penyimpanan."
+  },
+  "src/components/SearchHistory.tsx": {
+    "summary": "Komponen daftar riwayat pencarian terkini pengguna dengan opsi hapus satuan atau bersihkan seluruhnya."
+  },
+  "src/components/SortControl.tsx": {
+    "summary": "Komponen dropdown kontrol pengurutan katalog berdasarkan terpopuler, rating tertinggi, tahun terbaru, atau abjad."
+  },
+  "src/components/WatchStatusBadge.tsx": {
+    "summary": "Komponen lencana visual status tontonan anime (Belum Ditonton, Sedang Ditonton, Tamat)."
+  },
+  "src/components/WatchStatusFilter.tsx": {
+    "summary": "Komponen tombol filter untuk menyaring daftar anime berdasarkan status tontonan pengguna."
+  },
+  "src/context/ThemeContext.tsx": {
+    "summary": "React Context dan hook useTheme untuk mengelola preferensi tema aplikasi secara global (netflix, light, oled)."
+  },
+  "src/data/mockAnime.ts": {
+    "summary": "Data tiruan awal untuk katalog anime, banner featured, kategori default, dan genre yang digunakan saat inisialisasi awal."
+  },
+  "src/data/mockEpisodes.ts": {
+    "summary": "Data dummy daftar episode anime lengkap dengan durasi, resolusi, sinopsis per episode, dan tautan streaming awal."
+  },
+  "src/data/mockSettings.ts": {
+    "summary": "Definisi tipe AppSettings dan konfigurasi nilai awal MOCK_SETTINGS untuk preferensi tema, pemutar, dan sinkronisasi."
+  },
+  "src/db/index.ts": {
+    "summary": "Inisialisasi klien database SQLite/libSQL menggunakan Drizzle ORM dan ekspor instance db bersama skema."
+  },
+  "src/db/migrate.ts": {
+    "summary": "Modul runner migrasi SQL yang membaca berkas .sql di src/db/migrations dan mengeksekusinya ke database secara berurutan."
+  },
+  "src/db/migrations/0000_jazzy_millenium_guard.sql": {
+    "summary": "Migrasi awal Drizzle yang membuat tabel-tabel pokok database seperti users, anime, episodes, categories, dan watch_progress."
+  },
+  "src/db/migrations/0001_dizzy_madame_masque.sql": {
+    "summary": "Migrasi penyesuaian kolom dan referensi kunci asing untuk tabel relasi."
+  },
+  "src/db/migrations/0002_add_anime_episode_favorites_indexes.sql": {
+    "summary": "Migrasi penambahan indeks performa untuk pencarian anime, episode, dan daftar favorit."
+  },
+  "src/db/migrations/0003_add_search_history_indexes.sql": {
+    "summary": "Migrasi penambahan indeks pada tabel search_history untuk pengurutan pencarian cepat."
+  },
+  "src/db/migrations/0004_add_anime_episode_sources_schema.sql": {
+    "summary": "Migrasi penambahan tabel episode_sources dan anime_sources untuk mendukung integrasi multi-sumber."
+  },
+  "src/db/migrations/0005_add_categories_and_relations_schema.sql": {
+    "summary": "Migrasi penyempurnaan skema categories dan anime_categories dengan indeks urutan sort_order."
+  },
+  "src/db/migrations/0006_add_anime_is_favorite.sql": {
+    "summary": "Migrasi penambahan kolom is_favorite dan indeksnya pada tabel anime."
+  },
+  "src/db/migrations/0007_add_anime_watch_status.sql": {
+    "summary": "Migrasi penambahan kolom watch_status dan indeksnya pada tabel anime untuk melacak status tontonan."
+  },
+  "src/db/migrations/0008_enhance_user_settings_schema.sql": {
+    "summary": "Migrasi penambahan seluruh kolom preferensi pengguna lengkap ke dalam tabel app_settings beserta indeks unik user_id."
+  },
+  "src/db/migrations/meta/0000_snapshot.json": {
+    "summary": "Snapshot metadata skema Drizzle untuk migrasi versi 0000."
+  },
+  "src/db/migrations/meta/0001_snapshot.json": {
+    "summary": "Snapshot metadata skema Drizzle untuk migrasi versi 0001."
+  },
+  "src/db/migrations/meta/_journal.json": {
+    "summary": "Jurnal riwayat urutan eksekusi migrasi skema database Drizzle Kit."
+  },
+  "src/db/schema.ts": {
+    "summary": "Definisi skema Drizzle ORM untuk tabel users, anime, episodes, categories, animeSources, connectedSources, appSettings, dan relasinya."
+  },
+  "src/db/seed.ts": {
+    "summary": "Skrip seeding database otomatis yang mengisi data pengguna default, kategori awal, anime featured, dan preferensi pengaturan."
+  },
+  "src/lib/driveDisconnect.ts": {
+    "summary": "Modul logika inti untuk memutuskan otentikasi Google Drive dan opsi pembersihan anime terkait dari database."
+  },
+  "src/services/streamingService.ts": {
+    "summary": "Service layer untuk memproses URL streaming video, validasi format MP4/MKV/HLS, dan resolusi sumber."
+  },
+  "src/services/watchStatusService.ts": {
+    "summary": "Service layer backend untuk sinkronisasi otomatis watchStatus anime (unwatched, watching, completed) berdasarkan progres episode."
+  },
+  "src/types/anime.ts": {
+    "summary": "Definisi antarmuka TypeScript untuk model Anime, Episode, Category, Source, dan WatchProgress di seluruh aplikasi."
+  },
+  "src/utils/appSettings.ts": {
+    "summary": "Utilitas manajemen preferensi aplikasi yang menangani pembacaan, penyimpanan, reset ke localStorage, dan sinkronisasi API."
+  },
+  "src/utils/favorites.ts": {
+    "summary": "Helper fungsi untuk mengecek, menambah, dan menghapus status anime favorit pada memori lokal dan API backend."
+  },
+  "src/utils/searchHistory.ts": {
+    "summary": "Utilitas untuk menyimpan dan menghapus riwayat kata kunci pencarian anime di sisi browser."
+  },
+  "src/utils/searchSorting.ts": {
+    "summary": "Fungsi helper untuk memfilter dan mengurutkan daftar anime berdasarkan rating, tahun rilis, judul, dan status."
+  },
+  "src/utils/watchProgress.ts": {
+    "summary": "Fungsi helper untuk menyimpan dan mengambil posisi detik tontonan terakhir video anime per episode."
+  },
+  "src/utils/watchStatus.ts": {
+    "summary": "Helper untuk mengonversi dan menghitung status tontonan anime (belum, sedang, tamat, watching, completed)."
+  },
+  "tsconfig.json": {
+    "summary": "Konfigurasi compiler TypeScript yang mengatur path alias @/*, modul ESNext, mode strict, dan integrasi Next.js."
+  }
+}
