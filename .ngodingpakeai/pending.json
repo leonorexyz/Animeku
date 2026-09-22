@@ -1,6 +1,6 @@
 {
   "repo": "leonorexyz/Animeku",
-  "generatedForCommit": "d26a43c8f83ffa518e17c7bdc1f39fdda0af27b6",
+  "generatedForCommit": "4d575cbb136e539ec510c2714b6a1573f8d9a107",
   "files": [
     {
       "path": ".claude/skills/ngodingpakeai/SKILL.md",
@@ -249,6 +249,12 @@
       "size": 7393
     },
     {
+      "path": "src/app/api/sources/disconnect/route.ts",
+      "reason": "new",
+      "language": "typescript",
+      "size": 4398
+    },
+    {
       "path": "src/app/api/sources/drive/disconnect/route.ts",
       "reason": "needs_summary",
       "language": "typescript",
@@ -298,7 +304,7 @@
     },
     {
       "path": "src/app/api/sources/route.ts",
-      "reason": "changed",
+      "reason": "needs_summary",
       "language": "typescript",
       "size": 6971
     },
@@ -436,9 +442,9 @@
     },
     {
       "path": "src/components/ConnectedSourcesList.tsx",
-      "reason": "needs_summary",
+      "reason": "changed",
       "language": "typescript",
-      "size": 13307
+      "size": 13216
     },
     {
       "path": "src/components/ContinueWatchingCard.tsx",

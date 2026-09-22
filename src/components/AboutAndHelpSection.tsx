@@ -32,6 +32,18 @@ interface GuideItem {
 export default function AboutAndHelpSection() {
   const [openGuide, setOpenGuide] = useState<string | null>("guide-drive");
   const [activeFaq, setActiveFaq] = useState<string | null>(null);
+  const [versionData, setVersionData] = useState<any>(null);
+
+  React.useEffect(() => {
+    fetch("/api/version")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setVersionData(data);
+        }
+      })
+      .catch((err) => console.warn("Gagal memuat versi aplikasi:", err));
+  }, []);
 
   const toggleGuide = (id: string) => {
     setOpenGuide(openGuide === id ? null : id);
@@ -187,11 +199,11 @@ export default function AboutAndHelpSection() {
               <div className="flex items-center gap-2">
                 <h3 className="text-lg font-black text-white tracking-tight">Animeku Player</h3>
                 <span className="px-2 py-0.5 rounded-full bg-red-600/20 text-red-400 border border-red-500/30 text-[10px] font-bold">
-                  v1.0.0
+                  v{versionData?.app?.version || "1.0.0"}
                 </span>
               </div>
               <p className="text-xs text-zinc-400 mt-0.5">
-                Pemutar streaming anime personal dengan antarmuka sinematik Netflix.
+                {versionData?.app?.releaseName || "Pemutar streaming anime personal dengan antarmuka sinematik Netflix."}
               </p>
             </div>
           </div>
@@ -199,7 +211,7 @@ export default function AboutAndHelpSection() {
           <div className="flex items-center gap-2">
             <span className="px-3 py-1 rounded-xl bg-zinc-800 border border-zinc-700/60 text-zinc-300 text-xs font-semibold flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              Versi Stabil
+              {versionData?.app?.channel === "stable" ? "Rilis Stabil" : "Versi Rilis"}
             </span>
           </div>
         </div>
@@ -329,12 +341,17 @@ export default function AboutAndHelpSection() {
       <div className="p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400">
         <div className="flex items-center gap-2">
           <Info className="w-4 h-4 text-zinc-500" />
-          <span>Animeku Player — Dikembangkan untuk streaming personal mandiri.</span>
+          <span>
+            Animeku Player — Dikembangkan untuk streaming personal mandiri. Build:{" "}
+            {versionData?.app?.buildDate || "2026-09-22"}
+          </span>
         </div>
         <div className="flex items-center gap-4 text-[11px] text-zinc-500">
-          <span>Lisensi: Personal Use</span>
+          <span>Node: {versionData?.runtime?.nodeVersion || process.version}</span>
           <span>•</span>
-          <span>Status: Aktif</span>
+          <span>Platform: {versionData?.runtime?.platform || "web"}</span>
+          <span>•</span>
+          <span className="text-emerald-400 font-medium">Status: Aktif</span>
         </div>
       </div>
     </div>
