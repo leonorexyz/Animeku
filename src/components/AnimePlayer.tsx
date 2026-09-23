@@ -762,14 +762,21 @@ export default function AnimePlayer({
         }`}
       >
         <div className="flex items-center space-x-4">
-          <Link
-            href="/"
-            onClick={onBack}
-            className="p-2.5 rounded-full bg-black/60 hover:bg-zinc-800 text-white border border-white/10 backdrop-blur-md transition-transform hover:scale-105"
-            aria-label="Kembali ke Beranda"
+          <a
+            href={anime?.id ? `/anime/${anime.id}` : "/"}
+            onClick={(e) => {
+              e.preventDefault();
+              if (onBack) {
+                onBack();
+              } else {
+                window.location.href = anime?.id ? `/anime/${anime.id}` : "/";
+              }
+            }}
+            className="p-2.5 rounded-full bg-black/60 hover:bg-zinc-800 text-white border border-white/10 backdrop-blur-md transition-transform hover:scale-105 cursor-pointer"
+            aria-label="Kembali"
           >
             <ArrowLeft className="w-5 h-5" />
-          </Link>
+          </a>
 
           <div>
             <div className="flex items-center gap-2">

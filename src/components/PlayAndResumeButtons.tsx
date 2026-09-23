@@ -78,9 +78,12 @@ export default function PlayAndResumeButtons({
         {hasProgress ? (
           <>
             {/* Continue Watching Button */}
-            <Link
+            <a
               href={`/player/${animeId}?ep=${currentEpNum}`}
-              prefetch={true}
+              onClick={(e) => {
+                e.preventDefault();
+                onPlay(currentEpNum);
+              }}
               className="group relative flex items-center gap-3 px-6 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg hover:shadow-red-600/30 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer overflow-hidden"
             >
               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-red-600 shadow-sm group-hover:scale-110 transition-transform">
@@ -102,31 +105,37 @@ export default function PlayAndResumeButtons({
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
-            </Link>
+            </a>
 
             {/* Restart from beginning / Play Ep 1 */}
-            <Link
+            <a
               href={`/player/${animeId}?ep=1`}
-              prefetch={true}
+              onClick={(e) => {
+                e.preventDefault();
+                onPlay(1);
+              }}
               className="flex items-center gap-2 px-4 py-3.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 hover:text-white font-semibold text-sm border border-white/10 hover:border-white/20 backdrop-blur-md transition-all cursor-pointer"
               title="Mulai tonton dari Episode 1"
             >
               <RotateCcw className="w-4 h-4 text-zinc-400 group-hover:rotate-[-45deg] transition-transform" />
               <span>Putar dari Ep 1</span>
-            </Link>
+            </a>
           </>
         ) : (
           /* Start Watching Episode 1 Button */
-          <Link
+          <a
             href={`/player/${animeId}?ep=1`}
-            prefetch={true}
+            onClick={(e) => {
+              e.preventDefault();
+              onPlay(1);
+            }}
             className="flex items-center gap-3 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-extrabold text-sm sm:text-base rounded-xl shadow-lg hover:shadow-red-600/30 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
           >
             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-red-600 shadow-sm">
               <Play className="w-4 h-4 fill-red-600 ml-0.5" />
             </div>
             <span>Mulai Nonton Episode 1</span>
-          </Link>
+          </a>
         )}
 
         {/* My List / Favorit */}

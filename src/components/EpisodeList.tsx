@@ -119,12 +119,20 @@ export default function EpisodeList({
                 : 0;
 
             const isCurrentPlaying = currentEpisodeId === ep.id;
+            const targetUrl = `/player/${animeId || ep.animeId}?ep=${ep.episodeNumber}`;
 
             return (
-              <Link
+              <a
                 key={ep.id}
-                href={`/player/${animeId || ep.animeId}?ep=${ep.episodeNumber}`}
-                prefetch={true}
+                href={targetUrl}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onPlayEpisode) {
+                    onPlayEpisode(ep);
+                  } else {
+                    window.location.href = targetUrl;
+                  }
+                }}
                 className={`group relative bg-zinc-900/80 hover:bg-zinc-800/90 border rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer flex flex-col ${
                   isCurrentPlaying
                     ? "border-red-500 ring-2 ring-red-500/30"
@@ -214,7 +222,7 @@ export default function EpisodeList({
                     </div>
                   )}
                 </div>
-              </Link>
+              </a>
             );
           })}
         </div>

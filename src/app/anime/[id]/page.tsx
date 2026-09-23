@@ -154,11 +154,11 @@ export default function AnimeDetailPage({ params }: PageProps) {
 
   const handlePlay = (episodeNumber?: number) => {
     const targetEp = episodeNumber || (savedProgress?.episodeNumber ?? 1);
-    router.push(`/player/${anime.id || animeId}?ep=${targetEp}`);
+    window.location.href = `/player/${anime.id || animeId}?ep=${targetEp}`;
   };
 
   const handlePlayEpisode = (ep: ExtendedEpisode) => {
-    router.push(`/player/${anime.id || animeId}?ep=${ep.episodeNumber}`);
+    window.location.href = `/player/${anime.id || animeId}?ep=${ep.episodeNumber}`;
   };
 
   const handleShare = () => {
@@ -190,13 +190,17 @@ export default function AnimeDetailPage({ params }: PageProps) {
 
         {/* Floating Back Button */}
         <div className="absolute top-24 left-4 sm:left-8 z-30">
-          <Link
+          <a
             href="/"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 hover:bg-zinc-800 text-white text-xs font-semibold backdrop-blur-md border border-white/10 transition-transform hover:scale-105"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = "/";
+            }}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 hover:bg-zinc-800 text-white text-xs font-semibold backdrop-blur-md border border-white/10 transition-transform hover:scale-105 cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Kembali ke Katalog</span>
-          </Link>
+          </a>
         </div>
 
         {/* Hero Content Information */}

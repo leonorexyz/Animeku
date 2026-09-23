@@ -101,7 +101,7 @@ export default function Home() {
   }, []);
 
   const handlePlay = (anime: Anime) => {
-    router.push(`/player/${anime.id}`);
+    window.location.href = `/player/${anime.id}`;
   };
 
   const handleSelectAnime = (anime: Anime) => {

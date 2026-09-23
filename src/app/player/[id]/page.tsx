@@ -54,7 +54,7 @@ export default async function PlayerPage({ params, searchParams }: PlayerPagePro
       })();
 
       const timeoutPromise = new Promise<null>((resolve) =>
-        setTimeout(() => resolve(null), 1500)
+        setTimeout(() => resolve(null), 6000)
       );
 
       const result = await Promise.race([dbPromise, timeoutPromise]);
