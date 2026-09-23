@@ -37,13 +37,14 @@ import {
 import AnimeCategoryPickerModal, { CategoryOption } from "@/components/AnimeCategoryPickerModal";
 
 interface PageProps {
-  params?: Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 }
 
 export default function AnimeDetailPage({ params }: PageProps) {
   const router = useRouter();
+  const resolvedParams = React.use(params);
   const routeParams = useParams();
-  const animeId = (routeParams?.id as string) || "";
+  const animeId = resolvedParams?.id || (routeParams?.id as string) || "";
 
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [copiedToast, setCopiedToast] = useState(false);
@@ -190,17 +191,22 @@ export default function AnimeDetailPage({ params }: PageProps) {
 
         {/* Floating Back Button */}
         <div className="absolute top-24 left-4 sm:left-8 z-30">
-          <a
-            href="/"
+          <Link
+            href="/search"
             onClick={(e) => {
               e.preventDefault();
-              window.location.href = "/";
+              router.push("/search");
+              setTimeout(() => {
+                if (typeof window !== "undefined" && window.location.pathname !== "/search") {
+                  window.location.href = "/search";
+                }
+              }, 200);
             }}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 hover:bg-zinc-800 text-white text-xs font-semibold backdrop-blur-md border border-white/10 transition-transform hover:scale-105 cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 hover:bg-zinc-800 text-white text-xs font-semibold backdrop-blur-md border border-white/10 transition-transform hover:scale-105 cursor-pointer shadow-lg"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 text-red-400" />
             <span>Kembali ke Katalog</span>
-          </a>
+          </Link>
         </div>
 
         {/* Hero Content Information */}

@@ -35,6 +35,43 @@ export default function Navbar() {
     }
   };
 
+  const handleNavigate = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    setMobileMenuOpen(false);
+
+    if (href.startsWith("#") || href.startsWith("/#")) {
+      const hash = href.startsWith("/#") ? href.slice(1) : href;
+      if (typeof window !== "undefined") {
+        if (window.location.pathname === "/") {
+          e.preventDefault();
+          const targetEl = document.querySelector(hash);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: "smooth" });
+            return;
+          }
+        } else {
+          e.preventDefault();
+          window.location.href = `/${hash}`;
+          return;
+        }
+      }
+    }
+
+    e.preventDefault();
+    router.push(href);
+    setTimeout(() => {
+      if (
+        typeof window !== "undefined" &&
+        window.location.pathname !== href &&
+        !window.location.pathname.startsWith(href)
+      ) {
+        window.location.href = href;
+      }
+    }, 200);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -69,7 +106,11 @@ export default function Navbar() {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2 group">
+            <Link
+              href="/"
+              onClick={(e) => handleNavigate(e, "/")}
+              className="flex items-center space-x-2 group cursor-pointer"
+            >
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-red-600 to-rose-700 flex items-center justify-center shadow-md shadow-red-600/30 group-hover:scale-105 transition-transform">
                 <Film className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
@@ -82,54 +123,62 @@ export default function Navbar() {
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
               <Link
                 href="/"
-                className="text-white hover:text-red-400 transition-colors font-semibold flex items-center gap-1.5"
+                onClick={(e) => handleNavigate(e, "/")}
+                className="text-white hover:text-red-400 transition-colors font-semibold flex items-center gap-1.5 cursor-pointer"
               >
                 Beranda
               </Link>
               <Link
                 href="/search"
-                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
+                onClick={(e) => handleNavigate(e, "/search")}
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <Search className="w-4 h-4 text-zinc-400" />
                 Eksplorasi
               </Link>
               <Link
-                href="#continue-watching"
-                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
+                href="/#continue-watching"
+                onClick={(e) => handleNavigate(e, "/#continue-watching")}
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <PlayCircle className="w-4 h-4 text-red-500" />
                 Lanjut Nonton
               </Link>
               <Link
                 href="/categories"
-                className="text-zinc-400 hover:text-white transition-colors"
+                onClick={(e) => handleNavigate(e, "/categories")}
+                className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
               >
                 Kategori
               </Link>
               <Link
                 href="/collections"
-                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
+                onClick={(e) => handleNavigate(e, "/collections")}
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <FolderHeart className="w-4 h-4 text-zinc-400" />
                 Koleksi
               </Link>
               <Link
                 href="/favorites"
-                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
+                onClick={(e) => handleNavigate(e, "/favorites")}
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <Heart className="w-4 h-4 text-red-500" />
                 Favorit
               </Link>
               <Link
                 href="/sources"
-                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
+                onClick={(e) => handleNavigate(e, "/sources")}
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5 text-red-500" />
                 Tambah Sumber
               </Link>
               <Link
                 href="/settings"
-                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5"
+                onClick={(e) => handleNavigate(e, "/settings")}
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
                 title="Pengaturan Aplikasi"
               >
                 <Settings className="w-3.5 h-3.5 text-zinc-400 hover:text-white" />
@@ -143,6 +192,7 @@ export default function Navbar() {
             {/* Active Source indicator */}
             <Link
               href="/sources"
+              onClick={(e) => handleNavigate(e, "/sources")}
               className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-300 hover:text-white transition-colors cursor-pointer"
               title="Kelola Sumber Anime"
             >
@@ -194,6 +244,7 @@ export default function Navbar() {
             <div className="flex items-center space-x-2 pl-2 border-l border-zinc-800">
               <Link
                 href="/settings"
+                onClick={(e) => handleNavigate(e, "/settings")}
                 className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-tr from-amber-600 to-red-600 flex items-center justify-center text-white font-bold text-xs ring-2 ring-zinc-700/50 hover:ring-red-500 transition-all hover:scale-105 cursor-pointer"
                 title="Buka Pengaturan"
               >
@@ -238,64 +289,64 @@ export default function Navbar() {
               <nav className="space-y-1">
                 <Link
                   href="/"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  onClick={(e) => handleNavigate(e, "/")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
                   <Film className="w-4 h-4 text-red-500" />
                   Beranda
                 </Link>
                 <Link
                   href="/search"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  onClick={(e) => handleNavigate(e, "/search")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
                   <Search className="w-4 h-4 text-zinc-400" />
                   Eksplorasi
                 </Link>
                 <Link
-                  href="#continue-watching"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  href="/#continue-watching"
+                  onClick={(e) => handleNavigate(e, "/#continue-watching")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
                   <PlayCircle className="w-4 h-4 text-red-500" />
                   Lanjut Nonton
                 </Link>
                 <Link
                   href="/categories"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  onClick={(e) => handleNavigate(e, "/categories")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
                   <Layers className="w-4 h-4 text-zinc-400" />
                   Kategori
                 </Link>
                 <Link
                   href="/collections"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  onClick={(e) => handleNavigate(e, "/collections")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
                   <FolderHeart className="w-4 h-4 text-zinc-400" />
                   Koleksi & Kategori
                 </Link>
                 <Link
                   href="/favorites"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  onClick={(e) => handleNavigate(e, "/favorites")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
                   <Heart className="w-4 h-4 text-red-500" />
                   Daftar Favorit
                 </Link>
                 <Link
                   href="/sources"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  onClick={(e) => handleNavigate(e, "/sources")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
                   <Plus className="w-4 h-4 text-red-500" />
                   Tambah Sumber
                 </Link>
                 <Link
                   href="/settings"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  onClick={(e) => handleNavigate(e, "/settings")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
                   <Settings className="w-4 h-4 text-zinc-400" />
                   Pengaturan
