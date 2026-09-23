@@ -80,7 +80,7 @@ export default function PlayAndResumeButtons({
             {/* Continue Watching Button */}
             <Link
               href={`/player/${animeId}?ep=${currentEpNum}`}
-              onClick={() => onPlay(currentEpNum)}
+              prefetch={true}
               className="group relative flex items-center gap-3 px-6 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg hover:shadow-red-600/30 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer overflow-hidden"
             >
               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-red-600 shadow-sm group-hover:scale-110 transition-transform">
@@ -107,7 +107,7 @@ export default function PlayAndResumeButtons({
             {/* Restart from beginning / Play Ep 1 */}
             <Link
               href={`/player/${animeId}?ep=1`}
-              onClick={() => onPlay(1)}
+              prefetch={true}
               className="flex items-center gap-2 px-4 py-3.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 hover:text-white font-semibold text-sm border border-white/10 hover:border-white/20 backdrop-blur-md transition-all cursor-pointer"
               title="Mulai tonton dari Episode 1"
             >
@@ -119,7 +119,7 @@ export default function PlayAndResumeButtons({
           /* Start Watching Episode 1 Button */
           <Link
             href={`/player/${animeId}?ep=1`}
-            onClick={() => onPlay(1)}
+            prefetch={true}
             className="flex items-center gap-3 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-extrabold text-sm sm:text-base rounded-xl shadow-lg hover:shadow-red-600/30 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
           >
             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-red-600 shadow-sm">

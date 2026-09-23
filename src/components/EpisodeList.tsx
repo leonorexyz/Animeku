@@ -124,7 +124,7 @@ export default function EpisodeList({
               <Link
                 key={ep.id}
                 href={`/player/${animeId || ep.animeId}?ep=${ep.episodeNumber}`}
-                onClick={() => onPlayEpisode?.(ep)}
+                prefetch={true}
                 className={`group relative bg-zinc-900/80 hover:bg-zinc-800/90 border rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer flex flex-col ${
                   isCurrentPlaying
                     ? "border-red-500 ring-2 ring-red-500/30"
@@ -134,7 +134,7 @@ export default function EpisodeList({
                 }`}
               >
                 {/* Thumbnail with Overlay & Progress Bar */}
-                <div className="relative aspect-video w-full overflow-hidden bg-zinc-950">
+                <div className="relative aspect-video w-full overflow-hidden bg-zinc-950 pointer-events-none select-none">
                   <img
                     src={ep.thumbnailUrl}
                     alt={ep.title}
@@ -180,7 +180,7 @@ export default function EpisodeList({
                 </div>
 
                 {/* Episode Info */}
-                <div className="p-3.5 flex-1 flex flex-col justify-between">
+                <div className="p-3.5 flex-1 flex flex-col justify-between pointer-events-none select-none">
                   <div>
                     <div className="flex items-center justify-between text-xs text-zinc-400 mb-1">
                       <span className="font-bold text-red-400">

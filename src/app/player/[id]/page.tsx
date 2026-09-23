@@ -22,100 +22,103 @@ export default async function PlayerPage({ params, searchParams }: PlayerPagePro
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const requestedEpNum = resolvedSearchParams.ep ? parseInt(resolvedSearchParams.ep, 10) : undefined;
 
-  let dbAnime: Anime | null = null;
-  let dbEpisodes: ExtendedEpisode[] = [];
-
-  try {
-    const [row] = await db
-      .select()
-      .from(schema.anime)
-      .where(eq(schema.anime.id, id))
-      .limit(1);
-
-    if (row) {
-      dbAnime = {
-        id: row.id,
-        title: row.title,
-        synopsis: row.synopsis,
-        year: row.year,
-        posterUrl: row.posterUrl,
-        coverUrl: row.coverUrl,
-        status: row.status,
-        isFeatured: row.isFeatured,
-        rating: row.rating || "8.5",
-        genres: typeof row.genres === "string" ? row.genres.split(",").map((s) => s.trim()) : ["Serial Anime"],
-        totalEpisodes: row.totalEpisodes || 12,
-      };
-
-      const episodeRows = await db
-        .select()
-        .from(schema.episodes)
-        .where(eq(schema.episodes.animeId, id))
-        .orderBy(asc(schema.episodes.episodeNumber));
-
-      if (episodeRows.length > 0) {
-        dbEpisodes = episodeRows.map((ep) => ({
-          id: ep.id,
-          animeId: ep.animeId,
-          title: ep.title,
-          episodeNumber: ep.episodeNumber,
-          durationSeconds: ep.durationSeconds || 1440,
-          sourceType: (ep.sourceType as any) || "local",
-          sourceUrl: ep.sourceUrl,
-          thumbnailUrl: ep.thumbnailUrl || row.coverUrl,
-          synopsis: ep.synopsis || `Episode ${ep.episodeNumber} dari ${row.title}`,
-        }));
-      }
-    }
-  } catch (err) {
-    console.error("PlayerPage DB query error:", err);
-  }
-
-  // Search across all mock anime
+  // Search across in-memory catalog first (instant 0ms response)
   const allAnime: Anime[] = [
     ...MOCK_FEATURED_ANIMES,
     ...MOCK_CONTINUE_WATCHING,
     ...MOCK_CATALOG_DATA,
   ];
 
-  const anime = dbAnime || allAnime.find((a) => a.id === id) || allAnime[0];
+  let anime: Anime | undefined = allAnime.find((a) => a.id === id);
+  let episodes: ExtendedEpisode[] = MOCK_EPISODES[id] || [];
 
+  // If not found in in-memory catalog, try database with fast timeout
+  if (!anime || episodes.length === 0) {
+    try {
+      const dbPromise = (async () => {
+        const [row] = await db
+          .select()
+          .from(schema.anime)
+          .where(eq(schema.anime.id, id))
+          .limit(1);
+
+        if (!row) return null;
+
+        const episodeRows = await db
+          .select()
+          .from(schema.episodes)
+          .where(eq(schema.episodes.animeId, id))
+          .orderBy(asc(schema.episodes.episodeNumber));
+
+        return { row, episodeRows };
+      })();
+
+      const timeoutPromise = new Promise<null>((resolve) =>
+        setTimeout(() => resolve(null), 1500)
+      );
+
+      const result = await Promise.race([dbPromise, timeoutPromise]);
+
+      if (result) {
+        if (!anime) {
+          anime = {
+            id: result.row.id,
+            title: result.row.title,
+            synopsis: result.row.synopsis,
+            year: result.row.year,
+            posterUrl: result.row.posterUrl,
+            coverUrl: result.row.coverUrl,
+            status: result.row.status,
+            isFeatured: result.row.isFeatured,
+            rating: result.row.rating || "8.5",
+            genres:
+              typeof result.row.genres === "string"
+                ? result.row.genres.split(",").map((s) => s.trim())
+                : ["Serial Anime"],
+            totalEpisodes: result.row.totalEpisodes || 12,
+          };
+        }
+
+        if (episodes.length === 0 && result.episodeRows.length > 0) {
+          episodes = result.episodeRows.map((ep) => ({
+            id: ep.id,
+            animeId: ep.animeId,
+            title: ep.title,
+            episodeNumber: ep.episodeNumber,
+            durationSeconds: ep.durationSeconds || 1440,
+            sourceType: (ep.sourceType as any) || "local",
+            sourceUrl: ep.sourceUrl,
+            thumbnailUrl: ep.thumbnailUrl || result.row.coverUrl,
+            synopsis: ep.synopsis || `Episode ${ep.episodeNumber} dari ${result.row.title}`,
+          }));
+        }
+      }
+    } catch (err) {
+      console.error("PlayerPage DB query error:", err);
+    }
+  }
+
+  // Absolute fallback
+  if (!anime) {
+    anime = allAnime[0];
+  }
   if (!anime) {
     notFound();
   }
 
-  // Fetch episodes or generate mock episodes
-  const episodes: ExtendedEpisode[] =
-    dbEpisodes.length > 0
-      ? dbEpisodes
-      : MOCK_EPISODES[anime.id] || [
-    {
-      ...DEFAULT_EPISODE,
-      id: `${anime.id}-ep-1`,
-      animeId: anime.id,
-      title: "Episode Perdana: Awal Mula Perjalanan",
-      episodeNumber: 1,
-      synopsis: `Episode pertama dari anime ${anime.title}. Memulai kisah petualangan seru.`,
-    },
-    {
-      ...DEFAULT_EPISODE,
-      id: `${anime.id}-ep-2`,
-      animeId: anime.id,
-      title: "Episode Kedua: Pertemuan Tak Terduga",
-      episodeNumber: 2,
-      sourceUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-      synopsis: `Kelanjutan dari petualangan seru di ${anime.title}.`,
-    },
-    {
-      ...DEFAULT_EPISODE,
-      id: `${anime.id}-ep-3`,
-      animeId: anime.id,
-      title: "Episode Ketiga: Ujian Kekuatan",
-      episodeNumber: 3,
-      sourceUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-      synopsis: `Pertarungan penting yang menentukan langkah selanjutnya bagi ${anime.title}.`,
-    },
-  ];
+  // Fallback episodes if still none
+  if (episodes.length === 0) {
+    episodes = [
+      {
+        ...DEFAULT_EPISODE,
+        id: `${anime.id}-ep-1`,
+        animeId: anime.id,
+        title: "Episode Perdana: Awal Mula Perjalanan",
+        episodeNumber: 1,
+        synopsis: `Episode pertama dari anime ${anime.title}. Memulai kisah petualangan seru.`,
+      },
+    ];
+  }
 
   // If specific episode requested via query param, use it; otherwise check continue watching progress
   let initialEp = episodes[0];
