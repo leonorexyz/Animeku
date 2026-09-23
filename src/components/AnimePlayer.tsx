@@ -133,7 +133,7 @@ export default function AnimePlayer({
   const [showEpisodeDrawer, setShowEpisodeDrawer] = useState(false);
   const [showAudioSubMenu, setShowAudioSubMenu] = useState(false);
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
-  const [selectedSub, setSelectedSub] = useState("id");
+  const [selectedSub, setSelectedSub] = useState("off");
   const [selectedAudio, setSelectedAudio] = useState("ja");
   const [subSize, setSubSize] = useState<"sm" | "md" | "lg">("md");
   const [customSubName, setCustomSubName] = useState<string | null>(null);
@@ -141,6 +141,16 @@ export default function AnimePlayer({
   const [playbackRate, setPlaybackRate] = useState(1);
   const [nextEpCountdown, setNextEpCountdown] = useState<number | null>(null);
   const [autoplayNext, setAutoplayNext] = useState(true);
+
+  // Load saved subtitle preference
+  useEffect(() => {
+    try {
+      const savedSub = localStorage.getItem("animeku_player_subtitle");
+      if (savedSub) {
+        setSelectedSub(savedSub);
+      }
+    } catch (e) {}
+  }, []);
 
   // Subtitle & Audio options
   const subtitles = [
@@ -186,13 +196,10 @@ export default function AnimePlayer({
 
   const getSubtitleCue = () => {
     if (selectedSub === "off") return null;
-    const cues: Record<string, string> = {
-      id: "Nona Frieren, apakah kita akan bersiap melanjutkan perjalanan ke utara?",
-      en: "Lady Frieren, shall we prepare to head further north?",
-      "ja-romaji": "Frieren-sama, kita e to mukau junbi wo shimashou ka?",
-      custom: `[${customSubName}] Menampilkan baris teks subtitle dari file lokal...`,
-    };
-    return cues[selectedSub] || cues.id;
+    if (selectedSub === "custom" && customSubName) {
+      return `[${customSubName}] Menampilkan baris teks subtitle dari file lokal...`;
+    }
+    return null;
   };
 
   // Mouse activity timer to hide controls
@@ -293,6 +300,50 @@ export default function AnimePlayer({
         }
       }
     }
+  };
+
+  const handlePickDirectory = async () => {
+    try {
+      if (typeof window !== "undefined" && "showDirectoryPicker" in window) {
+        const dirHandle = await (window as any).showDirectoryPicker({ mode: "read" });
+        if (dirHandle) {
+          const newMap = new Map<number, File>(localFilesCache);
+          for await (const entry of dirHandle.values()) {
+            if (entry.kind === "file") {
+              const ext = entry.name.slice(entry.name.lastIndexOf(".")).toLowerCase();
+              if ([".mp4", ".mkv", ".webm", ".avi", ".flv", ".mov", ".ts"].includes(ext)) {
+                const base = entry.name.replace(/\.[^/.]+$/, "");
+                const match = base.match(/(?:ep|episode|e)?\s*0*(\d{1,4})/i);
+                if (match && match[1]) {
+                  const num = parseInt(match[1], 10);
+                  const file = await entry.getFile();
+                  newMap.set(num, file);
+                }
+              }
+            }
+          }
+          if (newMap.size > 0) {
+            setLocalFilesCache(newMap);
+            const curFile = newMap.get(currentEp.episodeNumber) || Array.from(newMap.values())[0];
+            if (curFile) {
+              const url = URL.createObjectURL(curFile);
+              setLocalFileObjectUrl(url);
+              setVideoError(null);
+              setTimeout(() => {
+                if (videoRef.current) {
+                  videoRef.current.play().catch(() => {});
+                  setIsPlaying(true);
+                }
+              }, 150);
+            }
+            return;
+          }
+        }
+      }
+    } catch (e: any) {
+      if (e.name === "AbortError") return;
+    }
+    folderInputRef.current?.click();
   };
 
   const handlePlayDemoVideo = () => {
@@ -1362,7 +1413,7 @@ export default function AnimePlayer({
               {/* Tombol Pilih Satu Folder Penuh */}
               <button
                 type="button"
-                onClick={() => folderInputRef.current?.click()}
+                onClick={handlePickDirectory}
                 className="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white font-bold text-xs rounded-xl border border-zinc-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <FolderOpen className="w-4 h-4 text-emerald-400" />
