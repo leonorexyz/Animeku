@@ -22,6 +22,10 @@ import {
   Check,
   FastForward,
   Upload,
+  HardDrive,
+  FolderOpen,
+  FileVideo,
+  AlertCircle,
 } from "lucide-react";
 import { Anime } from "@/types/anime";
 import { ExtendedEpisode } from "@/data/mockEpisodes";
@@ -62,6 +66,16 @@ export default function AnimePlayer({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [controlsTimeout, setControlsTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  // Local file & error fallback state
+  const [videoError, setVideoError] = useState<{
+    type: "local_unreachable" | "playback_error";
+    message: string;
+  } | null>(null);
+  const [localFileObjectUrl, setLocalFileObjectUrl] = useState<string | null>(null);
+  const [localFilesCache, setLocalFilesCache] = useState<Map<number, File>>(new Map());
+  const singleFileInputRef = useRef<HTMLInputElement>(null);
+  const folderInputRef = useRef<HTMLInputElement>(null);
 
   // Load volume preferences from localStorage
   useEffect(() => {
@@ -189,6 +203,100 @@ export default function AnimePlayer({
     }, 600);
   };
 
+  // Handle local video playback
+  const activeVideoUrl = localFileObjectUrl || currentEp.sourceUrl;
+
+  useEffect(() => {
+    // When switching episode, check cache
+    if (localFilesCache.has(currentEp.episodeNumber)) {
+      const file = localFilesCache.get(currentEp.episodeNumber)!;
+      const url = URL.createObjectURL(file);
+      setLocalFileObjectUrl(url);
+      setVideoError(null);
+    } else {
+      setLocalFileObjectUrl(null);
+    }
+  }, [currentEp.id, currentEp.episodeNumber]);
+
+  const handleVideoError = () => {
+    console.warn("Video failed to play:", activeVideoUrl);
+    setVideoError({
+      type: "local_unreachable",
+      message: "Berkas video lokal tidak dapat dijangkau secara langsung dari server cloud.",
+    });
+    setIsPlaying(false);
+  };
+
+  const handleSingleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setLocalFileObjectUrl(url);
+      setLocalFilesCache((prev) => {
+        const m = new Map(prev);
+        m.set(currentEp.episodeNumber, file);
+        return m;
+      });
+      setVideoError(null);
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {});
+          setIsPlaying(true);
+        }
+      }, 150);
+    }
+  };
+
+  const handleFolderSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length > 0) {
+      const newMap = new Map<number, File>(localFilesCache);
+      for (const f of files) {
+        const ext = f.name.slice(f.name.lastIndexOf(".")).toLowerCase();
+        if ([".mp4", ".mkv", ".webm", ".avi", ".flv", ".mov", ".ts"].includes(ext)) {
+          const base = f.name.replace(/\.[^/.]+$/, "");
+          const match = base.match(/(?:ep|episode|e)?\s*0*(\d{1,4})/i);
+          if (match && match[1]) {
+            const num = parseInt(match[1], 10);
+            newMap.set(num, f);
+          }
+        }
+      }
+      setLocalFilesCache(newMap);
+
+      const curFile = newMap.get(currentEp.episodeNumber);
+      if (curFile) {
+        const url = URL.createObjectURL(curFile);
+        setLocalFileObjectUrl(url);
+        setVideoError(null);
+        setTimeout(() => {
+          if (videoRef.current) {
+            videoRef.current.play().catch(() => {});
+            setIsPlaying(true);
+          }
+        }, 150);
+      } else {
+        const first = Array.from(newMap.values())[0];
+        if (first) {
+          const url = URL.createObjectURL(first);
+          setLocalFileObjectUrl(url);
+          setVideoError(null);
+        }
+      }
+    }
+  };
+
+  const handlePlayDemoVideo = () => {
+    setLocalFileObjectUrl("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+    setVideoError(null);
+    setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.play().catch(() => {});
+        setIsPlaying(true);
+      }
+    }, 150);
+  };
+
   // Toggle play/pause
   const togglePlay = useCallback(() => {
     if (!videoRef.current) return;
@@ -197,11 +305,13 @@ export default function AnimePlayer({
       triggerFeedback("pause");
       setIsPlaying(false);
     } else {
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play().catch(() => {
+        handleVideoError();
+      });
       triggerFeedback("play");
       setIsPlaying(true);
     }
-  }, [isPlaying]);
+  }, [isPlaying, activeVideoUrl]);
 
   // Skip time (-10s / +10s)
   const skip = (seconds: number) => {
@@ -558,7 +668,8 @@ export default function AnimePlayer({
       {/* Video Element */}
       <video
         ref={videoRef}
-        src={currentEp.sourceUrl}
+        src={activeVideoUrl}
+        onError={handleVideoError}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onClick={togglePlay}
@@ -566,6 +677,25 @@ export default function AnimePlayer({
         onEnded={handleVideoEnded}
         className="w-full h-full object-contain cursor-pointer"
         playsInline
+      />
+
+      {/* Hidden File & Folder Pickers for Local Media */}
+      <input
+        ref={singleFileInputRef}
+        type="file"
+        accept="video/*"
+        onChange={handleSingleFileSelect}
+        className="hidden"
+      />
+      <input
+        ref={folderInputRef}
+        type="file"
+        // @ts-ignore
+        webkitdirectory=""
+        directory=""
+        multiple
+        onChange={handleFolderSelect}
+        className="hidden"
       />
 
       {/* Hidden Subtitle File Input */}
@@ -1173,6 +1303,69 @@ export default function AnimePlayer({
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Local File / Playback Fallback Overlay */}
+      {videoError && (
+        <div className="absolute inset-0 z-40 bg-zinc-950/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-300">
+          <div className="max-w-md w-full bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+            <div className="w-16 h-16 rounded-2xl bg-red-600/10 border border-red-500/20 flex items-center justify-center mx-auto text-red-500 shadow-xl">
+              <HardDrive className="w-8 h-8 animate-pulse" />
+            </div>
+
+            <div className="space-y-2">
+              <h2 className="text-lg sm:text-xl font-black text-white">
+                Berkas Video Lokal di PC Anda
+              </h2>
+              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                Serial ini berada di penyimpanan PC lokal:
+                <br />
+                <span className="font-mono text-xs text-red-400 bg-red-950/40 px-2 py-1 rounded inline-block mt-1.5 border border-red-900/40 truncate max-w-full">
+                  {decodeURIComponent(currentEp.sourceUrl?.replace("/api/stream?file=", "") || "D:/Anime/Series")}
+                </span>
+              </p>
+              <p className="text-[11px] text-zinc-500">
+                Karena Anda membukanya via web cloud, pilih berkas secara langsung untuk memutarnya dengan lancar tanpa kuota internet!
+              </p>
+            </div>
+
+            <div className="space-y-2.5 pt-2">
+              {/* Tombol Pilih File Video */}
+              <button
+                type="button"
+                onClick={() => singleFileInputRef.current?.click()}
+                className="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <FileVideo className="w-4 h-4" />
+                <span>Pilih File Episode Ini ({currentEp.title})</span>
+              </button>
+
+              {/* Tombol Pilih Satu Folder Penuh */}
+              <button
+                type="button"
+                onClick={() => folderInputRef.current?.click()}
+                className="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white font-bold text-xs rounded-xl border border-zinc-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <FolderOpen className="w-4 h-4 text-emerald-400" />
+                <span>Pilih Folder Seri Ini Sekaligus</span>
+              </button>
+
+              {/* Tombol Putar Video Demo */}
+              <button
+                type="button"
+                onClick={handlePlayDemoVideo}
+                className="w-full py-2.5 bg-transparent hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-200 text-xs font-medium rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <Play className="w-3.5 h-3.5 text-zinc-400 fill-zinc-400" />
+                <span>Putar Video Contoh (Mode Pratinjau Demo)</span>
+              </button>
+            </div>
+
+            <div className="border-t border-zinc-800 pt-3 text-[11px] text-zinc-500 text-left">
+              💡 <strong>Ingin streaming otomatis tanpa memilih berkas?</strong> Jalankan <code className="bg-zinc-800 px-1 py-0.5 rounded text-zinc-300">npm run dev</code> di terminal dan buka <a href="http://localhost:3000" className="text-red-400 hover:underline">http://localhost:3000</a> di browser PC Anda.
             </div>
           </div>
         </div>

@@ -48,14 +48,21 @@ export function streamLocalFile(
   filePath: string,
   rangeHeader?: string | null
 ): Response {
+  let cleanPath = decodeURIComponent(filePath || "");
+  if (cleanPath.startsWith("file:///")) {
+    cleanPath = cleanPath.replace(/^file:\/\/\//, "");
+  } else if (cleanPath.startsWith("file://")) {
+    cleanPath = cleanPath.replace(/^file:\/\//, "");
+  }
+
   // Prevent path traversal attacks
-  const safePath = path.isAbsolute(filePath)
-    ? filePath
-    : path.join(process.cwd(), filePath);
+  const safePath = path.isAbsolute(cleanPath)
+    ? cleanPath
+    : path.join(process.cwd(), cleanPath);
 
   if (!fs.existsSync(safePath)) {
     return new Response(
-      JSON.stringify({ error: "Berkas video lokal tidak ditemukan" }),
+      JSON.stringify({ error: `Berkas video lokal tidak ditemukan: ${safePath}` }),
       { status: 404, headers: { "Content-Type": "application/json" } }
     );
   }

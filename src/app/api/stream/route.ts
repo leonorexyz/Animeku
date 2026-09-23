@@ -56,8 +56,8 @@ export async function GET(req: Request) {
       }
     }
 
-    // Direct streaming by type
-    if (type === "local" && file) {
+    // Direct streaming by type or file parameter
+    if ((type === "local" || !type) && file) {
       return streamLocalFile(file, rangeHeader);
     }
 
