@@ -47,11 +47,11 @@ interface ConnectedSourceItem {
 const INITIAL_SOURCES: ConnectedSourceItem[] = [
   {
     id: "src-1",
-    name: "Folder Anime Lokal (D:/Videos/Anime)",
+    name: "Folder Anime Lokal (D:/Anime/Series)",
     type: "local",
     details: "12 Serial • 148 File Video (.mp4, .mkv)",
     itemCount: 12,
-    lastSynced: "5 menit yang lalu",
+    lastSynced: "Baru saja",
     status: "active",
   },
   {
@@ -90,7 +90,7 @@ export default function AddSourcePage() {
   const [showCancelModal, setShowCancelModal] = useState(false);
 
   // Form State: Local File/Folder
-  const [localPath, setLocalPath] = useState("D:/Anime/Winter2024");
+  const [localPath, setLocalPath] = useState("D:/Anime/Series");
   const [detectedLocalFiles, setDetectedLocalFiles] = useState<
     { name: string; size: string; ep: number }[]
   >([
