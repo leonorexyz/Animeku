@@ -768,7 +768,7 @@ export default function AnimePlayer({
       />
 
       {/* On-Screen Live Subtitle Display */}
-      {selectedSub !== "off" && (
+      {selectedSub !== "off" && getSubtitleCue() && (
         <div className="absolute bottom-24 left-4 right-4 flex justify-center pointer-events-none z-20 transition-all">
           <div
             className={`px-4 py-1.5 rounded-lg text-center max-w-2xl font-semibold select-none drop-shadow-md transition-all ${
