@@ -8,6 +8,9 @@ import {
 import { MOCK_EPISODES, DEFAULT_EPISODE, ExtendedEpisode } from "@/data/mockEpisodes";
 import { Anime } from "@/types/anime";
 import { notFound } from "next/navigation";
+import { db } from "@/db";
+import * as schema from "@/db/schema";
+import { eq, asc } from "drizzle-orm";
 
 interface PlayerPageProps {
   params: Promise<{ id: string }>;
@@ -19,6 +22,55 @@ export default async function PlayerPage({ params, searchParams }: PlayerPagePro
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const requestedEpNum = resolvedSearchParams.ep ? parseInt(resolvedSearchParams.ep, 10) : undefined;
 
+  let dbAnime: Anime | null = null;
+  let dbEpisodes: ExtendedEpisode[] = [];
+
+  try {
+    const [row] = await db
+      .select()
+      .from(schema.anime)
+      .where(eq(schema.anime.id, id))
+      .limit(1);
+
+    if (row) {
+      dbAnime = {
+        id: row.id,
+        title: row.title,
+        synopsis: row.synopsis,
+        year: row.year,
+        posterUrl: row.posterUrl,
+        coverUrl: row.coverUrl,
+        status: row.status,
+        isFeatured: row.isFeatured,
+        rating: row.rating || "8.5",
+        genres: typeof row.genres === "string" ? row.genres.split(",").map((s) => s.trim()) : ["Serial Anime"],
+        totalEpisodes: row.totalEpisodes || 12,
+      };
+
+      const episodeRows = await db
+        .select()
+        .from(schema.episodes)
+        .where(eq(schema.episodes.animeId, id))
+        .orderBy(asc(schema.episodes.episodeNumber));
+
+      if (episodeRows.length > 0) {
+        dbEpisodes = episodeRows.map((ep) => ({
+          id: ep.id,
+          animeId: ep.animeId,
+          title: ep.title,
+          episodeNumber: ep.episodeNumber,
+          durationSeconds: ep.durationSeconds || 1440,
+          sourceType: (ep.sourceType as any) || "local",
+          sourceUrl: ep.sourceUrl,
+          thumbnailUrl: ep.thumbnailUrl || row.coverUrl,
+          synopsis: ep.synopsis || `Episode ${ep.episodeNumber} dari ${row.title}`,
+        }));
+      }
+    }
+  } catch (err) {
+    console.error("PlayerPage DB query error:", err);
+  }
+
   // Search across all mock anime
   const allAnime: Anime[] = [
     ...MOCK_FEATURED_ANIMES,
@@ -26,14 +78,17 @@ export default async function PlayerPage({ params, searchParams }: PlayerPagePro
     ...MOCK_CATALOG_DATA,
   ];
 
-  const anime = allAnime.find((a) => a.id === id) || allAnime[0];
+  const anime = dbAnime || allAnime.find((a) => a.id === id) || allAnime[0];
 
   if (!anime) {
     notFound();
   }
 
   // Fetch episodes or generate mock episodes
-  const episodes: ExtendedEpisode[] = MOCK_EPISODES[anime.id] || [
+  const episodes: ExtendedEpisode[] =
+    dbEpisodes.length > 0
+      ? dbEpisodes
+      : MOCK_EPISODES[anime.id] || [
     {
       ...DEFAULT_EPISODE,
       id: `${anime.id}-ep-1`,

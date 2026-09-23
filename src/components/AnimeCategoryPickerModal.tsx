@@ -83,9 +83,14 @@ export default function AnimeCategoryPickerModal({
     if (initialSelectedCategoryIds.length > 0) {
       setSelectedIds(initialSelectedCategoryIds);
     } else if (anime && anime.genres) {
+      const animeGenresList = Array.isArray(anime.genres)
+        ? anime.genres
+        : typeof anime.genres === "string"
+        ? (anime.genres as string).split(",").map((g) => g.trim()).filter(Boolean)
+        : [];
       // Map existing genres from anime to IDs
       const matched = DEFAULT_CATEGORY_OPTIONS.filter((c) =>
-        anime.genres.some((g) => g.toLowerCase() === c.name.toLowerCase())
+        animeGenresList.some((g) => g.toLowerCase() === c.name.toLowerCase())
       ).map((c) => c.id);
       setSelectedIds(matched);
     }

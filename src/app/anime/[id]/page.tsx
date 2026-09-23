@@ -1,8 +1,8 @@
 "use client";
 
-import React, { use, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimeCard from "@/components/AnimeCard";
@@ -37,13 +37,13 @@ import {
 import AnimeCategoryPickerModal, { CategoryOption } from "@/components/AnimeCategoryPickerModal";
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params?: Promise<{ id: string }>;
 }
 
 export default function AnimeDetailPage({ params }: PageProps) {
   const router = useRouter();
-  const resolvedParams = use(params);
-  const animeId = resolvedParams.id;
+  const routeParams = useParams();
+  const animeId = (routeParams?.id as string) || "";
 
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [copiedToast, setCopiedToast] = useState(false);
@@ -141,13 +141,24 @@ export default function AnimeDetailPage({ params }: PageProps) {
     .filter((a) => a.id !== anime.id)
     .slice(0, 6);
 
+  const displayGenres: string[] = Array.isArray(anime?.genres)
+    ? anime.genres
+    : typeof anime?.genres === "string" && (anime.genres as string).trim()
+    ? (anime.genres as string).split(",").map((g) => g.trim()).filter(Boolean)
+    : ["Serial Anime"];
+
+  const displayCategories: string[] =
+    assignedCategories.length > 0
+      ? assignedCategories
+      : displayGenres;
+
   const handlePlay = (episodeNumber?: number) => {
     const targetEp = episodeNumber || (savedProgress?.episodeNumber ?? 1);
-    router.push(`/player/${anime.id}?ep=${targetEp}`);
+    router.push(`/player/${anime.id || animeId}?ep=${targetEp}`);
   };
 
   const handlePlayEpisode = (ep: ExtendedEpisode) => {
-    router.push(`/player/${anime.id}?ep=${ep.episodeNumber}`);
+    router.push(`/player/${anime.id || animeId}?ep=${ep.episodeNumber}`);
   };
 
   const handleShare = () => {
@@ -257,6 +268,7 @@ export default function AnimeDetailPage({ params }: PageProps) {
           <EpisodeList
             episodes={episodes}
             progressMap={allProgress}
+            animeId={anime.id || animeId}
             onPlayEpisode={handlePlayEpisode}
           />
         </section>
@@ -283,7 +295,7 @@ export default function AnimeDetailPage({ params }: PageProps) {
                   Genre
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {anime.genres.map((g) => (
+                  {displayGenres.map((g) => (
                     <span
                       key={g}
                       className="px-2.5 py-1 rounded-full bg-zinc-800 text-xs font-medium text-zinc-300 border border-white/5"
@@ -310,7 +322,7 @@ export default function AnimeDetailPage({ params }: PageProps) {
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  {(assignedCategories.length > 0 ? assignedCategories : anime.genres).map((c) => (
+                  {displayCategories.map((c) => (
                     <span
                       key={c}
                       className="px-2.5 py-1 rounded-full bg-red-600/10 text-xs font-semibold text-red-400 border border-red-500/20"

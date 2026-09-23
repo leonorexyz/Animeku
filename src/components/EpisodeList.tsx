@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { Play, CheckCircle2, Clock, Check, RotateCcw } from "lucide-react";
 import { ExtendedEpisode } from "@/data/mockEpisodes";
 import { WatchProgress } from "@/types/anime";
@@ -9,7 +10,8 @@ interface EpisodeListProps {
   episodes: ExtendedEpisode[];
   progressMap?: Record<string, WatchProgress>;
   currentEpisodeId?: string;
-  onPlayEpisode: (episode: ExtendedEpisode) => void;
+  animeId?: string;
+  onPlayEpisode?: (episode: ExtendedEpisode) => void;
   onToggleCompleted?: (episodeId: string) => void;
 }
 
@@ -17,6 +19,7 @@ export default function EpisodeList({
   episodes,
   progressMap = {},
   currentEpisodeId,
+  animeId,
   onPlayEpisode,
   onToggleCompleted,
 }: EpisodeListProps) {
@@ -118,9 +121,10 @@ export default function EpisodeList({
             const isCurrentPlaying = currentEpisodeId === ep.id;
 
             return (
-              <div
+              <Link
                 key={ep.id}
-                onClick={() => onPlayEpisode(ep)}
+                href={`/player/${animeId || ep.animeId}?ep=${ep.episodeNumber}`}
+                onClick={() => onPlayEpisode?.(ep)}
                 className={`group relative bg-zinc-900/80 hover:bg-zinc-800/90 border rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer flex flex-col ${
                   isCurrentPlaying
                     ? "border-red-500 ring-2 ring-red-500/30"
@@ -210,7 +214,7 @@ export default function EpisodeList({
                     </div>
                   )}
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

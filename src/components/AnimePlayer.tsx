@@ -50,6 +50,15 @@ export default function AnimePlayer({
     initialEpisode || currentEpisodesList[0]
   );
 
+  // Synchronize when initialEpisode changes (e.g. from ?ep= query param or route navigation)
+  useEffect(() => {
+    if (initialEpisode && initialEpisode.id !== currentEp.id) {
+      setCurrentEp(initialEpisode);
+      setVideoError(null);
+      setCurrentTime(0);
+    }
+  }, [initialEpisode]);
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrubberRef = useRef<HTMLDivElement>(null);

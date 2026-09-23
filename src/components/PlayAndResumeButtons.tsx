@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Play, RotateCcw, Share2, Clock } from "lucide-react";
 import { WatchProgress } from "@/types/anime";
 import FavoriteButton from "@/components/FavoriteButton";
@@ -77,7 +78,8 @@ export default function PlayAndResumeButtons({
         {hasProgress ? (
           <>
             {/* Continue Watching Button */}
-            <button
+            <Link
+              href={`/player/${animeId}?ep=${currentEpNum}`}
               onClick={() => onPlay(currentEpNum)}
               className="group relative flex items-center gap-3 px-6 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg hover:shadow-red-600/30 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer overflow-hidden"
             >
@@ -100,21 +102,23 @@ export default function PlayAndResumeButtons({
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
-            </button>
+            </Link>
 
             {/* Restart from beginning / Play Ep 1 */}
-            <button
+            <Link
+              href={`/player/${animeId}?ep=1`}
               onClick={() => onPlay(1)}
               className="flex items-center gap-2 px-4 py-3.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 hover:text-white font-semibold text-sm border border-white/10 hover:border-white/20 backdrop-blur-md transition-all cursor-pointer"
               title="Mulai tonton dari Episode 1"
             >
               <RotateCcw className="w-4 h-4 text-zinc-400 group-hover:rotate-[-45deg] transition-transform" />
               <span>Putar dari Ep 1</span>
-            </button>
+            </Link>
           </>
         ) : (
           /* Start Watching Episode 1 Button */
-          <button
+          <Link
+            href={`/player/${animeId}?ep=1`}
             onClick={() => onPlay(1)}
             className="flex items-center gap-3 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-extrabold text-sm sm:text-base rounded-xl shadow-lg hover:shadow-red-600/30 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
           >
@@ -122,7 +126,7 @@ export default function PlayAndResumeButtons({
               <Play className="w-4 h-4 fill-red-600 ml-0.5" />
             </div>
             <span>Mulai Nonton Episode 1</span>
-          </button>
+          </Link>
         )}
 
         {/* My List / Favorit */}
