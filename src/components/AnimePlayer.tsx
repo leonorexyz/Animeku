@@ -31,6 +31,14 @@ import { Anime } from "@/types/anime";
 import { ExtendedEpisode } from "@/data/mockEpisodes";
 import { saveWatchProgress, getWatchProgressForAnime } from "@/utils/watchProgress";
 import { getStoredAppSettings } from "@/utils/appSettings";
+import {
+  getMasterDirectoryHandle,
+  saveMasterDirectoryHandle,
+  getSavedMasterFolderName,
+  clearMasterDirectoryHandle,
+  verifyDirectoryPermission,
+  resolveEpisodeFile,
+} from "@/utils/localFileSystem";
 
 interface AnimePlayerProps {
   anime: Anime;
@@ -83,8 +91,23 @@ export default function AnimePlayer({
   } | null>(null);
   const [localFileObjectUrl, setLocalFileObjectUrl] = useState<string | null>(null);
   const [localFilesCache, setLocalFilesCache] = useState<Map<number, File>>(new Map());
+  const [savedMasterFolder, setSavedMasterFolder] = useState<string | null>(null);
+  const [isResolvingFile, setIsResolvingFile] = useState(false);
   const singleFileInputRef = useRef<HTMLInputElement>(null);
   const folderInputRef = useRef<HTMLInputElement>(null);
+
+  // Check persistent master directory handle on mount
+  useEffect(() => {
+    async function checkMasterFolder() {
+      try {
+        const folderName = await getSavedMasterFolderName();
+        if (folderName) {
+          setSavedMasterFolder(folderName);
+        }
+      } catch (e) {}
+    }
+    checkMasterFolder();
+  }, []);
 
   // Load volume preferences from localStorage
   useEffect(() => {
@@ -222,8 +245,73 @@ export default function AnimePlayer({
   // Handle local video playback
   const activeVideoUrl = localFileObjectUrl || currentEp.sourceUrl;
 
+  const tryAutoResolveLocalFile = useCallback(
+    async (epNumber: number, interactive: boolean = false): Promise<boolean> => {
+      setIsResolvingFile(true);
+      try {
+        const handle = await getMasterDirectoryHandle();
+        if (!handle) {
+          setIsResolvingFile(false);
+          return false;
+        }
+        setSavedMasterFolder(handle.name);
+
+        if (interactive) {
+          const hasPerm = await verifyDirectoryPermission(handle, "read");
+          if (!hasPerm) {
+            setIsResolvingFile(false);
+            return false;
+          }
+        } else {
+          try {
+            // @ts-ignore
+            const q = await handle.queryPermission({ mode: "read" });
+            if (q !== "granted") {
+              setIsResolvingFile(false);
+              return false;
+            }
+          } catch {
+            setIsResolvingFile(false);
+            return false;
+          }
+        }
+
+        const file = await resolveEpisodeFile(
+          handle,
+          anime.title,
+          epNumber,
+          currentEp.sourceUrl
+        );
+
+        if (file) {
+          const blobUrl = URL.createObjectURL(file);
+          setLocalFileObjectUrl(blobUrl);
+          setLocalFilesCache((prev) => {
+            const m = new Map(prev);
+            m.set(epNumber, file);
+            return m;
+          });
+          setVideoError(null);
+          setTimeout(() => {
+            if (videoRef.current) {
+              videoRef.current.play().catch(() => {});
+              setIsPlaying(true);
+            }
+          }, 150);
+          setIsResolvingFile(false);
+          return true;
+        }
+      } catch (err) {
+        console.warn("tryAutoResolveLocalFile error:", err);
+      }
+      setIsResolvingFile(false);
+      return false;
+    },
+    [anime.title, currentEp.sourceUrl]
+  );
+
   useEffect(() => {
-    // When switching episode, check cache
+    // When switching episode, check cache first
     if (localFilesCache.has(currentEp.episodeNumber)) {
       const file = localFilesCache.get(currentEp.episodeNumber)!;
       const url = URL.createObjectURL(file);
@@ -231,16 +319,86 @@ export default function AnimePlayer({
       setVideoError(null);
     } else {
       setLocalFileObjectUrl(null);
+      // Attempt silent auto-resolve from stored master directory handle
+      tryAutoResolveLocalFile(currentEp.episodeNumber, false);
     }
-  }, [currentEp.id, currentEp.episodeNumber]);
+  }, [currentEp.id, currentEp.episodeNumber, tryAutoResolveLocalFile]);
 
-  const handleVideoError = () => {
+  const handleVideoError = async () => {
     console.warn("Video failed to play:", activeVideoUrl);
+    // Attempt silent auto-resolve if not yet loaded
+    const resolved = await tryAutoResolveLocalFile(currentEp.episodeNumber, false);
+    if (resolved) return;
+
     setVideoError({
       type: "local_unreachable",
       message: "Berkas video lokal tidak dapat dijangkau secara langsung dari server cloud.",
     });
     setIsPlaying(false);
+  };
+
+  const handleConnectMasterDirectory = async () => {
+    try {
+      if (typeof window !== "undefined" && "showDirectoryPicker" in window) {
+        // @ts-ignore
+        const dirHandle = await window.showDirectoryPicker({
+          mode: "read",
+          id: "animeku_master_dir",
+        });
+
+        if (dirHandle) {
+          await saveMasterDirectoryHandle(dirHandle);
+          setSavedMasterFolder(dirHandle.name);
+
+          // Immediately resolve current episode file
+          const file = await resolveEpisodeFile(
+            dirHandle,
+            anime.title,
+            currentEp.episodeNumber,
+            currentEp.sourceUrl
+          );
+
+          if (file) {
+            const url = URL.createObjectURL(file);
+            setLocalFileObjectUrl(url);
+            setLocalFilesCache((prev) => {
+              const m = new Map(prev);
+              m.set(currentEp.episodeNumber, file);
+              return m;
+            });
+            setVideoError(null);
+            setTimeout(() => {
+              if (videoRef.current) {
+                videoRef.current.play().catch(() => {});
+                setIsPlaying(true);
+              }
+            }, 150);
+            return;
+          } else {
+            alert(
+              `Folder "${dirHandle.name}" berhasil terhubung dan tersimpan!\nNamun berkas untuk Episode ${currentEp.episodeNumber} belum ditemukan di dalam folder tersebut. Pastikan folder yang Anda pilih adalah D:/Anime/Series atau folder judul anime terkait.`
+            );
+          }
+        }
+      } else {
+        folderInputRef.current?.click();
+      }
+    } catch (err: any) {
+      if (err.name === "AbortError") return;
+      console.error("handleConnectMasterDirectory error:", err);
+    }
+  };
+
+  const handleActivateExistingMasterDirectory = async () => {
+    const success = await tryAutoResolveLocalFile(currentEp.episodeNumber, true);
+    if (!success) {
+      await handleConnectMasterDirectory();
+    }
+  };
+
+  const handleDisconnectMasterDirectory = async () => {
+    await clearMasterDirectoryHandle();
+    setSavedMasterFolder(null);
   };
 
   const handleSingleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -307,6 +465,9 @@ export default function AnimePlayer({
       if (typeof window !== "undefined" && "showDirectoryPicker" in window) {
         const dirHandle = await (window as any).showDirectoryPicker({ mode: "read" });
         if (dirHandle) {
+          await saveMasterDirectoryHandle(dirHandle);
+          setSavedMasterFolder(dirHandle.name);
+
           const newMap = new Map<number, File>(localFilesCache);
           for await (const entry of dirHandle.values()) {
             if (entry.kind === "file") {
@@ -1385,54 +1546,112 @@ export default function AnimePlayer({
 
             <div className="space-y-2">
               <h2 className="text-lg sm:text-xl font-black text-white">
-                Berkas Video Lokal di PC Anda
+                Akses Video Lokal (D:/Anime/Series)
               </h2>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Serial ini berada di penyimpanan PC lokal:
+                Serial ini berada di penyimpanan PC lokal Anda:
                 <br />
                 <span className="font-mono text-xs text-red-400 bg-red-950/40 px-2 py-1 rounded inline-block mt-1.5 border border-red-900/40 truncate max-w-full">
                   {decodeURIComponent(currentEp.sourceUrl?.replace("/api/stream?file=", "") || "D:/Anime/Series")}
                 </span>
               </p>
-              <p className="text-[11px] text-zinc-500">
-                Karena Anda membukanya via web cloud, pilih berkas secara langsung untuk memutarnya dengan lancar tanpa kuota internet!
-              </p>
+              {savedMasterFolder ? (
+                <div className="p-3 bg-emerald-950/40 border border-emerald-500/30 rounded-xl text-left">
+                  <div className="flex items-center gap-2 text-xs font-bold text-emerald-400">
+                    <Check className="w-4 h-4 shrink-0" />
+                    <span>Folder Master Tersimpan: &quot;{savedMasterFolder}&quot;</span>
+                  </div>
+                  <p className="text-[11px] text-zinc-400 mt-1">
+                    Browser memerlukan aktivasi izin untuk membaca file pada sesi ini. Klik tombol di bawah untuk langsung memutar!
+                  </p>
+                </div>
+              ) : (
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  Hubungkan folder <strong className="text-white">D:/Anime/Series</strong> satu kali saja. Animeku akan mengingat folder ini selamanya dan memutar semua episode otomatis tanpa meminta pilih file lagi!
+                </p>
+              )}
             </div>
 
-            <div className="space-y-2.5 pt-2">
-              {/* Tombol Pilih File Video */}
+            <div className="space-y-2.5 pt-1">
+              {/* Tombol Utama: Hubungkan / Aktifkan Folder Master */}
+              {savedMasterFolder ? (
+                <button
+                  type="button"
+                  disabled={isResolvingFile}
+                  onClick={handleActivateExistingMasterDirectory}
+                  className="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                >
+                  {isResolvingFile ? (
+                    <>
+                      <RotateCcw className="w-4 h-4 animate-spin" />
+                      <span>Memuat File Episode...</span>
+                    </>
+                  ) : (
+                    <>
+                      <FolderOpen className="w-4 h-4" />
+                      <span>Aktifkan Akses Folder &quot;{savedMasterFolder}&quot;</span>
+                    </>
+                  )}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  disabled={isResolvingFile}
+                  onClick={handleConnectMasterDirectory}
+                  className="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                >
+                  <FolderOpen className="w-4 h-4 text-amber-300" />
+                  <span>Hubungkan Folder Master (D:/Anime/Series)</span>
+                  <span className="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded-full border border-amber-400/30 ml-1">
+                    1 Kali Saja
+                  </span>
+                </button>
+              )}
+
+              {/* Tombol Pilih File Episode Manual */}
               <button
                 type="button"
                 onClick={() => singleFileInputRef.current?.click()}
-                className="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-2.5 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white font-semibold text-xs rounded-xl border border-zinc-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <FileVideo className="w-4 h-4" />
-                <span>Pilih File Episode Ini ({currentEp.title})</span>
+                <span>Pilih File Episode Ini Secara Manual</span>
               </button>
 
-              {/* Tombol Pilih Satu Folder Penuh */}
-              <button
-                type="button"
-                onClick={handlePickDirectory}
-                className="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white font-bold text-xs rounded-xl border border-zinc-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <FolderOpen className="w-4 h-4 text-emerald-400" />
-                <span>Pilih Folder Seri Ini Sekaligus</span>
-              </button>
+              {/* Ganti Folder Master jika sudah tersimpan */}
+              {savedMasterFolder && (
+                <div className="flex items-center justify-center gap-4 pt-1">
+                  <button
+                    type="button"
+                    onClick={handleConnectMasterDirectory}
+                    className="text-zinc-400 hover:text-zinc-200 text-[11px] underline cursor-pointer"
+                  >
+                    Pilih Ulang Folder Master
+                  </button>
+                  <span className="text-zinc-600">•</span>
+                  <button
+                    type="button"
+                    onClick={handleDisconnectMasterDirectory}
+                    className="text-zinc-500 hover:text-red-400 text-[11px] transition-colors cursor-pointer"
+                  >
+                    Lepas Hubungan
+                  </button>
+                </div>
+              )}
 
               {/* Tombol Putar Video Demo */}
               <button
                 type="button"
                 onClick={handlePlayDemoVideo}
-                className="w-full py-2.5 bg-transparent hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-200 text-xs font-medium rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                className="w-full py-2 bg-transparent hover:bg-zinc-800/60 text-zinc-500 hover:text-zinc-300 text-xs font-medium rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
               >
-                <Play className="w-3.5 h-3.5 text-zinc-400 fill-zinc-400" />
+                <Play className="w-3.5 h-3.5 text-zinc-500 fill-zinc-500" />
                 <span>Putar Video Contoh (Mode Pratinjau Demo)</span>
               </button>
             </div>
 
             <div className="border-t border-zinc-800 pt-3 text-[11px] text-zinc-500 text-left">
-              💡 <strong>Ingin streaming otomatis tanpa memilih berkas?</strong> Jalankan <code className="bg-zinc-800 px-1 py-0.5 rounded text-zinc-300">npm run dev</code> di terminal dan buka <a href="http://localhost:3000" className="text-red-400 hover:underline">http://localhost:3000</a> di browser PC Anda.
+              💡 <strong>Fitur File System API:</strong> Folder yang dihubungkan disimpan aman di browser lokal Anda (IndexedDB). Tidak ada file yang diunggah ke internet.
             </div>
           </div>
         </div>
