@@ -62,14 +62,10 @@ export default function Navbar() {
     e.preventDefault();
     router.push(href);
     setTimeout(() => {
-      if (
-        typeof window !== "undefined" &&
-        window.location.pathname !== href &&
-        !window.location.pathname.startsWith(href)
-      ) {
+      if (typeof window !== "undefined" && window.location.pathname !== href) {
         window.location.href = href;
       }
-    }, 200);
+    }, 180);
   };
 
   useEffect(() => {
