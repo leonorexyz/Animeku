@@ -155,11 +155,12 @@ export default function AnimeDetailPage({ params }: PageProps) {
 
   const handlePlay = (episodeNumber?: number) => {
     const targetEp = episodeNumber || (savedProgress?.episodeNumber ?? 1);
-    window.location.href = `/player/${anime.id || animeId}?ep=${targetEp}`;
+    const targetSeason = savedProgress?.seasonNumber || 1;
+    window.location.href = `/player/${anime.id || animeId}?ep=${targetEp}&season=${targetSeason}`;
   };
 
   const handlePlayEpisode = (ep: ExtendedEpisode) => {
-    window.location.href = `/player/${anime.id || animeId}?ep=${ep.episodeNumber}`;
+    window.location.href = `/player/${anime.id || animeId}?ep=${ep.episodeNumber}&season=${ep.seasonNumber || 1}`;
   };
 
   const handleShare = () => {

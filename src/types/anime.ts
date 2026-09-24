@@ -3,6 +3,7 @@ export interface Episode {
   animeId: string;
   title: string;
   episodeNumber: number;
+  seasonNumber?: number;
   durationSeconds: number;
   sourceType: "local" | "drive" | "link";
   sourceUrl: string;
@@ -15,11 +16,20 @@ export interface WatchProgress {
   animePoster: string;
   episodeId: string;
   episodeNumber: number;
+  seasonNumber?: number;
   episodeTitle: string;
   positionSeconds: number;
   durationSeconds: number;
   isCompleted: boolean;
   lastWatchedAt: string;
+}
+
+export interface AnimeSeasonInfo {
+  seasonNumber: number;
+  title: string;
+  totalEpisodes: number;
+  folderName?: string;
+  year?: number;
 }
 
 export interface Anime {
@@ -36,6 +46,8 @@ export interface Anime {
   rating?: string;
   genres: string[];
   totalEpisodes: number;
+  totalSeasons?: number;
+  seasons?: AnimeSeasonInfo[];
   progress?: WatchProgress;
 }
 

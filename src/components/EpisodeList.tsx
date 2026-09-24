@@ -23,8 +23,23 @@ export default function EpisodeList({
   onPlayEpisode,
   onToggleCompleted,
 }: EpisodeListProps) {
+  // Extract all unique season numbers from the episodes list
+  const availableSeasons = React.useMemo(() => {
+    const set = new Set<number>();
+    episodes.forEach((ep) => {
+      set.add(ep.seasonNumber || 1);
+    });
+    const arr = Array.from(set).sort((a, b) => a - b);
+    return arr.length > 0 ? arr : [1];
+  }, [episodes]);
+
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [filterStatus, setFilterStatus] = useState<"all" | "unwatched" | "watching" | "completed">("all");
+
+  // Keep selectedSeason valid
+  const currentSeason = availableSeasons.includes(selectedSeason)
+    ? selectedSeason
+    : availableSeasons[0] || 1;
 
   const formatDuration = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -32,6 +47,10 @@ export default function EpisodeList({
   };
 
   const filteredEpisodes = episodes.filter((ep) => {
+    const epSeason = ep.seasonNumber || 1;
+    if (availableSeasons.length > 1 && epSeason !== currentSeason) {
+      return false;
+    }
     const prog = progressMap[ep.id];
     if (filterStatus === "completed") return prog?.isCompleted;
     if (filterStatus === "watching") return prog && !prog.isCompleted && prog.positionSeconds > 0;
@@ -46,8 +65,10 @@ export default function EpisodeList({
         <div>
           <h3 className="text-xl sm:text-2xl font-black text-white tracking-wide flex items-center gap-2">
             <span>Daftar Episode</span>
-            <span className="text-xs bg-zinc-800 text-zinc-300 font-semibold px-2 py-0.5 rounded-full border border-white/10">
-              {episodes.length} Total
+            <span className="text-xs bg-zinc-800 text-zinc-300 font-semibold px-2.5 py-0.5 rounded-full border border-white/10">
+              {availableSeasons.length > 1
+                ? `${filteredEpisodes.length} Episode (Musim ${currentSeason}) • ${episodes.length} Total`
+                : `${episodes.length} Total`}
             </span>
           </h3>
           <p className="text-xs text-zinc-400 mt-1">
@@ -56,6 +77,26 @@ export default function EpisodeList({
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
+          {/* Season Selector Tabs (Rendered when there are multiple seasons) */}
+          {availableSeasons.length > 1 && (
+            <div className="flex items-center gap-1 bg-zinc-900 p-1 rounded-lg border border-zinc-800 text-xs">
+              {availableSeasons.map((sNum) => (
+                <button
+                  key={sNum}
+                  type="button"
+                  onClick={() => setSelectedSeason(sNum)}
+                  className={`px-3 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    currentSeason === sNum
+                      ? "bg-red-600 text-white shadow-md shadow-red-600/30"
+                      : "text-zinc-400 hover:text-white hover:bg-zinc-800"
+                  }`}
+                >
+                  Musim {sNum}
+                </button>
+              ))}
+            </div>
+          )}
+
           {/* Status Filter */}
           <div className="flex bg-zinc-900 p-1 rounded-lg border border-zinc-800 text-xs">
             <button
@@ -89,16 +130,6 @@ export default function EpisodeList({
               Selesai
             </button>
           </div>
-
-          {/* Season Selector */}
-          <select
-            value={selectedSeason}
-            onChange={(e) => setSelectedSeason(Number(e.target.value))}
-            className="bg-zinc-900 border border-zinc-700 text-xs font-semibold text-zinc-200 rounded-lg px-3 py-1.5 focus:outline-none focus:border-red-500 cursor-pointer"
-          >
-            <option value={1}>Musim 1</option>
-            <option value={2}>Musim 2 (Segera)</option>
-          </select>
         </div>
       </div>
 
@@ -119,7 +150,7 @@ export default function EpisodeList({
                 : 0;
 
             const isCurrentPlaying = currentEpisodeId === ep.id;
-            const targetUrl = `/player/${animeId || ep.animeId}?ep=${ep.episodeNumber}`;
+            const targetUrl = `/player/${animeId || ep.animeId}?ep=${ep.episodeNumber}&season=${ep.seasonNumber || 1}`;
 
             return (
               <a

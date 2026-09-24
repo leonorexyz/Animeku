@@ -57,11 +57,17 @@ export default function AnimePlayer({
   const [currentEp, setCurrentEp] = useState<ExtendedEpisode>(
     initialEpisode || currentEpisodesList[0]
   );
+  const [drawerSeason, setDrawerSeason] = useState<number>(
+    initialEpisode?.seasonNumber || currentEp?.seasonNumber || 1
+  );
 
   // Synchronize when initialEpisode changes (e.g. from ?ep= query param or route navigation)
   useEffect(() => {
     if (initialEpisode && initialEpisode.id !== currentEp.id) {
       setCurrentEp(initialEpisode);
+      if (initialEpisode.seasonNumber) {
+        setDrawerSeason(initialEpisode.seasonNumber);
+      }
       setVideoError(null);
       setCurrentTime(0);
     }
@@ -1005,7 +1011,7 @@ export default function AnimePlayer({
             <h1 className="text-sm sm:text-lg font-extrabold text-white">
               {anime.title}{" "}
               <span className="text-zinc-400 font-normal">
-                — Ep {currentEp.episodeNumber}: {currentEp.title}
+                — {currentEp.seasonNumber && currentEp.seasonNumber > 1 ? `Musim ${currentEp.seasonNumber} ` : ""}Ep {currentEp.episodeNumber}: {currentEp.title}
               </span>
             </h1>
           </div>
@@ -1481,8 +1487,47 @@ export default function AnimePlayer({
                 </button>
               </div>
 
+              {/* Season Tabs in Drawer */}
+              {(() => {
+                const availableSeasons = Array.from(
+                  new Set(currentEpisodesList.map((e) => e.seasonNumber || 1))
+                ).sort((a, b) => a - b);
+                if (availableSeasons.length <= 1) return null;
+
+                const activeSeason = availableSeasons.includes(drawerSeason)
+                  ? drawerSeason
+                  : availableSeasons[0] || 1;
+
+                return (
+                  <div className="flex items-center gap-1.5 mb-4 pb-3 border-b border-zinc-800/80 overflow-x-auto">
+                    {availableSeasons.map((sNum) => (
+                      <button
+                        key={sNum}
+                        type="button"
+                        onClick={() => setDrawerSeason(sNum)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer shrink-0 ${
+                          activeSeason === sNum
+                            ? "bg-red-600 text-white shadow-md shadow-red-600/30"
+                            : "bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800"
+                        }`}
+                      >
+                        Musim {sNum}
+                      </button>
+                    ))}
+                  </div>
+                );
+              })()}
+
               <div className="space-y-3">
-                {currentEpisodesList.map((ep) => (
+                {currentEpisodesList
+                  .filter((ep) => {
+                    const availableSeasons = Array.from(
+                      new Set(currentEpisodesList.map((e) => e.seasonNumber || 1))
+                    );
+                    if (availableSeasons.length <= 1) return true;
+                    return (ep.seasonNumber || 1) === drawerSeason;
+                  })
+                  .map((ep) => (
                   <div
                     key={ep.id}
                     onClick={() => {

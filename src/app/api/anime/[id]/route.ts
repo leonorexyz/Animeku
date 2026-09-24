@@ -52,12 +52,12 @@ export async function GET(req: Request, { params }: RouteParams) {
       const genres = categoryRows.map((c) => c.categoryName);
       const categoryIds = categoryRows.map((c) => c.categoryId);
 
-      // Fetch all episodes for this anime
+      // Fetch all episodes for this anime ordered by season and episode number
       const episodeRows = await db
         .select()
         .from(schema.episodes)
         .where(eq(schema.episodes.animeId, animeId))
-        .orderBy(asc(schema.episodes.episodeNumber));
+        .orderBy(asc(schema.episodes.seasonNumber), asc(schema.episodes.episodeNumber));
 
       // Fetch sources for these episodes
       const episodeIds = episodeRows.map((e) => e.id);
@@ -81,6 +81,7 @@ export async function GET(req: Request, { params }: RouteParams) {
         animeId: ep.animeId,
         title: ep.title,
         episodeNumber: ep.episodeNumber,
+        seasonNumber: ep.seasonNumber || 1,
         durationSeconds: ep.durationSeconds,
         sourceType: ep.sourceType,
         sourceUrl: ep.sourceUrl,
@@ -172,6 +173,8 @@ export async function GET(req: Request, { params }: RouteParams) {
           rating: dbAnime.rating || "8.5",
           genres,
           totalEpisodes: formattedEpisodes.length || 12,
+          totalSeasons: (dbAnime as any).totalSeasons || 1,
+          seasons: (dbAnime as any).seasonsJson ? JSON.parse((dbAnime as any).seasonsJson) : undefined,
           isFavorite: !!fav,
           progress: progress || null,
           episodes: formattedEpisodes,

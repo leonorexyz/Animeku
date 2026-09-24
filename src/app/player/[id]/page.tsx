@@ -14,12 +14,13 @@ import { eq, asc } from "drizzle-orm";
 
 interface PlayerPageProps {
   params: Promise<{ id: string }>;
-  searchParams?: Promise<{ ep?: string }>;
+  searchParams?: Promise<{ ep?: string; season?: string }>;
 }
 
 export default async function PlayerPage({ params, searchParams }: PlayerPageProps) {
   const { id } = await params;
   const resolvedSearchParams = searchParams ? await searchParams : {};
+  const requestedSeason = resolvedSearchParams.season ? parseInt(resolvedSearchParams.season, 10) : undefined;
   const requestedEpNum = resolvedSearchParams.ep ? parseInt(resolvedSearchParams.ep, 10) : undefined;
 
   // Search across in-memory catalog first (instant 0ms response)
@@ -123,8 +124,19 @@ export default async function PlayerPage({ params, searchParams }: PlayerPagePro
   // If specific episode requested via query param, use it; otherwise check continue watching progress
   let initialEp = episodes[0];
   if (requestedEpNum) {
-    const matched = episodes.find((e) => e.episodeNumber === requestedEpNum);
-    if (matched) initialEp = matched;
+    if (requestedSeason) {
+      const matched = episodes.find(
+        (e) => (e.seasonNumber || 1) === requestedSeason && e.episodeNumber === requestedEpNum
+      );
+      if (matched) initialEp = matched;
+      else {
+        const fallbackMatched = episodes.find((e) => e.episodeNumber === requestedEpNum);
+        if (fallbackMatched) initialEp = fallbackMatched;
+      }
+    } else {
+      const matched = episodes.find((e) => e.episodeNumber === requestedEpNum);
+      if (matched) initialEp = matched;
+    }
   } else if (anime.progress) {
     const matched = episodes.find((e) => e.episodeNumber === anime.progress!.episodeNumber);
     if (matched) initialEp = matched;

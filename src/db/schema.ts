@@ -27,6 +27,8 @@ export const anime = sqliteTable("anime", {
   }).default("unwatched"),
   rating: text("rating"),
   totalEpisodes: integer("total_episodes").default(12),
+  totalSeasons: integer("total_seasons").default(1),
+  seasonsJson: text("seasons_json"),
   genres: text("genres"),
   sourceType: text("source_type", { enum: ["local", "drive", "link"] }).default("link"),
   sourcePath: text("source_path"),
@@ -50,6 +52,7 @@ export const episodes = sqliteTable(
       .references(() => anime.id, { onDelete: "cascade" }),
     title: text("title").notNull(),
     episodeNumber: integer("episode_number").notNull(),
+    seasonNumber: integer("season_number").notNull().default(1),
     durationSeconds: integer("duration_seconds").notNull().default(0),
     sourceType: text("source_type", { enum: ["local", "drive", "link"] })
       .notNull()
@@ -63,7 +66,8 @@ export const episodes = sqliteTable(
   },
   (table) => [
     index("episodes_anime_id_idx").on(table.animeId),
-    uniqueIndex("episodes_anime_number_idx").on(table.animeId, table.episodeNumber),
+    index("episodes_season_idx").on(table.animeId, table.seasonNumber),
+    uniqueIndex("episodes_anime_season_number_idx").on(table.animeId, table.seasonNumber, table.episodeNumber),
   ]
 );
 
