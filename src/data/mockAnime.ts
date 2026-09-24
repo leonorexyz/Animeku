@@ -2885,7 +2885,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
   {
     "id": "lovelive",
     "title": "LoveLive!",
-    "synopsis": "Serial anime LoveLive! dari koleksi lokal penyimpanan Anda. Total 13 episode siap ditonton dengan kualitas jernih.",
+    "synopsis": "Honoka Kousaka bersama teman-temannya membentuk grup idola sekolah μ's (Muse) demi menyelamatkan Akademi Otonokizaka dari ancaman penutupan. Total 13 episode siap ditonton dengan kualitas jernih.",
     "year": 2013,
     "posterUrl": "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop&q=80",
     "coverUrl": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=1600&auto=format&fit=crop&q=80",
@@ -2893,24 +2893,28 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "8.9",
     "genres": [
-      "Serial Anime",
-      "Koleksi Lokal"
+      "Musik",
+      "Slice of Life",
+      "Sekolah",
+      "Idola"
     ],
     "totalEpisodes": 13
   },
   {
     "id": "lovelive-2",
     "title": "LoveLive! 2",
-    "synopsis": "Serial anime LoveLive! 2 dari koleksi lokal penyimpanan Anda. Total 13 episode siap ditonton dengan kualitas jernih.",
-    "year": 2015,
+    "synopsis": "Musim kedua Love Live! School Idol Project menceritakan perjuangan sembilan siswi μ's (Muse) untuk memenangkan kompetisi idola nasional Love Live sebelum para anggota tingkat tiga lulus. Total 13 episode siap ditonton dengan kualitas jernih.",
+    "year": 2014,
     "posterUrl": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=600&auto=format&fit=crop&q=80",
     "coverUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600&auto=format&fit=crop&q=80",
     "status": "tamat",
     "isFeatured": false,
     "rating": "8.4",
     "genres": [
-      "Serial Anime",
-      "Koleksi Lokal"
+      "Musik",
+      "Slice of Life",
+      "Sekolah",
+      "Idola"
     ],
     "totalEpisodes": 13
   },

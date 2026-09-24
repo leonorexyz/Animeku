@@ -118,13 +118,33 @@ export async function verifyDirectoryPermission(
 }
 
 /**
- * Normalize string for fuzzy matching (removes symbols, spaces, case)
+ * Normalize string for strict matching (removes symbols, spaces, lowercase)
  */
 function cleanName(str: string): string {
   return str
     .toLowerCase()
     .replace(/[!?:;,._\-\s()\[\]{}'"]/g, "")
     .trim();
+}
+
+/**
+ * Extract trailing season / sequel / part number if present
+ * E.g., "LoveLive! 2" -> 2, "Sword Art Online 2" -> 2, "LoveLive!" -> null
+ */
+function extractSequelNumber(str: string): number | null {
+  const clean = str.trim();
+  if (/(?:^|\s)ii$/i.test(clean)) return 2;
+  if (/(?:^|\s)iii$/i.test(clean)) return 3;
+  if (/(?:^|\s)iv$/i.test(clean)) return 4;
+  if (/(?:^|\s)v$/i.test(clean)) return 5;
+
+  const m = clean.match(/(?:season|s|part|babak)?\s*(\d{1,2})\s*$/i);
+  if (m) return parseInt(m[1], 10);
+
+  const standalone = clean.match(/\b(\d{1,2})\b/);
+  if (standalone) return parseInt(standalone[1], 10);
+
+  return null;
 }
 
 /**
@@ -162,51 +182,166 @@ export async function resolveEpisodeFile(
     const hasPermission = await verifyDirectoryPermission(masterHandle, "read");
     if (!hasPermission) return null;
 
-    let candidateFolderNames: string[] = [];
+    let targetFilename = "";
+    let targetFolderName = "";
+    let pathSegments: string[] = [];
+
     if (sourceUrl) {
-      const decoded = decodeURIComponent(sourceUrl.replace("/api/stream?file=", ""));
-      const parts = decoded.split(/[\\/]/).filter(Boolean);
-      if (parts.length >= 2) {
-        candidateFolderNames.push(parts[parts.length - 2]);
+      let clean = sourceUrl;
+      if (clean.startsWith("/api/stream?file=")) {
+        clean = decodeURIComponent(clean.replace("/api/stream?file=", ""));
+      }
+      clean = clean.replace(/^file:\/\/\/?/i, "");
+      pathSegments = clean.split(/[\\/]/).filter(Boolean);
+      if (pathSegments.length > 0) {
+        targetFilename = pathSegments[pathSegments.length - 1];
+      }
+      if (pathSegments.length >= 2) {
+        targetFolderName = pathSegments[pathSegments.length - 2];
       }
     }
-    candidateFolderNames.push(animeTitle);
-    candidateFolderNames.push(cleanName(animeTitle));
 
-    const masterNameClean = cleanName(masterHandle.name);
-    const isMasterDirectFolder = candidateFolderNames.some(
-      (c) => cleanName(c) === masterNameClean || masterNameClean.includes(cleanName(c))
-    );
+    const masterName = masterHandle.name;
+    const masterClean = cleanName(masterName);
 
-    let targetDirHandle: FileSystemDirectoryHandle = masterHandle;
+    // Fast Path 1: Check if masterHandle is itself the target anime folder
+    const isMasterSelf =
+      (targetFolderName && cleanName(targetFolderName) === masterClean) ||
+      cleanName(animeTitle) === masterClean;
 
-    if (!isMasterDirectFolder) {
+    if (isMasterSelf && targetFilename) {
+      try {
+        const fh = await masterHandle.getFileHandle(targetFilename);
+        const f = await fh.getFile();
+        if (f) return f;
+      } catch {}
+    }
+
+    // Fast Path 2: Direct path traversal if masterHandle directory is an ancestor in sourceUrl path
+    if (pathSegments.length > 0) {
+      const masterIdx = pathSegments.findIndex(
+        (p) => cleanName(p) === masterClean || p.toLowerCase() === masterName.toLowerCase()
+      );
+      if (masterIdx !== -1 && masterIdx < pathSegments.length - 1) {
+        const subSegments = pathSegments.slice(masterIdx + 1, pathSegments.length - 1);
+        try {
+          let curr = masterHandle;
+          for (const seg of subSegments) {
+            curr = await curr.getDirectoryHandle(seg);
+          }
+          if (targetFilename) {
+            try {
+              const fh = await curr.getFileHandle(targetFilename);
+              const f = await fh.getFile();
+              if (f) return f;
+            } catch {}
+          }
+          // @ts-ignore
+          for await (const entry of curr.values()) {
+            if (entry.kind === "file") {
+              const ext = entry.name.slice(entry.name.lastIndexOf(".")).toLowerCase();
+              if (SUPPORTED_VIDEO_EXTS.includes(ext)) {
+                if (extractEpisodeNumber(entry.name) === episodeNumber) {
+                  return await (entry as FileSystemFileHandle).getFile();
+                }
+              }
+            }
+          }
+        } catch {
+          // Direct traversal failed, fall through to robust multi-tier search
+        }
+      }
+    }
+
+    // Collect all child directory handles from masterHandle
+    const subDirs: FileSystemDirectoryHandle[] = [];
+    if (!isMasterSelf) {
       // @ts-ignore
       for await (const entry of masterHandle.values()) {
         if (entry.kind === "directory") {
-          const entryClean = cleanName(entry.name);
-          const isMatch = candidateFolderNames.some(
-            (c) =>
-              entryClean === cleanName(c) ||
-              entryClean.includes(cleanName(c)) ||
-              cleanName(c).includes(entryClean)
-          );
-          if (isMatch) {
-            targetDirHandle = entry as FileSystemDirectoryHandle;
+          subDirs.push(entry as FileSystemDirectoryHandle);
+        }
+      }
+    }
+
+    let targetDirHandle: FileSystemDirectoryHandle = isMasterSelf ? masterHandle : masterHandle;
+
+    if (!isMasterSelf && subDirs.length > 0) {
+      const candidatesToMatch = [targetFolderName, animeTitle].filter(Boolean);
+
+      // Tier 1: Strict Exact String Equality (case-insensitive)
+      let matchedDir: FileSystemDirectoryHandle | null = null;
+      for (const dir of subDirs) {
+        const dName = dir.name.toLowerCase();
+        if (candidatesToMatch.some((c) => dName === c.toLowerCase())) {
+          matchedDir = dir;
+          break;
+        }
+      }
+
+      // Tier 2: Cleaned Normalized Exact Match (ignoring punctuation/symbols)
+      if (!matchedDir) {
+        for (const dir of subDirs) {
+          const dClean = cleanName(dir.name);
+          if (candidatesToMatch.some((c) => dClean === cleanName(c))) {
+            matchedDir = dir;
             break;
           }
         }
+      }
+
+      // Tier 3: Fuzzy / Partial Match with STRICT Sequel / Season Number Guard
+      if (!matchedDir) {
+        for (const dir of subDirs) {
+          const dClean = cleanName(dir.name);
+          const dNum = extractSequelNumber(dir.name);
+
+          const isFuzzyMatch = candidatesToMatch.some((cand) => {
+            const cClean = cleanName(cand);
+            const cNum = extractSequelNumber(cand);
+
+            // Sequel numbers MUST match exactly (prevents LoveLive! 2 matching LoveLive!)
+            if (cNum !== dNum) {
+              return false;
+            }
+
+            return dClean.includes(cClean) || cClean.includes(dClean);
+          });
+
+          if (isFuzzyMatch) {
+            matchedDir = dir;
+            break;
+          }
+        }
+      }
+
+      if (matchedDir) {
+        targetDirHandle = matchedDir;
       }
     }
 
     let matchedFile: File | null = null;
     let fallbackFirstFile: File | null = null;
 
+    // Step A: Check exact targetFilename in resolved folder
+    if (targetFilename) {
+      try {
+        const fh = await targetDirHandle.getFileHandle(targetFilename);
+        const f = await fh.getFile();
+        if (f) return f;
+      } catch {}
+    }
+
+    // Step B: Search files in resolved folder
     // @ts-ignore
     for await (const entry of targetDirHandle.values()) {
       if (entry.kind === "file") {
         const ext = entry.name.slice(entry.name.lastIndexOf(".")).toLowerCase();
         if (SUPPORTED_VIDEO_EXTS.includes(ext)) {
+          if (targetFilename && entry.name.toLowerCase() === targetFilename.toLowerCase()) {
+            return await (entry as FileSystemFileHandle).getFile();
+          }
+
           const epNum = extractEpisodeNumber(entry.name);
           if (epNum === episodeNumber) {
             matchedFile = await (entry as FileSystemFileHandle).getFile();
@@ -221,11 +356,19 @@ export async function resolveEpisodeFile(
 
     if (matchedFile) return matchedFile;
 
-    // Check 1-level subdirectories within targetDirHandle (e.g. "Season 1", "Specials", "BD")
+    // Step C: Check 1-level subdirectories inside targetDirHandle (e.g. "Season 2", "BD", "Specials")
     // @ts-ignore
     for await (const subEntry of targetDirHandle.values()) {
       if (subEntry.kind === "directory") {
         const subDir = subEntry as FileSystemDirectoryHandle;
+        if (targetFilename) {
+          try {
+            const fh = await subDir.getFileHandle(targetFilename);
+            const f = await fh.getFile();
+            if (f) return f;
+          } catch {}
+        }
+
         // @ts-ignore
         for await (const fileEntry of subDir.values()) {
           if (fileEntry.kind === "file") {
@@ -237,39 +380,6 @@ export async function resolveEpisodeFile(
               }
               if (!fallbackFirstFile) {
                 fallbackFirstFile = await (fileEntry as FileSystemFileHandle).getFile();
-              }
-            }
-          }
-        }
-      }
-    }
-
-    if (targetDirHandle === masterHandle) {
-      // @ts-ignore
-      for await (const subEntry of masterHandle.values()) {
-        if (subEntry.kind === "directory") {
-          const subDir = subEntry as FileSystemDirectoryHandle;
-          const subClean = cleanName(subDir.name);
-          const isSubMatch = candidateFolderNames.some(
-            (c) =>
-              subClean === cleanName(c) ||
-              subClean.includes(cleanName(c)) ||
-              cleanName(c).includes(subClean)
-          );
-          if (isSubMatch) {
-            // @ts-ignore
-            for await (const fileEntry of subDir.values()) {
-              if (fileEntry.kind === "file") {
-                const ext = fileEntry.name.slice(fileEntry.name.lastIndexOf(".")).toLowerCase();
-                if (SUPPORTED_VIDEO_EXTS.includes(ext)) {
-                  const epNum = extractEpisodeNumber(fileEntry.name);
-                  if (epNum === episodeNumber) {
-                    return await (fileEntry as FileSystemFileHandle).getFile();
-                  }
-                  if (!fallbackFirstFile) {
-                    fallbackFirstFile = await (fileEntry as FileSystemFileHandle).getFile();
-                  }
-                }
               }
             }
           }
