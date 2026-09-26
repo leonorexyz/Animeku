@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { createClient } from "@libsql/client";
+import { MetadataFetcher } from "./metadata_fetcher";
 
 if (fs.existsSync(".env.local")) {
   const content = fs.readFileSync(".env.local", "utf-8");
@@ -35,6 +36,7 @@ const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "bas
 
 export interface ParsedEpisode {
   id: string;
+  title: string;
   episodeNumber: number;
   seasonNumber: number;
   filename: string;
@@ -42,6 +44,8 @@ export interface ParsedEpisode {
   fullPath: string;
   size: number;
   quality: string;
+  thumbnailUrl: string;
+  synopsis: string;
 }
 
 export interface SeasonInfo {
@@ -69,58 +73,32 @@ export interface ParsedAnime {
   episodes: ParsedEpisode[];
 }
 
-const POSTERS = [
-  "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1563089145-599997674d42?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1569701813229-33284b643e3c?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=600&auto=format&fit=crop&q=80"
-];
-
-const COVERS = [
-  "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1563089145-599997674d42?w=1600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=1600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1600&auto=format&fit=crop&q=80"
-];
-
 const KNOWN_OVERRIDES = [
-  { pattern: /^LoveLive!/i, base: "LoveLive!", getSeason: (s: string) => (s.includes("2") ? 2 : 1), genres: ["Musik", "Slice of Life", "Sekolah", "Idola"] },
-  { pattern: /^Ah My Goddess/i, base: "Ah My Goddess", getSeason: (s: string) => (s.includes("2") ? 2 : 1), genres: ["Romansa", "Komedi", "Supernatural"] },
-  { pattern: /^Amagami SS/i, base: "Amagami SS", getSeason: (s: string) => (s.includes("+") ? 2 : 1), genres: ["Romansa", "Sekolah", "Drama"] },
-  { pattern: /^Boku Wa Tomodachi/i, base: "Boku Wa Tomodachi", getSeason: (s: string) => (s.includes("2") ? 2 : 1), genres: ["Komedi", "Sekolah", "Harem"] },
-  { pattern: /^Chuunibyou Demo Koi Ga Shitai/i, base: "Chuunibyou Demo Koi Ga Shitai!", getSeason: (s: string) => (/ren/i.test(s) ? 2 : 1), genres: ["Komedi", "Romansa", "Sekolah"] },
-  { pattern: /^Clannad/i, base: "Clannad", getSeason: (s: string) => (/after story/i.test(s) ? 2 : 1), genres: ["Drama", "Romansa", "Emosional"] },
-  { pattern: /^Code Geass/i, base: "Code Geass - Lelouch of the Rebellion", getSeason: (s: string) => (/r2/i.test(s) ? 2 : 1), genres: ["Aksi", "Mecha", "Psikologis"] },
-  { pattern: /^Date A Live/i, base: "Date A Live", getSeason: (s: string) => (s.includes("2") ? 2 : 1), genres: ["Aksi", "Fantasi", "Harem"] },
-  { pattern: /^Kono Subarashii Sekai/i, base: "Kono Subarashii Sekai ni Shukufuku wo !", getSeason: (s: string) => (s.includes("2") ? 2 : 1), genres: ["Komedi", "Isekai", "Fantasi"] },
-  { pattern: /^Magi/i, base: "Magi", getSeason: (s: string) => (/kingdom of magic/i.test(s) ? 2 : 1), genres: ["Aksi", "Petualangan", "Fantasi"] },
-  { pattern: /^Noragami/i, base: "Noragami", getSeason: (s: string) => (/aragoto/i.test(s) ? 2 : 1), genres: ["Aksi", "Supernatural", "Shounen"] },
-  { pattern: /^Rosario Vampire/i, base: "Rosario Vampire", getSeason: (s: string) => (s.includes("2") ? 2 : 1), genres: ["Komedi", "Harem", "Supernatural"] },
-  { pattern: /^Rozen Maiden/i, base: "Rozen Maiden", getSeason: (s: string) => (/2013/i.test(s) ? 2 : 1), genres: ["Aksi", "Misteri", "Supernatural"] },
-  { pattern: /^Sekirei/i, base: "Sekirei", getSeason: (s: string) => (s.includes("2") ? 2 : 1), genres: ["Aksi", "Komedi", "Harem"] },
-  { pattern: /^Sora no Otoshimono/i, base: "Sora no Otoshimono", getSeason: (s: string) => (/forte/i.test(s) ? 2 : 1), genres: ["Komedi", "Sci-Fi", "Harem"] },
-  { pattern: /^Sword Art Online/i, base: "Sword Art Online", getSeason: (s: string) => (s.includes("2") ? 2 : 1), genres: ["Aksi", "Petualangan", "Game"] },
-  { pattern: /^To Aru Kagaku no Railgun/i, base: "To Aru Kagaku no Railgun", getSeason: (s: string) => (/\bs\b| s$/i.test(s) ? 2 : 1), genres: ["Aksi", "Sci-Fi", "Supernatural"] },
-  { pattern: /^To LOVE-Ru/i, base: "To LOVE-Ru", getSeason: (s: string) => (/darkness/i.test(s) ? 3 : /motto/i.test(s) ? 2 : 1), genres: ["Komedi", "Sci-Fi", "Harem"] },
-  { pattern: /^Zero no Tsukaima/i, base: "Zero no Tsukaima", getSeason: (s: string) => (/\bf\b| f$/i.test(s) ? 2 : 1), genres: ["Aksi", "Fantasi", "Isekai"] },
+  { pattern: /^LoveLive!/i, base: "LoveLive!", getSeason: (s: string) => (s.includes("2") ? 2 : 1) },
+  { pattern: /^Ah My Goddess/i, base: "Ah My Goddess", getSeason: (s: string) => (s.includes("2") ? 2 : 1) },
+  { pattern: /^Amagami SS/i, base: "Amagami SS", getSeason: (s: string) => (s.includes("+") ? 2 : 1) },
+  { pattern: /^Boku Wa Tomodachi/i, base: "Boku Wa Tomodachi", getSeason: (s: string) => (s.includes("2") ? 2 : 1) },
+  { pattern: /^Chuunibyou Demo Koi Ga Shitai/i, base: "Chuunibyou Demo Koi Ga Shitai!", getSeason: (s: string) => (/ren/i.test(s) ? 2 : 1) },
+  { pattern: /^Clannad/i, base: "Clannad", getSeason: (s: string) => (/after story/i.test(s) ? 2 : 1) },
+  { pattern: /^Code Geass/i, base: "Code Geass - Lelouch of the Rebellion", getSeason: (s: string) => (/r2/i.test(s) ? 2 : 1) },
+  { pattern: /^Date A Live/i, base: "Date A Live", getSeason: (s: string) => (s.includes("2") ? 2 : 1) },
+  { pattern: /^Kono Subarashii Sekai/i, base: "Kono Subarashii Sekai ni Shukufuku wo !", getSeason: (s: string) => (s.includes("2") ? 2 : 1) },
+  { pattern: /^Magi/i, base: "Magi", getSeason: (s: string) => (/kingdom of magic/i.test(s) ? 2 : 1) },
+  { pattern: /^Noragami/i, base: "Noragami", getSeason: (s: string) => (/aragoto/i.test(s) ? 2 : 1) },
+  { pattern: /^Rosario Vampire/i, base: "Rosario Vampire", getSeason: (s: string) => (s.includes("2") ? 2 : 1) },
+  { pattern: /^Rozen Maiden/i, base: "Rozen Maiden", getSeason: (s: string) => (/2013/i.test(s) ? 2 : 1) },
+  { pattern: /^Sekirei/i, base: "Sekirei", getSeason: (s: string) => (s.includes("2") ? 2 : 1) },
+  { pattern: /^Sora no Otoshimono/i, base: "Sora no Otoshimono", getSeason: (s: string) => (/forte/i.test(s) ? 2 : 1) },
+  { pattern: /^Sword Art Online/i, base: "Sword Art Online", getSeason: (s: string) => (s.includes("2") ? 2 : 1) },
+  { pattern: /^To Aru Kagaku no Railgun/i, base: "To Aru Kagaku no Railgun", getSeason: (s: string) => (/\bs\b| s$/i.test(s) ? 2 : 1) },
+  { pattern: /^To LOVE-Ru/i, base: "To LOVE-Ru", getSeason: (s: string) => (/darkness/i.test(s) ? 3 : /motto/i.test(s) ? 2 : 1) },
+  { pattern: /^Zero no Tsukaima/i, base: "Zero no Tsukaima", getSeason: (s: string) => (/\bf\b| f$/i.test(s) ? 2 : 1) },
 ];
 
 function resolveFranchise(folderName: string): {
   baseTitle: string;
   seasonNumber: number;
   seasonTitle: string;
-  genres: string[] | null;
 } {
   for (const item of KNOWN_OVERRIDES) {
     if (item.pattern.test(folderName)) {
@@ -129,7 +107,6 @@ function resolveFranchise(folderName: string): {
         baseTitle: item.base,
         seasonNumber: sNum,
         seasonTitle: `Musim ${sNum}`,
-        genres: item.genres,
       };
     }
   }
@@ -145,7 +122,6 @@ function resolveFranchise(folderName: string): {
       baseTitle: m[1].trim(),
       seasonNumber: num,
       seasonTitle: `Musim ${num}`,
-      genres: null,
     };
   }
 
@@ -153,47 +129,7 @@ function resolveFranchise(folderName: string): {
     baseTitle: folderName.trim(),
     seasonNumber: 1,
     seasonTitle: "Musim 1",
-    genres: null,
   };
-}
-
-function getGenre(title: string): string[] {
-  const t = title.toLowerCase();
-  if (t.includes("punch") || t.includes("geass") || t.includes("fate") || t.includes("shingeki") || t.includes("sword art") || t.includes("tokyo ghoul") || t.includes("black bullet") || t.includes("exorcist") || t.includes("strike") || t.includes("magi")) {
-    return ["Aksi", "Petualangan", "Shounen"];
-  }
-  if (t.includes("clannad") || t.includes("anohana") || t.includes("golden time") || t.includes("toradora") || t.includes("sakurasou") || t.includes("amagami") || t.includes("tears") || t.includes("shoujo") || t.includes("natsu") || t.includes("plastic")) {
-    return ["Romansa", "Drama", "Emosional"];
-  }
-  if (t.includes("nichijou") || t.includes("barakamon") || t.includes("umaru") || t.includes("biyori") || t.includes("baka") || t.includes("d-frag") || t.includes("mitsudomoe") || t.includes("yakuindomo")) {
-    return ["Komedi", "Slice of Life", "Sekolah"];
-  }
-  if (t.includes("suba") || t.includes("game no life") || t.includes("horizon") || t.includes("mondaiji") || t.includes("tsukaima") || t.includes("isekai")) {
-    return ["Fantasi", "Isekai", "Petualangan"];
-  }
-  if (t.includes("another") || t.includes("durarara") || t.includes("angel beats") || t.includes("mirai nikki") || t.includes("monogatari") || t.includes("danganronpa") || t.includes("elfen") || t.includes("noragami")) {
-    return ["Supernatural", "Misteri", "Psikologis"];
-  }
-  return ["Serial Anime", "Koleksi Lokal"];
-}
-
-function getRating(title: string): string {
-  let hash = 0;
-  for (let i = 0; i < title.length; i++) {
-    hash = (hash * 31 + title.charCodeAt(i)) % 100;
-  }
-  const ratingNum = 8.2 + (hash % 13) * 0.1;
-  return ratingNum.toFixed(1);
-}
-
-function getYear(title: string): number {
-  const t = title.toLowerCase();
-  if (t.includes("2017") || t.includes("spring 2017")) return 2017;
-  if (t.includes("2013")) return 2013;
-  if (t.includes("punch") || t.includes("umaru") || t.includes("plastic")) return 2015;
-  if (t.includes("game no life") || t.includes("barakamon") || t.includes("noragami")) return 2014;
-  if (t.includes("clannad") || t.includes("geass")) return 2008;
-  return 2012 + (title.length % 8);
 }
 
 const FEATURED_TITLES = [
@@ -208,43 +144,60 @@ const FEATURED_TITLES = [
   "Shingeki no Kyojin",
   "Hyouka",
   "Bakemonogatari",
-  "Tokyo Ghoul"
+  "Tokyo Ghoul",
+  "LoveLive!",
 ];
 
 async function main() {
-  console.log("=== Memulai Sinkronisasi & Indeks Ulang Folder D:\\Anime\\Series ===");
+  console.log("=== Memulai Sinkronisasi & Pengindeksan Metadata Akurat D:\\Anime\\Series ===");
   if (!fs.existsSync(BASE_DIR)) {
     throw new Error(`Direktori ${BASE_DIR} tidak ditemukan!`);
   }
 
-  const dirs = fs.readdirSync(BASE_DIR, { withFileTypes: true }).filter((d) => d.isDirectory());
-  console.log(`Ditemukan ${dirs.length} folder anime di ${BASE_DIR}`);
+  const metadataFetcher = new MetadataFetcher();
+
+  const rawDirs = fs.readdirSync(BASE_DIR, { withFileTypes: true }).filter((d) => d.isDirectory());
+  console.log(`Ditemukan ${rawDirs.length} folder di direktori master ${BASE_DIR}`);
+
+  // Expand container directories like "Spring 2017" into their individual anime subfolders
+  const dirs: { name: string; folderPath: string }[] = [];
+  for (const d of rawDirs) {
+    const full = path.join(BASE_DIR, d.name);
+    if (d.name === "Spring 2017") {
+      const subDirs = fs.readdirSync(full, { withFileTypes: true }).filter((sd) => sd.isDirectory());
+      for (const sd of subDirs) {
+        dirs.push({ name: sd.name, folderPath: path.join(full, sd.name) });
+      }
+    } else {
+      dirs.push({ name: d.name, folderPath: full });
+    }
+  }
+
+  console.log(`Total target folder anime aktif setelah ekspansi kontainer: ${dirs.length}`);
 
   // 1. PENGELOMPOKKAN FOLDER KE FRANCHISE / BASE ANIME
   interface RawFolderData {
     folderName: string;
     seasonNumber: number;
     seasonTitle: string;
-    genres: string[] | null;
     files: { filename: string; fullPath: string; size: number }[];
   }
 
   const groups = new Map<string, RawFolderData[]>();
 
-  for (const dir of dirs) {
-    const folderPath = path.join(BASE_DIR, dir.name);
+  for (const item of dirs) {
     let files: { filename: string; fullPath: string; size: number }[] = [];
 
-    const rootFiles = fs.readdirSync(folderPath, { withFileTypes: true });
+    const rootFiles = fs.readdirSync(item.folderPath, { withFileTypes: true });
     for (const f of rootFiles) {
       if (f.isFile() && VALID_EXTS.includes(path.extname(f.name).toLowerCase())) {
-        const full = path.join(folderPath, f.name);
+        const full = path.join(item.folderPath, f.name);
         try {
           const stat = fs.statSync(full);
           files.push({ filename: f.name, fullPath: full, size: stat.size });
         } catch (e) {}
       } else if (f.isDirectory()) {
-        const subPath = path.join(folderPath, f.name);
+        const subPath = path.join(item.folderPath, f.name);
         try {
           const subFiles = fs.readdirSync(subPath, { withFileTypes: true });
           for (const sf of subFiles) {
@@ -261,22 +214,21 @@ async function main() {
     if (files.length === 0) continue;
     files.sort((a, b) => collator.compare(a.filename, b.filename));
 
-    const info = resolveFranchise(dir.name);
+    const info = resolveFranchise(item.name);
     if (!groups.has(info.baseTitle)) {
       groups.set(info.baseTitle, []);
     }
     groups.get(info.baseTitle)!.push({
-      folderName: dir.name,
+      folderName: item.name,
       seasonNumber: info.seasonNumber,
       seasonTitle: info.seasonTitle,
-      genres: info.genres,
       files,
     });
   }
 
-  console.log(`Ditemukan ${groups.size} franchise anime unik dari ${dirs.length} folder.`);
+  console.log(`Ditemukan ${groups.size} franchise anime unik.`);
 
-  // 2. STRUKTURISASI DATA ANIME DAN EPISODE MULTI-MUSIM
+  // 2. STRUKTURISASI DATA ANIME DAN EPISODE DENGAN METADATA RESMI
   const animeList: ParsedAnime[] = [];
   const seenSlugs = new Set<string>();
   let groupIndex = 0;
@@ -300,19 +252,42 @@ async function main() {
     const isFeatured = FEATURED_TITLES.some(
       (ft) => baseTitle.toLowerCase() === ft.toLowerCase()
     );
-    const poster = POSTERS[(groupIndex - 1) % POSTERS.length];
-    const cover = COVERS[(groupIndex - 1) % COVERS.length];
 
-    const genresList = seasonsRaw[0].genres || getGenre(baseTitle);
+    // Hitung episode mentah per musim
+    const preliminarySeasonsInfo: SeasonInfo[] = seasonsRaw.map((s) => ({
+      seasonNumber: s.seasonNumber,
+      title: s.seasonTitle,
+      folderName: s.folderName,
+      totalEpisodes: s.files.length,
+    }));
+
+    console.log(`\n[${groupIndex}/${groups.size}] Memproses metadata "${baseTitle}" (${seasonsRaw.length} musim, ${seasonsRaw.reduce((sum, s) => sum + s.files.length, 0)} ep)...`);
+
+    // Ambil metadata resmi (AniList + Kitsu) beserta thumbnail episode asli
+    let metadata;
+    try {
+      metadata = await metadataFetcher.fetchAnimeMetadata(baseTitle, preliminarySeasonsInfo);
+    } catch (err: any) {
+      console.warn(`Peringatan: Gagal mengambil metadata daring untuk ${baseTitle}:`, err.message);
+      metadata = null;
+    }
+
+    const officialTitle = metadata?.officialTitle || baseTitle;
+    const synopsis = metadata?.synopsis || `Serial anime ${baseTitle} dari koleksi lokal penyimpanan Anda. Total ${seasonsRaw.reduce((sum, s) => sum + s.files.length, 0)} episode siap ditonton dengan kualitas jernih.`;
+    const posterUrl = metadata?.posterUrl || "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600";
+    const coverUrl = metadata?.coverUrl || posterUrl;
+    const rating = metadata?.rating || "8.4";
+    const year = metadata?.year || 2015;
+    const genresList = metadata?.genres && metadata.genres.length > 0 ? metadata.genres : ["Serial Anime", "Koleksi Lokal"];
     const genres = genresList.join(", ");
-    const rating = getRating(baseTitle);
-    const year = getYear(baseTitle);
 
     const allEpisodes: ParsedEpisode[] = [];
     const seasonsInfo: SeasonInfo[] = [];
 
     for (const season of seasonsRaw) {
       const seenEpNums = new Set<number>();
+      const cachedEps = metadata?.seasonEpisodes?.[season.seasonNumber] || [];
+
       const seasonEpisodes: ParsedEpisode[] = season.files.map((f, idx) => {
         const ext = path.extname(f.filename).toLowerCase();
         const baseName = path.basename(f.filename, ext);
@@ -335,8 +310,15 @@ async function main() {
           ? `ep-${slug}-s${season.seasonNumber}-${epNum}`
           : `ep-${slug}-${epNum}`;
 
+        const foundCached = cachedEps.find((ce) => ce.episodeNumber === epNum);
+
+        const epTitle = foundCached?.title || `Episode ${epNum}`;
+        const epThumb = foundCached?.thumbnailUrl || coverUrl;
+        const epSynopsis = foundCached?.synopsis || `Episode ${epNum} (Musim ${season.seasonNumber}) dari serial ${officialTitle}. Berkas: ${f.filename}`;
+
         return {
           id: epId,
+          title: epTitle,
           episodeNumber: epNum,
           seasonNumber: season.seasonNumber,
           filename: f.filename,
@@ -344,6 +326,8 @@ async function main() {
           fullPath: f.fullPath.replace(/\\/g, "/"),
           size: f.size,
           quality: ext === ".mkv" || f.size > 200 * 1024 * 1024 ? "1080p" : "720p",
+          thumbnailUrl: epThumb,
+          synopsis: epSynopsis,
         };
       });
 
@@ -357,14 +341,9 @@ async function main() {
       allEpisodes.push(...seasonEpisodes);
     }
 
-    let synopsis = `Serial anime ${baseTitle} dari koleksi lokal penyimpanan Anda. Total ${allEpisodes.length} episode siap ditonton dengan kualitas jernih.`;
-    if (baseTitle === "LoveLive!") {
-      synopsis = `Honoka Kousaka bersama teman-temannya membentuk grup idola sekolah μ's (Muse) demi menyelamatkan Akademi Otonokizaka dari ancaman penutupan dan menjuarai kompetisi Love Live. Tersedia Musim 1 & Musim 2 lengkap.`;
-    }
-
     animeList.push({
       id: slug,
-      title: baseTitle,
+      title: officialTitle,
       folderName: seasonsRaw[0].folderName,
       synopsis,
       year,
@@ -373,8 +352,8 @@ async function main() {
       seasons: seasonsInfo,
       genres,
       genresList,
-      posterUrl: poster,
-      coverUrl: cover,
+      posterUrl,
+      coverUrl,
       rating,
       isFeatured,
       episodes: allEpisodes,
@@ -384,14 +363,14 @@ async function main() {
   // Urutkan anime berdasarkan abjad judul
   animeList.sort((a, b) => collator.compare(a.title, b.title));
 
-  console.log(`\nMenyimpan ${animeList.length} anime ke parsedAnime.json...`);
+  console.log(`\nMenyimpan ${animeList.length} anime ke src/data/parsedAnime.json...`);
   fs.writeFileSync(
     path.join(process.cwd(), "src", "data", "parsedAnime.json"),
     JSON.stringify(animeList, null, 2),
     "utf-8"
   );
 
-  // 3. UPDATE DATABASE TURSO (Membersihkan anime lama & memasukkan struktur franchise)
+  // 3. UPDATE DATABASE TURSO (Membersihkan anime lama & memasukkan struktur metadata akurat)
   console.log(`\n=== Memperbarui Database Turso (${animeList.length} Anime Unik) ===`);
   const now = new Date().toISOString();
 
@@ -455,7 +434,7 @@ async function main() {
         });
       }
 
-      // Masukkan episode untuk setiap musim
+      // Masukkan episode dengan screenshot thumbnail dan judul asli
       for (const ep of a.episodes) {
         const sourceUrl = `file:///${ep.fullPath}`;
         await client.execute({
@@ -464,14 +443,14 @@ async function main() {
           args: [
             ep.id,
             a.id,
-            `Episode ${ep.episodeNumber}`,
+            ep.title,
             ep.episodeNumber,
             ep.seasonNumber,
             1440,
             "local",
             sourceUrl,
-            a.coverUrl,
-            `Episode ${ep.episodeNumber} (Musim ${ep.seasonNumber}) dari serial ${a.title}. Berkas: ${ep.filename}`,
+            ep.thumbnailUrl,
+            ep.synopsis,
             ep.size,
             ep.quality,
             now,
@@ -510,7 +489,7 @@ async function main() {
   console.log(`\nHasil Turso: ${insertedCount} anime tersimpan, ${failedCount} gagal.`);
 
   // 4. GENERATE FILE src/data/mockAnime.ts
-  console.log("\n=== Menulis src/data/mockAnime.ts Menggunakan Data Franchise ===");
+  console.log("\n=== Menulis src/data/mockAnime.ts Menggunakan Data Akurat ===");
   const featuredAnimes = animeList.filter((a) => a.isFeatured).slice(0, 6);
   const heroAnime = featuredAnimes[0] || animeList[0];
 
@@ -553,7 +532,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = ${JSON.stringify(
         episodeId: `ep-${a.id}-s1-${idx + 1}`,
         episodeNumber: idx + 1,
         seasonNumber: 1,
-        episodeTitle: `Episode ${idx + 1}`,
+        episodeTitle: a.episodes[idx]?.title || `Episode ${idx + 1}`,
         positionSeconds: 600,
         durationSeconds: 1440,
         isCompleted: false,
@@ -609,34 +588,34 @@ export const MOCK_CATALOG_DATA: Anime[] = ${JSON.stringify(animeList.map(formatA
   console.log("✓ src/data/mockAnime.ts berhasil diperbarui!");
 
   // 5. GENERATE FILE src/data/mockEpisodes.ts
-  console.log("\n=== Menulis src/data/mockEpisodes.ts Menggunakan Data Franchise ===");
+  console.log("\n=== Menulis src/data/mockEpisodes.ts Menggunakan Thumbnail & Judul Asli ===");
   const episodesRecord: Record<string, any[]> = {};
   for (const a of animeList) {
     episodesRecord[a.id] = a.episodes.map((ep) => ({
       id: ep.id,
       animeId: a.id,
-      title: `Episode ${ep.episodeNumber}`,
+      title: ep.title,
       episodeNumber: ep.episodeNumber,
       seasonNumber: ep.seasonNumber,
       durationSeconds: 1440,
       sourceType: "local",
       sourceUrl: `/api/stream?file=${encodeURIComponent(ep.fullPath)}`,
-      thumbnailUrl: a.coverUrl,
-      synopsis: `Episode ${ep.episodeNumber} (Musim ${ep.seasonNumber}) dari serial ${a.title}. Berkas: ${ep.filename}`,
+      thumbnailUrl: ep.thumbnailUrl,
+      synopsis: ep.synopsis,
     }));
   }
 
   const defaultEp = {
     id: `ep-${heroAnime.id}-s1-1`,
     animeId: heroAnime.id,
-    title: "Episode 1",
+    title: heroAnime.episodes[0]?.title || "Episode 1",
     episodeNumber: 1,
     seasonNumber: 1,
     durationSeconds: 1440,
     sourceType: "local",
     sourceUrl: `/api/stream?file=${encodeURIComponent(heroAnime.episodes[0]?.fullPath || "")}`,
-    thumbnailUrl: heroAnime.coverUrl,
-    synopsis: `Episode perdana dari ${heroAnime.title}`,
+    thumbnailUrl: heroAnime.episodes[0]?.thumbnailUrl || heroAnime.coverUrl,
+    synopsis: heroAnime.episodes[0]?.synopsis || `Episode perdana dari ${heroAnime.title}`,
   };
 
   const mockEpisodesContent = `import { Episode } from "@/types/anime";
@@ -654,7 +633,7 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = ${JSON.stringify
   fs.writeFileSync(path.join(process.cwd(), "src", "data", "mockEpisodes.ts"), mockEpisodesContent, "utf-8");
   console.log("✓ src/data/mockEpisodes.ts berhasil diperbarui!");
 
-  console.log("\n🎉 SELURUH PROSES RE-INDEX FRANCHISE SELESAI DENGAN SEMPURNA!");
+  console.log("\n🎉 SELURUH PROSES RE-INDEX METADATA & THUMBNAIL SELESAI DENGAN SEMPURNA!");
 }
 
 main().catch(console.error);

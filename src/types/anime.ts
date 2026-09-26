@@ -7,6 +7,8 @@ export interface Episode {
   durationSeconds: number;
   sourceType: "local" | "drive" | "link";
   sourceUrl: string;
+  thumbnailUrl?: string;
+  synopsis?: string;
 }
 
 export interface WatchProgress {
