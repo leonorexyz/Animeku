@@ -224,7 +224,7 @@ export default function FavoritesPage() {
               <span>Daftar Tontonan Pribadi</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-              Daftar Favorit Saya
+              Koleksi & Favorit Saya
             </h1>
             <p className="text-zinc-400 text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">
               Koleksi serial anime yang telah Anda tandai sebagai favorit untuk ditonton

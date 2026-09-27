@@ -18,7 +18,6 @@ import {
 import { Anime, CategorySection } from "@/types/anime";
 import { getAllWatchProgress } from "@/utils/watchProgress";
 import { useRouter } from "next/navigation";
-import { SlidersHorizontal } from "lucide-react";
 
 export default function Home() {
   const router = useRouter();
@@ -130,20 +129,6 @@ export default function Home() {
       {/* Netflix Top Navigation Bar */}
       <Navbar />
 
-      {/* Floating View Mode Switcher (Katalog Berisi vs Katalog Kosong) */}
-      <div className="fixed bottom-6 right-6 z-40">
-        <button
-          onClick={() => setIsEmptyCatalog(!isEmptyCatalog)}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-zinc-900/90 hover:bg-zinc-800 text-xs font-semibold text-zinc-300 hover:text-white border border-white/10 shadow-2xl backdrop-blur-md transition-transform hover:scale-105 cursor-pointer"
-          title="Beralih antara tampilan katalog terisi dan ajakan tambah sumber"
-        >
-          <SlidersHorizontal className="w-3.5 h-3.5 text-red-500" />
-          <span>
-            {isEmptyCatalog ? "Tampilkan Katalog Terisi" : "Lihat Tampilan Kosong"}
-          </span>
-        </button>
-      </div>
-
       {isEmptyCatalog ? (
         /* Empty State with Source Connectors */
         <div className="pt-24 pb-12 flex-1 flex items-center justify-center">
@@ -216,8 +201,8 @@ export default function Home() {
       {/* Footer */}
       <Footer />
 
-      {/* Mobile Bottom Navigation Bar (Ala Netflix Mobile) */}
-      <MobileBottomNav onAddClick={() => setIsEmptyCatalog(true)} />
+      {/* Mobile Bottom Navigation Bar */}
+      <MobileBottomNav />
     </main>
   );
 }

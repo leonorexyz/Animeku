@@ -21,6 +21,7 @@ import { Anime } from "@/types/anime";
 import { getAnimeWatchStatus } from "@/utils/watchStatus";
 import {
   Search,
+  Compass,
   SlidersHorizontal,
   X,
   Sparkles,
@@ -181,11 +182,11 @@ function SearchContent() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-2">
-                <Search className="w-6 h-6 text-red-500" />
-                Pencarian & Eksplorasi
+                <Compass className="w-6 h-6 text-red-500" />
+                Katalog & Eksplorasi Anime
               </h1>
               <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-                Temukan anime favorit Anda dari berkas lokal, Google Drive, atau tautan streaming.
+                Jelajahi seluruh koleksi anime, filter berdasarkan genre & kategori, atau cari judul favorit Anda.
               </p>
             </div>
 

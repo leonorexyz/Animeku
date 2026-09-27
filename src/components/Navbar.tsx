@@ -7,13 +7,11 @@ import {
   Search,
   Bell,
   Film,
+  Compass,
   PlayCircle,
-  FolderHeart,
   HardDrive,
   Menu,
   X,
-  Layers,
-  Plus,
   Heart,
   Settings,
 } from "lucide-react";
@@ -129,31 +127,8 @@ export default function Navbar() {
                 onClick={(e) => handleNavigate(e, "/search")}
                 className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
-                <Search className="w-4 h-4 text-zinc-400" />
-                Eksplorasi
-              </Link>
-              <Link
-                href="/#continue-watching"
-                onClick={(e) => handleNavigate(e, "/#continue-watching")}
-                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
-              >
-                <PlayCircle className="w-4 h-4 text-red-500" />
-                Lanjut Nonton
-              </Link>
-              <Link
-                href="/categories"
-                onClick={(e) => handleNavigate(e, "/categories")}
-                className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
-              >
-                Kategori
-              </Link>
-              <Link
-                href="/collections"
-                onClick={(e) => handleNavigate(e, "/collections")}
-                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
-              >
-                <FolderHeart className="w-4 h-4 text-zinc-400" />
-                Koleksi
+                <Compass className="w-4 h-4 text-zinc-400" />
+                Katalog
               </Link>
               <Link
                 href="/favorites"
@@ -161,24 +136,7 @@ export default function Navbar() {
                 className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <Heart className="w-4 h-4 text-red-500" />
-                Favorit
-              </Link>
-              <Link
-                href="/sources"
-                onClick={(e) => handleNavigate(e, "/sources")}
-                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
-              >
-                <Plus className="w-3.5 h-3.5 text-red-500" />
-                Tambah Sumber
-              </Link>
-              <Link
-                href="/settings"
-                onClick={(e) => handleNavigate(e, "/settings")}
-                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
-                title="Pengaturan Aplikasi"
-              >
-                <Settings className="w-3.5 h-3.5 text-zinc-400 hover:text-white" />
-                Pengaturan
+                Koleksi Saya
               </Link>
             </nav>
           </div>
@@ -189,11 +147,12 @@ export default function Navbar() {
             <Link
               href="/sources"
               onClick={(e) => handleNavigate(e, "/sources")}
-              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-300 hover:text-white transition-colors cursor-pointer"
-              title="Kelola Sumber Anime"
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-300 hover:text-white transition-colors cursor-pointer group"
+              title="Kelola Sumber Anime (D:/Anime/Series & Cloud)"
             >
-              <HardDrive className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Sumber Terhubung</span>
+              <HardDrive className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
+              <span>Sumber Media</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
             </Link>
 
             {/* Search bar with live suggestions */}
@@ -296,32 +255,8 @@ export default function Navbar() {
                   onClick={(e) => handleNavigate(e, "/search")}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
-                  <Search className="w-4 h-4 text-zinc-400" />
-                  Eksplorasi
-                </Link>
-                <Link
-                  href="/#continue-watching"
-                  onClick={(e) => handleNavigate(e, "/#continue-watching")}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
-                >
-                  <PlayCircle className="w-4 h-4 text-red-500" />
-                  Lanjut Nonton
-                </Link>
-                <Link
-                  href="/categories"
-                  onClick={(e) => handleNavigate(e, "/categories")}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
-                >
-                  <Layers className="w-4 h-4 text-zinc-400" />
-                  Kategori
-                </Link>
-                <Link
-                  href="/collections"
-                  onClick={(e) => handleNavigate(e, "/collections")}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
-                >
-                  <FolderHeart className="w-4 h-4 text-zinc-400" />
-                  Koleksi & Kategori
+                  <Compass className="w-4 h-4 text-zinc-400" />
+                  Katalog Anime
                 </Link>
                 <Link
                   href="/favorites"
@@ -329,15 +264,15 @@ export default function Navbar() {
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
                   <Heart className="w-4 h-4 text-red-500" />
-                  Daftar Favorit
+                  Koleksi Saya
                 </Link>
                 <Link
                   href="/sources"
                   onClick={(e) => handleNavigate(e, "/sources")}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
                 >
-                  <Plus className="w-4 h-4 text-red-500" />
-                  Tambah Sumber
+                  <HardDrive className="w-4 h-4 text-emerald-400" />
+                  Sumber Media
                 </Link>
                 <Link
                   href="/settings"
