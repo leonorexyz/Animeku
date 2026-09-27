@@ -5,10 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   Search,
-  Bell,
   Film,
   Compass,
-  PlayCircle,
   HardDrive,
   Menu,
   X,
@@ -189,11 +187,6 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Notification */}
-            <button className="p-2 text-zinc-300 hover:text-white hover:bg-zinc-800/60 rounded-full transition-colors relative">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#141414]"></span>
-            </button>
 
             {/* Profile Avatar / Settings Link */}
             <div className="flex items-center space-x-2 pl-2 border-l border-zinc-800">
