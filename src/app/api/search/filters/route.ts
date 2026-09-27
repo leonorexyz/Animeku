@@ -10,7 +10,7 @@ import {
   MOCK_CATALOG_DATA,
 } from "@/data/mockAnime";
 import { Anime } from "@/types/anime";
-import { normalizeGenre } from "@/components/SearchFilters";
+import { normalizeGenre } from "@/utils/genreUtils";
 
 export async function GET() {
   try {

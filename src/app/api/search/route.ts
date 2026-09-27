@@ -11,7 +11,7 @@ import {
 } from "@/data/mockAnime";
 import { Anime } from "@/types/anime";
 import { sortAnimeList } from "@/utils/searchSorting";
-import { normalizeGenre } from "@/components/SearchFilters";
+import { normalizeGenre } from "@/utils/genreUtils";
 
 const DEFAULT_USER_ID = "user-default";
 
