@@ -28,9 +28,9 @@ export interface SortOption {
 
 export const SORT_ITEMS: SortOption[] = [
   {
-    key: "relevance",
-    label: "Paling Relevan",
-    icon: <Sparkles className="w-3.5 h-3.5 text-red-400" />,
+    key: "title-asc",
+    label: "Judul (A - Z)",
+    icon: <ArrowDownAZ className="w-3.5 h-3.5 text-emerald-400" />,
   },
   {
     key: "rating-desc",
@@ -43,19 +43,19 @@ export const SORT_ITEMS: SortOption[] = [
     icon: <Calendar className="w-3.5 h-3.5 text-blue-400" />,
   },
   {
+    key: "title-desc",
+    label: "Judul (Z - A)",
+    icon: <ArrowUpZA className="w-3.5 h-3.5 text-rose-400" />,
+  },
+  {
     key: "year-asc",
     label: "Tahun Terlama",
     icon: <Calendar className="w-3.5 h-3.5 text-zinc-400" />,
   },
   {
-    key: "title-asc",
-    label: "Judul (A - Z)",
-    icon: <ArrowDownAZ className="w-3.5 h-3.5 text-emerald-400" />,
-  },
-  {
-    key: "title-desc",
-    label: "Judul (Z - A)",
-    icon: <ArrowUpZA className="w-3.5 h-3.5 text-rose-400" />,
+    key: "relevance",
+    label: "Paling Relevan",
+    icon: <Sparkles className="w-3.5 h-3.5 text-red-400" />,
   },
 ];
 

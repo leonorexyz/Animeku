@@ -60,7 +60,7 @@ export function calculateRelevanceScore(anime: Anime, query: string): number {
  */
 export function sortAnimeList(
   items: Anime[],
-  sortBy: string = "rating-desc",
+  sortBy: string = "title-asc",
   query: string = ""
 ): Anime[] {
   const cloned = [...items];
@@ -81,6 +81,12 @@ export function sortAnimeList(
 
   return cloned.sort((a, b) => {
     switch (sortBy) {
+      case "title-asc":
+        return a.title.localeCompare(b.title, "id", { sensitivity: "base" });
+
+      case "title-desc":
+        return b.title.localeCompare(a.title, "id", { sensitivity: "base" });
+
       case "rating-desc": {
         const diff =
           parseFloat(b.rating || "0") - parseFloat(a.rating || "0");
@@ -111,12 +117,6 @@ export function sortAnimeList(
         );
       }
 
-      case "title-asc":
-        return a.title.localeCompare(b.title, "id", { sensitivity: "base" });
-
-      case "title-desc":
-        return b.title.localeCompare(a.title, "id", { sensitivity: "base" });
-
       case "episodes-desc":
         return (b.totalEpisodes || 0) - (a.totalEpisodes || 0);
 
@@ -124,10 +124,10 @@ export function sortAnimeList(
         if (query.trim()) {
           return calculateRelevanceScore(b, query) - calculateRelevanceScore(a, query);
         }
-        return parseFloat(b.rating || "0") - parseFloat(a.rating || "0");
+        return a.title.localeCompare(b.title, "id", { sensitivity: "base" });
 
       default:
-        return 0;
+        return a.title.localeCompare(b.title, "id", { sensitivity: "base" });
     }
   });
 }

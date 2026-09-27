@@ -11,6 +11,7 @@ import {
 } from "@/data/mockAnime";
 import { Anime } from "@/types/anime";
 import { sortAnimeList } from "@/utils/searchSorting";
+import { normalizeGenre } from "@/components/SearchFilters";
 
 const DEFAULT_USER_ID = "user-default";
 
@@ -24,7 +25,7 @@ export async function GET(req: Request) {
     const category = searchParams.get("category") || "all";
     const year = searchParams.get("year") || "all";
     const status = searchParams.get("status") || "all";
-    const sortBy = searchParams.get("sortBy") || "rating-desc";
+    const sortBy = searchParams.get("sortBy") || "title-asc";
     const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "50", 10)));
     const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
     const offset = (page - 1) * limit;
@@ -119,19 +120,33 @@ export async function GET(req: Request) {
     // Filter teks (q)
     if (q) {
       const lowerQ = q.toLowerCase();
+      const normQ = normalizeGenre(q).toLowerCase();
       results = results.filter((item) => {
         const matchTitle = item.title.toLowerCase().includes(lowerQ);
         const matchSynopsis = item.synopsis?.toLowerCase().includes(lowerQ);
-        const matchGenre = item.genres?.some((g) => g.toLowerCase().includes(lowerQ));
+        const matchGenre = item.genres?.some((g) => {
+          const gLower = g.toLowerCase();
+          const gNorm = normalizeGenre(g).toLowerCase();
+          return (
+            gLower.includes(lowerQ) ||
+            gNorm.includes(lowerQ) ||
+            gLower === normQ ||
+            gNorm === normQ
+          );
+        });
         return matchTitle || matchSynopsis || matchGenre;
       });
     }
 
-    // Filter genre
+    // Filter genre (dengan normalisasi sinonim)
     if (genre && genre !== "Semua") {
-      const lowerGenre = genre.toLowerCase();
+      const target = normalizeGenre(genre).toLowerCase();
       results = results.filter((item) =>
-        item.genres?.some((g) => g.toLowerCase() === lowerGenre)
+        item.genres?.some(
+          (g) =>
+            g.toLowerCase() === target ||
+            normalizeGenre(g).toLowerCase() === target
+        )
       );
     }
 

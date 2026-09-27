@@ -28,21 +28,67 @@ export const WATCH_STATUS_OPTIONS = [
   { label: "Belum Ditonton", value: "unwatched" },
 ];
 
+export const GENRE_SYNONYMS: Record<string, string> = {
+  action: "Action",
+  aksi: "Action",
+  adventure: "Adventure",
+  petualangan: "Adventure",
+  comedy: "Comedy",
+  komedi: "Comedy",
+  drama: "Drama",
+  ecchi: "Ecchi",
+  fantasy: "Fantasy",
+  fantasi: "Fantasy",
+  horror: "Horror",
+  horor: "Horror",
+  mecha: "Mecha",
+  music: "Music",
+  musik: "Music",
+  mystery: "Mystery",
+  misteri: "Mystery",
+  psychological: "Psychological",
+  psikologis: "Psychological",
+  romance: "Romance",
+  romansa: "Romance",
+  romantis: "Romance",
+  "sci-fi": "Sci-Fi",
+  scifi: "Sci-Fi",
+  "slice of life": "Slice of Life",
+  sports: "Sports",
+  olahraga: "Sports",
+  supernatural: "Supernatural",
+  thriller: "Thriller",
+  "mahou shoujo": "Mahou Shoujo",
+  shounen: "Shounen",
+  seinen: "Seinen",
+  isekai: "Isekai",
+};
+
+export function normalizeGenre(g: string): string {
+  if (!g) return "";
+  const lower = g.toLowerCase().trim();
+  return GENRE_SYNONYMS[lower] || g.trim();
+}
+
 export const GENRE_OPTIONS = [
   "Semua",
   "Action",
   "Adventure",
-  "Fantasy",
-  "Sci-Fi",
-  "Drama",
   "Comedy",
-  "Romance",
-  "Supernatural",
+  "Drama",
+  "Ecchi",
+  "Fantasy",
+  "Horror",
+  "Mecha",
+  "Music",
   "Mystery",
+  "Psychological",
+  "Romance",
+  "Sci-Fi",
   "Slice of Life",
-  "Shounen",
-  "Seinen",
-  "Isekai",
+  "Sports",
+  "Supernatural",
+  "Thriller",
 ];
 
 export const CATEGORY_OPTIONS = [
@@ -70,11 +116,11 @@ export const STATUS_OPTIONS = [
 ];
 
 export const SORT_OPTIONS = [
+  { label: "Judul (A-Z) - Default", value: "title-asc" },
+  { label: "Judul (Z-A)", value: "title-desc" },
   { label: "Skor Tertinggi", value: "rating-desc" },
   { label: "Tahun Terbaru", value: "year-desc" },
   { label: "Tahun Terlama", value: "year-asc" },
-  { label: "Judul (A-Z)", value: "title-asc" },
-  { label: "Judul (Z-A)", value: "title-desc" },
 ];
 
 interface SearchFiltersProps {
@@ -98,7 +144,7 @@ export default function SearchFilters({
     filters.year !== "all" ||
     filters.status !== "all" ||
     (!!filters.watchStatus && filters.watchStatus !== "all") ||
-    filters.sortBy !== "rating-desc";
+    filters.sortBy !== "title-asc";
 
   const handleUpdate = (key: keyof FilterState, val: string) => {
     onChange({

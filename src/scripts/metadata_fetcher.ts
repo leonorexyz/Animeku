@@ -187,25 +187,25 @@ export const TITLE_SEARCH_ALIASES: Record<string, string> = {
   "Zero no Tsukaima": "Zero no Tsukaima"
 };
 
-// Genre mapping to Indonesian
+// Standard Anime Genres
 const GENRE_MAP: Record<string, string> = {
-  Action: "Aksi",
-  Adventure: "Petualangan",
-  Comedy: "Komedi",
+  Action: "Action",
+  Adventure: "Adventure",
+  Comedy: "Comedy",
   Drama: "Drama",
   Ecchi: "Ecchi",
-  Fantasy: "Fantasi",
-  Horror: "Horor",
+  Fantasy: "Fantasy",
+  Horror: "Horror",
   "Mahou Shoujo": "Mahou Shoujo",
   Mecha: "Mecha",
-  Music: "Musik",
-  Mystery: "Misteri",
-  Psychological: "Psikologis",
-  Romance: "Romansa",
+  Music: "Music",
+  Mystery: "Mystery",
+  Psychological: "Psychological",
+  Romance: "Romance",
   SciFi: "Sci-Fi",
   "Sci-Fi": "Sci-Fi",
   "Slice of Life": "Slice of Life",
-  Sports: "Olahraga",
+  Sports: "Sports",
   Supernatural: "Supernatural",
   Thriller: "Thriller",
 };

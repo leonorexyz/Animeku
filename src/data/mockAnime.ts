@@ -11,8 +11,8 @@ export const MOCK_FEATURED_ANIME: Anime = {
   "isFeatured": true,
   "rating": "7.7",
   "genres": [
-    "Aksi",
-    "Komedi",
+    "Action",
+    "Comedy",
     "Drama",
     "Supernatural"
   ],
@@ -40,8 +40,8 @@ export const MOCK_FEATURED_ANIMES: Anime[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Drama",
       "Supernatural"
     ],
@@ -67,11 +67,11 @@ export const MOCK_FEATURED_ANIMES: Anime[] = [
     "isFeatured": true,
     "rating": "8.2",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Misteri",
-      "Psikologis",
-      "Romansa",
+      "Mystery",
+      "Psychological",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 15,
@@ -96,9 +96,9 @@ export const MOCK_FEATURED_ANIMES: Anime[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life",
       "Supernatural"
     ],
@@ -130,7 +130,7 @@ export const MOCK_FEATURED_ANIMES: Anime[] = [
     "isFeatured": true,
     "rating": "8.5",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
       "Mecha",
       "Sci-Fi",
@@ -164,8 +164,8 @@ export const MOCK_FEATURED_ANIMES: Anime[] = [
     "isFeatured": true,
     "rating": "7.9",
     "genres": [
-      "Misteri",
-      "Romansa",
+      "Mystery",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 24,
@@ -190,7 +190,7 @@ export const MOCK_FEATURED_ANIMES: Anime[] = [
     "isFeatured": true,
     "rating": "7.1",
     "genres": [
-      "Musik",
+      "Music",
       "Slice of Life"
     ],
     "totalEpisodes": 26,
@@ -224,8 +224,8 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Drama",
       "Supernatural"
     ],
@@ -251,7 +251,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-26T20:01:31.691Z"
+      "lastWatchedAt": "2026-09-27T18:00:51.484Z"
     }
   },
   {
@@ -265,11 +265,11 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
     "isFeatured": true,
     "rating": "8.2",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Misteri",
-      "Psikologis",
-      "Romansa",
+      "Mystery",
+      "Psychological",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 15,
@@ -294,7 +294,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-26T20:01:31.691Z"
+      "lastWatchedAt": "2026-09-27T18:00:51.484Z"
     }
   },
   {
@@ -308,9 +308,9 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life",
       "Supernatural"
     ],
@@ -342,7 +342,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-26T20:01:31.691Z"
+      "lastWatchedAt": "2026-09-27T18:00:51.484Z"
     }
   },
   {
@@ -356,7 +356,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
     "isFeatured": true,
     "rating": "8.5",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
       "Mecha",
       "Sci-Fi",
@@ -390,7 +390,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-26T20:01:31.691Z"
+      "lastWatchedAt": "2026-09-27T18:00:51.484Z"
     }
   }
 ];
@@ -413,7 +413,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "5.3",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
       "Supernatural"
     ],
@@ -439,9 +439,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 50,
@@ -472,8 +472,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Aksi",
-      "Romansa",
+      "Action",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 26,
@@ -498,10 +498,10 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.0",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Olahraga"
+      "Sports"
     ],
     "totalEpisodes": 26,
     "totalSeasons": 1,
@@ -525,10 +525,10 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "5.5",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -552,8 +552,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 48,
@@ -584,8 +584,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Drama",
       "Supernatural"
     ],
@@ -612,7 +612,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "rating": "8.0",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life",
       "Supernatural"
     ],
@@ -638,9 +638,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Sci-Fi",
       "Slice of Life"
     ],
@@ -666,9 +666,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Horor",
-      "Misteri",
-      "Psikologis",
+      "Horror",
+      "Mystery",
+      "Psychological",
       "Supernatural",
       "Thriller"
     ],
@@ -695,7 +695,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "rating": "7.5",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -720,8 +720,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.2",
     "genres": [
-      "Aksi",
-      "Fantasi",
+      "Action",
+      "Fantasy",
       "Supernatural"
     ],
     "totalEpisodes": 26,
@@ -746,9 +746,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.1",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 12,
@@ -773,9 +773,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -799,8 +799,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Komedi",
-      "Romansa"
+      "Comedy",
+      "Romance"
     ],
     "totalEpisodes": 28,
     "totalSeasons": 1,
@@ -824,11 +824,11 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": true,
     "rating": "8.2",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Misteri",
-      "Psikologis",
-      "Romansa",
+      "Mystery",
+      "Psychological",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 15,
@@ -854,8 +854,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "rating": "7.9",
     "genres": [
       "Drama",
-      "Romansa",
-      "Olahraga"
+      "Romance",
+      "Sports"
     ],
     "totalEpisodes": 24,
     "totalSeasons": 1,
@@ -903,8 +903,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.5",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Supernatural"
     ],
     "totalEpisodes": 60,
@@ -929,8 +929,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.8",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi"
     ],
     "totalEpisodes": 12,
@@ -963,7 +963,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "5.3",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
       "Supernatural"
     ],
@@ -989,8 +989,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Aksi",
-      "Romansa",
+      "Action",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 26,
@@ -1015,10 +1015,10 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.0",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Olahraga"
+      "Sports"
     ],
     "totalEpisodes": 26,
     "totalSeasons": 1,
@@ -1042,8 +1042,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Drama",
       "Supernatural"
     ],
@@ -1069,8 +1069,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.2",
     "genres": [
-      "Aksi",
-      "Fantasi",
+      "Action",
+      "Fantasy",
       "Supernatural"
     ],
     "totalEpisodes": 26,
@@ -1095,8 +1095,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.5",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Supernatural"
     ],
     "totalEpisodes": 60,
@@ -1121,8 +1121,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.8",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi"
     ],
     "totalEpisodes": 12,
@@ -1147,9 +1147,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
-      "Misteri",
+      "Mystery",
       "Sci-Fi"
     ],
     "totalEpisodes": 13,
@@ -1174,10 +1174,10 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.3",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
-      "Fantasi",
-      "Psikologis",
+      "Fantasy",
+      "Psychological",
       "Slice of Life"
     ],
     "totalEpisodes": 8,
@@ -1192,6 +1192,32 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     ]
   },
   {
+    "id": "btoom",
+    "title": "Btooom!",
+    "synopsis": "Ryouta Sakamoto is unemployed and lives with his mother, his only real achievement being that he is Japan's top player of the popular online video game, \"Btooom!\" However, his peaceful life is about to change when he finds himself stranded on an island in the middle of nowhere, with a small, green crystal embedded in his left hand and no memory of how he got there. To his shock, someone has decided to recreate the game he is so fond of in real life, with the stakes being life or death.\nArmed with a bag full of unique bombs known as \"BIM,\" the players are tasked with killing seven of their fellow participants to obtain their green crystals, used as proof of their victory, in order to return home. Initially condemning any form of violence, Ryouta is forced to fight when he realizes that many of the other players are not as welcoming as they may seem. Teaming up with Himiko, a fellow Btooom! player who turns out to be his in-game wife, they attempt to get off of the island together, slowly coming closer and closer to the truth behind this contest of death.\n[Written by MAL Rewrite]",
+    "year": 2012,
+    "posterUrl": "https://media.kitsu.app/anime/poster_images/7113/large.jpg",
+    "coverUrl": "https://media.kitsu.app/anime/cover_images/7113/large.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.3",
+    "genres": [
+      "Action",
+      "Psychological",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 12,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "BTOOM !!",
+        "totalEpisodes": 12
+      }
+    ]
+  },
+  {
     "id": "campione",
     "title": "Campione!: Matsurowanu Kamigami to Kamigoroshi no Maou",
     "synopsis": "Some people suddenly find religion, but for 16-year-old Kusanagi GoDo, it's that REALLY old time religion that's found him! As the result of defeating the God of War in mortal combat, GoDo's stuck with the unwanted position of Campione!, or God Slayer, whose duty is to fight Herectical Gods whenever they try to muscle in on the local turf. Not only is this likely to make GoDo roadkill on the Highway to Heaven, it's also a job that comes with a lot of other problems. Like how to deal with the fact that his \"enhanced status\" is attracting a bevy of overly-worshippy female followers. After all, they're just there to aid him in his demi-godly duties, right? So why is it that their leader, the demonically manipulative sword-mistress Erica Brandelli, seems to have such a devilish interest in encouraging some VERY unorthodox activities? \n(Source: Sentai Filmworks)",
@@ -1202,10 +1228,10 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 13,
     "totalSeasons": 1,
@@ -1229,7 +1255,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": true,
     "rating": "8.5",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
       "Mecha",
       "Sci-Fi",
@@ -1263,7 +1289,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.3",
     "genres": [
-      "Aksi",
+      "Action",
       "Supernatural"
     ],
     "totalEpisodes": 13,
@@ -1288,12 +1314,12 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.8",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
+      "Fantasy",
       "Mecha",
-      "Romansa",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 24,
@@ -1324,9 +1350,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Aksi",
-      "Petualangan",
-      "Fantasi"
+      "Action",
+      "Adventure",
+      "Fantasy"
     ],
     "totalEpisodes": 26,
     "totalSeasons": 1,
@@ -1338,38 +1364,12 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "totalEpisodes": 26
       }
     ]
-  },
-  {
-    "id": "durarara",
-    "title": "Durarara!!",
-    "synopsis": "In Tokyo's downtown district of Ikebukuro, amidst many strange rumors and warnings of anonymous gangs and dangerous occupants, one urban legend stands out above the rest—the existence of a headless \"Black Rider\" who is said to be seen driving a jet-black motorcycle through the city streets.\nRyuugamine Mikado has always longed for the excitement of the city life, and an invitation from a childhood friend convinces him to move to Tokyo. Witnessing the Black Rider on his first day in the city, his wishes already seem to have been granted. But as supernatural events begin to occur, ordinary citizens like himself, along with Ikebukuro's most colorful inhabitants, are mixed up in the commotion breaking out in their city.\n(Source: MAL Rewrite)",
-    "year": 2010,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6746-3LTwM95Uqeoa.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/6746-84oNA7P9pboV.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "7.9",
-    "genres": [
-      "Aksi",
-      "Misteri",
-      "Supernatural"
-    ],
-    "totalEpisodes": 25,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Durarara!!",
-        "totalEpisodes": 25
-      }
-    ]
   }
 ],
   },
   {
     id: "romance",
-    name: "Romansa & Drama Emosional",
+    name: "Romance & Drama Emosional",
     type: "genre",
     sortOrder: 3,
     items: [
@@ -1384,9 +1384,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 50,
@@ -1417,8 +1417,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Aksi",
-      "Romansa",
+      "Action",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 26,
@@ -1443,10 +1443,10 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "5.5",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -1470,8 +1470,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 48,
@@ -1503,7 +1503,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "rating": "8.0",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life",
       "Supernatural"
     ],
@@ -1529,9 +1529,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Sci-Fi",
       "Slice of Life"
     ],
@@ -1558,7 +1558,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "rating": "7.5",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -1583,9 +1583,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.1",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 12,
@@ -1610,9 +1610,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -1636,8 +1636,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Komedi",
-      "Romansa"
+      "Comedy",
+      "Romance"
     ],
     "totalEpisodes": 28,
     "totalSeasons": 1,
@@ -1661,11 +1661,11 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": true,
     "rating": "8.2",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Misteri",
-      "Psikologis",
-      "Romansa",
+      "Mystery",
+      "Psychological",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 15,
@@ -1691,8 +1691,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "rating": "7.9",
     "genres": [
       "Drama",
-      "Romansa",
-      "Olahraga"
+      "Romance",
+      "Sports"
     ],
     "totalEpisodes": 24,
     "totalSeasons": 1,
@@ -1716,9 +1716,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 26,
@@ -1750,7 +1750,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "rating": "6.7",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 26,
@@ -1775,8 +1775,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.4",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -1809,9 +1809,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 50,
@@ -1842,10 +1842,10 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.0",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Olahraga"
+      "Sports"
     ],
     "totalEpisodes": 26,
     "totalSeasons": 1,
@@ -1869,10 +1869,10 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "5.5",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -1896,8 +1896,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 48,
@@ -1928,8 +1928,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Drama",
       "Supernatural"
     ],
@@ -1955,9 +1955,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Sci-Fi",
       "Slice of Life"
     ],
@@ -1983,9 +1983,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.1",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 12,
@@ -2010,9 +2010,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -2036,8 +2036,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Komedi",
-      "Romansa"
+      "Comedy",
+      "Romance"
     ],
     "totalEpisodes": 28,
     "totalSeasons": 1,
@@ -2061,11 +2061,11 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": true,
     "rating": "8.2",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Misteri",
-      "Psikologis",
-      "Romansa",
+      "Mystery",
+      "Psychological",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 15,
@@ -2090,8 +2090,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.5",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Supernatural"
     ],
     "totalEpisodes": 60,
@@ -2116,8 +2116,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.8",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi"
     ],
     "totalEpisodes": 12,
@@ -2142,8 +2142,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.4",
     "genres": [
-      "Petualangan",
-      "Komedi",
+      "Adventure",
+      "Comedy",
       "Supernatural"
     ],
     "totalEpisodes": 13,
@@ -2168,9 +2168,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 26,
@@ -2201,8 +2201,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.4",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -2235,10 +2235,10 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "5.5",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -2262,8 +2262,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "7.2",
     "genres": [
-      "Aksi",
-      "Fantasi",
+      "Action",
+      "Fantasy",
       "Supernatural"
     ],
     "totalEpisodes": 26,
@@ -2288,10 +2288,10 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.3",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
-      "Fantasi",
-      "Psikologis",
+      "Fantasy",
+      "Psychological",
       "Slice of Life"
     ],
     "totalEpisodes": 8,
@@ -2316,12 +2316,12 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.8",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
+      "Fantasy",
       "Mecha",
-      "Romansa",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 24,
@@ -2352,9 +2352,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Aksi",
-      "Petualangan",
-      "Fantasi"
+      "Action",
+      "Adventure",
+      "Fantasy"
     ],
     "totalEpisodes": 26,
     "totalSeasons": 1,
@@ -2378,8 +2378,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "8.0",
     "genres": [
-      "Aksi",
-      "Fantasi",
+      "Action",
+      "Fantasy",
       "Supernatural"
     ],
     "totalEpisodes": 24,
@@ -2404,9 +2404,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "8.1",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
-      "Fantasi",
+      "Fantasy",
       "Supernatural"
     ],
     "totalEpisodes": 25,
@@ -2431,11 +2431,11 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.5",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa",
+      "Fantasy",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 12,
@@ -2460,8 +2460,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.6",
     "genres": [
-      "Komedi",
-      "Fantasi"
+      "Comedy",
+      "Fantasy"
     ],
     "totalEpisodes": 24,
     "totalSeasons": 1,
@@ -2485,9 +2485,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.0",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Fantasi"
+      "Fantasy"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -2511,9 +2511,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.1",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
-      "Fantasi"
+      "Fantasy"
     ],
     "totalEpisodes": 18,
     "totalSeasons": 1,
@@ -2537,11 +2537,11 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 24,
     "totalSeasons": 1,
@@ -2565,9 +2565,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
-      "Fantasi",
-      "Romansa",
+      "Comedy",
+      "Fantasy",
+      "Romance",
       "Slice of Life",
       "Supernatural"
     ],
@@ -2593,9 +2593,9 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "8.0",
     "genres": [
-      "Komedi",
-      "Fantasi",
-      "Romansa",
+      "Comedy",
+      "Fantasy",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 14,
@@ -2620,11 +2620,11 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Petualangan",
+      "Adventure",
       "Drama",
-      "Fantasi",
-      "Misteri",
-      "Psikologis",
+      "Fantasy",
+      "Mystery",
+      "Psychological",
       "Supernatural"
     ],
     "totalEpisodes": 12,
@@ -2654,7 +2654,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.3",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
       "Supernatural"
     ],
@@ -2680,9 +2680,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 50,
@@ -2713,8 +2713,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Aksi",
-      "Romansa",
+      "Action",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 26,
@@ -2739,10 +2739,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.0",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Olahraga"
+      "Sports"
     ],
     "totalEpisodes": 26,
     "totalSeasons": 1,
@@ -2766,10 +2766,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.5",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -2793,8 +2793,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 48,
@@ -2825,8 +2825,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Drama",
       "Supernatural"
     ],
@@ -2853,7 +2853,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "8.0",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life",
       "Supernatural"
     ],
@@ -2879,9 +2879,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Sci-Fi",
       "Slice of Life"
     ],
@@ -2907,9 +2907,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Horor",
-      "Misteri",
-      "Psikologis",
+      "Horror",
+      "Mystery",
+      "Psychological",
       "Supernatural",
       "Thriller"
     ],
@@ -2936,7 +2936,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "7.5",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -2961,8 +2961,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.2",
     "genres": [
-      "Aksi",
-      "Fantasi",
+      "Action",
+      "Fantasy",
       "Supernatural"
     ],
     "totalEpisodes": 26,
@@ -2987,9 +2987,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.1",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 12,
@@ -3014,9 +3014,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -3040,8 +3040,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Komedi",
-      "Romansa"
+      "Comedy",
+      "Romance"
     ],
     "totalEpisodes": 28,
     "totalSeasons": 1,
@@ -3065,11 +3065,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "8.2",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Misteri",
-      "Psikologis",
-      "Romansa",
+      "Mystery",
+      "Psychological",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 15,
@@ -3095,8 +3095,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "7.9",
     "genres": [
       "Drama",
-      "Romansa",
-      "Olahraga"
+      "Romance",
+      "Sports"
     ],
     "totalEpisodes": 24,
     "totalSeasons": 1,
@@ -3144,8 +3144,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.5",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Supernatural"
     ],
     "totalEpisodes": 60,
@@ -3170,8 +3170,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.8",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi"
     ],
     "totalEpisodes": 12,
@@ -3196,8 +3196,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.4",
     "genres": [
-      "Petualangan",
-      "Komedi",
+      "Adventure",
+      "Comedy",
       "Supernatural"
     ],
     "totalEpisodes": 13,
@@ -3222,9 +3222,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
-      "Misteri",
+      "Mystery",
       "Sci-Fi"
     ],
     "totalEpisodes": 13,
@@ -3249,10 +3249,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.3",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
-      "Fantasi",
-      "Psikologis",
+      "Fantasy",
+      "Psychological",
       "Slice of Life"
     ],
     "totalEpisodes": 8,
@@ -3277,9 +3277,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 26,
@@ -3311,7 +3311,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "6.7",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 26,
@@ -3336,8 +3336,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.4",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -3362,7 +3362,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.2",
     "genres": [
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -3386,8 +3386,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.3",
     "genres": [
-      "Anime",
-      "Series"
+      "Action",
+      "Psychological",
+      "Sci-Fi"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -3411,8 +3412,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.2",
     "genres": [
-      "Anime",
-      "Series"
+      "Comedy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -3436,10 +3437,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 13,
     "totalSeasons": 1,
@@ -3463,9 +3464,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.5",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 25,
@@ -3496,9 +3497,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life",
       "Supernatural"
     ],
@@ -3520,31 +3521,6 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     ]
   },
   {
-    "id": "school-days",
-    "title": "Clannad",
-    "synopsis": "Tomoya Okazaki is a delinquent who finds life dull and believes he'll never amount to anything. Along with his friend Sunohara, he skips school and plans to waste his high school days away.\nOne day while walking to school, Tomoya passes a young girl muttering quietly to herself.  Without warning she exclaims \"Anpan!\" (a popular Japanese food) which catches Tomoya's attention. He soon discovers the girl's name is Nagisa Furukawa and that she exclaims things she likes in order to motivate herself. Nagisa claims they are now friends, but Tomoya walks away passing the encounter off as nothing.\nHowever, Tomoya finds he is noticing Nagisa more and more around school.  Eventually he concedes and befriends her.  Tomoya learns Nagisa has been held back a year due to a severe illness and that her dream is to revive the school's drama club.  Claiming he has nothing better to do, he decides to help her achieve this goal along with the help of four other girls.\nAs Tomoya spends more time with the girls, he learns more about them and their problems.  As he attempts to help each girl overcome her respective obstacle, he begins to realize life isn't as dull as he once thought.\n[Written by MAL Rewrite]",
-    "year": 2007,
-    "posterUrl": "https://media.kitsu.app/anime/poster_images/1962/large.jpg",
-    "coverUrl": "https://media.kitsu.app/anime/cover_images/1962/large.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "8.0",
-    "genres": [
-      "Anime",
-      "Series"
-    ],
-    "totalEpisodes": 14,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "School Days",
-        "totalEpisodes": 14
-      }
-    ]
-  },
-  {
     "id": "code-geass-lelouch-of-the-rebellion",
     "title": "Code Geass: Hangyaku no Lelouch",
     "synopsis": "On August 10th of the year 2010 the Holy Empire of Britannia began a campaign of conquest, its sights set on Japan. Operations were completed in one month thanks to Britannia's deployment of new mobile humanoid armor vehicles dubbed Knightmare Frames. Japan's rights and identity were stripped away, the once proud nation now referred to as Area 11. Its citizens, Elevens, are forced to scratch out a living while the Britannian aristocracy lives comfortably within their settlements. Pockets of resistance appear throughout Area 11, working towards independence for Japan.\n Lelouch, an exiled Imperial Prince of Britannia posing as a student, finds himself in the heart of the ongoing conflict for the island nation. Through a chance meeting with a mysterious girl named C.C., Lelouch gains his Geass, the power of the king. Now endowed with absolute dominance over any person, Lelouch may finally realize his goal of bringing down Britannia from within!\n(Source: Bandai Entertainment)",
@@ -3555,7 +3531,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "8.5",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
       "Mecha",
       "Sci-Fi",
@@ -3589,7 +3565,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.3",
     "genres": [
-      "Aksi",
+      "Action",
       "Supernatural"
     ],
     "totalEpisodes": 13,
@@ -3614,7 +3590,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.2",
     "genres": [
-      "Komedi"
+      "Comedy"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -3638,9 +3614,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.0",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 14,
@@ -3665,9 +3641,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Horor",
-      "Misteri",
-      "Psikologis",
+      "Horror",
+      "Mystery",
+      "Psychological",
       "Sci-Fi",
       "Thriller"
     ],
@@ -3693,7 +3669,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "8.0",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -3718,12 +3694,12 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.8",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
+      "Fantasy",
       "Mecha",
-      "Romansa",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 24,
@@ -3755,8 +3731,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "4.6",
     "genres": [
       "Drama",
-      "Horor",
-      "Romansa",
+      "Horror",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 13,
@@ -3781,9 +3757,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Aksi",
-      "Petualangan",
-      "Fantasi"
+      "Action",
+      "Adventure",
+      "Fantasy"
     ],
     "totalEpisodes": 26,
     "totalSeasons": 1,
@@ -3807,8 +3783,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.9",
     "genres": [
-      "Aksi",
-      "Misteri",
+      "Action",
+      "Mystery",
       "Supernatural"
     ],
     "totalEpisodes": 25,
@@ -3833,12 +3809,12 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.8",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
       "Ecchi",
-      "Horor",
-      "Psikologis",
-      "Romansa",
+      "Horror",
+      "Psychological",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 14,
@@ -3863,10 +3839,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.9",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -3891,8 +3867,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "8.0",
     "genres": [
-      "Aksi",
-      "Fantasi",
+      "Action",
+      "Fantasy",
       "Supernatural"
     ],
     "totalEpisodes": 24,
@@ -3917,9 +3893,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "8.1",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
-      "Fantasi",
+      "Fantasy",
       "Supernatural"
     ],
     "totalEpisodes": 25,
@@ -3944,10 +3920,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.2",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 12,
@@ -3972,7 +3948,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.2",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Slice of Life",
       "Supernatural"
     ],
@@ -3998,11 +3974,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
       "Ecchi",
-      "Horor",
-      "Romansa",
+      "Horror",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 13,
@@ -4027,11 +4003,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.5",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa",
+      "Fantasy",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 12,
@@ -4056,7 +4032,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.0",
     "genres": [
-      "Aksi",
+      "Action",
       "Mahou Shoujo"
     ],
     "totalEpisodes": 14,
@@ -4081,8 +4057,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.6",
     "genres": [
-      "Komedi",
-      "Fantasi"
+      "Comedy",
+      "Fantasy"
     ],
     "totalEpisodes": 24,
     "totalSeasons": 1,
@@ -4106,9 +4082,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.0",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Fantasi"
+      "Fantasy"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -4133,8 +4109,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "7.7",
     "genres": [
       "Drama",
-      "Misteri",
-      "Romansa"
+      "Mystery",
+      "Romance"
     ],
     "totalEpisodes": 24,
     "totalSeasons": 1,
@@ -4158,11 +4134,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
       "Mecha",
-      "Psikologis",
-      "Romansa",
+      "Psychological",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 22,
@@ -4187,7 +4163,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -4211,9 +4187,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.1",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
-      "Fantasi"
+      "Fantasy"
     ],
     "totalEpisodes": 18,
     "totalSeasons": 1,
@@ -4237,7 +4213,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.9",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Sci-Fi"
     ],
     "totalEpisodes": 25,
@@ -4262,8 +4238,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.8",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 12,
@@ -4288,11 +4264,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 24,
     "totalSeasons": 1,
@@ -4316,7 +4292,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Slice of Life"
     ],
     "totalEpisodes": 14,
@@ -4341,8 +4317,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "7.9",
     "genres": [
-      "Misteri",
-      "Romansa",
+      "Mystery",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 24,
@@ -4367,9 +4343,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
-      "Fantasi",
-      "Romansa",
+      "Comedy",
+      "Fantasy",
+      "Romance",
       "Slice of Life",
       "Supernatural"
     ],
@@ -4395,8 +4371,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 13,
@@ -4421,9 +4397,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 26,
@@ -4448,11 +4424,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.1",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
       "Mecha",
-      "Romansa",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 26,
@@ -4477,9 +4453,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.3",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -4504,8 +4480,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
-      "Romansa"
+      "Comedy",
+      "Romance"
     ],
     "totalEpisodes": 25,
     "totalSeasons": 1,
@@ -4529,8 +4505,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Aksi",
-      "Misteri",
+      "Action",
+      "Mystery",
       "Supernatural"
     ],
     "totalEpisodes": 13,
@@ -4555,8 +4531,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.4",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 39,
@@ -4581,9 +4557,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "8.0",
     "genres": [
-      "Komedi",
-      "Fantasi",
-      "Romansa",
+      "Comedy",
+      "Fantasy",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 14,
@@ -4608,11 +4584,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Petualangan",
+      "Adventure",
       "Drama",
-      "Fantasi",
-      "Misteri",
-      "Psikologis",
+      "Fantasy",
+      "Mystery",
+      "Psychological",
       "Supernatural"
     ],
     "totalEpisodes": 12,
@@ -4637,8 +4613,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.9",
     "genres": [
-      "Komedi",
-      "Romansa"
+      "Comedy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -4662,9 +4638,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 14,
@@ -4689,8 +4665,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.4",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -4715,8 +4691,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.7",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Sci-Fi",
       "Slice of Life",
       "Supernatural"
@@ -4743,7 +4719,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.8",
     "genres": [
-      "Komedi"
+      "Comedy"
     ],
     "totalEpisodes": 13,
     "totalSeasons": 1,
@@ -4767,9 +4743,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 13,
     "totalSeasons": 1,
@@ -4794,7 +4770,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "6.6",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 18,
@@ -4819,8 +4795,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.8",
     "genres": [
-      "Anime",
-      "Series"
+      "Comedy",
+      "Ecchi",
+      "Romance"
     ],
     "totalEpisodes": 10,
     "totalSeasons": 1,
@@ -4845,7 +4822,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "6.6",
     "genres": [
       "Drama",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 13,
     "totalSeasons": 1,
@@ -4870,7 +4847,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "7.5",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life",
       "Supernatural"
     ],
@@ -4896,9 +4873,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.0",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -4922,10 +4899,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.9",
     "genres": [
-      "Petualangan",
-      "Komedi",
+      "Adventure",
+      "Comedy",
       "Ecchi",
-      "Fantasi"
+      "Fantasy"
     ],
     "totalEpisodes": 21,
     "totalSeasons": 2,
@@ -4955,7 +4932,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.0",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
       "Slice of Life"
     ],
@@ -4981,8 +4958,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
       "Supernatural"
     ],
@@ -5010,8 +4987,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "genres": [
       "Drama",
       "Ecchi",
-      "Psikologis",
-      "Romansa"
+      "Psychological",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -5035,9 +5012,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.4",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
-      "Fantasi",
+      "Fantasy",
       "Slice of Life",
       "Supernatural"
     ],
@@ -5063,7 +5040,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.2",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
       "Slice of Life",
       "Supernatural"
@@ -5090,9 +5067,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.6",
     "genres": [
-      "Aksi",
-      "Petualangan",
-      "Fantasi"
+      "Action",
+      "Adventure",
+      "Fantasy"
     ],
     "totalEpisodes": 26,
     "totalSeasons": 1,
@@ -5116,7 +5093,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "7.1",
     "genres": [
-      "Musik",
+      "Music",
       "Slice of Life"
     ],
     "totalEpisodes": 26,
@@ -5147,9 +5124,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.6",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
-      "Fantasi"
+      "Fantasy"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -5173,9 +5150,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.8",
     "genres": [
-      "Aksi",
-      "Petualangan",
-      "Fantasi"
+      "Action",
+      "Adventure",
+      "Fantasy"
     ],
     "totalEpisodes": 50,
     "totalSeasons": 2,
@@ -5229,9 +5206,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 13,
@@ -5256,8 +5233,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.6",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -5282,8 +5259,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.6",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Sci-Fi",
       "Supernatural"
     ],
@@ -5309,10 +5286,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Aksi",
-      "Horor",
-      "Misteri",
-      "Psikologis",
+      "Action",
+      "Horror",
+      "Mystery",
+      "Psychological",
       "Supernatural",
       "Thriller"
     ],
@@ -5338,7 +5315,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Slice of Life"
     ],
     "totalEpisodes": 11,
@@ -5363,9 +5340,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.0",
     "genres": [
-      "Aksi",
-      "Komedi",
-      "Fantasi",
+      "Action",
+      "Comedy",
+      "Fantasy",
       "Supernatural"
     ],
     "totalEpisodes": 11,
@@ -5390,11 +5367,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "8.8",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Misteri",
-      "Psikologis",
-      "Romansa",
+      "Mystery",
+      "Psychological",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 23,
@@ -5420,9 +5397,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "7.7",
     "genres": [
       "Drama",
-      "Misteri",
-      "Psikologis",
-      "Romansa",
+      "Mystery",
+      "Psychological",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 4,
@@ -5447,8 +5424,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.3",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 22,
@@ -5473,11 +5450,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.9",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
       "Ecchi",
-      "Misteri",
-      "Psikologis",
+      "Mystery",
+      "Psychological",
       "Supernatural"
     ],
     "totalEpisodes": 11,
@@ -5502,10 +5479,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Petualangan",
-      "Komedi",
+      "Adventure",
+      "Comedy",
       "Ecchi",
-      "Fantasi"
+      "Fantasy"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -5553,9 +5530,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "7.8",
     "genres": [
-      "Aksi",
-      "Petualangan",
-      "Komedi",
+      "Action",
+      "Adventure",
+      "Comedy",
       "Supernatural"
     ],
     "totalEpisodes": 25,
@@ -5586,7 +5563,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.3",
     "genres": [
-      "Aksi",
+      "Action",
       "Supernatural"
     ],
     "totalEpisodes": 26,
@@ -5611,9 +5588,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.9",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 13,
@@ -5638,11 +5615,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.3",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -5666,8 +5643,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "8.2",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Sci-Fi",
       "Supernatural"
     ],
@@ -5693,8 +5670,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.0",
     "genres": [
-      "Komedi",
-      "Romansa"
+      "Comedy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -5718,8 +5695,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.5",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -5744,7 +5721,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.5",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Slice of Life"
     ],
     "totalEpisodes": 31,
@@ -5769,8 +5746,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.5",
     "genres": [
-      "Komedi",
-      "Romansa"
+      "Comedy",
+      "Romance"
     ],
     "totalEpisodes": 13,
     "totalSeasons": 1,
@@ -5794,9 +5771,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 11,
@@ -5822,7 +5799,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "7.7",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Sci-Fi",
       "Slice of Life"
     ],
@@ -5848,9 +5825,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.2",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 13,
     "totalSeasons": 1,
@@ -5874,9 +5851,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.9",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -5900,10 +5877,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.2",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -5927,9 +5904,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.9",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 9,
     "totalSeasons": 1,
@@ -5953,9 +5930,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.3",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 12,
@@ -5980,9 +5957,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.6",
     "genres": [
-      "Aksi",
-      "Fantasi",
-      "Misteri",
+      "Action",
+      "Fantasy",
+      "Mystery",
       "Supernatural"
     ],
     "totalEpisodes": 24,
@@ -6007,10 +5984,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.3",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 27,
     "totalSeasons": 2,
@@ -6040,8 +6017,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.0",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Drama",
       "Supernatural"
     ],
@@ -6073,9 +6050,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.8",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 24,
@@ -6100,10 +6077,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.0",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Horor",
-      "Romansa",
+      "Horror",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 15,
@@ -6118,6 +6095,31 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     ]
   },
   {
+    "id": "school-days",
+    "title": "School Days",
+    "synopsis": "The story is about a love triangle between the male protagonist Makoto, and the two heroines Kotonoha and Sekai. Makoto develops a love interest in Kotonoha, a girl in the same year but different class. Although they both take the same train to school, she is unaware of his existence. His classmate, Sekai, manages to put the two together despite holding strong feelings towards Makoto.\n\n(Source: Anime News Network)",
+    "year": 2007,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx756-XAbKbFaUTDiA.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/756-nyDz267kznJF.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "5.1",
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "totalEpisodes": 14,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "School Days",
+        "totalEpisodes": 14
+      }
+    ]
+  },
+  {
     "id": "school-rumble",
     "title": "School Rumble",
     "synopsis": "Tsukamoto Tenma is an ordinary 2nd year high school student who has fallen in love with one of her classmates, Karasuma Ooji. However, currently she is unable to confess her feelings to him. To make things worse, she found out that Karasuma is transferring to another school in a year. On the other hand, Tenma's other classmate, Harima Kenji (who is a delinquent) is also in love with Tenma. Not being able to confess his feelings, Harima gets depressed day by day.\n(Source: Anime News Network)",
@@ -6128,8 +6130,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.6",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 26,
@@ -6154,9 +6156,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.0",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Fantasi"
+      "Fantasy"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -6180,7 +6182,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.5",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
       "Supernatural"
     ],
@@ -6206,7 +6208,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "5.9",
     "genres": [
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -6230,7 +6232,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.3",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Slice of Life"
     ],
     "totalEpisodes": 21,
@@ -6255,8 +6257,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.5",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi"
     ],
     "totalEpisodes": 26,
@@ -6287,11 +6289,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.0",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Drama",
-      "Fantasi",
-      "Romansa",
+      "Fantasy",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 72,
@@ -6316,10 +6318,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "8.5",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
-      "Fantasi",
-      "Misteri"
+      "Fantasy",
+      "Mystery"
     ],
     "totalEpisodes": 26,
     "totalSeasons": 1,
@@ -6343,10 +6345,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.0",
     "genres": [
-      "Aksi",
-      "Horor",
-      "Misteri",
-      "Romansa",
+      "Action",
+      "Horror",
+      "Mystery",
+      "Romance",
       "Supernatural"
     ],
     "totalEpisodes": 12,
@@ -6371,9 +6373,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Sci-Fi",
       "Slice of Life",
       "Supernatural"
@@ -6406,9 +6408,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 24,
@@ -6433,9 +6435,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.6",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
-      "Fantasi",
+      "Fantasy",
       "Supernatural"
     ],
     "totalEpisodes": 24,
@@ -6461,7 +6463,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "7.1",
     "genres": [
       "Drama",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 15,
     "totalSeasons": 1,
@@ -6485,10 +6487,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "7.0",
     "genres": [
-      "Aksi",
-      "Petualangan",
-      "Fantasi",
-      "Romansa"
+      "Action",
+      "Adventure",
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 52,
     "totalSeasons": 2,
@@ -6518,10 +6520,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Aksi",
+      "Action",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -6545,9 +6547,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.5",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Romansa",
+      "Romance",
       "Sci-Fi"
     ],
     "totalEpisodes": 50,
@@ -6584,8 +6586,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.5",
     "genres": [
-      "Aksi",
-      "Fantasi",
+      "Action",
+      "Fantasy",
       "Sci-Fi"
     ],
     "totalEpisodes": 50,
@@ -6616,7 +6618,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.0",
     "genres": [
-      "Aksi",
+      "Action",
       "Sci-Fi",
       "Supernatural"
     ],
@@ -6642,11 +6644,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "7.6",
     "genres": [
-      "Aksi",
+      "Action",
       "Drama",
-      "Horor",
-      "Misteri",
-      "Psikologis",
+      "Horror",
+      "Mystery",
+      "Psychological",
       "Supernatural"
     ],
     "totalEpisodes": 12,
@@ -6671,8 +6673,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.1",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Supernatural"
     ],
     "totalEpisodes": 24,
@@ -6697,8 +6699,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.2",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 13,
@@ -6723,9 +6725,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": true,
     "rating": "7.7",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 30,
@@ -6750,11 +6752,11 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Aksi",
-      "Komedi",
+      "Action",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 13,
     "totalSeasons": 1,
@@ -6779,7 +6781,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "6.8",
     "genres": [
       "Drama",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 13,
     "totalSeasons": 1,
@@ -6804,7 +6806,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "7.8",
     "genres": [
       "Drama",
-      "Romansa",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 12,
@@ -6829,9 +6831,9 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.3",
     "genres": [
-      "Aksi",
-      "Petualangan",
-      "Komedi",
+      "Action",
+      "Adventure",
+      "Comedy",
       "Drama",
       "Supernatural"
     ],
@@ -6858,8 +6860,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "rating": "6.1",
     "genres": [
       "Drama",
-      "Musik",
-      "Romansa"
+      "Music",
+      "Romance"
     ],
     "totalEpisodes": 13,
     "totalSeasons": 1,
@@ -6883,8 +6885,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "7.8",
     "genres": [
-      "Komedi",
-      "Romansa",
+      "Comedy",
+      "Romance",
       "Slice of Life"
     ],
     "totalEpisodes": 14,
@@ -6911,7 +6913,7 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "genres": [
       "Drama",
       "Ecchi",
-      "Romansa"
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -6935,10 +6937,10 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.4",
     "genres": [
-      "Komedi",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 12,
     "totalSeasons": 1,
@@ -6962,12 +6964,12 @@ export const MOCK_CATALOG_DATA: Anime[] = [
     "isFeatured": false,
     "rating": "6.7",
     "genres": [
-      "Aksi",
-      "Petualangan",
-      "Komedi",
+      "Action",
+      "Adventure",
+      "Comedy",
       "Ecchi",
-      "Fantasi",
-      "Romansa"
+      "Fantasy",
+      "Romance"
     ],
     "totalEpisodes": 49,
     "totalSeasons": 2,

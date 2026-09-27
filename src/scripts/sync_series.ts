@@ -391,53 +391,53 @@ async function main() {
   for (let idx = 0; idx < animeList.length; idx++) {
     const a = animeList[idx];
     try {
-      await client.execute({
-        sql: `INSERT INTO anime (id, user_id, title, synopsis, year, poster_url, cover_url, status, is_featured, rating, total_episodes, total_seasons, seasons_json, genres, source_type, source_path, created_at, updated_at)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        args: [
-          a.id,
-          "user-default",
-          a.title,
-          a.synopsis,
-          a.year,
-          a.posterUrl,
-          a.coverUrl,
-          "tamat",
-          a.isFeatured ? 1 : 0,
-          a.rating,
-          a.totalEpisodes,
-          a.totalSeasons,
-          JSON.stringify(a.seasons),
-          a.genres,
-          "local",
-          `D:/Anime/Series/${a.folderName}`,
-          now,
-          now,
-        ],
-      });
-
-      await client.execute({
-        sql: `INSERT OR IGNORE INTO anime_categories (id, anime_id, category_id) VALUES (?, ?, ?)`,
-        args: [`ac-${a.id}-all-series`, a.id, "all-series"],
-      });
+      const statements: any[] = [
+        {
+          sql: `INSERT INTO anime (id, user_id, title, synopsis, year, poster_url, cover_url, status, is_featured, rating, total_episodes, total_seasons, seasons_json, genres, source_type, source_path, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          args: [
+            a.id,
+            "user-default",
+            a.title,
+            a.synopsis,
+            a.year,
+            a.posterUrl,
+            a.coverUrl,
+            "tamat",
+            a.isFeatured ? 1 : 0,
+            a.rating,
+            a.totalEpisodes,
+            a.totalSeasons,
+            JSON.stringify(a.seasons),
+            a.genres,
+            "local",
+            `D:/Anime/Series/${a.folderName}`,
+            now,
+            now,
+          ],
+        },
+        {
+          sql: `INSERT OR IGNORE INTO anime_categories (id, anime_id, category_id) VALUES (?, ?, ?)`,
+          args: [`ac-${a.id}-all-series`, a.id, "all-series"],
+        },
+      ];
 
       let specificCat = "all-series";
-      if (a.genres.includes("Aksi")) specificCat = "action";
-      else if (a.genres.includes("Romansa")) specificCat = "romance";
-      else if (a.genres.includes("Komedi")) specificCat = "comedy";
-      else if (a.genres.includes("Fantasi")) specificCat = "fantasy";
+      if (a.genres.includes("Action") || a.genres.includes("Aksi")) specificCat = "action";
+      else if (a.genres.includes("Romance") || a.genres.includes("Romansa")) specificCat = "romance";
+      else if (a.genres.includes("Comedy") || a.genres.includes("Komedi")) specificCat = "comedy";
+      else if (a.genres.includes("Fantasy") || a.genres.includes("Fantasi")) specificCat = "fantasy";
 
       if (specificCat !== "all-series") {
-        await client.execute({
+        statements.push({
           sql: `INSERT OR IGNORE INTO anime_categories (id, anime_id, category_id) VALUES (?, ?, ?)`,
           args: [`ac-${a.id}-${specificCat}`, a.id, specificCat],
         });
       }
 
-      // Masukkan episode dengan screenshot thumbnail dan judul asli
       for (const ep of a.episodes) {
         const sourceUrl = `file:///${ep.fullPath}`;
-        await client.execute({
+        statements.push({
           sql: `INSERT INTO episodes (id, anime_id, title, episode_number, season_number, duration_seconds, source_type, source_url, thumbnail_url, synopsis, file_size, video_quality, created_at)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           args: [
@@ -457,7 +457,7 @@ async function main() {
           ],
         });
 
-        await client.execute({
+        statements.push({
           sql: `INSERT INTO episode_sources (id, episode_id, anime_id, source_type, source_url, quality, label, file_size, local_path, status, created_at)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           args: [
@@ -476,6 +476,8 @@ async function main() {
         });
       }
 
+      await client.batch(statements, "write");
+
       insertedCount++;
       if ((idx + 1) % 25 === 0 || idx === animeList.length - 1) {
         console.log(`Progress: ${idx + 1}/${animeList.length} anime tersimpan ke Turso...`);
@@ -493,10 +495,10 @@ async function main() {
   const featuredAnimes = animeList.filter((a) => a.isFeatured).slice(0, 6);
   const heroAnime = featuredAnimes[0] || animeList[0];
 
-  const actionItems = animeList.filter((a) => a.genres.includes("Aksi")).slice(0, 15);
-  const romanceItems = animeList.filter((a) => a.genres.includes("Romansa")).slice(0, 15);
-  const comedyItems = animeList.filter((a) => a.genres.includes("Komedi")).slice(0, 15);
-  const fantasyItems = animeList.filter((a) => a.genres.includes("Fantasi")).slice(0, 15);
+  const actionItems = animeList.filter((a) => a.genres.includes("Action") || a.genres.includes("Aksi")).slice(0, 15);
+  const romanceItems = animeList.filter((a) => a.genres.includes("Romance") || a.genres.includes("Romansa")).slice(0, 15);
+  const comedyItems = animeList.filter((a) => a.genres.includes("Comedy") || a.genres.includes("Komedi")).slice(0, 15);
+  const fantasyItems = animeList.filter((a) => a.genres.includes("Fantasy") || a.genres.includes("Fantasi")).slice(0, 15);
   const allSeriesItems = animeList.slice(0, 20);
 
   const formatAnimeObj = (a: ParsedAnime) => ({
@@ -560,7 +562,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
   },
   {
     id: "romance",
-    name: "Romansa & Drama Emosional",
+    name: "Romance & Drama Emosional",
     type: "genre",
     sortOrder: 3,
     items: ${JSON.stringify(romanceItems.map(formatAnimeObj), null, 2)},

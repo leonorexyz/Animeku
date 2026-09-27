@@ -10,6 +10,7 @@ import {
   MOCK_CATALOG_DATA,
 } from "@/data/mockAnime";
 import { Anime } from "@/types/anime";
+import { normalizeGenre } from "@/components/SearchFilters";
 
 export async function GET() {
   try {
@@ -73,11 +74,14 @@ export async function GET() {
     const allAnimes = Array.from(combinedMap.values());
     const totalCount = allAnimes.length;
 
-    // Hitung frekuensi Genre
+    // Hitung frekuensi Genre (Normalisasi & Standar)
     const genreCounts: Record<string, number> = {};
     allAnimes.forEach((anime) => {
       (anime.genres || []).forEach((g) => {
-        genreCounts[g] = (genreCounts[g] || 0) + 1;
+        const norm = normalizeGenre(g);
+        if (norm && norm !== "Anime" && norm !== "Series") {
+          genreCounts[norm] = (genreCounts[norm] || 0) + 1;
+        }
       });
     });
 

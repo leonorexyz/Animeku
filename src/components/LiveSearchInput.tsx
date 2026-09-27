@@ -24,6 +24,7 @@ import {
   getSearchHistory,
   removeSearchHistoryItem,
 } from "@/utils/searchHistory";
+import { normalizeGenre } from "@/components/SearchFilters";
 
 interface LiveSearchInputProps {
   value?: string;
@@ -93,11 +94,21 @@ export default function LiveSearchInput({
   const liveResults = useMemo(() => {
     if (!debouncedQuery.trim()) return [];
     const q = debouncedQuery.toLowerCase().trim();
+    const qNorm = normalizeGenre(q).toLowerCase();
     return allAnimeList
       .filter((anime) => {
         const matchTitle = anime.title.toLowerCase().includes(q);
         const matchSynopsis = anime.synopsis?.toLowerCase().includes(q);
-        const matchGenre = anime.genres?.some((g) => g.toLowerCase().includes(q));
+        const matchGenre = anime.genres?.some((g) => {
+          const gLower = g.toLowerCase();
+          const gNorm = normalizeGenre(g).toLowerCase();
+          return (
+            gLower.includes(q) ||
+            gNorm.includes(q) ||
+            gLower === qNorm ||
+            gNorm === qNorm
+          );
+        });
         return matchTitle || matchSynopsis || matchGenre;
       })
       .slice(0, 6);

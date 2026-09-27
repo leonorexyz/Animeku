@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimeCard from "@/components/AnimeCard";
 import LiveSearchInput from "@/components/LiveSearchInput";
-import SearchFilters, { FilterState } from "@/components/SearchFilters";
+import SearchFilters, { FilterState, normalizeGenre } from "@/components/SearchFilters";
 import SortControl from "@/components/SortControl";
 import SearchHistory from "@/components/SearchHistory";
 import SearchAnimeCard from "@/components/SearchAnimeCard";
@@ -44,7 +44,7 @@ function SearchContent() {
     year: "all",
     status: "all",
     watchStatus: "all",
-    sortBy: "rating-desc",
+    sortBy: "title-asc",
   });
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
@@ -75,15 +75,30 @@ function SearchContent() {
           const q = query.toLowerCase().trim();
           const matchTitle = item.title.toLowerCase().includes(q);
           const matchSynopsis = item.synopsis?.toLowerCase().includes(q);
-          const matchGenre = item.genres?.some((g) =>
-            g.toLowerCase().includes(q)
-          );
+          const qNorm = normalizeGenre(q).toLowerCase();
+          const matchGenre = item.genres?.some((g) => {
+            const gLower = g.toLowerCase();
+            const gNorm = normalizeGenre(g).toLowerCase();
+            return (
+              gLower.includes(q) ||
+              gNorm.includes(q) ||
+              gLower === qNorm ||
+              gNorm === qNorm
+            );
+          });
           if (!matchTitle && !matchSynopsis && !matchGenre) return false;
         }
 
-        // Genre filter
+        // Genre filter (Bilingual & Synonym Normalized)
         if (filters.genre !== "Semua") {
-          if (!item.genres || !item.genres.includes(filters.genre)) {
+          const target = normalizeGenre(filters.genre).toLowerCase();
+          const matchGenre = item.genres?.some((g) => {
+            return (
+              g.toLowerCase() === target ||
+              normalizeGenre(g).toLowerCase() === target
+            );
+          });
+          if (!matchGenre) {
             return false;
           }
         }
@@ -136,18 +151,20 @@ function SearchContent() {
       })
       .sort((a, b) => {
         switch (filters.sortBy) {
+          case "title-asc":
+            return a.title.localeCompare(b.title, "id", { sensitivity: "base" });
+          case "title-desc":
+            return b.title.localeCompare(a.title, "id", { sensitivity: "base" });
           case "rating-desc":
             return parseFloat(b.rating || "0") - parseFloat(a.rating || "0");
+          case "rating-asc":
+            return parseFloat(a.rating || "0") - parseFloat(b.rating || "0");
           case "year-desc":
             return (b.year || 0) - (a.year || 0);
           case "year-asc":
             return (a.year || 0) - (b.year || 0);
-          case "title-asc":
-            return a.title.localeCompare(b.title);
-          case "title-desc":
-            return b.title.localeCompare(a.title);
           default:
-            return 0;
+            return a.title.localeCompare(b.title, "id", { sensitivity: "base" });
         }
       });
   }, [allAnimeList, query, filters]);
@@ -160,7 +177,7 @@ function SearchContent() {
       year: "all",
       status: "all",
       watchStatus: "all",
-      sortBy: "rating-desc",
+      sortBy: "title-asc",
     });
   };
 
