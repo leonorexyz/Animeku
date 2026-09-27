@@ -84,8 +84,21 @@ export async function GET(req: Request) {
     // Gabungkan dengan data mock untuk memastikan katalog lengkap tersedia
     const combinedMap = new Map<string, Anime>();
 
-    // Masukkan anime dari DB
+    // Masukkan anime dari DB dengan parsing a.genres yang sebenarnya
     dbAnimes.forEach((a) => {
+      let animeGenres: string[] = [];
+      if (a.genres) {
+        try {
+          if (a.genres.startsWith("[")) {
+            animeGenres = JSON.parse(a.genres);
+          } else {
+            animeGenres = a.genres.split(",").map((g: string) => g.trim());
+          }
+        } catch {
+          animeGenres = a.genres.split(",").map((g: string) => g.trim());
+        }
+      }
+
       combinedMap.set(a.id, {
         id: a.id,
         title: a.title,
@@ -96,12 +109,12 @@ export async function GET(req: Request) {
         status: a.status as "belum" | "sedang" | "tamat",
         isFeatured: a.isFeatured,
         rating: a.rating || "8.5",
-        genres: genresByAnime[a.id] || ["Action"],
+        genres: animeGenres.length > 0 ? animeGenres : (genresByAnime[a.id] || ["Anime"]),
         totalEpisodes: episodeCountMap[a.id] || 12,
       });
     });
 
-    // Masukkan anime dari Mock bila belum ada
+    // Masukkan anime dari Mock bila belum ada atau untuk melengkapi genre
     const allMock: Anime[] = [
       ...MOCK_FEATURED_ANIMES,
       ...MOCK_CONTINUE_WATCHING,
@@ -112,6 +125,13 @@ export async function GET(req: Request) {
     allMock.forEach((m) => {
       if (!combinedMap.has(m.id)) {
         combinedMap.set(m.id, m);
+      } else {
+        const existing = combinedMap.get(m.id)!;
+        if (!existing.genres || existing.genres.length <= 1) {
+          if (m.genres && m.genres.length > 0) {
+            existing.genres = Array.from(new Set([...(existing.genres || []), ...m.genres]));
+          }
+        }
       }
     });
 
