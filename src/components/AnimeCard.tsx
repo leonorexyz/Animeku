@@ -237,11 +237,17 @@ export default function AnimeCard({
         ) : (
           <div className="mt-1 flex items-center justify-between text-[11px] text-zinc-400">
             <span className="font-medium text-zinc-300">{anime.year}</span>
-            <span className="text-[10px] bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded border border-white/5">
-              {anime.totalEpisodes} Ep
+            <span className={`text-[10px] px-1.5 py-0.5 rounded border ${
+              anime.type === "movie" || anime.genres?.includes("Movie")
+                ? "bg-amber-950/70 text-amber-300 border-amber-500/30 font-semibold"
+                : "bg-zinc-800 text-zinc-300 border-white/5"
+            }`}>
+              {anime.type === "movie" || anime.genres?.includes("Movie")
+                ? (anime.totalEpisodes > 1 ? `Film (${anime.totalEpisodes} Ep)` : "Film")
+                : `${anime.totalEpisodes} Ep`}
             </span>
             <span className="truncate max-w-[80px] text-zinc-400">
-              {anime.genres[0]}
+              {anime.genres?.[0] === "Movie" ? (anime.genres?.[1] || "Film") : anime.genres?.[0]}
             </span>
           </div>
         )}

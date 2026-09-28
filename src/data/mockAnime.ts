@@ -25,7 +25,8 @@ export const MOCK_FEATURED_ANIME: Anime = {
       "folderName": "Angel Beats",
       "totalEpisodes": 14
     }
-  ]
+  ],
+  "type": "series"
 };
 
 export const MOCK_FEATURED_ANIMES: Anime[] = [
@@ -54,7 +55,8 @@ export const MOCK_FEATURED_ANIMES: Anime[] = [
         "folderName": "Angel Beats",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "bakemonogatari",
@@ -83,7 +85,66 @@ export const MOCK_FEATURED_ANIMES: Anime[] = [
         "folderName": "Bakemonogatari",
         "totalEpisodes": 15
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "5-centimeters-per-second",
+    "title": "Byousoku 5 Centimeter",
+    "synopsis": "Tohno Takaki and Shinohara Akari, two very close friends and classmates, are torn apart when Akari's family is transferred to another region of Japan due to her family's job. Despite separation, they continue to keep in touch through mail. When Takaki finds out that his family is also moving, he decides to meet with Akari one last time.\nAs years pass by, they continue down their own paths, their distance slowly growing wider and their contact with one another fades. Yet, they keep remembering one another and the times they have shared together, wondering if they will have the chance to meet once again.",
+    "year": 2007,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1689-rJKhjLEjQHSy.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1689.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "7.1",
+    "genres": [
+      "Movie",
+      "Drama",
+      "Romance",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 3,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "5 Centimeters per Second",
+        "totalEpisodes": 3
+      }
+    ],
+    "type": "movie"
+  },
+  {
+    "id": "chainsaw-man-reze-arc",
+    "title": "Chainsaw Man: Reze-hen",
+    "synopsis": "Denji became “Chainsaw Man”, a boy with a devil’s heart, and is now part of Special Division 4’s devil hunters. After a date with Makima, the woman of his dreams, Denji takes shelter from the rain. There he meets Reze, a girl who works in a café.\n\n(Source: MAPPA CHANNEL)",
+    "year": 2025,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171627-ZN9D7P46yHnw.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/171627-7esVHhgw69rn.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "9.0",
+    "genres": [
+      "Movie",
+      "Action",
+      "Drama",
+      "Horror",
+      "Romance",
+      "Supernatural"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Chainsaw Man - Reze Arc",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "clannad",
@@ -117,7 +178,8 @@ export const MOCK_FEATURED_ANIMES: Anime[] = [
         "folderName": "Clannad After Story",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "code-geass-lelouch-of-the-rebellion",
@@ -151,64 +213,8 @@ export const MOCK_FEATURED_ANIMES: Anime[] = [
         "folderName": "Code Geass - Lelouch of the Rebellion R2",
         "totalEpisodes": 25
       }
-    ]
-  },
-  {
-    "id": "hyouka",
-    "title": "Hyouka",
-    "synopsis": "Energy-conservative high school student Houtarou Oreki ends up with more than he bargained for when he signs up for the Classic Literature Club at his sister's behest—especially when he realizes how deep-rooted the club's history really is. Begrudgingly, Oreki is dragged into an investigation concerning the 45-year-old mystery that surrounds the club room.\n\nAccompanied by his fellow club members, the knowledgeable Satoshi Fukube, the stern but benign Mayaka Ibara, and the ever-curious Eru Chitanda, Oreki must combat deadlines and lack of information with resourcefulness and hidden talent, in order to not only find the truth buried beneath the dust of works created years before them, but of other side cases as well.\n\nBased on the award-winning Koten-bu light novel series, and directed by Yasuhiro Takemoto of Suzumiya Haruhi no Shoushitsu, Hyouka shows that normal life can be full of small mysteries, be it family history, a student film, or even the withered flowers that make up a ghost story.\n\n(Source: MAL Rewrite)",
-    "year": 2012,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx12189-zj5AWUYO53Fv.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/12189-TG0peUcKFqur.jpg",
-    "status": "tamat",
-    "isFeatured": true,
-    "rating": "7.9",
-    "genres": [
-      "Mystery",
-      "Romance",
-      "Slice of Life"
     ],
-    "totalEpisodes": 24,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Hyouka",
-        "totalEpisodes": 24
-      }
-    ]
-  },
-  {
-    "id": "lovelive",
-    "title": "Love Live! School idol project",
-    "synopsis": "Otonokizaka High School stands on the border of three cities: Akihabara&mdash;a pop culture mecca that's evolving by the minute; Kanda&mdash;a conservative, cultured city where history and tradition reign supreme; and Jinbo&mdash;a quiet area reserved for a more mature, sophisticated population. Amidst this culture clash, the school now faces closure due to the enrollment of fewer and fewer students.\nWith the school planning to close within three years, nine female students come together with one thing in mind&mdash;form a pop idol group to revive the school's popularity and keep it from shutting down. \"In order to protect our beloved school, there's only one thing we can do... become pop stars!\"\nTheir goal is simple: Become an overnight sensation and use their nationwide media exposure to promote their school and bring in a wave of new students to the ailing area. A simple but solid plan, they figure. Naturally, they're nervous and wonder if this plan can really succeed, but for better or worse their new journey has begun...\n\"All we can ask for is just a tiny bit of support from you. We truly believe that with your help, we can change the world around us. We will make our dreams come true!\"\n(Source: NIS America)",
-    "year": 2013,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b15051-lwm0wVRWjKub.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/15051-fkMle8Yxuxjo.jpg",
-    "status": "tamat",
-    "isFeatured": true,
-    "rating": "7.1",
-    "genres": [
-      "Music",
-      "Slice of Life"
-    ],
-    "totalEpisodes": 26,
-    "totalSeasons": 2,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "LoveLive!",
-        "totalEpisodes": 13
-      },
-      {
-        "seasonNumber": 2,
-        "title": "Musim 2",
-        "folderName": "LoveLive! 2",
-        "totalEpisodes": 13
-      }
-    ]
+    "type": "series"
   }
 ];
 
@@ -239,6 +245,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
         "totalEpisodes": 14
       }
     ],
+    "type": "series",
     "progress": {
       "id": "prog-angel-beats",
       "animeId": "angel-beats",
@@ -251,7 +258,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-27T18:00:51.484Z"
+      "lastWatchedAt": "2026-09-28T03:38:48.618Z"
     }
   },
   {
@@ -282,6 +289,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
         "totalEpisodes": 15
       }
     ],
+    "type": "series",
     "progress": {
       "id": "prog-bakemonogatari",
       "animeId": "bakemonogatari",
@@ -294,113 +302,402 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-27T18:00:51.484Z"
+      "lastWatchedAt": "2026-09-28T03:38:48.618Z"
     }
   },
   {
-    "id": "clannad",
-    "title": "CLANNAD",
-    "synopsis": "Tomoya is a bitter, third year high school student. His mother passed away, causing his father to resort to alcohol and gambling. Tomoya is distant with his father and has become a delinquent in the years since his mother's death. Walking to school, he meets Nagisa Furukawa who is a year older but is repeating the grade due to illness. She is alone, as most of her friends have moved on. The two begin hanging out, and as time goes by, Tomoya finds his life shifting in a new direction.\n\n(Source: Sentai Filmworks)",
+    "id": "5-centimeters-per-second",
+    "title": "Byousoku 5 Centimeter",
+    "synopsis": "Tohno Takaki and Shinohara Akari, two very close friends and classmates, are torn apart when Akari's family is transferred to another region of Japan due to her family's job. Despite separation, they continue to keep in touch through mail. When Takaki finds out that his family is also moving, he decides to meet with Akari one last time.\nAs years pass by, they continue down their own paths, their distance slowly growing wider and their contact with one another fades. Yet, they keep remembering one another and the times they have shared together, wondering if they will have the chance to meet once again.",
     "year": 2007,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2167-pSDBcyc0vjej.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/2167.jpg",
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1689-rJKhjLEjQHSy.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1689.jpg",
     "status": "tamat",
     "isFeatured": true,
-    "rating": "7.7",
+    "rating": "7.1",
     "genres": [
-      "Comedy",
+      "Movie",
       "Drama",
       "Romance",
-      "Slice of Life",
-      "Supernatural"
+      "Slice of Life"
     ],
-    "totalEpisodes": 49,
-    "totalSeasons": 2,
+    "totalEpisodes": 3,
+    "totalSeasons": 1,
     "seasons": [
       {
         "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Clannad",
-        "totalEpisodes": 24
-      },
-      {
-        "seasonNumber": 2,
-        "title": "Musim 2",
-        "folderName": "Clannad After Story",
-        "totalEpisodes": 25
+        "title": "Film Utama",
+        "folderName": "5 Centimeters per Second",
+        "totalEpisodes": 3
       }
     ],
+    "type": "movie",
     "progress": {
-      "id": "prog-clannad",
-      "animeId": "clannad",
-      "animeTitle": "CLANNAD",
-      "animePoster": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2167-pSDBcyc0vjej.jpg",
-      "episodeId": "ep-clannad-s1-3",
+      "id": "prog-5-centimeters-per-second",
+      "animeId": "5-centimeters-per-second",
+      "animeTitle": "Byousoku 5 Centimeter",
+      "animePoster": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1689-rJKhjLEjQHSy.jpg",
+      "episodeId": "ep-5-centimeters-per-second-s1-3",
       "episodeNumber": 3,
       "seasonNumber": 1,
-      "episodeTitle": "Ep 3: Once Again After Crying",
+      "episodeTitle": "Babak 3: Byousoku 5 Centimeter",
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-27T18:00:51.484Z"
+      "lastWatchedAt": "2026-09-28T03:38:48.618Z"
     }
   },
   {
-    "id": "code-geass-lelouch-of-the-rebellion",
-    "title": "Code Geass: Hangyaku no Lelouch",
-    "synopsis": "On August 10th of the year 2010 the Holy Empire of Britannia began a campaign of conquest, its sights set on Japan. Operations were completed in one month thanks to Britannia's deployment of new mobile humanoid armor vehicles dubbed Knightmare Frames. Japan's rights and identity were stripped away, the once proud nation now referred to as Area 11. Its citizens, Elevens, are forced to scratch out a living while the Britannian aristocracy lives comfortably within their settlements. Pockets of resistance appear throughout Area 11, working towards independence for Japan.\n Lelouch, an exiled Imperial Prince of Britannia posing as a student, finds himself in the heart of the ongoing conflict for the island nation. Through a chance meeting with a mysterious girl named C.C., Lelouch gains his Geass, the power of the king. Now endowed with absolute dominance over any person, Lelouch may finally realize his goal of bringing down Britannia from within!\n(Source: Bandai Entertainment)",
-    "year": 2006,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1575-hsmWM2ydNm1m.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1575.jpg",
+    "id": "chainsaw-man-reze-arc",
+    "title": "Chainsaw Man: Reze-hen",
+    "synopsis": "Denji became “Chainsaw Man”, a boy with a devil’s heart, and is now part of Special Division 4’s devil hunters. After a date with Makima, the woman of his dreams, Denji takes shelter from the rain. There he meets Reze, a girl who works in a café.\n\n(Source: MAPPA CHANNEL)",
+    "year": 2025,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171627-ZN9D7P46yHnw.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/171627-7esVHhgw69rn.jpg",
     "status": "tamat",
     "isFeatured": true,
-    "rating": "8.5",
+    "rating": "9.0",
     "genres": [
+      "Movie",
       "Action",
       "Drama",
-      "Mecha",
-      "Sci-Fi",
-      "Thriller"
+      "Horror",
+      "Romance",
+      "Supernatural"
     ],
-    "totalEpisodes": 50,
-    "totalSeasons": 2,
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
     "seasons": [
       {
         "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Code Geass - Lelouch of the Rebellion",
-        "totalEpisodes": 25
-      },
-      {
-        "seasonNumber": 2,
-        "title": "Musim 2",
-        "folderName": "Code Geass - Lelouch of the Rebellion R2",
-        "totalEpisodes": 25
+        "title": "Film Utama",
+        "folderName": "Chainsaw Man - Reze Arc",
+        "totalEpisodes": 1
       }
     ],
+    "type": "movie",
     "progress": {
-      "id": "prog-code-geass-lelouch-of-the-rebellion",
-      "animeId": "code-geass-lelouch-of-the-rebellion",
-      "animeTitle": "Code Geass: Hangyaku no Lelouch",
-      "animePoster": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1575-hsmWM2ydNm1m.jpg",
-      "episodeId": "ep-code-geass-lelouch-of-the-rebellion-s1-4",
+      "id": "prog-chainsaw-man-reze-arc",
+      "animeId": "chainsaw-man-reze-arc",
+      "animeTitle": "Chainsaw Man: Reze-hen",
+      "animePoster": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171627-ZN9D7P46yHnw.png",
+      "episodeId": "ep-chainsaw-man-reze-arc-s1-4",
       "episodeNumber": 4,
       "seasonNumber": 1,
-      "episodeTitle": "Ep 4: His Name is Zero",
+      "episodeTitle": "Episode 4",
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-27T18:00:51.484Z"
+      "lastWatchedAt": "2026-09-28T03:38:48.618Z"
     }
   }
 ];
 
 export const MOCK_CATEGORIES: CategorySection[] = [
   {
-    id: "all-series",
-    name: "Koleksi Serial Anime Pilihan",
+    id: "all-movies",
+    name: "🎬 Film & Movie Anime Pilihan",
     type: "collection",
     sortOrder: 1,
+    items: [
+  {
+    "id": "5-centimeters-per-second",
+    "title": "Byousoku 5 Centimeter",
+    "synopsis": "Tohno Takaki and Shinohara Akari, two very close friends and classmates, are torn apart when Akari's family is transferred to another region of Japan due to her family's job. Despite separation, they continue to keep in touch through mail. When Takaki finds out that his family is also moving, he decides to meet with Akari one last time.\nAs years pass by, they continue down their own paths, their distance slowly growing wider and their contact with one another fades. Yet, they keep remembering one another and the times they have shared together, wondering if they will have the chance to meet once again.",
+    "year": 2007,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1689-rJKhjLEjQHSy.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1689.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "7.1",
+    "genres": [
+      "Movie",
+      "Drama",
+      "Romance",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 3,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "5 Centimeters per Second",
+        "totalEpisodes": 3
+      }
+    ],
+    "type": "movie"
+  },
+  {
+    "id": "chainsaw-man-reze-arc",
+    "title": "Chainsaw Man: Reze-hen",
+    "synopsis": "Denji became “Chainsaw Man”, a boy with a devil’s heart, and is now part of Special Division 4’s devil hunters. After a date with Makima, the woman of his dreams, Denji takes shelter from the rain. There he meets Reze, a girl who works in a café.\n\n(Source: MAPPA CHANNEL)",
+    "year": 2025,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171627-ZN9D7P46yHnw.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/171627-7esVHhgw69rn.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "9.0",
+    "genres": [
+      "Movie",
+      "Action",
+      "Drama",
+      "Horror",
+      "Romance",
+      "Supernatural"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Chainsaw Man - Reze Arc",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
+  },
+  {
+    "id": "date-a-live-mayuri-judgement",
+    "title": "Date A Live Movie: Mayuri Judgement",
+    "synopsis": "Set in the premise after the events of Date a Live II, a mysterious existence named Mayuri has started to appear in Tengu City. Shidou set on a date to figure and find out the identity of the spirit. In order to find out the reason of the interruption of the disturbance that occurred, he goes on a date with six of the spirits that wanted him all for themselves for the mysterious being to appear.\n\nNote: An original story supervised by the original light novel author Koushi Tachibana.",
+    "year": 2015,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20741-WdThAhseSo1y.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n20741-HYmNMUQfT0JM.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.0",
+    "genres": [
+      "Movie",
+      "Action",
+      "Comedy",
+      "Ecchi",
+      "Fantasy",
+      "Mecha",
+      "Romance",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Date A Live - Mayuri Judgement",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
+  },
+  {
+    "id": "doraemon-stand-by-me",
+    "title": "STAND BY ME Doraemon",
+    "synopsis": "The robotic cat was sent by a boy in the future to the present day to help the boy's hapless grandfather, Nobita. Doraemon, Nobita, and other children deal with everyday childhood issues, solve (and cause) problems with the gadgets in Doraemon's fourth-dimensional pocket, and embark on escapades through time and space.",
+    "year": 2014,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/20515.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/20515.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.8",
+    "genres": [
+      "Movie",
+      "Adventure",
+      "Comedy",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Doraemon - Stand By Me",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
+  },
+  {
+    "id": "honeyworks-zutto-maekara-suki-deshita",
+    "title": "Zutto Mae kara Suki deshita.: Kokuhaku Jikkou Iinkai",
+    "synopsis": "This is the last time I’m going to practice…\n\nNatsuki Enomoto, a third-year student at Sakuragaoka High School, has feelings of unrequited love for her childhood friend, Yuu Setoguchi. Unable to be true to her own feelings, Natsuki tells Yuu that she is merely using him as a stand-in to practice confessing her love to. As Natsuki continues to pretend not having any feelings for Yuu, her classmate Koyuki Ayase asks her out on a date. Will Natsuki ever be able to stop “practicing” and actually confess her love to Yuu?\n\n(Source: Aniplex USA)",
+    "year": 2016,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21296-WtdIXdg64GCK.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21296-1tLF48awXvQw.png",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.9",
+    "genres": [
+      "Movie",
+      "Drama",
+      "Romance",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "HoneyWorks - Zutto Maekara Suki Deshita",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
+  },
+  {
+    "id": "lovelive-school-idol-movie",
+    "title": "Love Live! The School Idol Movie",
+    "synopsis": "Although μ's, the defending champions of the school idol tournament, plans to dissolve their group after the graduation of their senior members, they receive news that leads them to holding a concert event! The 9 girls continue to learn and grow in this new and unfamiliar world. What is the last thing that these girls can do as school idols? With the clock ticking, what kind of meaning will the μ's members find in performing the most exciting live performance?\n\n(Source: NIS America)",
+    "year": 2015,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20766-9A9Z6hawqdLe.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20766-M4rqjELIprpa.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.7",
+    "genres": [
+      "Movie",
+      "Music",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "LoveLive - School Idol Movie",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
+  },
+  {
+    "id": "naruto-shippuden-the-movie",
+    "title": "NARUTO: Shippuuden Movie",
+    "synopsis": "Demons that once almost destroyed the world, are revived by someone. To prevent the world from being destroyed, the demon has to be sealed and the only one who can do it is the shrine maiden Shion from the country of demons, who has two powers; one is sealing demons and the other is predicting the deaths of humans. This time Naruto's mission is to guard Shion, but she predicts Naruto's death. The only way to escape it, is to get away from Shion, which would leave her unguarded, then the demon, whose only goal is to kill Shion will do so, thus meaning the end of the world. Naruto decides to challenge this \"prediction of death\", but fails to prove Shion's prediction wrong and supposedly dies in vain.",
+    "year": 2007,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2472-mYApVxceStn5.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/2472-yKoD8rvll5al.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.0",
+    "genres": [
+      "Movie",
+      "Action",
+      "Adventure",
+      "Comedy",
+      "Fantasy"
+    ],
+    "totalEpisodes": 8,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Naruto Shippuden - The Movie",
+        "totalEpisodes": 8
+      }
+    ],
+    "type": "movie"
+  },
+  {
+    "id": "sora-no-otoshimono-tokeijikake-no-angeloid",
+    "title": "Sora no Otoshimono: Tokeijikake no Angeloid",
+    "synopsis": "Movie adaptation of the Sora no Otoshimono manga, based on Kazane Hiyori's arc.",
+    "year": 2011,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9790-OAQA9JYhzFxz.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9790-OAQA9JYhzFxz.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.1",
+    "genres": [
+      "Movie",
+      "Comedy",
+      "Drama",
+      "Ecchi",
+      "Romance",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Sora no Otoshimono - Tokeijikake no Angeloid",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
+  },
+  {
+    "id": "summer-wars",
+    "title": "Summer Wars",
+    "synopsis": "When timid eleventh-grader and math genius Kenji Koiso is asked by older student and secret crush Natsuki to come with her to her family's Nagano home for a summer job, he agrees without hesitation. \nNatsuki's family, the Jinnouchi clan, dates back to the Muromachi era (1336 to 1573), and they've all come together to celebrate the 90th birthday of the spunky matriarch of the family, Sakae. That&rsquo;s when Kenji discovers his \"summer job\" is to pretend to be Natsuki's fiance and dance with her at the birthday celebration. \nAs Kenji attempts to keep up with Natsuki's act around her family, he receives a strange math problem on his cell phone which, being a math genius, he can't resist solving. As it turns out, the solution to the mysterious equation causes Oz, the program that controls nearly every aspect of life to be hacked into, it's up to Kenji and his new \"family\" to stop the hacker before it's too late.\n(Source: twitchfilm.net)",
+    "year": 2009,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5681-3DmxUVn3grD0.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/5681-M15hrscD9QHN.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "7.7",
+    "genres": [
+      "Movie",
+      "Action",
+      "Comedy",
+      "Drama",
+      "Romance",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Summer Wars",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
+  },
+  {
+    "id": "sword-art-online-extra-edition",
+    "title": "Sword Art Online: Extra Edition",
+    "synopsis": "Yui wants to see a whale with Kirito during an underwater quest in Alfeim Online. During the quest however, it is revealed Leafa cannot swim. Asuna and the other female characters decide to train Suguha in a real-world pool to help her in ALO. Meanwhile, Kirito meets a certain someone.",
+    "year": 2013,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20021-BZA5XTwahXPj.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20021-BJZOqmANWyU7.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.1",
+    "genres": [
+      "Movie",
+      "Action",
+      "Adventure",
+      "Fantasy",
+      "Romance"
+    ],
+    "totalEpisodes": 4,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Sword Art Online - Extra Edition",
+        "totalEpisodes": 4
+      }
+    ],
+    "type": "movie"
+  }
+],
+  },
+  {
+    id: "all-series",
+    name: "📺 Koleksi Serial Anime Pilihan",
+    type: "collection",
+    sortOrder: 2,
     items: [
   {
     "id": "11-eyes",
@@ -426,7 +723,35 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "11 Eyes",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "accel-world",
+    "title": "Accel World",
+    "synopsis": "The year is 2046. Haruyuki Arita is a young boy who finds himself on the lowest social rungs of his school. Ashamed of his miserable life, Haruyuki can only cope by indulging in virtual games. But that all changes when Kuroyukihime, the most popular girl in school, introduces him to a mysterious program called Brain Burst and a virtual reality called the Accel World. \n(Source: VIZ Media)",
+    "year": 2012,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11759-o3ZRpFYnP5Lc.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11759-KUzlQmgCx275.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.7",
+    "genres": [
+      "Action",
+      "Romance",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 26,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Accel World",
+        "totalEpisodes": 26
+      }
+    ],
+    "type": "series"
   },
   {
     "id": "ah-my-goddess",
@@ -459,33 +784,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ah My Goddess 2",
         "totalEpisodes": 24
       }
-    ]
-  },
-  {
-    "id": "accel-world",
-    "title": "Accel World",
-    "synopsis": "The year is 2046. Haruyuki Arita is a young boy who finds himself on the lowest social rungs of his school. Ashamed of his miserable life, Haruyuki can only cope by indulging in virtual games. But that all changes when Kuroyukihime, the most popular girl in school, introduces him to a mysterious program called Brain Burst and a virtual reality called the Accel World. \n(Source: VIZ Media)",
-    "year": 2012,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11759-o3ZRpFYnP5Lc.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11759-KUzlQmgCx275.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.7",
-    "genres": [
-      "Action",
-      "Romance",
-      "Sci-Fi"
     ],
-    "totalEpisodes": 26,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Accel World",
-        "totalEpisodes": 26
-      }
-    ]
+    "type": "series"
   },
   {
     "id": "air-gear",
@@ -512,7 +812,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Air Gear",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "akikan",
@@ -539,7 +840,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Akikan",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "amagami-ss",
@@ -571,7 +873,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Amagami SS +",
         "totalEpisodes": 20
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "angel-beats",
@@ -598,34 +901,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Angel Beats",
         "totalEpisodes": 14
       }
-    ]
-  },
-  {
-    "id": "anohana",
-    "title": "Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai.",
-    "synopsis": "Jinta Yadomi and his group of childhood friends have become estranged after a tragic accident split them apart. Now in their high school years, a sudden surprise forces each of them to confront their guilt over what happened that day and come to terms with the ghosts of their past. \n(Source: NIS America)",
-    "year": 2011,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9989-hImMg6kCMm6I.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/9989-pyr6rXlV1oAm.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "8.0",
-    "genres": [
-      "Drama",
-      "Romance",
-      "Slice of Life",
-      "Supernatural"
     ],
-    "totalEpisodes": 11,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "AnoHana",
-        "totalEpisodes": 11
-      }
-    ]
+    "type": "series"
   },
   {
     "id": "ano-natsu-de-matteru",
@@ -653,7 +930,36 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ano Natsu de Matteru",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "anohana",
+    "title": "Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai.",
+    "synopsis": "Jinta Yadomi and his group of childhood friends have become estranged after a tragic accident split them apart. Now in their high school years, a sudden surprise forces each of them to confront their guilt over what happened that day and come to terms with the ghosts of their past. \n(Source: NIS America)",
+    "year": 2011,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9989-hImMg6kCMm6I.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/9989-pyr6rXlV1oAm.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "8.0",
+    "genres": [
+      "Drama",
+      "Romance",
+      "Slice of Life",
+      "Supernatural"
+    ],
+    "totalEpisodes": 11,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "AnoHana",
+        "totalEpisodes": 11
+      }
+    ],
+    "type": "series"
   },
   {
     "id": "another",
@@ -681,7 +987,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Another",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ao-haru-ride",
@@ -707,7 +1014,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ao Haru Ride",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ao-no-exorcist",
@@ -733,7 +1041,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ao no Exorcist",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "asobi",
@@ -760,7 +1069,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Asobi",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "b-gata-h-kei",
@@ -786,7 +1096,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "B gata H kei",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "baka-and-test-no-shoukanjuu",
@@ -811,7 +1122,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Baka and Test no Shoukanjuu",
         "totalEpisodes": 28
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "bakemonogatari",
@@ -840,7 +1152,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Bakemonogatari",
         "totalEpisodes": 15
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ballroom-e-youkoso",
@@ -866,7 +1179,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ballroom e Youkoso",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "barakamon",
@@ -890,7 +1204,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Barakamon",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "beelzebub",
@@ -916,7 +1231,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Beelzebub",
         "totalEpisodes": 60
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ben-to",
@@ -942,7 +1258,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ben-To !",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   }
 ],
   },
@@ -950,7 +1267,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     id: "action",
     name: "Aksi & Petualangan Pilihan",
     type: "genre",
-    sortOrder: 2,
+    sortOrder: 3,
     items: [
   {
     "id": "11-eyes",
@@ -976,7 +1293,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "11 Eyes",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "accel-world",
@@ -1002,7 +1320,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Accel World",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "air-gear",
@@ -1029,7 +1348,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Air Gear",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "angel-beats",
@@ -1056,7 +1376,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Angel Beats",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ao-no-exorcist",
@@ -1082,7 +1403,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ao no Exorcist",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "beelzebub",
@@ -1108,7 +1430,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Beelzebub",
         "totalEpisodes": 60
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ben-to",
@@ -1134,7 +1457,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ben-To !",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "black-bullet",
@@ -1161,7 +1485,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Black Bullet",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "black-rock-shooter",
@@ -1189,7 +1514,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Black Rock Shooter",
         "totalEpisodes": 8
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "btoom",
@@ -1215,7 +1541,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "BTOOM !!",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "campione",
@@ -1242,7 +1569,38 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Campione!",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "chainsaw-man-reze-arc",
+    "title": "Chainsaw Man: Reze-hen",
+    "synopsis": "Denji became “Chainsaw Man”, a boy with a devil’s heart, and is now part of Special Division 4’s devil hunters. After a date with Makima, the woman of his dreams, Denji takes shelter from the rain. There he meets Reze, a girl who works in a café.\n\n(Source: MAPPA CHANNEL)",
+    "year": 2025,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171627-ZN9D7P46yHnw.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/171627-7esVHhgw69rn.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "9.0",
+    "genres": [
+      "Movie",
+      "Action",
+      "Drama",
+      "Horror",
+      "Romance",
+      "Supernatural"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Chainsaw Man - Reze Arc",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "code-geass-lelouch-of-the-rebellion",
@@ -1276,7 +1634,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Code Geass - Lelouch of the Rebellion R2",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "code-breaker",
@@ -1301,7 +1660,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Code Breaker",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "date-a-live",
@@ -1337,464 +1697,14 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Date A Live 2",
         "totalEpisodes": 11
       }
-    ]
-  },
-  {
-    "id": "dog-days",
-    "title": "Dog Days",
-    "synopsis": "Dog Days takes place in the world of Flonyard, an alternate Earth inhabited by beings who resemble humans, but also have the ears and tails of specific animals. The Republic of Biscotti, a union of dog-like citizens, has come under attack by the feline forces of the Galette Leo Knights. In an effort to save Biscotti, Princess Millhiore summons a champion from another world in order to defend her people. That champion is Cinque Izumi, a normal junior high student from Earth.\n\nAgreeing to assist Biscotti, Cinque retrieves a sacred weapon called the Palladion and prepares for war. In Flonyard, wars are fought with no casualties and are more akin to sports competitions with the goal of raising money for the participating kingdoms. Cinque is successful in his role as Biscotti’s champion, but learns that a summoned champion cannot be returned to their home world. The scientists of Biscotti will endeavor to find a way for Cinque to return home, but until they figure something out, he must serve Princess Millhiore by continuing to fight as Biscotti’s hero.",
-    "year": 2011,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx10155-e5d9PukNkE8D.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/10155-E433GYveGz8I.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.4",
-    "genres": [
-      "Action",
-      "Adventure",
-      "Fantasy"
     ],
-    "totalEpisodes": 26,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Dog Days",
-        "totalEpisodes": 26
-      }
-    ]
+    "type": "series"
   }
 ],
   },
   {
     id: "romance",
     name: "Romance & Drama Emosional",
-    type: "genre",
-    sortOrder: 3,
-    items: [
-  {
-    "id": "ah-my-goddess",
-    "title": "Aa! Megami-sama!",
-    "synopsis": "When college student Keiichi Morisato dials the wrong number while ordering for some food at his dormitory, he accidentally gets connected to the Goddess Hotline and a beautiful goddess named Belldandy appears out of a mirror in front of him. After getting kicked out of the dorm, Keiichi and Belldandy move to an old shrine and soon afterwards, Belldandy's sisters Urd and Skuld move in.",
-    "year": 1993,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx49-jv1G7rSP4lxg.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/49-qgxvhyIpIAuD.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.9",
-    "genres": [
-      "Comedy",
-      "Drama",
-      "Romance",
-      "Supernatural"
-    ],
-    "totalEpisodes": 50,
-    "totalSeasons": 2,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Ah My Goddess 1",
-        "totalEpisodes": 26
-      },
-      {
-        "seasonNumber": 2,
-        "title": "Musim 2",
-        "folderName": "Ah My Goddess 2",
-        "totalEpisodes": 24
-      }
-    ]
-  },
-  {
-    "id": "accel-world",
-    "title": "Accel World",
-    "synopsis": "The year is 2046. Haruyuki Arita is a young boy who finds himself on the lowest social rungs of his school. Ashamed of his miserable life, Haruyuki can only cope by indulging in virtual games. But that all changes when Kuroyukihime, the most popular girl in school, introduces him to a mysterious program called Brain Burst and a virtual reality called the Accel World. \n(Source: VIZ Media)",
-    "year": 2012,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11759-o3ZRpFYnP5Lc.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11759-KUzlQmgCx275.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.7",
-    "genres": [
-      "Action",
-      "Romance",
-      "Sci-Fi"
-    ],
-    "totalEpisodes": 26,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Accel World",
-        "totalEpisodes": 26
-      }
-    ]
-  },
-  {
-    "id": "akikan",
-    "title": "Akikan!",
-    "synopsis": "Hobbies are often a great way of meeting new people, but how could Kakeru Diachi, who collects rare juice cans, have ever suspected that he'd meet a fascinating new girl when he attempted to DRINK her? Naming her Melon, because she's got great melon... soda, Kakeru quickly learns that she's an Akikan&mdash;a beautiful girl who's also a special can created to fight other Akikans in a strange experiment to determine what kind of container is better: steel or aluminum! \nWill becoming involved in this ridiculously twisted research project gone amuck complicate Kakeru's life incredibly? Of course it will, but because Melon's steel body needs carbon dioxide to breathe, he's now stuck with her since she's too CO2 dependent! And when his wealthy, attractive, best childhood friend Najimi gets HER own aluminum Akikan, the trouble really begins! \n(Source: Sentai Filmworks)",
-    "year": 2009,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5112-b8DpRRAdsCcs.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/5112-C8cgNLBjJAyf.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "5.5",
-    "genres": [
-      "Comedy",
-      "Ecchi",
-      "Fantasy",
-      "Romance"
-    ],
-    "totalEpisodes": 12,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Akikan",
-        "totalEpisodes": 12
-      }
-    ]
-  },
-  {
-    "id": "amagami-ss",
-    "title": "Amagami SS",
-    "synopsis": "Two years ago, Junichi Tachibana had his heart broken by a girl who stood him up on a date on Christmas Eve. Now a second-year student in high school, Junichi is wary of love because of his past and dislikes celebrating Christmas. However this Christmas, his encounter with one of six girls from his school: Haruka Morishima, Kaoru Tanamachi, Sae Nakata, Ai Nanasaki, Rihoko Sakurai, or Tsukasa Ayatsuji will finally open up his heart to love again.",
-    "year": 2010,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx8676-rpRpE8lD4tbw.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/8676-xPUw6MBP5vqB.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.9",
-    "genres": [
-      "Comedy",
-      "Romance",
-      "Slice of Life"
-    ],
-    "totalEpisodes": 48,
-    "totalSeasons": 2,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Amagami SS",
-        "totalEpisodes": 28
-      },
-      {
-        "seasonNumber": 2,
-        "title": "Musim 2",
-        "folderName": "Amagami SS +",
-        "totalEpisodes": 20
-      }
-    ]
-  },
-  {
-    "id": "anohana",
-    "title": "Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai.",
-    "synopsis": "Jinta Yadomi and his group of childhood friends have become estranged after a tragic accident split them apart. Now in their high school years, a sudden surprise forces each of them to confront their guilt over what happened that day and come to terms with the ghosts of their past. \n(Source: NIS America)",
-    "year": 2011,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9989-hImMg6kCMm6I.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/9989-pyr6rXlV1oAm.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "8.0",
-    "genres": [
-      "Drama",
-      "Romance",
-      "Slice of Life",
-      "Supernatural"
-    ],
-    "totalEpisodes": 11,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "AnoHana",
-        "totalEpisodes": 11
-      }
-    ]
-  },
-  {
-    "id": "ano-natsu-de-matteru",
-    "title": "Ano Natsu de Matteru",
-    "synopsis": "When a group of friends decide to make a movie over a long summer holiday, they end up learning a little about filmmaking and a lot more about each other and themselves. What begins as a simple way to avoid the summer doldrums quickly turns into something much more complex, intimate and revealing, as the maturing relationships between the members of the young cast take on new, and sometimes very unexpected, turns. \r\n(Source: Sentai Filmworks)",
-    "year": 2012,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11433-KLEzZeK6D46g.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11433-Pce9apZ7W49V.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "7.1",
-    "genres": [
-      "Comedy",
-      "Drama",
-      "Romance",
-      "Sci-Fi",
-      "Slice of Life"
-    ],
-    "totalEpisodes": 12,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Ano Natsu de Matteru",
-        "totalEpisodes": 12
-      }
-    ]
-  },
-  {
-    "id": "ao-haru-ride",
-    "title": "Ao Haru Ride",
-    "synopsis": "Yoshioka Futaba has a few reasons why she wants to \"reset\" her image & life as a new high school student. Because she's cute, she was ostracized by her female friends in junior high, and because of a misunderstanding, she couldn't get her feeling across to the one boy she has ever liked, Tanaka-kun.\r\n\r\nNow in high school, she is determined to be as unladylike as possible so that her friends won't be jealous of her. While living her life this way contentedly, she meets Tanaka-kun again, but he now goes under the name of Mabuchi Kou. He tells her that he felt the same way as she did when they were younger, but now things can never be the same again. Will Futaba be able to continue her love that never even started from three years ago?",
-    "year": 2014,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20596-fJdMHV8xRMgY.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20596.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "7.5",
-    "genres": [
-      "Drama",
-      "Romance",
-      "Slice of Life"
-    ],
-    "totalEpisodes": 12,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Ao Haru Ride",
-        "totalEpisodes": 12
-      }
-    ]
-  },
-  {
-    "id": "asobi",
-    "title": "Asobi ni Iku yo!",
-    "synopsis": "The story revolves around Kakazu Kio, an ordinary high school freshman living in Okinawa. A girl with cat ears appears before him during a memorial service for one of his family ancestors. The girl calls herself Eris and claims she is an alien. Before long, fanatical alien worshipers and a mysterious government agency are in hot pursuit of Eris, but Kio's childhood friend Manami&mdash;who wants to follow in her father's footsteps in the CIA&mdash;captures Eris. Kio finds himself having to protect Eris from everyone.\n\n(Source: Anime News Network)",
-    "year": 2010,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6166-TzYLyxIl3a6i.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n6166-bpxd2dacGqyp.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.1",
-    "genres": [
-      "Comedy",
-      "Ecchi",
-      "Romance",
-      "Sci-Fi"
-    ],
-    "totalEpisodes": 12,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Asobi",
-        "totalEpisodes": 12
-      }
-    ]
-  },
-  {
-    "id": "b-gata-h-kei",
-    "title": "B Gata H Kei",
-    "synopsis": "Yamada, first name withheld, is a 15-year-old girl who has just entered Takizawa High School.  Easily considered exceptionally beautiful, she has only one problem with her own body, she thinks her vagina looks weird and is very self-conscious about it.  \nUpon entering high school, her dream was to have casual sex with 100 men but therein lies the problem, she believes an experienced partner will tease her about the way her vagina looks or simply the fact that she's a virgin.  She stumbles upon the solution in the form of Kosuda Takashi, a fellow virgin, whom she believes will help ease the transition to more experienced partners.\nThere's only one small problem, Yamada doesn't know anything about sex or the ancient art of seduction, meaning her quest to conquer Kosuda will be a difficult one.",
-    "year": 2010,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx7817-6kYE5LRNoL97.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n7817-ktqkezf9CKH8.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.4",
-    "genres": [
-      "Comedy",
-      "Ecchi",
-      "Romance"
-    ],
-    "totalEpisodes": 12,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "B gata H kei",
-        "totalEpisodes": 12
-      }
-    ]
-  },
-  {
-    "id": "baka-and-test-no-shoukanjuu",
-    "title": "Baka to Test to Shoukanjuu",
-    "synopsis": "The story centers around Akihisa Yoshii, the \"baka\" of the title. His academy rigidly divides up the student body into classes based on the results of tests. The prodigies are in the A class with reclining seats complete with air conditioning, but Akihisa is in F class, the lowest rung of the school ladder which is furnished only with low, decrepit tables and worn-out straw tatami mats. A girl named Mizuki Himeji is actually one of the smartest girls in Akihisa's sophomore year, but she had a fever on test day and was pigeonholed into the F class. Besides Mizuki (who Akihisa secretly adores), the F class also has Yuuji Sakamoto, the class president who has been Akihisa's friend and partner-in-crime since the freshman year.\nThe school happens to have developed experiments to summon fantasy creatures, and Akihisa decides to rally F class to take on the higher-tiered classes and seize their perks. The F class uses the summoned creatures in an all-out battle for school supremacy.",
-    "year": 2010,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6347-DCSHLkCY7UT3.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/6347-ZDzk4GrlQdag.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "7.1",
-    "genres": [
-      "Comedy",
-      "Romance"
-    ],
-    "totalEpisodes": 28,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Baka and Test no Shoukanjuu",
-        "totalEpisodes": 28
-      }
-    ]
-  },
-  {
-    "id": "bakemonogatari",
-    "title": "Bakemonogatari",
-    "synopsis": "First season of the Monogatari Series, part 1/6. Contains the arcs Hitagi Crab, Mayoi Snail, Suruga Monkey, Nadeko Snake, and Tsubasa Cat from the Bakemonogatari light novels.\nThanks to Meme Oshino, Koyomi Araragi, a high school student, is able to remain a human after coming across a female vampire... However, since the incident, Koyomi seems to meet girls who have an apparition-related issue. Hitagi Senjougahara doesn’t weigh anything, Suruga Kanbaru’s right arm becomes like that of a monkey’s, and a young girl, Mayoi, cannot find her way home no matter how many times she tries. Koyomi, a Mr. Nice Guy, ends up helping each and every girl solve her problem with the help of Meme Oshino.\n\n(Source: Aniplex)\nNote: Only the first 12 episodes were broadcast on television; the remaining three episodes were distributed on the anime's website between November 3, 2009, and June 25, 2010.",
-    "year": 2009,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5081-9GocceQ5Z865.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n5081-0Zcn5GOFYHMc.jpg",
-    "status": "tamat",
-    "isFeatured": true,
-    "rating": "8.2",
-    "genres": [
-      "Comedy",
-      "Drama",
-      "Mystery",
-      "Psychological",
-      "Romance",
-      "Supernatural"
-    ],
-    "totalEpisodes": 15,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Bakemonogatari",
-        "totalEpisodes": 15
-      }
-    ]
-  },
-  {
-    "id": "ballroom-e-youkoso",
-    "title": "Ballroom e Youkoso",
-    "synopsis": "Fujita has drifted through middle school aimlessly, unable to find friends or anything that can hold his attention. Then, one day, he's attacked by a gang and saved by a mysterious man. But this isn't a karate master; it's a ballroom dance instructor! Reluctantly, Fujita takes a few beginner's classes, only to find his inspiration... an entrancing, teenage dance prodigy named Shizuku.\n\nIt's Fujita's first step into the high-octane world of competitive dance!\n\n(Source: Kodansha USA)",
-    "year": 2017,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx98005-kwoBQIEeXa8J.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/98005-LYk3El5uGnnx.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "7.9",
-    "genres": [
-      "Drama",
-      "Romance",
-      "Sports"
-    ],
-    "totalEpisodes": 24,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Ballroom e Youkoso",
-        "totalEpisodes": 24
-      }
-    ]
-  },
-  {
-    "id": "boku-wa-tomodachi",
-    "title": "Boku wa Tomodachi ga Sukunai",
-    "synopsis": "Hasegawa Kodaka has transferred schools, and he's having a hard time making friends. It doesn't help that his blond hair tends to make people think he's a delinquent. One day, he runs into his bad-tempered solitary classmate Yozora while she's talking animatedly to her imaginary friend Tomo. Realizing that neither of them have any actual friends, they decide that the best way to alter this situation is to form a club and start recruiting. \nThat is how \"Rinjinbu\", The Neighbours' Club, was formed, a club specifically designed for people who don't have very many friends. As other lonely classmates slowly join their little club, they'll try to learn how to build friendships through cooking together, playing games, and other group activities. But will this group of relationship-challenged misfits really be able to get along?",
-    "year": 2011,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx10719-aNf9gOOw62Fs.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/10719-d6DYjUtuSmdg.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.7",
-    "genres": [
-      "Comedy",
-      "Ecchi",
-      "Romance",
-      "Slice of Life"
-    ],
-    "totalEpisodes": 26,
-    "totalSeasons": 2,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Boku Wa Tomodachi",
-        "totalEpisodes": 14
-      },
-      {
-        "seasonNumber": 2,
-        "title": "Musim 2",
-        "folderName": "Boku Wa Tomodachi 2",
-        "totalEpisodes": 12
-      }
-    ]
-  },
-  {
-    "id": "bokura-ga-ita",
-    "title": "Bokura ga Ita",
-    "synopsis": "Nanami Takahashi welcomes the start of her high school life with great expectations of making as many friends as possible. There is much talk among the girls about a popular boy, Motoharu Yano, who has 2/3 of the girls in his middle school liking him. When Nanami asks Yuri Yamamoto, the girl sitting next to her, about Yano, the latter curtly replies that she dislikes him. Nanami is clueless of who Yano is until the day of the class nomination when she made a fool of herself by calling the name of her new friend wrongly. It turns out that she has actually met Yano along the corridors (unaware of his true identity) and he tricked her by providing a random name, resulting in the embarrassing incident in class. Nanami was initially mad at Yano but after a few encounters with him, she begins to find herself liking him.",
-    "year": 2006,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1222-kRIt3mFjuDaW.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n1222-9JtzsJL8ygRs.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.7",
-    "genres": [
-      "Drama",
-      "Romance",
-      "Slice of Life"
-    ],
-    "totalEpisodes": 26,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Bokura ga Ita",
-        "totalEpisodes": 26
-      }
-    ]
-  },
-  {
-    "id": "bokura-wa-minna-kawaisou",
-    "title": "Bokura wa Minna Kawaisou",
-    "synopsis": "Usa, a high-school student aspiring to begin a bachelor lifestyle, moves into a new apartment only to discover that he not only shares a room with a perverted roommate that has an obsession for underaged girls, but also that another girl, Ritsu, a love-at-first-sight, is living in the same building as well!",
-    "year": 2014,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20529-WyK2k8mF9wIQ.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20529-A8Dv0bu2kUMg.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "7.4",
-    "genres": [
-      "Comedy",
-      "Romance",
-      "Slice of Life"
-    ],
-    "totalEpisodes": 12,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Bokura Wa Minna Kawaisou",
-        "totalEpisodes": 12
-      }
-    ]
-  }
-],
-  },
-  {
-    id: "comedy",
-    name: "Komedi & Slice of Life",
     type: "genre",
     sortOrder: 4,
     items: [
@@ -1829,23 +1739,23 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ah My Goddess 2",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
-    "id": "air-gear",
-    "title": "Air Gear",
-    "synopsis": "Minami Itsuki never thought about seriously riding Air Treck motorized roller blades, until he got his butt handed to him by a street gang of Storm Riders. That day, he discovered in a locked up room, a pair of AT's and a box of stickers belonging to the Sleeping Forest street gang. One thing leads to another, and Ikki dons the wheels and begins to ride. As his reputation builds in the AT street fighting/racing world, he begins to develop his own gang and participate in more fights, gaining more and more territory.",
-    "year": 2006,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b857-0pbF6kMJpUeL.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/857-1N95wHWuA5gk.jpg",
+    "id": "accel-world",
+    "title": "Accel World",
+    "synopsis": "The year is 2046. Haruyuki Arita is a young boy who finds himself on the lowest social rungs of his school. Ashamed of his miserable life, Haruyuki can only cope by indulging in virtual games. But that all changes when Kuroyukihime, the most popular girl in school, introduces him to a mysterious program called Brain Burst and a virtual reality called the Accel World. \n(Source: VIZ Media)",
+    "year": 2012,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11759-o3ZRpFYnP5Lc.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11759-KUzlQmgCx275.jpg",
     "status": "tamat",
     "isFeatured": false,
-    "rating": "7.0",
+    "rating": "6.7",
     "genres": [
       "Action",
-      "Comedy",
-      "Ecchi",
-      "Sports"
+      "Romance",
+      "Sci-Fi"
     ],
     "totalEpisodes": 26,
     "totalSeasons": 1,
@@ -1853,10 +1763,11 @@ export const MOCK_CATEGORIES: CategorySection[] = [
       {
         "seasonNumber": 1,
         "title": "Musim 1",
-        "folderName": "Air Gear",
+        "folderName": "Accel World",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "akikan",
@@ -1883,7 +1794,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Akikan",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "amagami-ss",
@@ -1915,34 +1827,36 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Amagami SS +",
         "totalEpisodes": 20
       }
-    ]
+    ],
+    "type": "series"
   },
   {
-    "id": "angel-beats",
-    "title": "Angel Beats!",
-    "synopsis": "Otonashi wakes up in the afterlife to find out he has no memories of his life before death. Desperate to survive in a war that could yield another unfortunate fate, he joins the SSS in the battle against Angel, whose very mission is to destroy all inhabitants of this afterlife. As Otonashi struggles to recover his memory and learn more about this world, he finds that not all is as it had seemed.\n(Source: Funimation)",
-    "year": 2010,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6547-SYexAn5aFyss.png",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/6547-YUUiSjKyxxeQ.jpg",
+    "id": "anohana",
+    "title": "Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai.",
+    "synopsis": "Jinta Yadomi and his group of childhood friends have become estranged after a tragic accident split them apart. Now in their high school years, a sudden surprise forces each of them to confront their guilt over what happened that day and come to terms with the ghosts of their past. \n(Source: NIS America)",
+    "year": 2011,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9989-hImMg6kCMm6I.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/9989-pyr6rXlV1oAm.jpg",
     "status": "tamat",
-    "isFeatured": true,
-    "rating": "7.7",
+    "isFeatured": false,
+    "rating": "8.0",
     "genres": [
-      "Action",
-      "Comedy",
       "Drama",
+      "Romance",
+      "Slice of Life",
       "Supernatural"
     ],
-    "totalEpisodes": 14,
+    "totalEpisodes": 11,
     "totalSeasons": 1,
     "seasons": [
       {
         "seasonNumber": 1,
         "title": "Musim 1",
-        "folderName": "Angel Beats",
-        "totalEpisodes": 14
+        "folderName": "AnoHana",
+        "totalEpisodes": 11
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ano-natsu-de-matteru",
@@ -1970,7 +1884,35 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ano Natsu de Matteru",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "ao-haru-ride",
+    "title": "Ao Haru Ride",
+    "synopsis": "Yoshioka Futaba has a few reasons why she wants to \"reset\" her image & life as a new high school student. Because she's cute, she was ostracized by her female friends in junior high, and because of a misunderstanding, she couldn't get her feeling across to the one boy she has ever liked, Tanaka-kun.\r\n\r\nNow in high school, she is determined to be as unladylike as possible so that her friends won't be jealous of her. While living her life this way contentedly, she meets Tanaka-kun again, but he now goes under the name of Mabuchi Kou. He tells her that he felt the same way as she did when they were younger, but now things can never be the same again. Will Futaba be able to continue her love that never even started from three years ago?",
+    "year": 2014,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20596-fJdMHV8xRMgY.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20596.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.5",
+    "genres": [
+      "Drama",
+      "Romance",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 12,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Ao Haru Ride",
+        "totalEpisodes": 12
+      }
+    ],
+    "type": "series"
   },
   {
     "id": "asobi",
@@ -1997,7 +1939,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Asobi",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "b-gata-h-kei",
@@ -2023,7 +1966,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "B gata H kei",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "baka-and-test-no-shoukanjuu",
@@ -2048,7 +1992,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Baka and Test no Shoukanjuu",
         "totalEpisodes": 28
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "bakemonogatari",
@@ -2077,85 +2022,35 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Bakemonogatari",
         "totalEpisodes": 15
       }
-    ]
+    ],
+    "type": "series"
   },
   {
-    "id": "beelzebub",
-    "title": "Beelzebub",
-    "synopsis": "Oga Tatsumi is a first year student in Ishiyama High, a notorious school for delinquents. One day he sees a man floating by, and the man suddenly splits in half to reveal a baby boy inside!\n(Source: Crunchyroll)",
-    "year": 2011,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx9513-is6YiSgKbyQX.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/9513-yRdRyD9wdsln.jpg",
+    "id": "ballroom-e-youkoso",
+    "title": "Ballroom e Youkoso",
+    "synopsis": "Fujita has drifted through middle school aimlessly, unable to find friends or anything that can hold his attention. Then, one day, he's attacked by a gang and saved by a mysterious man. But this isn't a karate master; it's a ballroom dance instructor! Reluctantly, Fujita takes a few beginner's classes, only to find his inspiration... an entrancing, teenage dance prodigy named Shizuku.\n\nIt's Fujita's first step into the high-octane world of competitive dance!\n\n(Source: Kodansha USA)",
+    "year": 2017,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx98005-kwoBQIEeXa8J.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/98005-LYk3El5uGnnx.jpg",
     "status": "tamat",
     "isFeatured": false,
-    "rating": "7.5",
+    "rating": "7.9",
     "genres": [
-      "Action",
-      "Comedy",
-      "Supernatural"
+      "Drama",
+      "Romance",
+      "Sports"
     ],
-    "totalEpisodes": 60,
+    "totalEpisodes": 24,
     "totalSeasons": 1,
     "seasons": [
       {
         "seasonNumber": 1,
         "title": "Musim 1",
-        "folderName": "Beelzebub",
-        "totalEpisodes": 60
+        "folderName": "Ballroom e Youkoso",
+        "totalEpisodes": 24
       }
-    ]
-  },
-  {
-    "id": "ben-to",
-    "title": "Ben-To",
-    "synopsis": "Sato Yo is a high school boy who likes SEGA games. One day, he enters a grocery store to buy some food for dinner. When he tries to take a bento box, he loses consciousness. He comes around to find all the bento sold out. He notices there is a war game going on at grocery stores and players called \"Wolves\" compete for the half-priced bento. Yarizui Sen, the leader of the Half-Pricer Club, forces Yo to join the club and he enters the bento war.",
-    "year": 2011,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/10396.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/10396-ohVbPWtbAk9p.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.8",
-    "genres": [
-      "Action",
-      "Comedy",
-      "Ecchi"
     ],
-    "totalEpisodes": 12,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Ben-To !",
-        "totalEpisodes": 12
-      }
-    ]
-  },
-  {
-    "id": "binbougami",
-    "title": "Binbougami ga!",
-    "synopsis": "At the expense of the people and things around her, Sakura has absorbed so much \"happiness energy\" that she has caused an energy imbalance in the world. In order to return balance to the world, the Poverty God, Momiji, sets out to take away Sakura's ability to absorb this energy. Will Momiji be able to put a stop to Sakura's absorbing abilities, or will the God succumb to her happiness? \r\n(Source: FUNimation)",
-    "year": 2012,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx13535-3TFMnKs0CDls.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/13535-fTHz6dawMSsT.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "7.4",
-    "genres": [
-      "Adventure",
-      "Comedy",
-      "Supernatural"
-    ],
-    "totalEpisodes": 13,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Binbougami",
-        "totalEpisodes": 13
-      }
-    ]
+    "type": "series"
   },
   {
     "id": "boku-wa-tomodachi",
@@ -2188,7 +2083,35 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Boku Wa Tomodachi 2",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "bokura-ga-ita",
+    "title": "Bokura ga Ita",
+    "synopsis": "Nanami Takahashi welcomes the start of her high school life with great expectations of making as many friends as possible. There is much talk among the girls about a popular boy, Motoharu Yano, who has 2/3 of the girls in his middle school liking him. When Nanami asks Yuri Yamamoto, the girl sitting next to her, about Yano, the latter curtly replies that she dislikes him. Nanami is clueless of who Yano is until the day of the class nomination when she made a fool of herself by calling the name of her new friend wrongly. It turns out that she has actually met Yano along the corridors (unaware of his true identity) and he tricked her by providing a random name, resulting in the embarrassing incident in class. Nanami was initially mad at Yano but after a few encounters with him, she begins to find herself liking him.",
+    "year": 2006,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1222-kRIt3mFjuDaW.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n1222-9JtzsJL8ygRs.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.7",
+    "genres": [
+      "Drama",
+      "Romance",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 26,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Bokura ga Ita",
+        "totalEpisodes": 26
+      }
+    ],
+    "type": "series"
   },
   {
     "id": "bokura-wa-minna-kawaisou",
@@ -2214,7 +2137,449 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Bokura Wa Minna Kawaisou",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
+  }
+],
+  },
+  {
+    id: "comedy",
+    name: "Komedi & Slice of Life",
+    type: "genre",
+    sortOrder: 5,
+    items: [
+  {
+    "id": "ah-my-goddess",
+    "title": "Aa! Megami-sama!",
+    "synopsis": "When college student Keiichi Morisato dials the wrong number while ordering for some food at his dormitory, he accidentally gets connected to the Goddess Hotline and a beautiful goddess named Belldandy appears out of a mirror in front of him. After getting kicked out of the dorm, Keiichi and Belldandy move to an old shrine and soon afterwards, Belldandy's sisters Urd and Skuld move in.",
+    "year": 1993,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx49-jv1G7rSP4lxg.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/49-qgxvhyIpIAuD.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.9",
+    "genres": [
+      "Comedy",
+      "Drama",
+      "Romance",
+      "Supernatural"
+    ],
+    "totalEpisodes": 50,
+    "totalSeasons": 2,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Ah My Goddess 1",
+        "totalEpisodes": 26
+      },
+      {
+        "seasonNumber": 2,
+        "title": "Musim 2",
+        "folderName": "Ah My Goddess 2",
+        "totalEpisodes": 24
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "air-gear",
+    "title": "Air Gear",
+    "synopsis": "Minami Itsuki never thought about seriously riding Air Treck motorized roller blades, until he got his butt handed to him by a street gang of Storm Riders. That day, he discovered in a locked up room, a pair of AT's and a box of stickers belonging to the Sleeping Forest street gang. One thing leads to another, and Ikki dons the wheels and begins to ride. As his reputation builds in the AT street fighting/racing world, he begins to develop his own gang and participate in more fights, gaining more and more territory.",
+    "year": 2006,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b857-0pbF6kMJpUeL.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/857-1N95wHWuA5gk.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.0",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Ecchi",
+      "Sports"
+    ],
+    "totalEpisodes": 26,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Air Gear",
+        "totalEpisodes": 26
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "akikan",
+    "title": "Akikan!",
+    "synopsis": "Hobbies are often a great way of meeting new people, but how could Kakeru Diachi, who collects rare juice cans, have ever suspected that he'd meet a fascinating new girl when he attempted to DRINK her? Naming her Melon, because she's got great melon... soda, Kakeru quickly learns that she's an Akikan&mdash;a beautiful girl who's also a special can created to fight other Akikans in a strange experiment to determine what kind of container is better: steel or aluminum! \nWill becoming involved in this ridiculously twisted research project gone amuck complicate Kakeru's life incredibly? Of course it will, but because Melon's steel body needs carbon dioxide to breathe, he's now stuck with her since she's too CO2 dependent! And when his wealthy, attractive, best childhood friend Najimi gets HER own aluminum Akikan, the trouble really begins! \n(Source: Sentai Filmworks)",
+    "year": 2009,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5112-b8DpRRAdsCcs.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/5112-C8cgNLBjJAyf.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "5.5",
+    "genres": [
+      "Comedy",
+      "Ecchi",
+      "Fantasy",
+      "Romance"
+    ],
+    "totalEpisodes": 12,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Akikan",
+        "totalEpisodes": 12
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "amagami-ss",
+    "title": "Amagami SS",
+    "synopsis": "Two years ago, Junichi Tachibana had his heart broken by a girl who stood him up on a date on Christmas Eve. Now a second-year student in high school, Junichi is wary of love because of his past and dislikes celebrating Christmas. However this Christmas, his encounter with one of six girls from his school: Haruka Morishima, Kaoru Tanamachi, Sae Nakata, Ai Nanasaki, Rihoko Sakurai, or Tsukasa Ayatsuji will finally open up his heart to love again.",
+    "year": 2010,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx8676-rpRpE8lD4tbw.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/8676-xPUw6MBP5vqB.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.9",
+    "genres": [
+      "Comedy",
+      "Romance",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 48,
+    "totalSeasons": 2,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Amagami SS",
+        "totalEpisodes": 28
+      },
+      {
+        "seasonNumber": 2,
+        "title": "Musim 2",
+        "folderName": "Amagami SS +",
+        "totalEpisodes": 20
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "angel-beats",
+    "title": "Angel Beats!",
+    "synopsis": "Otonashi wakes up in the afterlife to find out he has no memories of his life before death. Desperate to survive in a war that could yield another unfortunate fate, he joins the SSS in the battle against Angel, whose very mission is to destroy all inhabitants of this afterlife. As Otonashi struggles to recover his memory and learn more about this world, he finds that not all is as it had seemed.\n(Source: Funimation)",
+    "year": 2010,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6547-SYexAn5aFyss.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/6547-YUUiSjKyxxeQ.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "7.7",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Drama",
+      "Supernatural"
+    ],
+    "totalEpisodes": 14,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Angel Beats",
+        "totalEpisodes": 14
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "ano-natsu-de-matteru",
+    "title": "Ano Natsu de Matteru",
+    "synopsis": "When a group of friends decide to make a movie over a long summer holiday, they end up learning a little about filmmaking and a lot more about each other and themselves. What begins as a simple way to avoid the summer doldrums quickly turns into something much more complex, intimate and revealing, as the maturing relationships between the members of the young cast take on new, and sometimes very unexpected, turns. \r\n(Source: Sentai Filmworks)",
+    "year": 2012,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11433-KLEzZeK6D46g.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11433-Pce9apZ7W49V.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.1",
+    "genres": [
+      "Comedy",
+      "Drama",
+      "Romance",
+      "Sci-Fi",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 12,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Ano Natsu de Matteru",
+        "totalEpisodes": 12
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "asobi",
+    "title": "Asobi ni Iku yo!",
+    "synopsis": "The story revolves around Kakazu Kio, an ordinary high school freshman living in Okinawa. A girl with cat ears appears before him during a memorial service for one of his family ancestors. The girl calls herself Eris and claims she is an alien. Before long, fanatical alien worshipers and a mysterious government agency are in hot pursuit of Eris, but Kio's childhood friend Manami&mdash;who wants to follow in her father's footsteps in the CIA&mdash;captures Eris. Kio finds himself having to protect Eris from everyone.\n\n(Source: Anime News Network)",
+    "year": 2010,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6166-TzYLyxIl3a6i.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n6166-bpxd2dacGqyp.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.1",
+    "genres": [
+      "Comedy",
+      "Ecchi",
+      "Romance",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 12,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Asobi",
+        "totalEpisodes": 12
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "b-gata-h-kei",
+    "title": "B Gata H Kei",
+    "synopsis": "Yamada, first name withheld, is a 15-year-old girl who has just entered Takizawa High School.  Easily considered exceptionally beautiful, she has only one problem with her own body, she thinks her vagina looks weird and is very self-conscious about it.  \nUpon entering high school, her dream was to have casual sex with 100 men but therein lies the problem, she believes an experienced partner will tease her about the way her vagina looks or simply the fact that she's a virgin.  She stumbles upon the solution in the form of Kosuda Takashi, a fellow virgin, whom she believes will help ease the transition to more experienced partners.\nThere's only one small problem, Yamada doesn't know anything about sex or the ancient art of seduction, meaning her quest to conquer Kosuda will be a difficult one.",
+    "year": 2010,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx7817-6kYE5LRNoL97.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n7817-ktqkezf9CKH8.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.4",
+    "genres": [
+      "Comedy",
+      "Ecchi",
+      "Romance"
+    ],
+    "totalEpisodes": 12,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "B gata H kei",
+        "totalEpisodes": 12
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "baka-and-test-no-shoukanjuu",
+    "title": "Baka to Test to Shoukanjuu",
+    "synopsis": "The story centers around Akihisa Yoshii, the \"baka\" of the title. His academy rigidly divides up the student body into classes based on the results of tests. The prodigies are in the A class with reclining seats complete with air conditioning, but Akihisa is in F class, the lowest rung of the school ladder which is furnished only with low, decrepit tables and worn-out straw tatami mats. A girl named Mizuki Himeji is actually one of the smartest girls in Akihisa's sophomore year, but she had a fever on test day and was pigeonholed into the F class. Besides Mizuki (who Akihisa secretly adores), the F class also has Yuuji Sakamoto, the class president who has been Akihisa's friend and partner-in-crime since the freshman year.\nThe school happens to have developed experiments to summon fantasy creatures, and Akihisa decides to rally F class to take on the higher-tiered classes and seize their perks. The F class uses the summoned creatures in an all-out battle for school supremacy.",
+    "year": 2010,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6347-DCSHLkCY7UT3.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/6347-ZDzk4GrlQdag.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.1",
+    "genres": [
+      "Comedy",
+      "Romance"
+    ],
+    "totalEpisodes": 28,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Baka and Test no Shoukanjuu",
+        "totalEpisodes": 28
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "bakemonogatari",
+    "title": "Bakemonogatari",
+    "synopsis": "First season of the Monogatari Series, part 1/6. Contains the arcs Hitagi Crab, Mayoi Snail, Suruga Monkey, Nadeko Snake, and Tsubasa Cat from the Bakemonogatari light novels.\nThanks to Meme Oshino, Koyomi Araragi, a high school student, is able to remain a human after coming across a female vampire... However, since the incident, Koyomi seems to meet girls who have an apparition-related issue. Hitagi Senjougahara doesn’t weigh anything, Suruga Kanbaru’s right arm becomes like that of a monkey’s, and a young girl, Mayoi, cannot find her way home no matter how many times she tries. Koyomi, a Mr. Nice Guy, ends up helping each and every girl solve her problem with the help of Meme Oshino.\n\n(Source: Aniplex)\nNote: Only the first 12 episodes were broadcast on television; the remaining three episodes were distributed on the anime's website between November 3, 2009, and June 25, 2010.",
+    "year": 2009,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5081-9GocceQ5Z865.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n5081-0Zcn5GOFYHMc.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "8.2",
+    "genres": [
+      "Comedy",
+      "Drama",
+      "Mystery",
+      "Psychological",
+      "Romance",
+      "Supernatural"
+    ],
+    "totalEpisodes": 15,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Bakemonogatari",
+        "totalEpisodes": 15
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "beelzebub",
+    "title": "Beelzebub",
+    "synopsis": "Oga Tatsumi is a first year student in Ishiyama High, a notorious school for delinquents. One day he sees a man floating by, and the man suddenly splits in half to reveal a baby boy inside!\n(Source: Crunchyroll)",
+    "year": 2011,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx9513-is6YiSgKbyQX.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/9513-yRdRyD9wdsln.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.5",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Supernatural"
+    ],
+    "totalEpisodes": 60,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Beelzebub",
+        "totalEpisodes": 60
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "ben-to",
+    "title": "Ben-To",
+    "synopsis": "Sato Yo is a high school boy who likes SEGA games. One day, he enters a grocery store to buy some food for dinner. When he tries to take a bento box, he loses consciousness. He comes around to find all the bento sold out. He notices there is a war game going on at grocery stores and players called \"Wolves\" compete for the half-priced bento. Yarizui Sen, the leader of the Half-Pricer Club, forces Yo to join the club and he enters the bento war.",
+    "year": 2011,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/10396.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/10396-ohVbPWtbAk9p.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.8",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Ecchi"
+    ],
+    "totalEpisodes": 12,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Ben-To !",
+        "totalEpisodes": 12
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "binbougami",
+    "title": "Binbougami ga!",
+    "synopsis": "At the expense of the people and things around her, Sakura has absorbed so much \"happiness energy\" that she has caused an energy imbalance in the world. In order to return balance to the world, the Poverty God, Momiji, sets out to take away Sakura's ability to absorb this energy. Will Momiji be able to put a stop to Sakura's absorbing abilities, or will the God succumb to her happiness? \r\n(Source: FUNimation)",
+    "year": 2012,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx13535-3TFMnKs0CDls.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/13535-fTHz6dawMSsT.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.4",
+    "genres": [
+      "Adventure",
+      "Comedy",
+      "Supernatural"
+    ],
+    "totalEpisodes": 13,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Binbougami",
+        "totalEpisodes": 13
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "boku-wa-tomodachi",
+    "title": "Boku wa Tomodachi ga Sukunai",
+    "synopsis": "Hasegawa Kodaka has transferred schools, and he's having a hard time making friends. It doesn't help that his blond hair tends to make people think he's a delinquent. One day, he runs into his bad-tempered solitary classmate Yozora while she's talking animatedly to her imaginary friend Tomo. Realizing that neither of them have any actual friends, they decide that the best way to alter this situation is to form a club and start recruiting. \nThat is how \"Rinjinbu\", The Neighbours' Club, was formed, a club specifically designed for people who don't have very many friends. As other lonely classmates slowly join their little club, they'll try to learn how to build friendships through cooking together, playing games, and other group activities. But will this group of relationship-challenged misfits really be able to get along?",
+    "year": 2011,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx10719-aNf9gOOw62Fs.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/10719-d6DYjUtuSmdg.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.7",
+    "genres": [
+      "Comedy",
+      "Ecchi",
+      "Romance",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 26,
+    "totalSeasons": 2,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Boku Wa Tomodachi",
+        "totalEpisodes": 14
+      },
+      {
+        "seasonNumber": 2,
+        "title": "Musim 2",
+        "folderName": "Boku Wa Tomodachi 2",
+        "totalEpisodes": 12
+      }
+    ],
+    "type": "series"
+  },
+  {
+    "id": "bokura-wa-minna-kawaisou",
+    "title": "Bokura wa Minna Kawaisou",
+    "synopsis": "Usa, a high-school student aspiring to begin a bachelor lifestyle, moves into a new apartment only to discover that he not only shares a room with a perverted roommate that has an obsession for underaged girls, but also that another girl, Ritsu, a love-at-first-sight, is living in the same building as well!",
+    "year": 2014,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20529-WyK2k8mF9wIQ.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20529-A8Dv0bu2kUMg.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.4",
+    "genres": [
+      "Comedy",
+      "Romance",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 12,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Musim 1",
+        "folderName": "Bokura Wa Minna Kawaisou",
+        "totalEpisodes": 12
+      }
+    ],
+    "type": "series"
   }
 ],
   },
@@ -2222,7 +2587,7 @@ export const MOCK_CATEGORIES: CategorySection[] = [
     id: "fantasy",
     name: "Fantasi & Dunia Isekai",
     type: "genre",
-    sortOrder: 5,
+    sortOrder: 6,
     items: [
   {
     "id": "akikan",
@@ -2249,7 +2614,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Akikan",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ao-no-exorcist",
@@ -2275,7 +2641,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ao no Exorcist",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "black-rock-shooter",
@@ -2303,7 +2670,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Black Rock Shooter",
         "totalEpisodes": 8
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "date-a-live",
@@ -2339,7 +2707,40 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Date A Live 2",
         "totalEpisodes": 11
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "date-a-live-mayuri-judgement",
+    "title": "Date A Live Movie: Mayuri Judgement",
+    "synopsis": "Set in the premise after the events of Date a Live II, a mysterious existence named Mayuri has started to appear in Tengu City. Shidou set on a date to figure and find out the identity of the spirit. In order to find out the reason of the interruption of the disturbance that occurred, he goes on a date with six of the spirits that wanted him all for themselves for the mysterious being to appear.\n\nNote: An original story supervised by the original light novel author Koushi Tachibana.",
+    "year": 2015,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20741-WdThAhseSo1y.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n20741-HYmNMUQfT0JM.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.0",
+    "genres": [
+      "Movie",
+      "Action",
+      "Comedy",
+      "Ecchi",
+      "Fantasy",
+      "Mecha",
+      "Romance",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Date A Live - Mayuri Judgement",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "dog-days",
@@ -2365,7 +2766,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Dog Days",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "fate-stay-night",
@@ -2391,7 +2793,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Fate Stay Night",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "fate-zero",
@@ -2418,7 +2821,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Fate Zero",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "gakusen-toshi-asterisk",
@@ -2447,7 +2851,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Gakusen Toshi Asterisk",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "golden-time",
@@ -2472,7 +2877,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Golden Time",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ninomiya",
@@ -2498,7 +2904,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Ninomiya",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "hagure-yusha",
@@ -2524,7 +2931,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Hagure yusha",
         "totalEpisodes": 18
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "highschool-dxd",
@@ -2552,7 +2960,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Highschool DxD",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "inou-battle-wa-nichijou-wa-naka-de",
@@ -2580,7 +2989,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Inou Battle wa Nichijou wa Naka de",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kamisama-hajimemashita",
@@ -2607,36 +3017,8 @@ export const MOCK_CATEGORIES: CategorySection[] = [
         "folderName": "Kamisama Hajimemashita !",
         "totalEpisodes": 14
       }
-    ]
-  },
-  {
-    "id": "kamisama-no-inai-nichiyoubi",
-    "title": "Kamisama no Inai Nichiyoubi",
-    "synopsis": "Fifteen years ago, God abandoned the world and closed the gate to Heaven, leaving the souls of humankind trapped in limbo. With the dead unable to rest and the living unable to have children, the world is slowly coming to a halt. The only key to mankind’s salvation rests with the Gravekeepers, mysterious beings charged with the task of sending the deceased to their final resting place. Twelve-year-old Ai, one of the last children in the world, soon finds herself shouldered with the burden of becoming her village’s newest Gravekeeper. But beneath the village’s unassuming exterior lies a dark secret that is revealed with the arrival of a gun-wielding stranger in black. With her position as a Gravekeeper now uncertain, Ai has no choice but to set out to put the living dead to rest. But in a world where no one can die, is death truly the ultimate blessing?\n\n(Source: Sentai Filmworks)",
-    "year": 2013,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16009-Sjn9slY4IsjE.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/16009-Mt1EU2bS3SQm.jpg",
-    "status": "tamat",
-    "isFeatured": false,
-    "rating": "6.9",
-    "genres": [
-      "Adventure",
-      "Drama",
-      "Fantasy",
-      "Mystery",
-      "Psychological",
-      "Supernatural"
     ],
-    "totalEpisodes": 12,
-    "totalSeasons": 1,
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "title": "Musim 1",
-        "folderName": "Kamisama no Inai Nichiyoubi",
-        "totalEpisodes": 12
-      }
-    ]
+    "type": "series"
   }
 ],
   },
@@ -2667,7 +3049,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "11 Eyes",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ah-my-goddess",
@@ -2700,7 +3083,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Ah My Goddess 2",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "accel-world",
@@ -2726,7 +3110,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Accel World",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "air-gear",
@@ -2753,7 +3138,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Air Gear",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "akikan",
@@ -2780,7 +3166,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Akikan",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "amagami-ss",
@@ -2812,7 +3199,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Amagami SS +",
         "totalEpisodes": 20
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "angel-beats",
@@ -2839,7 +3227,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Angel Beats",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "anohana",
@@ -2866,7 +3255,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "AnoHana",
         "totalEpisodes": 11
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ano-natsu-de-matteru",
@@ -2894,7 +3284,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Ano Natsu de Matteru",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "another",
@@ -2922,7 +3313,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Another",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ao-haru-ride",
@@ -2948,7 +3340,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Ao Haru Ride",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ao-no-exorcist",
@@ -2974,7 +3367,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Ao no Exorcist",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "asobi",
@@ -3001,7 +3395,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Asobi",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "b-gata-h-kei",
@@ -3027,7 +3422,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "B gata H kei",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "baka-and-test-no-shoukanjuu",
@@ -3052,7 +3448,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Baka and Test no Shoukanjuu",
         "totalEpisodes": 28
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "bakemonogatari",
@@ -3081,7 +3478,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Bakemonogatari",
         "totalEpisodes": 15
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ballroom-e-youkoso",
@@ -3107,7 +3505,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Ballroom e Youkoso",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "barakamon",
@@ -3131,7 +3530,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Barakamon",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "beelzebub",
@@ -3157,7 +3557,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Beelzebub",
         "totalEpisodes": 60
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ben-to",
@@ -3183,7 +3584,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Ben-To !",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "binbougami",
@@ -3209,7 +3611,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Binbougami",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "black-bullet",
@@ -3236,7 +3639,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Black Bullet",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "black-rock-shooter",
@@ -3264,7 +3668,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Black Rock Shooter",
         "totalEpisodes": 8
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "boku-wa-tomodachi",
@@ -3297,7 +3702,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Boku Wa Tomodachi 2",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "bokura-ga-ita",
@@ -3323,7 +3729,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Bokura ga Ita",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "bokura-wa-minna-kawaisou",
@@ -3349,7 +3756,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Bokura Wa Minna Kawaisou",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "brothers-conflict",
@@ -3373,7 +3781,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Brothers Conflict",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "btoom",
@@ -3399,7 +3808,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "BTOOM !!",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "bukiyou-na-senpai",
@@ -3424,7 +3834,36 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Bukiyou na Senpai",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "5-centimeters-per-second",
+    "title": "Byousoku 5 Centimeter",
+    "synopsis": "Tohno Takaki and Shinohara Akari, two very close friends and classmates, are torn apart when Akari's family is transferred to another region of Japan due to her family's job. Despite separation, they continue to keep in touch through mail. When Takaki finds out that his family is also moving, he decides to meet with Akari one last time.\nAs years pass by, they continue down their own paths, their distance slowly growing wider and their contact with one another fades. Yet, they keep remembering one another and the times they have shared together, wondering if they will have the chance to meet once again.",
+    "year": 2007,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1689-rJKhjLEjQHSy.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1689.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "7.1",
+    "genres": [
+      "Movie",
+      "Drama",
+      "Romance",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 3,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "5 Centimeters per Second",
+        "totalEpisodes": 3
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "campione",
@@ -3451,7 +3890,38 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Campione!",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "chainsaw-man-reze-arc",
+    "title": "Chainsaw Man: Reze-hen",
+    "synopsis": "Denji became “Chainsaw Man”, a boy with a devil’s heart, and is now part of Special Division 4’s devil hunters. After a date with Makima, the woman of his dreams, Denji takes shelter from the rain. There he meets Reze, a girl who works in a café.\n\n(Source: MAPPA CHANNEL)",
+    "year": 2025,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171627-ZN9D7P46yHnw.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/171627-7esVHhgw69rn.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "9.0",
+    "genres": [
+      "Movie",
+      "Action",
+      "Drama",
+      "Horror",
+      "Romance",
+      "Supernatural"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Chainsaw Man - Reze Arc",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "chuunibyou-demo-koi-ga-shitai",
@@ -3484,7 +3954,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Chuunibyou Demo Koi Ga Shitai! Ren",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "clannad",
@@ -3518,7 +3989,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Clannad After Story",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "code-geass-lelouch-of-the-rebellion",
@@ -3552,7 +4024,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Code Geass - Lelouch of the Rebellion R2",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "code-breaker",
@@ -3577,7 +4050,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Code Breaker",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "d-frag",
@@ -3601,7 +4075,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "D-Frag",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "dakara-boku-wa-h-ga-dekinai",
@@ -3628,7 +4103,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Dakara Boku wa, H ga Dekinai",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "danganronpa",
@@ -3656,7 +4132,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Danganronpa",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "danshi-koukousei-no-nichijou",
@@ -3681,7 +4158,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Danshi Koukousei No Nichijou",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "date-a-live",
@@ -3717,7 +4195,40 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Date A Live 2",
         "totalEpisodes": 11
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "date-a-live-mayuri-judgement",
+    "title": "Date A Live Movie: Mayuri Judgement",
+    "synopsis": "Set in the premise after the events of Date a Live II, a mysterious existence named Mayuri has started to appear in Tengu City. Shidou set on a date to figure and find out the identity of the spirit. In order to find out the reason of the interruption of the disturbance that occurred, he goes on a date with six of the spirits that wanted him all for themselves for the mysterious being to appear.\n\nNote: An original story supervised by the original light novel author Koushi Tachibana.",
+    "year": 2015,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20741-WdThAhseSo1y.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n20741-HYmNMUQfT0JM.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.0",
+    "genres": [
+      "Movie",
+      "Action",
+      "Comedy",
+      "Ecchi",
+      "Fantasy",
+      "Mecha",
+      "Romance",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Date A Live - Mayuri Judgement",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "diabolik-lovers",
@@ -3744,7 +4255,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Diabolik Lovers",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "dog-days",
@@ -3770,7 +4282,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Dog Days",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "durarara",
@@ -3796,7 +4309,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Durarara!!",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "elfen-lied",
@@ -3826,7 +4340,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Elfen Lied",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "eromanga-sensei",
@@ -3854,7 +4369,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Eromanga-sensei",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "fate-stay-night",
@@ -3880,7 +4396,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Fate Stay Night",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "fate-zero",
@@ -3907,7 +4424,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Fate Zero",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "freezing",
@@ -3935,7 +4453,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Freezing",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "gabriel-dropout",
@@ -3961,7 +4480,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Gabriel DropOut",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "highschool-of-the-dead",
@@ -3990,7 +4510,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Highschool of The Dead",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "gakusen-toshi-asterisk",
@@ -4019,7 +4540,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Gakusen Toshi Asterisk",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "genei-wo-kakeru-taiyou",
@@ -4044,7 +4566,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Genei Wo Kakeru Taiyou",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "golden-time",
@@ -4069,7 +4592,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Golden Time",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ninomiya",
@@ -4095,7 +4619,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Ninomiya",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "gosick",
@@ -4121,7 +4646,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Gosick",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "guilty-crown",
@@ -4150,7 +4676,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Guilty Crown",
         "totalEpisodes": 22
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "h2o-footprints-in-the-sand",
@@ -4174,7 +4701,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "H2O Footprints in the Sand",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "hagure-yusha",
@@ -4200,7 +4728,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Hagure yusha",
         "totalEpisodes": 18
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "haiyoru-nyaruko-san",
@@ -4225,7 +4754,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Haiyoru! Nyaruko-san",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "hentai-ouji-to-warawanai-neko",
@@ -4251,7 +4781,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Hentai Ouji To Warawanai Neko",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "highschool-dxd",
@@ -4279,7 +4810,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Highschool DxD",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "himouto-umaru-chan",
@@ -4304,7 +4836,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Himouto! Umaru-chan",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "hyouka",
@@ -4330,7 +4863,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Hyouka",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "inou-battle-wa-nichijou-wa-naka-de",
@@ -4358,7 +4892,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Inou Battle wa Nichijou wa Naka de",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "inu-x-boku-ss",
@@ -4384,7 +4919,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Inu x Boku SS",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "inukami",
@@ -4411,7 +4947,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Inukami",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "infinite-stratos",
@@ -4440,7 +4977,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Infinite Stratos",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "isshuukan-friends",
@@ -4467,7 +5005,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Isshuukan Friends",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "itazura-na-kiss",
@@ -4492,7 +5031,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Itazura na Kiss",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "k",
@@ -4518,7 +5058,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "K",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "the-world-god-only-knows",
@@ -4544,7 +5085,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "The World God Only Knows",
         "totalEpisodes": 39
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kamisama-hajimemashita",
@@ -4571,7 +5113,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kamisama Hajimemashita !",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kamisama-no-inai-nichiyoubi",
@@ -4600,7 +5143,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kamisama no Inai Nichiyoubi",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kanojo-flag-wa-orarerata",
@@ -4625,7 +5169,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kanojo flag wa orarerata",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kanokon",
@@ -4652,7 +5197,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kanokon",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "karakai-jouzu-no-takagi-san",
@@ -4678,7 +5224,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Karakai Jouzu no Takagi-san 2",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kateikyo-hitman-reborn",
@@ -4706,7 +5253,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kateikyo hitman reborn",
         "totalEpisodes": 10
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ketsuekigata-kun",
@@ -4730,7 +5278,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Ketsuekigata-kun",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kimi-ga-aruji-de-shitsuji-ga",
@@ -4756,7 +5305,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kimi ga Aruji de Shitsuji ga",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kimi-ga-nozomu-eien",
@@ -4782,7 +5332,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kimi ga Nozomu Eien",
         "totalEpisodes": 18
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kiss-x-sis-ova",
@@ -4808,7 +5359,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kiss x sis OVA",
         "totalEpisodes": 10
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "koi-to-senkyo-to-chocolate",
@@ -4833,7 +5385,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Koi to Senkyo to Chocolate",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kokoro-connect",
@@ -4860,7 +5413,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kokoro Connect",
         "totalEpisodes": 17
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kono-naka-hitori-imouto-ga-iru",
@@ -4886,7 +5440,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kono naka hitori , Imouto ga Iru",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kono-subarashii-sekai-ni-shukufuku-wo",
@@ -4919,7 +5474,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kono Subarashii Sekai ni Shukufuku wo ! 2",
         "totalEpisodes": 11
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "he-is-my-master",
@@ -4945,7 +5501,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "He is my master",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kore-wa-zombie-desu-ka",
@@ -4972,7 +5529,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kore wa Zombie desu ka",
         "totalEpisodes": 23
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kuzu-no-honkai",
@@ -4999,7 +5557,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kuzu no Honkai",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "kyoukai-no-kanata",
@@ -5027,7 +5586,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Kyoukai no Kanata",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "little-busters",
@@ -5054,7 +5614,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Little Busters!",
         "totalEpisodes": 35
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "log-horizon",
@@ -5080,7 +5641,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Log Horizon",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "lovelive",
@@ -5111,7 +5673,35 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "LoveLive! 2",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "lovelive-school-idol-movie",
+    "title": "Love Live! The School Idol Movie",
+    "synopsis": "Although μ's, the defending champions of the school idol tournament, plans to dissolve their group after the graduation of their senior members, they receive news that leads them to holding a concert event! The 9 girls continue to learn and grow in this new and unfamiliar world. What is the last thing that these girls can do as school idols? With the clock ticking, what kind of meaning will the μ's members find in performing the most exciting live performance?\n\n(Source: NIS America)",
+    "year": 2015,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20766-9A9Z6hawqdLe.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20766-M4rqjELIprpa.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.7",
+    "genres": [
+      "Movie",
+      "Music",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "LoveLive - School Idol Movie",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "machine-doll-wa-kizutsukanai",
@@ -5137,7 +5727,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Machine-Doll wa Kizutsukanai",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "magi",
@@ -5169,7 +5760,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Magi - The Kingdom of Magic",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "maken-ki-two",
@@ -5193,7 +5785,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Maken ki two",
         "totalEpisodes": 9
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "mangaka-san-to-assistant-san-to",
@@ -5220,7 +5813,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Mangaka-san to Assistant-san to",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "masamune-kun-no-revenge",
@@ -5246,7 +5840,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Masamune-kun no Revenge",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "mekaku-city-actors",
@@ -5273,7 +5868,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Mekaku City Actors",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "mirai-nikki",
@@ -5302,7 +5898,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Mirai Nikki",
         "totalEpisodes": 27
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "mitsudomoe",
@@ -5327,7 +5924,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Mitsudomoe",
         "totalEpisodes": 11
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "mondaiji-tachi-ga-isekai-kara-kuru-sou-desu-yo",
@@ -5354,7 +5952,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Mondaiji-tachi ga Isekai kara Kuru Sou Desu yo",
         "totalEpisodes": 11
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "monogatari-series-second-season",
@@ -5383,7 +5982,37 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Monogatari Series Second Season",
         "totalEpisodes": 23
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "naruto-shippuden-the-movie",
+    "title": "NARUTO: Shippuuden Movie",
+    "synopsis": "Demons that once almost destroyed the world, are revived by someone. To prevent the world from being destroyed, the demon has to be sealed and the only one who can do it is the shrine maiden Shion from the country of demons, who has two powers; one is sealing demons and the other is predicting the deaths of humans. This time Naruto's mission is to guard Shion, but she predicts Naruto's death. The only way to escape it, is to get away from Shion, which would leave her unguarded, then the demon, whose only goal is to kill Shion will do so, thus meaning the end of the world. Naruto decides to challenge this \"prediction of death\", but fails to prove Shion's prediction wrong and supposedly dies in vain.",
+    "year": 2007,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2472-mYApVxceStn5.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/2472-yKoD8rvll5al.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.0",
+    "genres": [
+      "Movie",
+      "Action",
+      "Adventure",
+      "Comedy",
+      "Fantasy"
+    ],
+    "totalEpisodes": 8,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Naruto Shippuden - The Movie",
+        "totalEpisodes": 8
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "nekomonogatari-kuro",
@@ -5411,7 +6040,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Nekomonogatari Kuro",
         "totalEpisodes": 4
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "nisekoi",
@@ -5437,7 +6067,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Nisekoi",
         "totalEpisodes": 22
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "nisemonogatari",
@@ -5466,7 +6097,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Nisemonogatari",
         "totalEpisodes": 11
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "no-game-no-life",
@@ -5493,7 +6125,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "No Game No Life",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "non-non-biyori-repeat",
@@ -5517,7 +6150,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Non Non Biyori Repeat",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "noragami",
@@ -5550,7 +6184,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Noragami Aragoto",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "nura",
@@ -5575,7 +6210,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Nura 2",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "my-wife-is-a-highschool-girl",
@@ -5602,7 +6238,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "My Wife is a Highschool Girl",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "omamori-himari",
@@ -5630,7 +6267,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Omamori Himari",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "one-punch-man",
@@ -5657,7 +6295,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "One Punch Man",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "onee-chan-ga-kita",
@@ -5682,7 +6321,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Onee chan ga kita",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "ookami-shoujo-to-kuro-ouji",
@@ -5708,7 +6348,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Ookami Shoujo to Kuro Ouji",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "oreimo",
@@ -5733,7 +6374,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Oreimo",
         "totalEpisodes": 31
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "oreshura",
@@ -5758,7 +6400,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "OreShura",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "noucome",
@@ -5785,7 +6428,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "NouCome",
         "totalEpisodes": 11
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "plastic-memories",
@@ -5812,7 +6456,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Plastic Memories",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "princess-lover",
@@ -5838,7 +6483,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Princess Lover",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "rail-wars",
@@ -5864,7 +6510,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Rail Wars",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "rakudai-kishi-no-cavalry",
@@ -5891,7 +6538,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Rakudai Kishi no Cavalry",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "rec",
@@ -5917,7 +6565,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Rec !",
         "totalEpisodes": 9
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "renai-boukun",
@@ -5944,7 +6593,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Renai Boukun",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "rental-magica",
@@ -5971,7 +6621,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Rental Magica",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "rosario-vampire",
@@ -6004,7 +6655,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Rosario Vampire 2",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "rozen-maiden",
@@ -6037,7 +6689,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Rozen Maiden 2013",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "sakurasou-no-pet-na-kanojo",
@@ -6064,7 +6717,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Sakurasou no Pet na Kanojo",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "sankarea",
@@ -6092,7 +6746,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Sankarea",
         "totalEpisodes": 15
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "school-days",
@@ -6117,7 +6772,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "School Days",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "school-rumble",
@@ -6143,7 +6799,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "School Rumble",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "seikoku-no-dragonar",
@@ -6169,7 +6826,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Seikoku no Dragonar",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "seikon-no-qwaser",
@@ -6195,7 +6853,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Seikon no Qwaser",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "seiren",
@@ -6219,7 +6878,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Seiren",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "seitokai-yakuindomo",
@@ -6244,7 +6904,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Seitokai Yakuindomo",
         "totalEpisodes": 21
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "sekirei",
@@ -6276,7 +6937,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Sekirei 2",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "shakugan-no-shana",
@@ -6305,7 +6967,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Shakugan no Shana",
         "totalEpisodes": 72
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "shingeki-no-kyojin",
@@ -6332,7 +6995,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Shingeki no Kyojin",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "shingetsutan-tsukihime",
@@ -6360,7 +7024,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Shingetsutan Tsukihime",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "sora-no-otoshimono",
@@ -6395,7 +7060,38 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Sora no Otoshimono Forte",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "sora-no-otoshimono-tokeijikake-no-angeloid",
+    "title": "Sora no Otoshimono: Tokeijikake no Angeloid",
+    "synopsis": "Movie adaptation of the Sora no Otoshimono manga, based on Kazane Hiyori's arc.",
+    "year": 2011,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9790-OAQA9JYhzFxz.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9790-OAQA9JYhzFxz.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.1",
+    "genres": [
+      "Movie",
+      "Comedy",
+      "Drama",
+      "Ecchi",
+      "Romance",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Sora no Otoshimono - Tokeijikake no Angeloid",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "special-a",
@@ -6422,7 +7118,36 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Special A",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "doraemon-stand-by-me",
+    "title": "STAND BY ME Doraemon",
+    "synopsis": "The robotic cat was sent by a boy in the future to the present day to help the boy's hapless grandfather, Nobita. Doraemon, Nobita, and other children deal with everyday childhood issues, solve (and cause) problems with the gadgets in Doraemon's fourth-dimensional pocket, and embark on escapades through time and space.",
+    "year": 2014,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/20515.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/20515.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "7.8",
+    "genres": [
+      "Movie",
+      "Adventure",
+      "Comedy",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Doraemon - Stand By Me",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "strike-the-blood",
@@ -6449,7 +7174,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Strike the Blood",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "sukitte-iinayo",
@@ -6474,7 +7200,38 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Sukitte Iinayo",
         "totalEpisodes": 15
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "summer-wars",
+    "title": "Summer Wars",
+    "synopsis": "When timid eleventh-grader and math genius Kenji Koiso is asked by older student and secret crush Natsuki to come with her to her family's Nagano home for a summer job, he agrees without hesitation. \nNatsuki's family, the Jinnouchi clan, dates back to the Muromachi era (1336 to 1573), and they've all come together to celebrate the 90th birthday of the spunky matriarch of the family, Sakae. That&rsquo;s when Kenji discovers his \"summer job\" is to pretend to be Natsuki's fiance and dance with her at the birthday celebration. \nAs Kenji attempts to keep up with Natsuki's act around her family, he receives a strange math problem on his cell phone which, being a math genius, he can't resist solving. As it turns out, the solution to the mysterious equation causes Oz, the program that controls nearly every aspect of life to be hacked into, it's up to Kenji and his new \"family\" to stop the hacker before it's too late.\n(Source: twitchfilm.net)",
+    "year": 2009,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5681-3DmxUVn3grD0.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/5681-M15hrscD9QHN.jpg",
+    "status": "tamat",
+    "isFeatured": true,
+    "rating": "7.7",
+    "genres": [
+      "Movie",
+      "Action",
+      "Comedy",
+      "Drama",
+      "Romance",
+      "Sci-Fi"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Summer Wars",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "sword-art-online",
@@ -6507,7 +7264,37 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Sword Art Online 2",
         "totalEpisodes": 26
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "sword-art-online-extra-edition",
+    "title": "Sword Art Online: Extra Edition",
+    "synopsis": "Yui wants to see a whale with Kirito during an underwater quest in Alfeim Online. During the quest however, it is revealed Leafa cannot swim. Asuna and the other female characters decide to train Suguha in a real-world pool to help her in ALO. Meanwhile, Kirito meets a certain someone.",
+    "year": 2013,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20021-BZA5XTwahXPj.png",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20021-BJZOqmANWyU7.jpg",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.1",
+    "genres": [
+      "Movie",
+      "Action",
+      "Adventure",
+      "Fantasy",
+      "Romance"
+    ],
+    "totalEpisodes": 4,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "Sword Art Online - Extra Edition",
+        "totalEpisodes": 4
+      }
+    ],
+    "type": "movie"
   },
   {
     "id": "taimadou-gakuen-35-shiken-shoutai",
@@ -6534,7 +7321,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Taimadou Gakuen 35 Shiken Shoutai",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "to-love-ru",
@@ -6573,7 +7361,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "To LOVE-Ru Darkness",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "to-aru-kagaku-no-railgun",
@@ -6605,7 +7394,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "To Aru Kagaku no Railgun S",
         "totalEpisodes": 25
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "to-aru-majutsu-no-index",
@@ -6631,7 +7421,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "To Aru Majutsu no Index",
         "totalEpisodes": 48
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "tokyo-ghoul",
@@ -6660,7 +7451,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Tokyo Ghoul",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "tokyo-ravens",
@@ -6686,7 +7478,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Tokyo Ravens",
         "totalEpisodes": 24
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "tonari-no-kaibutsu-kun",
@@ -6712,7 +7505,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Tonari no Kaibutsu-kun",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "toradora",
@@ -6739,7 +7533,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "ToraDora !",
         "totalEpisodes": 30
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "trinity-seven",
@@ -6767,7 +7562,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Trinity Seven",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "true-tears",
@@ -6792,7 +7588,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "True Tears",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "tsuki-ga-kirei",
@@ -6818,7 +7615,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Tsuki ga Kirei",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "the-law-of-ueki",
@@ -6846,7 +7644,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "The Law of Ueki",
         "totalEpisodes": 51
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "white-album",
@@ -6872,7 +7671,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "White Album",
         "totalEpisodes": 13
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "oregairu",
@@ -6898,7 +7698,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Oregairu",
         "totalEpisodes": 14
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "yosuga-no-sora",
@@ -6924,7 +7725,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Yosuga no sora",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "yushibu",
@@ -6951,7 +7753,8 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Yushibu",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
   },
   {
     "id": "zero-no-tsukaima",
@@ -6986,6 +7789,35 @@ export const MOCK_CATALOG_DATA: Anime[] = [
         "folderName": "Zero no Tsukaima F",
         "totalEpisodes": 12
       }
-    ]
+    ],
+    "type": "series"
+  },
+  {
+    "id": "honeyworks-zutto-maekara-suki-deshita",
+    "title": "Zutto Mae kara Suki deshita.: Kokuhaku Jikkou Iinkai",
+    "synopsis": "This is the last time I’m going to practice…\n\nNatsuki Enomoto, a third-year student at Sakuragaoka High School, has feelings of unrequited love for her childhood friend, Yuu Setoguchi. Unable to be true to her own feelings, Natsuki tells Yuu that she is merely using him as a stand-in to practice confessing her love to. As Natsuki continues to pretend not having any feelings for Yuu, her classmate Koyuki Ayase asks her out on a date. Will Natsuki ever be able to stop “practicing” and actually confess her love to Yuu?\n\n(Source: Aniplex USA)",
+    "year": 2016,
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21296-WtdIXdg64GCK.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21296-1tLF48awXvQw.png",
+    "status": "tamat",
+    "isFeatured": false,
+    "rating": "6.9",
+    "genres": [
+      "Movie",
+      "Drama",
+      "Romance",
+      "Slice of Life"
+    ],
+    "totalEpisodes": 1,
+    "totalSeasons": 1,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Film Utama",
+        "folderName": "HoneyWorks - Zutto Maekara Suki Deshita",
+        "totalEpisodes": 1
+      }
+    ],
+    "type": "movie"
   }
 ];

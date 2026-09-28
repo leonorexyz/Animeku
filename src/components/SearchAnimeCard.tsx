@@ -158,7 +158,15 @@ export default function SearchAnimeCard({
         </h4>
         <div className="flex items-center justify-between text-[11px] text-zinc-400">
           <span>{anime.year}</span>
-          <span className="text-[10px] text-zinc-500">{anime.totalEpisodes} Ep</span>
+          <span className={`text-[10px] px-1.5 py-0.5 rounded ${
+            anime.type === "movie" || anime.genres?.includes("Movie")
+              ? "bg-amber-950/70 text-amber-300 font-semibold"
+              : "text-zinc-500"
+          }`}>
+            {anime.type === "movie" || anime.genres?.includes("Movie")
+              ? (anime.totalEpisodes > 1 ? `Film (${anime.totalEpisodes} Ep)` : "Film")
+              : `${anime.totalEpisodes} Ep`}
+          </span>
         </div>
         <div className="flex flex-wrap gap-1 pt-0.5">
           {anime.genres.slice(0, 2).map((g) => (

@@ -33,7 +33,22 @@ export async function GET() {
           .where(eq(schema.animeCategories.categoryId, cat.id));
 
         const animeIds = links.map(({ anime }) => anime.id);
-        const items = links.map(({ anime }) => ({
+        const items = links.map(({ anime }) => {
+          let itemGenres: string[] = [];
+          if (anime.genres) {
+            try {
+              itemGenres = anime.genres.startsWith("[")
+                ? JSON.parse(anime.genres)
+                : anime.genres.split(",").map((s: string) => s.trim());
+            } catch {
+              itemGenres = anime.genres.split(",").map((s: string) => s.trim());
+            }
+          }
+          if (itemGenres.length === 0) itemGenres = [cat.name];
+
+          const isMovie = (anime.sourcePath?.includes("/Movie/") || itemGenres.includes("Movie"));
+
+        return {
           id: anime.id,
           title: anime.title,
           synopsis: anime.synopsis,
@@ -43,9 +58,11 @@ export async function GET() {
           status: (anime.status as "belum" | "sedang" | "tamat") || "belum",
           isFeatured: anime.isFeatured,
           rating: anime.rating || "8.5",
-          genres: [cat.name],
+          genres: itemGenres,
           totalEpisodes: anime.totalEpisodes || 12,
-        }));
+          type: (isMovie ? "movie" : "series") as "movie" | "series",
+        };
+      });
 
         return {
           id: cat.id,

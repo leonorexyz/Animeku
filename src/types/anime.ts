@@ -51,6 +51,7 @@ export interface Anime {
   totalSeasons?: number;
   seasons?: AnimeSeasonInfo[];
   progress?: WatchProgress;
+  type?: "series" | "movie";
 }
 
 export interface CategorySection {

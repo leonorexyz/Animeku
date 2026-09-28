@@ -226,8 +226,14 @@ export default function AnimeDetailPage({ params }: PageProps) {
             <span className="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30 uppercase tracking-wider text-[10px]">
               {anime.status === "tamat" ? "Tamat" : "Sedang Tayang"}
             </span>
-            <span className="text-zinc-300 bg-zinc-800/80 px-2 py-0.5 rounded border border-white/10">
-              {anime.totalEpisodes || episodes.length} Episode
+            <span className={`px-2 py-0.5 rounded border ${
+              anime.type === "movie" || anime.genres?.includes("Movie")
+                ? "text-amber-400 bg-amber-500/10 border-amber-500/30 font-bold"
+                : "text-zinc-300 bg-zinc-800/80 border-white/10"
+            }`}>
+              {anime.type === "movie" || anime.genres?.includes("Movie")
+                ? ((anime.totalEpisodes || episodes.length) > 1 ? `Film Anime (${anime.totalEpisodes || episodes.length} Bagian)` : "Film Layar Lebar")
+                : `${anime.totalEpisodes || episodes.length} Episode`}
             </span>
             <span className="text-red-400 bg-red-600/10 px-1.5 py-0.5 rounded border border-red-500/30 text-[10px]">
               Ultra HD 4K

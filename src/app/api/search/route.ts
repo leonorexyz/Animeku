@@ -111,6 +111,7 @@ export async function GET(req: Request) {
         rating: a.rating || "8.5",
         genres: animeGenres.length > 0 ? animeGenres : (genresByAnime[a.id] || ["Anime"]),
         totalEpisodes: episodeCountMap[a.id] || 12,
+        type: ((a as any).sourcePath?.includes("/Movie/") || animeGenres.includes("Movie") ? "movie" : "series") as "movie" | "series",
       });
     });
 
@@ -127,6 +128,9 @@ export async function GET(req: Request) {
         combinedMap.set(m.id, m);
       } else {
         const existing = combinedMap.get(m.id)!;
+        if (!existing.type && m.type) {
+          existing.type = m.type;
+        }
         if (!existing.genres || existing.genres.length <= 1) {
           if (m.genres && m.genres.length > 0) {
             existing.genres = Array.from(new Set([...(existing.genres || []), ...m.genres]));
@@ -173,22 +177,19 @@ export async function GET(req: Request) {
     // Filter kategori (tv, movie, special)
     if (category && category !== "all") {
       results = results.filter((item) => {
+        const isMovie =
+          item.type === "movie" ||
+          item.genres?.includes("Movie") ||
+          item.title.toLowerCase().includes("movie");
+
         if (category === "movie") {
-          return (
-            item.totalEpisodes === 1 ||
-            item.genres?.includes("Movie") ||
-            item.title.toLowerCase().includes("movie")
-          );
+          return isMovie;
         } else if (category === "special") {
           return (
             item.title.toLowerCase().includes("ova") ||
             item.title.toLowerCase().includes("special")
           );
-        } else if (category === "tv") {
-          const isMovie =
-            item.totalEpisodes === 1 ||
-            item.genres?.includes("Movie") ||
-            item.title.toLowerCase().includes("movie");
+        } else if (category === "tv" || category === "series") {
           const isSpecial =
             item.title.toLowerCase().includes("ova") ||
             item.title.toLowerCase().includes("special");

@@ -30,23 +30,36 @@ import {
   Star,
   Check,
   Play,
+  Tv,
+  Layers,
 } from "lucide-react";
 
 function SearchContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") || "";
+  const paramCategory = searchParams.get("category") || searchParams.get("type") || "all";
+  const initialCategory = paramCategory === "series" ? "tv" : paramCategory;
 
   const [query, setQuery] = useState(initialQuery);
   const [filters, setFilters] = useState<FilterState>({
     genre: "Semua",
-    category: "all",
+    category: initialCategory,
     year: "all",
     status: "all",
     watchStatus: "all",
     sortBy: "title-asc",
   });
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  // Keep category in sync if URL parameter changes (e.g. from navbar clicks)
+  React.useEffect(() => {
+    const rawCat = searchParams.get("category") || searchParams.get("type");
+    if (rawCat) {
+      const normalized = rawCat === "series" ? "tv" : rawCat;
+      setFilters((prev) => ({ ...prev, category: normalized }));
+    }
+  }, [searchParams]);
 
   // Combine and deduplicate all anime from mock sources
   const allAnimeList = useMemo(() => {
@@ -105,20 +118,23 @@ function SearchContent() {
 
         // Category filter
         if (filters.category !== "all") {
+          const isMovie =
+            item.type === "movie" ||
+            item.genres?.includes("Movie") ||
+            item.title.toLowerCase().includes("movie");
+
           if (filters.category === "movie") {
-            const isMovie =
-              item.totalEpisodes === 1 ||
-              item.genres.includes("Movie") ||
-              item.title.toLowerCase().includes("movie");
             if (!isMovie) return false;
           } else if (filters.category === "special") {
             const isSpecial =
               item.title.toLowerCase().includes("ova") ||
               item.title.toLowerCase().includes("special");
             if (!isSpecial) return false;
-          } else if (filters.category === "tv") {
-            const isTV = item.totalEpisodes > 1;
-            if (!isTV) return false;
+          } else if (filters.category === "tv" || filters.category === "series") {
+            const isSpecial =
+              item.title.toLowerCase().includes("ova") ||
+              item.title.toLowerCase().includes("special");
+            if (isMovie || isSpecial) return false;
           }
         }
 
@@ -168,6 +184,20 @@ function SearchContent() {
         }
       });
   }, [allAnimeList, query, filters]);
+
+  const formatCounts = useMemo(() => {
+    let movies = 0;
+    let series = 0;
+    allAnimeList.forEach((item) => {
+      const isMovie =
+        item.type === "movie" ||
+        item.genres?.includes("Movie") ||
+        item.title?.toLowerCase().includes("movie");
+      if (isMovie) movies++;
+      else series++;
+    });
+    return { all: allAnimeList.length, series, movies };
+  }, [allAnimeList]);
 
   const handleResetFilters = () => {
     setQuery("");
@@ -225,6 +255,43 @@ function SearchContent() {
           {/* Search History & Trending Suggestions */}
           <SearchHistory onSelectQuery={(selectedQuery) => setQuery(selectedQuery)} />
         </section>
+
+        {/* Quick Format Selector Pills (Semua / Serial / Film) */}
+        <div className="flex flex-wrap items-center gap-2 pt-1 pb-1">
+          <button
+            onClick={() => setFilters((prev) => ({ ...prev, category: "all" }))}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer border ${
+              filters.category === "all"
+                ? "bg-red-600 text-white border-red-500 shadow-md shadow-red-600/30"
+                : "bg-zinc-900/80 text-zinc-400 hover:text-white border-zinc-800 hover:bg-zinc-800/80"
+            }`}
+          >
+            <Sparkles className="w-4 h-4 text-amber-400" />
+            <span>Semua Anime ({formatCounts.all})</span>
+          </button>
+          <button
+            onClick={() => setFilters((prev) => ({ ...prev, category: "tv" }))}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer border ${
+              filters.category === "tv" || filters.category === "series"
+                ? "bg-red-600 text-white border-red-500 shadow-md shadow-red-600/30"
+                : "bg-zinc-900/80 text-zinc-400 hover:text-white border-zinc-800 hover:bg-zinc-800/80"
+            }`}
+          >
+            <Tv className="w-4 h-4 text-sky-400" />
+            <span>Serial TV ({formatCounts.series})</span>
+          </button>
+          <button
+            onClick={() => setFilters((prev) => ({ ...prev, category: "movie" }))}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer border ${
+              filters.category === "movie"
+                ? "bg-red-600 text-white border-red-500 shadow-md shadow-red-600/30"
+                : "bg-zinc-900/80 text-zinc-400 hover:text-white border-zinc-800 hover:bg-zinc-800/80"
+            }`}
+          >
+            <Film className="w-4 h-4 text-amber-400" />
+            <span>Film / Movie ({formatCounts.movies})</span>
+          </button>
+        </div>
 
         {/* Filter and Sorting Controls Component */}
         <SearchFilters

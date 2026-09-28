@@ -49,7 +49,18 @@ export async function GET(req: Request, { params }: RouteParams) {
         )
         .where(eq(schema.animeCategories.animeId, animeId));
 
-      const genres = categoryRows.map((c) => c.categoryName);
+      let genres = categoryRows.map((c) => c.categoryName);
+      if (dbAnime.genres) {
+        try {
+          const parsed = dbAnime.genres.startsWith("[")
+            ? JSON.parse(dbAnime.genres)
+            : dbAnime.genres.split(",").map((s: string) => s.trim());
+          genres = Array.from(new Set([...genres, ...parsed]));
+        } catch {
+          const split = dbAnime.genres.split(",").map((s: string) => s.trim());
+          genres = Array.from(new Set([...genres, ...split]));
+        }
+      }
       const categoryIds = categoryRows.map((c) => c.categoryId);
 
       // Fetch all episodes for this anime ordered by season and episode number

@@ -6917,6 +6917,44 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
       "synopsis": "Episode 12 dari Bukiyou na Senpai. (Musim 1)."
     }
   ],
+  "5-centimeters-per-second": [
+    {
+      "id": "ep-5-centimeters-per-second-1",
+      "animeId": "5-centimeters-per-second",
+      "title": "Babak 1: Ouka Shou (Bunga Sakura)",
+      "episodeNumber": 1,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2F5%20Centimeters%20per%20Second%2F1.flv",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1689.jpg",
+      "synopsis": "Kisah pertemuan dan perpisahan Takaki Toono dan Akari Shinohara di bangku sekolah dasar hingga stasiun Iwafune di tengah badai salju."
+    },
+    {
+      "id": "ep-5-centimeters-per-second-2",
+      "animeId": "5-centimeters-per-second",
+      "title": "Babak 2: Cosmonaut",
+      "episodeNumber": 2,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2F5%20Centimeters%20per%20Second%2F2.flv",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1689-rJKhjLEjQHSy.jpg",
+      "synopsis": "Takaki pindah ke Tanegashima di mana Kanae Sumida jatuh cinta padanya dalam hening di bawah roket luar angkasa yang meluncur."
+    },
+    {
+      "id": "ep-5-centimeters-per-second-3",
+      "animeId": "5-centimeters-per-second",
+      "title": "Babak 3: Byousoku 5 Centimeter",
+      "episodeNumber": 3,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2F5%20Centimeters%20per%20Second%2F3.flv",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1689.jpg",
+      "synopsis": "Takaki kini telah dewasa dan bekerja di Tokyo, terus merenungkan jarak dan waktu yang tak pernah bisa kembali seperti kecepatan jatuhnya kelopak bunga sakura."
+    }
+  ],
   "campione": [
     {
       "id": "ep-campione-1",
@@ -7073,6 +7111,20 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FCampione!%2F13.flv",
       "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/98522/original.jpg",
       "synopsis": "The connection between Athena and the mysterious figure is revealed along with the figure's identity. Godou rushes off with Athena while the others stay behind to try to buy enough time for the Authorities Godou used up battling Ama no Murakumo to recharge. Fortunately, thanks to Godou, Erica has an ace that'll let her fight almost at the level of a Campione. If Godou can't defeat his new opponent, then Princess Alice's prediction of the world enveloped by the Starless Night (which was mistakenly attributed to Athena) will come to pass. He'll need the help of all five girls to achieve victory. "
+    }
+  ],
+  "chainsaw-man-reze-arc": [
+    {
+      "id": "ep-chainsaw-man-reze-arc-1",
+      "animeId": "chainsaw-man-reze-arc",
+      "title": "Chainsaw Man: Reze-hen",
+      "episodeNumber": 1,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FChainsaw%20Man%20-%20Reze%20Arc%2F%5BKusonime%5D%20Chainsaw%20Man%20Movie%20Reze-hen%20%5B1920%C3%97800%5D%20%5BB597F142%5D.mkv",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/171627-7esVHhgw69rn.jpg",
+      "synopsis": "Denji became “Chainsaw Man”, a boy with a devil’s heart, and is now part of Special Division 4’s devil hunters. After a date with Makima, the woman of his dreams, Denji takes shelter from the rain. There he meets Reze, a girl who works in a café.\n\n(Source: MAPPA CHANNEL)"
     }
   ],
   "chuunibyou-demo-koi-ga-shitai": [
@@ -9635,6 +9687,20 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FDate%20A%20Live%202%2FOVA.mp4",
       "thumbnailUrl": "https://img1.ak.crunchyroll.com/i/spire4-tmb/0fe76f565d59a3b5c3a1487dff014bcf1718806865_full.jpg",
       "synopsis": "Episode 11 dari Date A Live (Musim 2)."
+    }
+  ],
+  "date-a-live-mayuri-judgement": [
+    {
+      "id": "ep-date-a-live-mayuri-judgement-1",
+      "animeId": "date-a-live-mayuri-judgement",
+      "title": "Date A Live Movie: Mayuri Judgement",
+      "episodeNumber": 1,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FDate%20A%20Live%20-%20Mayuri%20Judgement%2F%5BRyukasubs%5D%20Date%20a%20Live!%20Mayuri%20Judgment.mkv",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n20741-HYmNMUQfT0JM.jpg",
+      "synopsis": "Set in the premise after the events of Date a Live II, a mysterious existence named Mayuri has started to appear in Tengu City. Shidou set on a date to figure and find out the identity of the spirit. In order to find out the reason of the interruption of the disturbance that occurred, he goes on a date with six of the spirits that wanted him all for themselves for the mysterious being to appear.\n\nNote: An original story supervised by the original light novel author Koushi Tachibana."
     }
   ],
   "diabolik-lovers": [
@@ -20745,6 +20811,20 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
       "synopsis": "Following μ's' victory at Love Live, Graduation Day finally arrives at Otonokizaka. Whilst Nico shows her family around, Honoka and the others work on preparations for the graduation ceremony. Honoka soon comes across Eli reminiscing in the student council room, and gives her thanks to all she has done for everyone. As the opening ceremony gets underway, Honoka presents her commemorative speech, which turns out to be a special song she and the others had prepared for the third years. After the ceremony, Nico assigns Hanayo as the next president for the Idol Research Club, with Maki nominated for vice-president, before the group take a reminiscing tour around the school. Arriving at the rooftop where everything began, Honoka gives a proper sendoff to the name of μ's. Before the girls can get a chance to part ways, Hanayo receives some 'big news', prompting everyone to rush back to the club room. "
     }
   ],
+  "lovelive-school-idol-movie": [
+    {
+      "id": "ep-lovelive-school-idol-movie-1",
+      "animeId": "lovelive-school-idol-movie",
+      "title": "Love Live! The School Idol Movie",
+      "episodeNumber": 1,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FLoveLive%20-%20School%20Idol%20Movie%2F%5BTiramiSubs%5D%20%5BHD%5D%20Love%20Live%20School%20Idol%20The%20Movie.mkv",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20766-M4rqjELIprpa.jpg",
+      "synopsis": "Although μ's, the defending champions of the school idol tournament, plans to dissolve their group after the graduation of their senior members, they receive news that leads them to holding a concert event! The 9 girls continue to learn and grow in this new and unfamiliar world. What is the last thing that these girls can do as school idols? With the clock ticking, what kind of meaning will the μ's members find in performing the most exciting live performance?\n\n(Source: NIS America)"
+    }
+  ],
   "machine-doll-wa-kizutsukanai": [
     {
       "id": "ep-machine-doll-wa-kizutsukanai-1",
@@ -22923,6 +23003,104 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FMonogatari%20Series%20Second%20Season%2F23.mp4",
       "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/159193/original.jpg",
       "synopsis": "Returning from his visit at the Polar Snake Shrine, Kaiki asks Hitagi to meet him again, ending up in a Mister Donut restaurant. Kaiki claims that it will be easy for him to deceive Nadeko as at her current condition, she can't doubt anyone - she has turned even more childish than she was in her human state, unable to detect any ill will. He reveals his plan to spare Koyomi and the others by lying to her that they died in an accident, thus he needs Hitagi to convince Koyomi to cease all connections with Nadeko. Hitagi, relieved and crying, thanks him for his services. On the following day, Kaiki is approached by Yotsugi who comes with an ultimatum from Gaen urging him to pull off his scheme to deceive Nadeko, claiming that the stake is too high and the entire city may be destroyed should he fail. Despite accepting ¥3,000,000 as compensation from Gaen, Kaiki moves on with his plan and pays another visit to Nadeko, claiming that he has a special wish she can fulfill and he will keep visiting her in a 100 visit cycle. Nadeko cheerfully tells him that she destroyed the cat's cradle yarn and used a white snake instead. Terrified, he determines she is not only an idiot, but also insane. After the meetup, Kaiki tricks Nadeko's parents to have them leave their house and he takes the opportunity to investigate her room, getting startled upon finding out what she kept hidden inside her closet. "
+    }
+  ],
+  "naruto-shippuden-the-movie": [
+    {
+      "id": "ep-naruto-shippuden-the-movie-1",
+      "animeId": "naruto-shippuden-the-movie",
+      "title": "Movie 1: Naruto Hurricane Chronicles",
+      "episodeNumber": 1,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FNaruto%20Shippuden%20-%20The%20Movie%2FNaruto%20Shippuuden%20Movie%201%20-%20Naruto%20Hurricane%20Chronicles.mkv",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/2472-yKoD8rvll5al.jpg",
+      "synopsis": "Demons that once almost destroyed the world, are revived by someone. To prevent the world from being destroyed, the demon has to be sealed and the only one who can do it is the shrine maiden Shion from the country of demons, who has two powers; one is sealing demons and the other is predicting the deaths of humans. This time Naruto's mission is to guard Shion, but she predicts Naruto's death. The only way to escape it, is to get away from Shion, which would leave her unguarded, then the demon, whose only goal is to kill Shion will do so, thus meaning the end of the world. Naruto decides to challenge this \"prediction of death\", but fails to prove Shion's prediction wrong and supposedly dies in vain."
+    },
+    {
+      "id": "ep-naruto-shippuden-the-movie-2",
+      "animeId": "naruto-shippuden-the-movie",
+      "title": "Movie 2: Bonds (Kizuna)",
+      "episodeNumber": 2,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FNaruto%20Shippuden%20-%20The%20Movie%2FNaruto%20Shippuuden%20The%20Movie%202%20-%20Bonds.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/4437-iYmkXFEF3ybw.jpg",
+      "synopsis": "A mysterious group of ninjas makes a surprise attack on the Konohagakure, which takes great damage. The nightmare of another Shinobi World War could become a reality. Sasuke, who left Konoha to kill his brother, Itachi, appears for the second time in front of Naruto at an unknown location to prevent it from coming to fruition.\n(Source: Wikipedia)"
+    },
+    {
+      "id": "ep-naruto-shippuden-the-movie-3",
+      "animeId": "naruto-shippuden-the-movie",
+      "title": "Movie 3: The Inheritors of the Will of Fire",
+      "episodeNumber": 3,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FNaruto%20Shippuden%20-%20The%20Movie%2FNaruto%20Shippuuden%20The%20Movie%203%20-%20The%20Inheritors%20of%20the%20Will%20of%20Fire.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/6325-DpxNXjgp7BPz.jpg",
+      "synopsis": "Ninjas with bloodline limits begin disappearing in all the countries and blame points toward the fire nation. By Tsunade's order, Kakashi is sacrificed to prevent an all out war. After inheriting charms left by Kakashi, Naruto fights through friends and foes to prevent his death while changing the minds of those who've inherited the will of fire.\n\n(Source: Anime News Network)"
+    },
+    {
+      "id": "ep-naruto-shippuden-the-movie-4",
+      "animeId": "naruto-shippuden-the-movie",
+      "title": "Movie 4: The Lost Tower",
+      "episodeNumber": 4,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FNaruto%20Shippuden%20-%20The%20Movie%2FNaruto%20Shippuuden%20The%20Movie%204%20-%20The%20Lost%20Tower.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/8246-FfSs0aXwJpPV.jpg",
+      "synopsis": "Assigned on a mission to capture Mukade, a missing-nin, Naruto Uzumaki sets out for the once glorious historic ruins of \"Ouran\", where he pursues and corners the rogue ninja. Mukade's goal is revealed to be a dormant leyline within the ruins; he unleashes the power of the leyline, causing a light to envelop Naruto, sending him into the past, 20 years before the series began. When Naruto awakens, he comes into contact with the Fourth Hokage, Minato Namikaze.\n(Source: Wikipedia)"
+    },
+    {
+      "id": "ep-naruto-shippuden-the-movie-5",
+      "animeId": "naruto-shippuden-the-movie",
+      "title": "Movie 5: Blood Prison",
+      "episodeNumber": 5,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FNaruto%20Shippuden%20-%20The%20Movie%2FNaruto%20Shippuuden%20The%20Movie%205%20-%20Blood%20Prison.MP4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/10589-s5r2dzqohuU7.jpg",
+      "synopsis": "After being captured for attempting to assassinate the leader of Kumogakure, the Raikage, and killing Jounin from Kirigakure and Iwagakure, Naruto is imprisoned in Houzukijou, a criminal containment facility also known as the Blood Prison. \nThe master of the castle, Mui, uses the ultimate imprisonment jutsu to steal power from the prisoners. In this place, something is aiming for Naruto's life. The battle to prove his innocence and uncover the truth has begun for Naruto and his friends.\n(Source: AnimeAvenue)"
+    },
+    {
+      "id": "ep-naruto-shippuden-the-movie-6",
+      "animeId": "naruto-shippuden-the-movie",
+      "title": "Movie 6: Road to Ninja",
+      "episodeNumber": 6,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FNaruto%20Shippuden%20-%20The%20Movie%2FNaruto%20Shippuuden%20The%20Movie%206%20-%20Road%20To%20Ninja.MP4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/13667-7Cpxg5sCOVpw.jpg",
+      "synopsis": "Naruto and his friends are trapped in a Genjutsu created by the mysterious Masked Shinobi who is testing it for a greater plan. In this new world, or reality, everyone except Naruto and Sakura have their personalities changed to the opposite of their normal personality. Also, dead characters are now alive and roles are reversed. Naruto and Sakura must find a way to get out of this Genjutsu, and return things to normal.\n\n(Source: Anime News Network)"
+    },
+    {
+      "id": "ep-naruto-shippuden-the-movie-7",
+      "animeId": "naruto-shippuden-the-movie",
+      "title": "Movie 7: The Last Movie",
+      "episodeNumber": 7,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FNaruto%20Shippuden%20-%20The%20Movie%2FNaruto%20Shippuuden%20The%20Movie%207%20-%20The%20%20Last%20Movie.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/16870-xz6KbaGC0jas.jpg",
+      "synopsis": "The moon is beginning to fall, and at the rate it's going, it is doomed to fall on the Earth. The countdown for the survival of the planet begins. Among the havoc, Hinata's younger sister Hanabi is captured by the mysterious enemy, Toneri Ootsutsuki. Naruto must overcome great danger on a mission to save Hanabi and the world along with Hinata, Sai, Shikamaru, and Sakura is their final story. \"The final story is a first love.\"\n\n(Source: Anime News Network)"
+    },
+    {
+      "id": "ep-naruto-shippuden-the-movie-8",
+      "animeId": "naruto-shippuden-the-movie",
+      "title": "Movie 8: Boruto: Naruto the Movie",
+      "episodeNumber": 8,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FNaruto%20Shippuden%20-%20The%20Movie%2FBoruto-Naruto-the-Movie-chia-anime.com.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21220-tdeNPd6YFzIo.jpg",
+      "synopsis": "Boruto is the son of Naruto who completely rejects his father. Behind this, he has feelings of wanting to surpass Naruto, who is respected as a hero. He ends up meeting his father's friend Sasuke, and requests to become... his apprentice!? The curtain rises on the story of the new generation written by Masashi Kishimoto!\n\n(Source: Anime News Network)"
     }
   ],
   "nekomonogatari-kuro": [
@@ -31363,6 +31541,20 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
       "synopsis": "Chaos is returned to Daedalus. Things return to normal, with Nymph restoring Ikaros's memories, and Ikaros learning bathroom etiquette, but Tomoki has one more perverted task: transforming into pool water so he can fondle girls during swim class. After Sohara and Nymph drain the pool, Mikako decides he needs to be taught a lesson. Tomoko escapes the hunt by hiding in the girls' bathroom, but is eventually trapped. While Sohara saws down the door lock, Tomoko has no choice but to escape into the toilet and go through sewage treatment to the sea. Later on, Ikaros, in trying to practice bathroom etiquette of knocking and flushing, knocks a hole in the door and flushes Tomoki again. As Ikaros searches for Tomoki, Mikako sees her and offers to help with her proposal situation. A flushed out Tomoki is taken to a wedding chapel; with Sugata and Mikako presiding, Ikaros appears dressed in a bridal gown; she and Tomoki go through a wedding ceremony, but when they are about to kiss, Tomoki stops. Mikako then gives him a choice: he can pick Ikaros, Nymph, Astraea, or Sohara, all of whom are dressed as brides. Tomoki screams at the indecision, but the ceremony is interrupted by a reformed Chaos, who gives Tomoki a hug, and becomes the newest resident Angeloid. "
     }
   ],
+  "sora-no-otoshimono-tokeijikake-no-angeloid": [
+    {
+      "id": "ep-sora-no-otoshimono-tokeijikake-no-angeloid-1",
+      "animeId": "sora-no-otoshimono-tokeijikake-no-angeloid",
+      "title": "Episode 1",
+      "episodeNumber": 1,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FSora%20no%20Otoshimono%20-%20Tokeijikake%20no%20Angeloid%2F3909ep1-Sora_no_Otoshimono__Tokeijikake_no_Angeloid.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9790-OAQA9JYhzFxz.jpg",
+      "synopsis": "Episode 1 dari Sora no Otoshimono: Tokeijikake no Angeloid (Musim 1)."
+    }
+  ],
   "special-a": [
     {
       "id": "ep-special-a-1",
@@ -31651,6 +31843,20 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSpecial%20A%2F24.flv",
       "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/3470.jpg",
       "synopsis": "Episode 24 dari Special A (Musim 1)."
+    }
+  ],
+  "doraemon-stand-by-me": [
+    {
+      "id": "ep-doraemon-stand-by-me-1",
+      "animeId": "doraemon-stand-by-me",
+      "title": "STAND BY ME Doraemon",
+      "episodeNumber": 1,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FDoraemon%20-%20Stand%20By%20Me%2F%5BHD%5D%20Doraemon%20-%20Stand%20By%20Me.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/20515.jpg",
+      "synopsis": "The robotic cat was sent by a boy in the future to the present day to help the boy's hapless grandfather, Nobita. Doraemon, Nobita, and other children deal with everyday childhood issues, solve (and cause) problems with the gadgets in Doraemon's fourth-dimensional pocket, and embark on escapades through time and space."
     }
   ],
   "strike-the-blood": [
@@ -32123,6 +32329,20 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSukitte%20Iinayo%2F13.mp4",
       "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/14289-QSuorl0srSNZ.jpg",
       "synopsis": "Episode 15 dari Sukitte Ii na yo. (Musim 1)."
+    }
+  ],
+  "summer-wars": [
+    {
+      "id": "ep-summer-wars-1",
+      "animeId": "summer-wars",
+      "title": "Summer Wars",
+      "episodeNumber": 1,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FSummer%20Wars%2F%5Bproject-gxs%5D%20Summer%20Wars%20%5B10bit%20BD%20720p%5D%20%5B2A0DADDF%5D.mkv",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/5681-M15hrscD9QHN.jpg",
+      "synopsis": "When timid eleventh-grader and math genius Kenji Koiso is asked by older student and secret crush Natsuki to come with her to her family's Nagano home for a summer job, he agrees without hesitation. \nNatsuki's family, the Jinnouchi clan, dates back to the Muromachi era (1336 to 1573), and they've all come together to celebrate the 90th birthday of the spunky matriarch of the family, Sakae. That&rsquo;s when Kenji discovers his \"summer job\" is to pretend to be Natsuki's fiance and dance with her at the birthday celebration. \nAs Kenji attempts to keep up with Natsuki's act around her family, he receives a strange math problem on his cell phone which, being a math genius, he can't resist solving. As it turns out, the solution to the mysterious equation causes Oz, the program that controls nearly every aspect of life to be hacked into, it's up to Kenji and his new \"family\" to stop the hacker before it's too late.\n(Source: twitchfilm.net)"
     }
   ],
   "sword-art-online": [
@@ -32749,6 +32969,56 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSword%20Art%20Online%202%2FSwordArtOnlineIIEpisode13-1.mp4",
       "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11757-TlEEV9weG4Ag.jpg",
       "synopsis": "Episode 26 dari Sword Art Online (Musim 2)."
+    }
+  ],
+  "sword-art-online-extra-edition": [
+    {
+      "id": "ep-sword-art-online-extra-edition-1",
+      "animeId": "sword-art-online-extra-edition",
+      "title": "Bagian 1: Kenangan di Aincrad",
+      "episodeNumber": 1,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FSword%20Art%20Online%20-%20Extra%20Edition%2F1.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20021-BJZOqmANWyU7.jpg",
+      "synopsis": "Kirito dan teman-temannya mengingat kembali petualangan mereka di Sword Art Online saat membantu Suguha belajar berenang."
+    },
+    {
+      "id": "ep-sword-art-online-extra-edition-2",
+      "animeId": "sword-art-online-extra-edition",
+      "title": "Bagian 2: Pelatihan Berenang & Penyelidikan",
+      "episodeNumber": 2,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FSword%20Art%20Online%20-%20Extra%20Edition%2F2.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20021-BZA5XTwahXPj.png",
+      "synopsis": "Asuna, Silica, dan Lisbeth melatih Suguha di kolam renang sekolah sambil Kirito menjalani konseling dengan Kikuoka Seijirou."
+    },
+    {
+      "id": "ep-sword-art-online-extra-edition-3",
+      "animeId": "sword-art-online-extra-edition",
+      "title": "Bagian 3: Misi Bawah Air ALO",
+      "episodeNumber": 3,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FSword%20Art%20Online%20-%20Extra%20Edition%2F3.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20021-BJZOqmANWyU7.jpg",
+      "synopsis": "Kelompok Kirito bersatu di Alfheim Online untuk menjalankan quest bawah air khusus demi melihat paus legenda."
+    },
+    {
+      "id": "ep-sword-art-online-extra-edition-4",
+      "animeId": "sword-art-online-extra-edition",
+      "title": "Bagian 4: Pertempuran Penguasa Laut",
+      "episodeNumber": 4,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FSword%20Art%20Online%20-%20Extra%20Edition%2F4.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20021-BZA5XTwahXPj.png",
+      "synopsis": "Klimaks quest bawah laut ALO menghadapi Abyss Lord demi memenuhi impian Yui dan melihat paus megah di lautan langit."
     }
   ],
   "taimadou-gakuen-35-shiken-shoutai": [
@@ -37919,6 +38189,20 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FZero%20no%20Tsukaima%20F%2F12.flv",
       "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/29453/original.jpg",
       "synopsis": "Louise is secretly approached by one of Henrietta's advisors and is asked to hold the enemy off while the Queen escapes. Knowing that it is a suicide mission, Louise plans to send Saito to safety, but not before marrying him. Catching wind of her plan, Saito uses a sleeping potion on Louise after they wed and asks Julio to take care of her and sets out to meet Albion's advancing troops. Louise faints before she can tell him she has always and still loves him. Despite his valiant efforts, Saito falls in the battlefield. Back at the academy, Louise collapses in grief at Saito's death, however, suddenly the magical flower that is connected to Saito unexpectedly comes back to life. Louise runs out and meets Saito who is very alive. When Saito fell, the Fairy, who resembles an Elf, saved him, revived him from death and healed him back health. While explaining, Saito mentions the fairy's large breasts which then Louise uses as an excuse, flies into a jealous rage, forgets about being sad about him and starts trying to explode Saito yet again. "
+    }
+  ],
+  "honeyworks-zutto-maekara-suki-deshita": [
+    {
+      "id": "ep-honeyworks-zutto-maekara-suki-deshita-1",
+      "animeId": "honeyworks-zutto-maekara-suki-deshita",
+      "title": "Zutto Mae kara Suki deshita.: Kokuhaku Jikkou Iinkai",
+      "episodeNumber": 1,
+      "seasonNumber": 1,
+      "durationSeconds": 1440,
+      "sourceType": "local",
+      "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FMovie%2FHoneyWorks%20-%20Zutto%20Maekara%20Suki%20Deshita%2F%5BDenZeroSubs%5D%20Zutto%20mae%20Kara%20Suki%20deshita%20English%20Sub.mp4",
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21296-1tLF48awXvQw.png",
+      "synopsis": "This is the last time I’m going to practice…\n\nNatsuki Enomoto, a third-year student at Sakuragaoka High School, has feelings of unrequited love for her childhood friend, Yuu Setoguchi. Unable to be true to her own feelings, Natsuki tells Yuu that she is merely using him as a stand-in to practice confessing her love to. As Natsuki continues to pretend not having any feelings for Yuu, her classmate Koyuki Ayase asks her out on a date. Will Natsuki ever be able to stop “practicing” and actually confess her love to Yuu?\n\n(Source: Aniplex USA)"
     }
   ]
 };

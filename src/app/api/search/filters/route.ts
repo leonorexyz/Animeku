@@ -69,6 +69,7 @@ export async function GET() {
         rating: a.rating || "8.5",
         genres: animeGenres.length > 0 ? animeGenres : (genresByAnime[a.id] || ["Anime"]),
         totalEpisodes: 12,
+        type: ((a as any).sourcePath?.includes("/Movie/") || animeGenres.includes("Movie") ? "movie" : "series") as "movie" | "series",
       });
     });
 
@@ -154,7 +155,7 @@ export async function GET() {
 
     allAnimes.forEach((item) => {
       const isMovie =
-        item.totalEpisodes === 1 ||
+        item.type === "movie" ||
         item.genres?.includes("Movie") ||
         item.title.toLowerCase().includes("movie");
       const isSpecial =

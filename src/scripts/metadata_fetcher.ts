@@ -184,7 +184,19 @@ export const TITLE_SEARCH_ALIASES: Record<string, string> = {
   "White Album": "White Album",
   "Yosuga no sora": "Yosuga no Sora",
   "Yushibu": "Yuusha ni Narenakatta Ore wa Shibushibu Shuushoku wo Ketsui Shimashita.",
-  "Zero no Tsukaima": "Zero no Tsukaima"
+  "Zero no Tsukaima": "Zero no Tsukaima",
+
+  // Film & Movie Anime (D:\Anime\Movie)
+  "5 Centimeters per Second": "5 Centimeters per Second",
+  "Chainsaw Man - Reze Arc": "Chainsaw Man: Reze-hen",
+  "Date A Live - Mayuri Judgement": "Date A Live Movie: Mayuri Judgement",
+  "Doraemon - Stand By Me": "Stand by Me Doraemon",
+  "HoneyWorks - Zutto Maekara Suki Deshita": "Zutto Mae kara Suki deshita.: Kokuhaku Jikkou Iinkai",
+  "LoveLive - School Idol Movie": "Love Live! The School Idol Movie",
+  "Naruto Shippuden - The Movie": "NARUTO: Shippuuden Movie",
+  "Sora no Otoshimono - Tokeijikake no Angeloid": "Sora no Otoshimono: Tokeijikake no Angeloid",
+  "Summer Wars": "Summer Wars",
+  "Sword Art Online - Extra Edition": "Sword Art Online: Extra Edition"
 };
 
 // Standard Anime Genres
@@ -208,6 +220,8 @@ const GENRE_MAP: Record<string, string> = {
   Sports: "Sports",
   Supernatural: "Supernatural",
   Thriller: "Thriller",
+  Movie: "Movie",
+  Film: "Movie",
 };
 
 const MULTI_SEASON_SEARCH_MAP: Record<string, Record<number, string>> = {
@@ -372,6 +386,22 @@ export class MetadataFetcher {
     const coverUrl = anilistData?.bannerImage || kitsuData?.attributes?.coverImage?.large || posterUrl;
     const rawGenres: string[] = anilistData?.genres || ["Anime", "Series"];
     const genres = rawGenres.map((g) => GENRE_MAP[g] || g);
+    const isMovieFormat =
+      anilistData?.format === "MOVIE" ||
+      baseTitle.toLowerCase().includes("movie") ||
+      [
+        "5 centimeters per second",
+        "chainsaw man - reze arc",
+        "date a live - mayuri judgement",
+        "doraemon - stand by me",
+        "honeyworks - zutto maekara suki deshita",
+        "summer wars",
+        "sword art online - extra edition",
+      ].includes(baseTitle.toLowerCase());
+
+    if (isMovieFormat && !genres.includes("Movie")) {
+      genres.unshift("Movie");
+    }
 
     let rating = "8.2";
     if (anilistData?.averageScore) {
@@ -386,7 +416,104 @@ export class MetadataFetcher {
     // 2. Fetch Season Episodes & Thumbnails
     const seasonEpisodes: Record<number, CachedEpisodeInfo[]> = {};
 
-    for (const season of seasonsInfo) {
+    // Special Movie handling for known multi-part films and movie collections
+    if (baseTitle === "Naruto Shippuden - The Movie") {
+      console.log(`  -> Memproses 8 Film Terpisah untuk Koleksi "${baseTitle}"...`);
+      const narutoEpisodes: CachedEpisodeInfo[] = [];
+      const narutoDefs = [
+        { ep: 1, q: "NARUTO: Shippuuden Movie", title: "Movie 1: Naruto Hurricane Chronicles" },
+        { ep: 2, q: "NARUTO: Shippuuden - Kizuna", title: "Movie 2: Bonds (Kizuna)" },
+        { ep: 3, q: "NARUTO: Shippuuden - Hi no Ishi wo Tsugu Mono", title: "Movie 3: The Inheritors of the Will of Fire" },
+        { ep: 4, q: "NARUTO: Shippuuden - The Lost Tower", title: "Movie 4: The Lost Tower" },
+        { ep: 5, q: "NARUTO: Blood Prison", title: "Movie 5: Blood Prison" },
+        { ep: 6, q: "Road to Ninja: Naruto the Movie", title: "Movie 6: Road to Ninja" },
+        { ep: 7, q: "The Last: Naruto the Movie", title: "Movie 7: The Last Movie" },
+        { ep: 8, q: "Boruto: Naruto the Movie", title: "Movie 8: Boruto: Naruto the Movie" },
+      ];
+      for (const item of narutoDefs) {
+        const itemMedia = await this.queryAniList(item.q);
+        const itemThumb = itemMedia?.bannerImage || itemMedia?.coverImage?.extraLarge || itemMedia?.coverImage?.large || coverUrl;
+        const itemSynopsis = itemMedia?.description?.replace(/<[^>]*>?/gm, "").trim() || `Film ke-${item.ep} dalam seri petualangan Naruto Shippuuden.`;
+        narutoEpisodes.push({
+          episodeNumber: item.ep,
+          seasonNumber: 1,
+          title: item.title,
+          thumbnailUrl: itemThumb,
+          synopsis: itemSynopsis,
+        });
+      }
+      seasonEpisodes[1] = narutoEpisodes;
+    } else if (baseTitle === "5 Centimeters per Second") {
+      seasonEpisodes[1] = [
+        {
+          episodeNumber: 1,
+          seasonNumber: 1,
+          title: "Babak 1: Ouka Shou (Bunga Sakura)",
+          thumbnailUrl: coverUrl,
+          synopsis: "Kisah pertemuan dan perpisahan Takaki Toono dan Akari Shinohara di bangku sekolah dasar hingga stasiun Iwafune di tengah badai salju.",
+        },
+        {
+          episodeNumber: 2,
+          seasonNumber: 1,
+          title: "Babak 2: Cosmonaut",
+          thumbnailUrl: posterUrl,
+          synopsis: "Takaki pindah ke Tanegashima di mana Kanae Sumida jatuh cinta padanya dalam hening di bawah roket luar angkasa yang meluncur.",
+        },
+        {
+          episodeNumber: 3,
+          seasonNumber: 1,
+          title: "Babak 3: Byousoku 5 Centimeter",
+          thumbnailUrl: coverUrl,
+          synopsis: "Takaki kini telah dewasa dan bekerja di Tokyo, terus merenungkan jarak dan waktu yang tak pernah bisa kembali seperti kecepatan jatuhnya kelopak bunga sakura.",
+        },
+      ];
+    } else if (baseTitle === "Sword Art Online - Extra Edition") {
+      seasonEpisodes[1] = [
+        {
+          episodeNumber: 1,
+          seasonNumber: 1,
+          title: "Bagian 1: Kenangan di Aincrad",
+          thumbnailUrl: coverUrl,
+          synopsis: "Kirito dan teman-temannya mengingat kembali petualangan mereka di Sword Art Online saat membantu Suguha belajar berenang.",
+        },
+        {
+          episodeNumber: 2,
+          seasonNumber: 1,
+          title: "Bagian 2: Pelatihan Berenang & Penyelidikan",
+          thumbnailUrl: posterUrl,
+          synopsis: "Asuna, Silica, dan Lisbeth melatih Suguha di kolam renang sekolah sambil Kirito menjalani konseling dengan Kikuoka Seijirou.",
+        },
+        {
+          episodeNumber: 3,
+          seasonNumber: 1,
+          title: "Bagian 3: Misi Bawah Air ALO",
+          thumbnailUrl: coverUrl,
+          synopsis: "Kelompok Kirito bersatu di Alfheim Online untuk menjalankan quest bawah air khusus demi melihat paus legenda.",
+        },
+        {
+          episodeNumber: 4,
+          seasonNumber: 1,
+          title: "Bagian 4: Pertempuran Penguasa Laut",
+          thumbnailUrl: posterUrl,
+          synopsis: "Klimaks quest bawah laut ALO menghadapi Abyss Lord demi memenuhi impian Yui dan melihat paus megah di lautan langit.",
+        },
+      ];
+    } else if (
+      seasonsInfo.length === 1 &&
+      seasonsInfo[0].totalEpisodes === 1 &&
+      (isMovieFormat || baseTitle.includes("Stand By Me") || baseTitle.includes("Summer Wars"))
+    ) {
+      seasonEpisodes[1] = [
+        {
+          episodeNumber: 1,
+          seasonNumber: 1,
+          title: officialTitle,
+          thumbnailUrl: coverUrl || posterUrl,
+          synopsis,
+        },
+      ];
+    } else {
+      for (const season of seasonsInfo) {
       const sNum = season.seasonNumber;
       console.log(`  -> Fetching episodes & thumbnails for Season ${sNum} (Folder: ${season.folderName})...`);
 
@@ -456,6 +583,7 @@ export class MetadataFetcher {
       seasonEpisodes[sNum] = episodesList;
       await new Promise((r) => setTimeout(r, 600));
     }
+  }
 
     const metadata: CachedAnimeMetadata = {
       id: baseTitle.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),

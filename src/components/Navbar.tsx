@@ -12,6 +12,7 @@ import {
   X,
   Heart,
   Settings,
+  Tv,
 } from "lucide-react";
 import LiveSearchInput from "@/components/LiveSearchInput";
 
@@ -121,6 +122,22 @@ export default function Navbar() {
                 Beranda
               </Link>
               <Link
+                href="/search?category=tv"
+                onClick={(e) => handleNavigate(e, "/search?category=tv")}
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <Tv className="w-4 h-4 text-sky-400" />
+                Serial
+              </Link>
+              <Link
+                href="/search?category=movie"
+                onClick={(e) => handleNavigate(e, "/search?category=movie")}
+                className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <Film className="w-4 h-4 text-amber-400" />
+                Film
+              </Link>
+              <Link
                 href="/search"
                 onClick={(e) => handleNavigate(e, "/search")}
                 className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
@@ -146,10 +163,10 @@ export default function Navbar() {
               href="/sources"
               onClick={(e) => handleNavigate(e, "/sources")}
               className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-300 hover:text-white transition-colors cursor-pointer group"
-              title="Kelola Sumber Anime (D:/Anime/Series & Cloud)"
+              title="2 Sumber Media Aktif (D:/Anime/Series & D:/Anime/Movie)"
             >
               <HardDrive className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
-              <span>Sumber Media</span>
+              <span>2 Sumber Media</span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
             </Link>
 
@@ -242,6 +259,22 @@ export default function Navbar() {
                 >
                   <Film className="w-4 h-4 text-red-500" />
                   Beranda
+                </Link>
+                <Link
+                  href="/search?category=tv"
+                  onClick={(e) => handleNavigate(e, "/search?category=tv")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
+                >
+                  <Tv className="w-4 h-4 text-sky-400" />
+                  Serial TV
+                </Link>
+                <Link
+                  href="/search?category=movie"
+                  onClick={(e) => handleNavigate(e, "/search?category=movie")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 cursor-pointer"
+                >
+                  <Film className="w-4 h-4 text-amber-400" />
+                  Film Anime
                 </Link>
                 <Link
                   href="/search"
