@@ -498,6 +498,108 @@ export class MetadataFetcher {
           synopsis: "Klimaks quest bawah laut ALO menghadapi Abyss Lord demi memenuhi impian Yui dan melihat paus megah di lautan langit.",
         },
       ];
+    } else if (baseTitle === "School Days") {
+      console.log(`  -> Memproses 14 Episode Resmi School Days (12 TV + 2 OVA)...`);
+      seasonEpisodes[1] = [
+        {
+          episodeNumber: 1,
+          seasonNumber: 1,
+          title: "Ep 1: Confession",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38601/original.jpg",
+          synopsis: "Makoto pertama kali melihat Kotonoha di kereta dan mengambil fotonya secara diam-diam. Sekai, teman sekelasnya, mengetahui hal itu dan berniat membantu mendekatkan Makoto dengan Kotonoha.",
+        },
+        {
+          episodeNumber: 2,
+          seasonNumber: 1,
+          title: "Ep 2: The Distance Between Them",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38602/original.jpg",
+          synopsis: "Makoto dan Kotonoha mulai berkencan berkat bantuan Sekai. Namun rasa canggung di antara mereka masih terasa besar, sementara Sekai mulai menyadari perasaannya sendiri terhadap Makoto.",
+        },
+        {
+          episodeNumber: 3,
+          seasonNumber: 1,
+          title: "Ep 3: Missing Each Other",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38603/original.jpg",
+          synopsis: "Hubungan Makoto dan Kotonoha berkembang perlahan. Di sisi lain, Sekai merasa semakin gelisah melihat kedekatan mereka berdua.",
+        },
+        {
+          episodeNumber: 4,
+          seasonNumber: 1,
+          title: "Ep 4: Innocence",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38604/original.jpg",
+          synopsis: "Makoto menginginkan hubungan yang lebih intim dengan Kotonoha, namun Kotonoha merasa masih terlalu dini. Makoto mulai berpaling dan mencurahkan rasa frustrasinya kepada Sekai.",
+        },
+        {
+          episodeNumber: 5,
+          seasonNumber: 1,
+          title: "Ep 5: Ring of Water",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38605/original.jpg",
+          synopsis: "Liburan musim panas tiba dan mereka pergi ke kolam renang bersama. Ketegangan romantis dan keraguan emosional semakin meruncing di antara Makoto, Kotonoha, dan Sekai.",
+        },
+        {
+          episodeNumber: 6,
+          seasonNumber: 1,
+          title: "Ep 6: Relationships Passing",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38606/original.jpg",
+          synopsis: "Makoto dan Sekai diam-diam memulai hubungan rahasia di belakang Kotonoha. Sekai merasa bersalah namun tidak sanggup melepaskan Makoto.",
+        },
+        {
+          episodeNumber: 7,
+          seasonNumber: 1,
+          title: "Ep 7: Eve",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38607/original.jpg",
+          synopsis: "Kotonoha mulai merasakan perubahan sikap Makoto, namun ia tetap berusaha percaya bahwa Makoto masih mencintainya. Sementara itu, gosip mulai menyebar di sekolah.",
+        },
+        {
+          episodeNumber: 8,
+          seasonNumber: 1,
+          title: "Ep 8: School Festival",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38608/original.jpg",
+          synopsis: "Festival sekolah dimulai. Makoto semakin menjauh dari Kotonoha dan menghabiskan sebagian besar waktunya bersama gadis-gadis lain, menimbulkan kekecewaan mendalam.",
+        },
+        {
+          episodeNumber: 9,
+          seasonNumber: 1,
+          title: "Ep 9: Last day of the School Festival",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38609/original.jpg",
+          synopsis: "Pada hari terakhir festival dan tarian api unggun, konflik antara Sekai, Setsuna, dan Kotonoha semakin meledak ketika Makoto semakin ceroboh dalam tindakannya.",
+        },
+        {
+          episodeNumber: 10,
+          seasonNumber: 1,
+          title: "Ep 10: Mind and Body",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38610/original.jpg",
+          synopsis: "Kematangan hubungan yang rusak membuat Makoto kehilangan kendali atas dirinya. Kotonoha perlahan terpuruk dalam kehancuran mental melihat perlakuan Makoto.",
+        },
+        {
+          episodeNumber: 11,
+          seasonNumber: 1,
+          title: "Ep 11: The Truth about Everyone",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38611/original.jpg",
+          synopsis: "Sekai mengabarkan bahwa dirinya hamil, sementara Makoto mencoba lari dari tanggung jawab dan berbalik kembali memohon pada Kotonoha yang kondisi psikologisnya makin retak.",
+        },
+        {
+          episodeNumber: 12,
+          seasonNumber: 1,
+          title: "Ep 12: School Days",
+          thumbnailUrl: "https://media.kitsu.app/episodes/thumbnails/38612/original.jpg",
+          synopsis: "Klimaks dramatis yang tragis dari cinta segitiga yang tak terkendali di atap apartemen dan kapal pesiar (Nice Boat), mengakhiri kisah hubungan Makoto, Sekai, dan Kotonoha selamanya.",
+        },
+        {
+          episodeNumber: 13,
+          seasonNumber: 1,
+          title: "Ep 13: OVA: Magical Heart Kokoro-chan",
+          thumbnailUrl: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2940-7K1Wc96P6u8K.jpg",
+          synopsis: "Spinoff komedi magis parodi dari seri School Days yang berfokus pada Kokoro Katsura yang bertransformasi menjadi mahou shoujo 'Magical Heart Kokoro-chan' menghadapi berbagai kekacauan lucu.",
+        },
+        {
+          episodeNumber: 14,
+          seasonNumber: 1,
+          title: "Ep 14: OVA: Valentine Days",
+          thumbnailUrl: "https://s4.anilist.co/file/anilistcdn/media/anime/banner/2476-LhCtGB8AbAdB.jpg",
+          synopsis: "Episode OVA spesial Valentine yang menyertai rilis visual novel School Days L×H, menampilkan Makoto, Sekai, Kotonoha, dan teman-teman sekolahnya dalam suasana perayaan hari kasih sayang.",
+        },
+      ];
     } else if (
       seasonsInfo.length === 1 &&
       seasonsInfo[0].totalEpisodes === 1 &&
@@ -651,12 +753,19 @@ export class MetadataFetcher {
 
   private async queryKitsu(search: string): Promise<any | null> {
     try {
-      const res = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(search)}&page[limit]=1`, {
+      const res = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(search)}&page[limit]=5`, {
         headers: { "Accept": "application/vnd.api+json" },
       });
       if (!res.ok) return null;
       const json = await res.json();
-      return json.data?.[0] || null;
+      if (!json.data || !Array.isArray(json.data) || json.data.length === 0) return null;
+      const cleanSearch = search.toLowerCase().replace(/[^a-z0-9]+/g, "");
+      const matched = json.data.find((item: any) => {
+        const cTitle = (item.attributes?.canonicalTitle || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+        const slug = (item.attributes?.slug || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+        return cTitle === cleanSearch || slug === cleanSearch;
+      });
+      return matched || json.data[0] || null;
     } catch {
       return null;
     }

@@ -28283,170 +28283,170 @@ export const MOCK_EPISODES: Record<string, ExtendedEpisode[]> = {
     {
       "id": "ep-school-days-1",
       "animeId": "school-days",
-      "title": "Ep 1: On The Hillside Path Where The Cherry Blossoms Flutter",
+      "title": "Ep 1: Confession",
       "episodeNumber": 1,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F1.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33522/original.jpg",
-      "synopsis": "On the way to school one day, Tomoya Okazaki meets a strange girl talking to herself named Nagisa Furukawa. Later in the day, Tomoya has a conversation with Nagisa during lunch and learns that she is repeating her last year of high school, and wants to join the now-disbanded drama club. After school, Tomoya goes to Nagisa's family bakery and meets her parents; he is invited to have dinner with them."
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38601/original.jpg",
+      "synopsis": "Makoto pertama kali melihat Kotonoha di kereta dan mengambil fotonya secara diam-diam. Sekai, teman sekelasnya, mengetahui hal itu dan berniat membantu mendekatkan Makoto dengan Kotonoha."
     },
     {
       "id": "ep-school-days-2",
       "animeId": "school-days",
-      "title": "Ep 2: The First Step",
+      "title": "Ep 2: The Distance Between Them",
       "episodeNumber": 2,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F2.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33523/original.jpg",
-      "synopsis": "Nagisa admits to wanting to restart the drama club, and Tomoya helps Nagisa to create advertisement posters which they place around school. At school that day, Tomoya meets two other girls: a strange genius named Kotomi Ichinose, and a first-year named Fuko Ibuki. Later that day, Nagisa finds out Tomoya used to play basketball, and invites him to play a game the next day. However, it is later revealed that his father injured Tomoya's arm in a fight; as a result, he is unable to play basketball anymore. "
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38602/original.jpg",
+      "synopsis": "Makoto dan Kotonoha mulai berkencan berkat bantuan Sekai. Namun rasa canggung di antara mereka masih terasa besar, sementara Sekai mulai menyadari perasaannya sendiri terhadap Makoto."
     },
     {
       "id": "ep-school-days-3",
       "animeId": "school-days",
-      "title": "Ep 3: Once Again After Crying",
+      "title": "Ep 3: Missing Each Other",
       "episodeNumber": 3,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F3.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33524/original.jpg",
-      "synopsis": "After the previous night's events, Tomoya goes to see if Nagisa is okay, and finds out that she has been physically weak all her life. While walking back from the bakery, Tomoya helps get a strange electrician out of a jam and he gives Tomoya his card, finding his name to be Yusuke Yoshino; Youhei later reveals that Yusuke is a retired professional musician. After school the next day, Tomoya helps Nagisa get more self-confidence for the drama club by acting as a new member of the club asking questions. "
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38603/original.jpg",
+      "synopsis": "Hubungan Makoto dan Kotonoha berkembang perlahan. Di sisi lain, Sekai merasa semakin gelisah melihat kedekatan mereka berdua."
     },
     {
       "id": "ep-school-days-4",
       "animeId": "school-days",
-      "title": "Ep 4: Let's Find Friends",
+      "title": "Ep 4: Innocence",
       "episodeNumber": 4,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F4.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33525/original.jpg",
-      "synopsis": "Tomoya runs into Fuko again at school, and she tries to invite him to her older sister's upcoming marriage ceremony, but Tomoya is not interested. Tomoya gets Youhei to help reform the drama club by bribing him with bread from Nagisa's family bakery. Nagisa tries to get the help of Ryou and Kyou in reforming the drama club, and Tomoya even tries to ask Tomoyo and Kotomi if they would like to join; Tomoyo is trying to become student council president, and Kotomi does not give an answer. Tomoya and Nagisa later go see Fuko about the club, and he discovers from Nagisa that Fuko is supposedly unconscious in a hospital. "
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38604/original.jpg",
+      "synopsis": "Makoto menginginkan hubungan yang lebih intim dengan Kotonoha, namun Kotonoha merasa masih terlalu dini. Makoto mulai berpaling dan mencurahkan rasa frustrasinya kepada Sekai."
     },
     {
       "id": "ep-school-days-5",
       "animeId": "school-days",
-      "title": "Ep 5: The Scenery With A Carving",
+      "title": "Ep 5: Ring of Water",
       "episodeNumber": 5,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F5.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33526/original.jpg",
-      "synopsis": "In order to help Fuko out, Tomoya and Nagisa take her to stay at Nagisa's house for the time being. Nagisa's family helps with carving more starfish out of wood, and at school Tomoya and Nagisa help with passing them out to students. Later, Fuko talks about how she has wanted to attend classes, but has never been able to. Tomoya makes arrangements with Youhei, Kyou, and Ryou to act as classmates in Fuko's very first high school class, and even Sanae comes to act as the teacher."
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38605/original.jpg",
+      "synopsis": "Liburan musim panas tiba dan mereka pergi ke kolam renang bersama. Ketegangan romantis dan keraguan emosional semakin meruncing di antara Makoto, Kotonoha, dan Sekai."
     },
     {
       "id": "ep-school-days-6",
       "animeId": "school-days",
-      "title": "Ep 6: The Older And Younger Sister's Founder's Festival",
+      "title": "Ep 6: Relationships Passing",
       "episodeNumber": 6,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F6.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33527/original.jpg",
-      "synopsis": "Tomoya and Nagisa invite Fuko's older sister Kouko to the Founder's Festival. In the meantime, Fuko hands out more carved starfish to students at the festival, and her fan club helps spread the word about Kouko's wedding too. Nagisa and Tomoya meet Tomoyo, who is wearing a bear suit to find people who are causing trouble, and manages to knock Youhei out a window for bothering a girl. When Kouko finally comes, she cannot see or hear her sister."
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38606/original.jpg",
+      "synopsis": "Makoto dan Sekai diam-diam memulai hubungan rahasia di belakang Kotonoha. Sekai merasa bersalah namun tidak sanggup melepaskan Makoto."
     },
     {
       "id": "ep-school-days-7",
       "animeId": "school-days",
-      "title": "Ep 7: Star-Shaped Feelings",
+      "title": "Ep 7: Eve",
       "episodeNumber": 7,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F7.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33528/original.jpg",
-      "synopsis": "Tomoya and Nagisa convince Kouko that Fuko would wish for her to get married despite Fuko's condition. They talk to the school's administration after finding out Kouko would like to get married on the school grounds. Kouko informs them that Fuko's condition has gotten worse, and she may not awaken from her coma, while Youhei shares his observation that some students cannot see Fuko and others are beginning to forget her and the presents she gave them. "
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38607/original.jpg",
+      "synopsis": "Kotonoha mulai merasakan perubahan sikap Makoto, namun ia tetap berusaha percaya bahwa Makoto masih mencintainya. Sementara itu, gosip mulai menyebar di sekolah."
     },
     {
       "id": "ep-school-days-8",
       "animeId": "school-days",
-      "title": "Ep 8: The Wind That Vanishes Into The Twilight",
+      "title": "Ep 8: School Festival",
       "episodeNumber": 8,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F8.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33529/original.jpg",
-      "synopsis": "More people from school are not able to see Fuko anymore and now even those close to Fuko in the past are beginning to forget about her. First Youhei forget after he goes to see her in the hospital, followed by Kyou and Ryou. Tomoyo manages to remember with Tomoya's help however. Later, Youhei manages to remember Fuko for a moment, but is unable to remember any more. Tomoya and Nagisa buy Fuko a birthday party set to cheer her up. When they get back to the bakery, they discover that Nagisa's father has forgotten Fuko, and while Nagisa's mother has not forgotten completely, she cannot see her anymore. Tomoya and Nagisa decide to take Fuko back to school for now. "
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38608/original.jpg",
+      "synopsis": "Festival sekolah dimulai. Makoto semakin menjauh dari Kotonoha dan menghabiskan sebagian besar waktunya bersama gadis-gadis lain, menimbulkan kekecewaan mendalam."
     },
     {
       "id": "ep-school-days-9",
       "animeId": "school-days",
-      "title": "Ep 9: Until The End Of The Dream",
+      "title": "Ep 9: Last day of the School Festival",
       "episodeNumber": 9,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F9.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33530/original.jpg",
-      "synopsis": "Tomoya, Nagisa, and Fuko spend the night at school having a pre-celebration for Youko's wedding. In the morning, Tomoya and Nagisa have forgotten about Fuko and cannot see her. Both Tomoya and Nagisa later feel that there is something important that they are forgetting, and finally remember about Youko's wedding, which is also when they are able to see Fuko again. On the wedding day, initially the only students to arrive were Tomoya, Nagisa, and Fuko, but after the ceremony it is shown that everyone who had received a starfish came to the wedding. Fuko ultimately disappears after thanking Tomoya and Nagisa for what they have done, and congratulating her older sister. A rumor still persists at Tomoya's school of Fuko as a cute girl who is constantly running through the school."
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38609/original.jpg",
+      "synopsis": "Pada hari terakhir festival dan tarian api unggun, konflik antara Sekai, Setsuna, dan Kotonoha semakin meledak ketika Makoto semakin ceroboh dalam tindakannya."
     },
     {
       "id": "ep-school-days-10",
       "animeId": "school-days",
-      "title": "Ep 10: The Girl Genius' Challenge",
+      "title": "Ep 10: Mind and Body",
       "episodeNumber": 10,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F10.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33531/original.jpg",
-      "synopsis": "Since no new members have joined the drama club, Tomoya goes to talk with Kotomi once again about joining. Tomoya takes her around school and helps her introduce herself to people to make more friends. Tomoya takes Kyou, Ryou, and Kotomi to the drama room after school, and after a round of introductions, Tomoya asks them to join the club. Kyou initially passes on the chance, but ends up giving in after her sister says she wants to join, and Kotomi joins as well. During the meeting, Kotomi leaves when she hears someone playing the violin, though when she is given the chance to play it, she is painfully horrible. "
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38610/original.jpg",
+      "synopsis": "Kematangan hubungan yang rusak membuat Makoto kehilangan kendali atas dirinya. Kotonoha perlahan terpuruk dalam kehancuran mental melihat perlakuan Makoto."
     },
     {
       "id": "ep-school-days-11",
       "animeId": "school-days",
-      "title": "Ep 11: The After School Rhapsody",
+      "title": "Ep 11: The Truth about Everyone",
       "episodeNumber": 11,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F11.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33532/original.jpg",
-      "synopsis": "Kotomi is still trying to play the violin, but has not improved at all; in short, her playing is painful to anyone listening. Kyou gets the idea to have Kotomi play at her first violin recital after school the day after tomorrow, and in the mean time Kotomi can practice. The day before the recital, Tomoya visits Kotomi at the school's library and eats her delicious homemade apple pie. Shortly after, Tomoya falls asleep and has a very strange dream. At the recital, Kyou blackmails several students into coming with her position as a class representative. In the end, Kotomi did not improve at all, and the recital was still very painful to listen to. When Kotomi and her friends are going home, a strange man approaches Kotomi, though leaves shortly after; Kotomi was terrified of him"
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38611/original.jpg",
+      "synopsis": "Sekai mengabarkan bahwa dirinya hamil, sementara Makoto mencoba lari dari tanggung jawab dan berbalik kembali memohon pada Kotonoha yang kondisi psikologisnya makin retak."
     },
     {
       "id": "ep-school-days-12",
       "animeId": "school-days",
-      "title": "Ep 12: Hidden World",
+      "title": "Ep 12: School Days",
       "episodeNumber": 12,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2F12.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33533/original.jpg",
-      "synopsis": "Kotomi returns the violin to Rie Nishina and becomes friends with her. Kotomi changes her usual routine and starts attending her classes. Due to Kyou's idea, she, Ryou, Kotomi, Nagisa, and Tomoya go out together as a group and have fun in town. While out, Fuko makes an appearance in, but no one remembers her. The next day, Nagisa runs up to Kyou thinking Ryou got in a bus accident, though when they rush to the scene, they find no one was hurt; however, Kotomi has an emotional episode and collapses while screaming out. Kotomi leaves early that day, but when Tomoya, Nagisa and the Fujibayashi twins go to see her later, there is no answer at her house. After they leave, Tomoya goes back and runs into the strange man from earlier; he finds out the man is an acquaintance of Kotomi's parents. Tomoya ends up going into Kotomi's house and finds her in a room with newspaper clippings on the wall reporting on the death of Kotomi's parents. Tomoya ends up remembering that he met Kotomi when he was a kid."
+      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/38612/original.jpg",
+      "synopsis": "Klimaks dramatis yang tragis dari cinta segitiga yang tak terkendali di atap apartemen dan kapal pesiar (Nice Boat), mengakhiri kisah hubungan Makoto, Sekai, dan Kotonoha selamanya."
     },
     {
       "id": "ep-school-days-13",
       "animeId": "school-days",
-      "title": "Ep 13: Garden of Memories",
+      "title": "Ep 13: OVA: Magical Heart Kokoro-chan",
       "episodeNumber": 13,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2FOVA%20Magical%20Heart%20Kokoro-chan.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33534/original.jpg",
-      "synopsis": "Tomoya realizes that he met Kotomi as a kid, though only she had remembered. Back then, Tomoya had often visited Kotomi, and was her only friend. Around this time on Kotomi's birthday, her parents left for business reasons, and later that day she finds out they were killed in a plane crash. Kotomi ultimately ended up burning her father's important work before anyone could see it. While Kotomi shuts herself in her house, Tomoya comes over and starts cleaning up the garden which is overgrown with grass and weeds. Nagisa, Kyou and Ryou eventually help out too."
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2940-7K1Wc96P6u8K.jpg",
+      "synopsis": "Spinoff komedi magis parodi dari seri School Days yang berfokus pada Kokoro Katsura yang bertransformasi menjadi mahou shoujo 'Magical Heart Kokoro-chan' menghadapi berbagai kekacauan lucu."
     },
     {
       "id": "ep-school-days-14",
       "animeId": "school-days",
-      "title": "Ep 14: Theory Of Everything",
+      "title": "Ep 14: OVA: Valentine Days",
       "episodeNumber": 14,
       "seasonNumber": 1,
       "durationSeconds": 1440,
       "sourceType": "local",
       "sourceUrl": "/api/stream?file=D%3A%2FAnime%2FSeries%2FSchool%20Days%2FOVA%20Valentines.flv",
-      "thumbnailUrl": "https://media.kitsu.app/episodes/thumbnails/33535/original.jpg",
-      "synopsis": "Kotomi finally leaves the house to find that Tomoya worked in the garden all night long and had fallen asleep. When she returns to school, Tomoya, Kyou, Ryou and Nagisa are all waiting for her. The mysterious stranger whom she was so frightened of, believing he wanted to steal her parents' thesis, is there as well. Kotomi and her friends find out that he is her legal guardian, and that there never were any written notes for the thesis after all. The envelope Kotomi set fire to, and felt so guilty about, was nothing important. The stranger also has a birthday gift for her: her parents' suitcase, which survived the plane crash and was passed from hand to hand for years until he found it. Inside is a teddy bear, Kotomi's gift request to them before they left, and an affectionate letter. Kotomi, holding the bear, is so happy that sparkles literally fill the room, and makes peace with her parents' deaths at last."
+      "thumbnailUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/2476-LhCtGB8AbAdB.jpg",
+      "synopsis": "Episode OVA spesial Valentine yang menyertai rilis visual novel School Days L×H, menampilkan Makoto, Sekai, Kotonoha, dan teman-teman sekolahnya dalam suasana perayaan hari kasih sayang."
     }
   ],
   "school-rumble": [

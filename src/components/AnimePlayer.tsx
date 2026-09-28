@@ -33,8 +33,10 @@ import { saveWatchProgress, getWatchProgressForAnime } from "@/utils/watchProgre
 import { getStoredAppSettings } from "@/utils/appSettings";
 import {
   getMasterDirectoryHandle,
+  getAllDirectoryHandles,
   saveMasterDirectoryHandle,
   getSavedMasterFolderName,
+  getSavedMasterFolderNames,
   clearMasterDirectoryHandle,
   verifyDirectoryPermission,
   resolveEpisodeFile,
@@ -98,6 +100,7 @@ export default function AnimePlayer({
   const [localFileObjectUrl, setLocalFileObjectUrl] = useState<string | null>(null);
   const [localFilesCache, setLocalFilesCache] = useState<Map<number, File>>(new Map());
   const [savedMasterFolder, setSavedMasterFolder] = useState<string | null>(null);
+  const [savedMasterFoldersList, setSavedMasterFoldersList] = useState<string[]>([]);
   const [isResolvingFile, setIsResolvingFile] = useState(false);
   const singleFileInputRef = useRef<HTMLInputElement>(null);
   const folderInputRef = useRef<HTMLInputElement>(null);
@@ -106,9 +109,10 @@ export default function AnimePlayer({
   useEffect(() => {
     async function checkMasterFolder() {
       try {
-        const folderName = await getSavedMasterFolderName();
-        if (folderName) {
-          setSavedMasterFolder(folderName);
+        const folderNames = await getSavedMasterFolderNames();
+        setSavedMasterFoldersList(folderNames);
+        if (folderNames.length > 0) {
+          setSavedMasterFolder(folderNames.join(", "));
         }
       } catch (e) {}
     }
@@ -255,35 +259,37 @@ export default function AnimePlayer({
     async (epNumber: number, interactive: boolean = false): Promise<boolean> => {
       setIsResolvingFile(true);
       try {
-        const handle = await getMasterDirectoryHandle();
-        if (!handle) {
+        const handles = await getAllDirectoryHandles();
+        if (handles.length === 0) {
           setIsResolvingFile(false);
           return false;
         }
-        setSavedMasterFolder(handle.name);
+
+        const names = handles.map((h) => h.name);
+        setSavedMasterFoldersList(names);
+        setSavedMasterFolder(names.join(", "));
 
         if (interactive) {
-          const hasPerm = await verifyDirectoryPermission(handle, "read");
-          if (!hasPerm) {
-            setIsResolvingFile(false);
-            return false;
+          for (const h of handles) {
+            await verifyDirectoryPermission(h, "read");
           }
         } else {
-          try {
-            // @ts-ignore
-            const q = await handle.queryPermission({ mode: "read" });
-            if (q !== "granted") {
-              setIsResolvingFile(false);
-              return false;
-            }
-          } catch {
+          let anyGranted = false;
+          for (const h of handles) {
+            try {
+              // @ts-ignore
+              const q = await h.queryPermission({ mode: "read" });
+              if (q === "granted") anyGranted = true;
+            } catch {}
+          }
+          if (!anyGranted) {
             setIsResolvingFile(false);
             return false;
           }
         }
 
         const file = await resolveEpisodeFile(
-          handle,
+          handles,
           anime.title,
           epNumber,
           currentEp.sourceUrl
@@ -354,11 +360,13 @@ export default function AnimePlayer({
 
         if (dirHandle) {
           await saveMasterDirectoryHandle(dirHandle);
-          setSavedMasterFolder(dirHandle.name);
+          const allNames = await getSavedMasterFolderNames();
+          setSavedMasterFoldersList(allNames);
+          setSavedMasterFolder(allNames.join(", "));
 
-          // Immediately resolve current episode file
+          const handles = await getAllDirectoryHandles();
           const file = await resolveEpisodeFile(
-            dirHandle,
+            handles.length > 0 ? handles : [dirHandle],
             anime.title,
             currentEp.episodeNumber,
             currentEp.sourceUrl
@@ -381,8 +389,12 @@ export default function AnimePlayer({
             }, 150);
             return;
           } else {
+            const isMovie =
+              anime.type === "movie" ||
+              currentEp.sourceUrl?.includes("/Movie/") ||
+              anime.genres?.includes("Movie");
             alert(
-              `Folder "${dirHandle.name}" berhasil terhubung dan tersimpan!\nNamun berkas untuk Episode ${currentEp.episodeNumber} belum ditemukan di dalam folder tersebut. Pastikan folder yang Anda pilih adalah D:/Anime/Series atau folder judul anime terkait.`
+              `Folder "${dirHandle.name}" berhasil terhubung dan tersimpan!\nNamun berkas untuk "${currentEp.title}" belum ditemukan di dalam folder tersebut.\n\nPastikan Anda memilih folder yang sesuai:\n- Film/Movie: D:\\Anime\\Movie\n- Serial TV: D:\\Anime\\Series\natau folder induk D:\\Anime.`
             );
           }
         }
@@ -1582,125 +1594,148 @@ export default function AnimePlayer({
       )}
 
       {/* Local File / Playback Fallback Overlay */}
-      {videoError && (
-        <div className="absolute inset-0 z-40 bg-zinc-950/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-300">
-          <div className="max-w-md w-full bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
-            <div className="w-16 h-16 rounded-2xl bg-red-600/10 border border-red-500/20 flex items-center justify-center mx-auto text-red-500 shadow-xl">
-              <HardDrive className="w-8 h-8 animate-pulse" />
-            </div>
+      {videoError && (() => {
+        const isCurrentMovie =
+          anime.type === "movie" ||
+          currentEp.sourceUrl?.includes("/Movie/") ||
+          anime.genres?.includes("Movie");
+        const defaultExpectedFolder = isCurrentMovie ? "D:/Anime/Movie" : "D:/Anime/Series";
+        const folderCategoryLabel = isCurrentMovie ? "Film (Movie)" : "Serial TV";
+        const cleanFilePath = decodeURIComponent(
+          currentEp.sourceUrl?.replace("/api/stream?file=", "") || defaultExpectedFolder
+        );
 
-            <div className="space-y-2">
-              <h2 className="text-lg sm:text-xl font-black text-white">
-                Akses Video Lokal (D:/Anime/Series)
-              </h2>
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Serial ini berada di penyimpanan PC lokal Anda:
-                <br />
-                <span className="font-mono text-xs text-red-400 bg-red-950/40 px-2 py-1 rounded inline-block mt-1.5 border border-red-900/40 truncate max-w-full">
-                  {decodeURIComponent(currentEp.sourceUrl?.replace("/api/stream?file=", "") || "D:/Anime/Series")}
-                </span>
-              </p>
-              {savedMasterFolder ? (
-                <div className="p-3 bg-emerald-950/40 border border-emerald-500/30 rounded-xl text-left">
-                  <div className="flex items-center gap-2 text-xs font-bold text-emerald-400">
-                    <Check className="w-4 h-4 shrink-0" />
-                    <span>Folder Master Tersimpan: &quot;{savedMasterFolder}&quot;</span>
-                  </div>
-                  <p className="text-[11px] text-zinc-400 mt-1">
-                    Browser memerlukan aktivasi izin untuk membaca file pada sesi ini. Klik tombol di bawah untuk langsung memutar!
-                  </p>
-                </div>
-              ) : (
-                <p className="text-[11px] text-zinc-400 leading-relaxed">
-                  Hubungkan folder <strong className="text-white">D:/Anime/Series</strong> satu kali saja. Animeku akan mengingat folder ini selamanya dan memutar semua episode otomatis tanpa meminta pilih file lagi!
-                </p>
-              )}
-            </div>
+        return (
+          <div className="absolute inset-0 z-40 bg-zinc-950/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-300">
+            <div className="max-w-md w-full bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="w-16 h-16 rounded-2xl bg-red-600/10 border border-red-500/20 flex items-center justify-center mx-auto text-red-500 shadow-xl">
+                <HardDrive className="w-8 h-8 animate-pulse" />
+              </div>
 
-            <div className="space-y-2.5 pt-1">
-              {/* Tombol Utama: Hubungkan / Aktifkan Folder Master */}
-              {savedMasterFolder ? (
-                <button
-                  type="button"
-                  disabled={isResolvingFile}
-                  onClick={handleActivateExistingMasterDirectory}
-                  className="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  {isResolvingFile ? (
-                    <>
-                      <RotateCcw className="w-4 h-4 animate-spin" />
-                      <span>Memuat File Episode...</span>
-                    </>
-                  ) : (
-                    <>
-                      <FolderOpen className="w-4 h-4" />
-                      <span>Aktifkan Akses Folder &quot;{savedMasterFolder}&quot;</span>
-                    </>
-                  )}
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  disabled={isResolvingFile}
-                  onClick={handleConnectMasterDirectory}
-                  className="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  <FolderOpen className="w-4 h-4 text-amber-300" />
-                  <span>Hubungkan Folder Master (D:/Anime/Series)</span>
-                  <span className="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded-full border border-amber-400/30 ml-1">
-                    1 Kali Saja
+              <div className="space-y-2">
+                <h2 className="text-lg sm:text-xl font-black text-white">
+                  Akses Video Lokal ({defaultExpectedFolder})
+                </h2>
+                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                  {folderCategoryLabel} ini berada di penyimpanan PC lokal Anda:
+                  <br />
+                  <span className="font-mono text-xs text-red-400 bg-red-950/40 px-2 py-1 rounded inline-block mt-1.5 border border-red-900/40 truncate max-w-full">
+                    {cleanFilePath}
                   </span>
-                </button>
-              )}
+                </p>
+                {savedMasterFolder ? (
+                  <div className="p-3 bg-emerald-950/40 border border-emerald-500/30 rounded-xl text-left">
+                    <div className="flex items-center gap-2 text-xs font-bold text-emerald-400">
+                      <Check className="w-4 h-4 shrink-0" />
+                      <span>Folder Terhubung: &quot;{savedMasterFolder}&quot;</span>
+                    </div>
+                    <p className="text-[11px] text-zinc-400 mt-1">
+                      {isCurrentMovie && !savedMasterFolder.toLowerCase().includes("movie") && !savedMasterFolder.toLowerCase().includes("anime")
+                        ? `Film ini membutuhkan folder "D:/Anime/Movie". Anda dapat menambahkan folder Movie atau folder induk "D:/Anime" di bawah tanpa menghapus folder serial yang sudah tersimpan.`
+                        : `Browser memerlukan aktivasi izin untuk membaca berkas pada sesi ini. Klik tombol di bawah untuk langsung memutar!`}
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-[11px] text-zinc-400 leading-relaxed">
+                    Hubungkan folder <strong className="text-white">{defaultExpectedFolder}</strong> (atau folder induk <strong className="text-white">D:/Anime</strong>) satu kali saja. Animeku akan mengingat folder ini selamanya dan memutar otomatis tanpa meminta pilih file lagi!
+                  </p>
+                )}
+              </div>
 
-              {/* Tombol Pilih File Episode Manual */}
-              <button
-                type="button"
-                onClick={() => singleFileInputRef.current?.click()}
-                className="w-full py-2.5 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white font-semibold text-xs rounded-xl border border-zinc-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <FileVideo className="w-4 h-4" />
-                <span>Pilih File Episode Ini Secara Manual</span>
-              </button>
-
-              {/* Ganti Folder Master jika sudah tersimpan */}
-              {savedMasterFolder && (
-                <div className="flex items-center justify-center gap-4 pt-1">
+              <div className="space-y-2.5 pt-1">
+                {/* Tombol Utama: Aktifkan Folder Tersimpan atau Hubungkan Folder */}
+                {savedMasterFolder ? (
                   <button
                     type="button"
+                    disabled={isResolvingFile}
+                    onClick={handleActivateExistingMasterDirectory}
+                    className="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  >
+                    {isResolvingFile ? (
+                      <>
+                        <RotateCcw className="w-4 h-4 animate-spin" />
+                        <span>Memuat Berkas Video...</span>
+                      </>
+                    ) : (
+                      <>
+                        <FolderOpen className="w-4 h-4" />
+                        <span>Aktifkan Akses Folder (&quot;{savedMasterFolder}&quot;)</span>
+                      </>
+                    )}
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={isResolvingFile}
                     onClick={handleConnectMasterDirectory}
-                    className="text-zinc-400 hover:text-zinc-200 text-[11px] underline cursor-pointer"
+                    className="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg hover:shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
-                    Pilih Ulang Folder Master
+                    <FolderOpen className="w-4 h-4 text-amber-300" />
+                    <span>Hubungkan Folder ({defaultExpectedFolder})</span>
+                    <span className="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded-full border border-amber-400/30 ml-1">
+                      1 Kali Saja
+                    </span>
                   </button>
-                  <span className="text-zinc-600">•</span>
+                )}
+
+                {/* Tombol Hubungkan Folder Lain / Tambahan (misal Movie atau D:/Anime) */}
+                {savedMasterFolder && (
                   <button
                     type="button"
-                    onClick={handleDisconnectMasterDirectory}
-                    className="text-zinc-500 hover:text-red-400 text-[11px] transition-colors cursor-pointer"
+                    disabled={isResolvingFile}
+                    onClick={handleConnectMasterDirectory}
+                    className="w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white font-bold text-xs rounded-xl border border-zinc-600/80 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
-                    Lepas Hubungan
+                    <FolderOpen className="w-4 h-4 text-amber-400" />
+                    <span>
+                      {isCurrentMovie && !savedMasterFolder.toLowerCase().includes("movie")
+                        ? "Hubungkan Folder Film (D:/Anime/Movie)"
+                        : "Hubungkan / Tambah Folder Lain (D:/Anime)"}
+                    </span>
                   </button>
-                </div>
-              )}
+                )}
 
-              {/* Tombol Putar Video Demo */}
-              <button
-                type="button"
-                onClick={handlePlayDemoVideo}
-                className="w-full py-2 bg-transparent hover:bg-zinc-800/60 text-zinc-500 hover:text-zinc-300 text-xs font-medium rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <Play className="w-3.5 h-3.5 text-zinc-500 fill-zinc-500" />
-                <span>Putar Video Contoh (Mode Pratinjau Demo)</span>
-              </button>
-            </div>
+                {/* Tombol Pilih File Episode Manual */}
+                <button
+                  type="button"
+                  onClick={() => singleFileInputRef.current?.click()}
+                  className="w-full py-2.5 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white font-semibold text-xs rounded-xl border border-zinc-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <FileVideo className="w-4 h-4" />
+                  <span>Pilih Berkas Video Ini Secara Manual</span>
+                </button>
 
-            <div className="border-t border-zinc-800 pt-3 text-[11px] text-zinc-500 text-left">
-              💡 <strong>Fitur File System API:</strong> Folder yang dihubungkan disimpan aman di browser lokal Anda (IndexedDB). Tidak ada file yang diunggah ke internet.
+                {/* Reset / Lepas Hubungan Folder jika perlu */}
+                {savedMasterFolder && (
+                  <div className="flex items-center justify-center gap-4 pt-1">
+                    <button
+                      type="button"
+                      onClick={handleDisconnectMasterDirectory}
+                      className="text-zinc-500 hover:text-red-400 text-[11px] transition-colors cursor-pointer"
+                    >
+                      Lepas Semua Hubungan Folder
+                    </button>
+                  </div>
+                )}
+
+                {/* Tombol Putar Video Demo */}
+                <button
+                  type="button"
+                  onClick={handlePlayDemoVideo}
+                  className="w-full py-2 bg-transparent hover:bg-zinc-800/60 text-zinc-500 hover:text-zinc-300 text-xs font-medium rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Play className="w-3.5 h-3.5 text-zinc-500 fill-zinc-500" />
+                  <span>Putar Video Contoh (Mode Pratinjau Demo)</span>
+                </button>
+              </div>
+
+              <div className="border-t border-zinc-800 pt-3 text-[11px] text-zinc-500 text-left">
+                💡 <strong>Multi-Folder Support:</strong> Anda dapat menghubungkan folder <code>D:/Anime/Series</code> dan <code>D:/Anime/Movie</code> (atau folder induk <code>D:/Anime</code>). Browser mengingat seluruh folder yang terhubung secara aman di IndexedDB.
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }

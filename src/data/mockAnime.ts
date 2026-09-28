@@ -258,7 +258,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-28T03:38:48.618Z"
+      "lastWatchedAt": "2026-09-28T08:47:54.031Z"
     }
   },
   {
@@ -302,7 +302,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-28T03:38:48.618Z"
+      "lastWatchedAt": "2026-09-28T08:47:54.031Z"
     }
   },
   {
@@ -344,7 +344,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-28T03:38:48.618Z"
+      "lastWatchedAt": "2026-09-28T08:47:54.031Z"
     }
   },
   {
@@ -388,7 +388,7 @@ export const MOCK_CONTINUE_WATCHING: Anime[] = [
       "positionSeconds": 600,
       "durationSeconds": 1440,
       "isCompleted": false,
-      "lastWatchedAt": "2026-09-28T03:38:48.618Z"
+      "lastWatchedAt": "2026-09-28T08:47:54.031Z"
     }
   }
 ];
@@ -6752,16 +6752,17 @@ export const MOCK_CATALOG_DATA: Anime[] = [
   {
     "id": "school-days",
     "title": "School Days",
-    "synopsis": "The story is about a love triangle between the male protagonist Makoto, and the two heroines Kotonoha and Sekai. Makoto develops a love interest in Kotonoha, a girl in the same year but different class. Although they both take the same train to school, she is unaware of his existence. His classmate, Sekai, manages to put the two together despite holding strong feelings towards Makoto.\n\n(Source: Anime News Network)",
+    "synopsis": "Makoto Ito adalah seorang siswa SMA yang mengagumi seorang gadis bernama Kotonoha Katsura yang sering ia lihat di kereta menuju sekolah. Sekai Saionji, teman sekelas Makoto, menawarkan diri untuk membantu Makoto mendekati Kotonoha. Namun seiring berjalannya waktu, cinta segitiga yang rumit dan penuh emosi berkembang di antara mereka, berujung pada konsekuensi psikologis yang tragis dan tak terduga.",
     "year": 2007,
-    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx756-XAbKbFaUTDiA.jpg",
-    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/756-nyDz267kznJF.jpg",
+    "posterUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2476-GSeJUpMGnj40.jpg",
+    "coverUrl": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/2476-LhCtGB8AbAdB.jpg",
     "status": "tamat",
     "isFeatured": false,
-    "rating": "5.1",
+    "rating": "6.0",
     "genres": [
       "Drama",
-      "Romance"
+      "Romance",
+      "Psychological"
     ],
     "totalEpisodes": 14,
     "totalSeasons": 1,
