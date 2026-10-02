@@ -277,35 +277,37 @@ async function findMatchingDirectoryHandle(
     return null;
   }
 
-  // Tier 1: Exact string match (case-insensitive)
-  for (const dir of childDirs) {
-    const dLower = dir.name.toLowerCase();
-    if (validCandidates.some((c) => dLower === c.toLowerCase())) {
-      return dir;
+  // Tier 1: Exact string match (case-insensitive) by candidate priority
+  for (const cand of validCandidates) {
+    const cLower = cand.toLowerCase();
+    for (const dir of childDirs) {
+      if (dir.name.toLowerCase() === cLower) {
+        return dir;
+      }
     }
   }
 
-  // Tier 2: Cleaned alphanumeric match
-  for (const dir of childDirs) {
-    const dClean = cleanName(dir.name);
-    if (validCandidates.some((c) => dClean === cleanName(c))) {
-      return dir;
+  // Tier 2: Cleaned alphanumeric match by candidate priority
+  for (const cand of validCandidates) {
+    const cClean = cleanName(cand);
+    for (const dir of childDirs) {
+      if (cleanName(dir.name) === cClean) {
+        return dir;
+      }
     }
   }
 
-  // Tier 3: Fuzzy / partial match with STRICT sequel number guard
-  for (const dir of childDirs) {
-    const dClean = cleanName(dir.name);
-    const dNum = extractSequelNumber(dir.name);
-
-    const isMatch = validCandidates.some((cand) => {
-      const cClean = cleanName(cand);
-      const cNum = extractSequelNumber(cand);
-      if (cNum !== dNum) return false;
-      return dClean.includes(cClean) || cClean.includes(dClean);
-    });
-
-    if (isMatch) return dir;
+  // Tier 3: Fuzzy / partial match with STRICT sequel number guard by candidate priority
+  for (const cand of validCandidates) {
+    const cClean = cleanName(cand);
+    const cNum = extractSequelNumber(cand);
+    for (const dir of childDirs) {
+      const dClean = cleanName(dir.name);
+      const dNum = extractSequelNumber(dir.name);
+      if (cNum === dNum && (dClean.includes(cClean) || cClean.includes(dClean))) {
+        return dir;
+      }
+    }
   }
 
   return null;
@@ -320,7 +322,19 @@ async function findFileInsideAnimeDirectory(
   targetFilename: string,
   episodeNumber: number
 ): Promise<File | null> {
-  // 1. Try exact targetFilename
+  // 1. Try preferred video extensions: MP4 first (universal browser support), then MKV, WebM
+  const baseTarget = targetFilename ? targetFilename.replace(/\.[^/.]+$/, "") : "";
+  if (baseTarget) {
+    for (const ext of [".mp4", ".mkv", ".webm"]) {
+      try {
+        const fh = await animeDir.getFileHandle(`${baseTarget}${ext}`);
+        const f = await fh.getFile();
+        if (f) return f;
+      } catch {}
+    }
+  }
+
+  // 2. Try exact targetFilename
   if (targetFilename) {
     try {
       const fh = await animeDir.getFileHandle(targetFilename);
@@ -329,20 +343,18 @@ async function findFileInsideAnimeDirectory(
     } catch {}
   }
 
-  // 2. Scan files directly in animeDir
+  // 3. Scan files directly in animeDir
   const videoFiles: { handle: FileSystemFileHandle; name: string }[] = [];
+  const matchingFiles: { handle: FileSystemFileHandle; name: string; ext: string }[] = [];
   try {
     // @ts-ignore
     for await (const entry of animeDir.values()) {
       if (entry.kind === "file") {
         const ext = entry.name.slice(entry.name.lastIndexOf(".")).toLowerCase();
         if (SUPPORTED_VIDEO_EXTS.includes(ext)) {
-          if (targetFilename && entry.name.toLowerCase() === targetFilename.toLowerCase()) {
-            return await (entry as FileSystemFileHandle).getFile();
-          }
           const epNum = extractEpisodeNumber(entry.name);
           if (epNum === episodeNumber) {
-            return await (entry as FileSystemFileHandle).getFile();
+            matchingFiles.push({ handle: entry as FileSystemFileHandle, name: entry.name, ext });
           }
           videoFiles.push({ handle: entry as FileSystemFileHandle, name: entry.name });
         }
@@ -350,19 +362,29 @@ async function findFileInsideAnimeDirectory(
     }
   } catch {}
 
-  // 3. Scan 1-level subdirectories inside animeDir (e.g. "Season 1", "OVA", "BD")
+  if (matchingFiles.length > 0) {
+    // Prefer .mp4 over other formats for native browser decoding
+    const mp4 = matchingFiles.find((m) => m.ext === ".mp4");
+    if (mp4) return await mp4.handle.getFile();
+    return await matchingFiles[0].handle.getFile();
+  }
+
+  // 4. Scan 1-level subdirectories inside animeDir (e.g. "Season 1", "OVA", "BD")
   try {
     // @ts-ignore
     for await (const subEntry of animeDir.values()) {
       if (subEntry.kind === "directory") {
         const subDir = subEntry as FileSystemDirectoryHandle;
-        if (targetFilename) {
-          try {
-            const fh = await subDir.getFileHandle(targetFilename);
-            const f = await fh.getFile();
-            if (f) return f;
-          } catch {}
+        if (baseTarget) {
+          for (const ext of [".mp4", ".mkv", ".webm"]) {
+            try {
+              const fh = await subDir.getFileHandle(`${baseTarget}${ext}`);
+              const f = await fh.getFile();
+              if (f) return f;
+            } catch {}
+          }
         }
+        const subMatchingFiles: { handle: FileSystemFileHandle; name: string; ext: string }[] = [];
         // @ts-ignore
         for await (const fileEntry of subDir.values()) {
           if (fileEntry.kind === "file") {
@@ -370,19 +392,26 @@ async function findFileInsideAnimeDirectory(
             if (SUPPORTED_VIDEO_EXTS.includes(ext)) {
               const epNum = extractEpisodeNumber(fileEntry.name);
               if (epNum === episodeNumber) {
-                return await (fileEntry as FileSystemFileHandle).getFile();
+                subMatchingFiles.push({ handle: fileEntry as FileSystemFileHandle, name: fileEntry.name, ext });
               }
               videoFiles.push({ handle: fileEntry as FileSystemFileHandle, name: fileEntry.name });
             }
           }
         }
+        if (subMatchingFiles.length > 0) {
+          const mp4 = subMatchingFiles.find((m) => m.ext === ".mp4");
+          if (mp4) return await mp4.handle.getFile();
+          return await subMatchingFiles[0].handle.getFile();
+        }
       }
     }
   } catch {}
 
-  // 4. Standalone movie / single episode fallback:
+  // 5. Standalone movie / single episode fallback:
   // If episodeNumber === 1 and this is verified animeDir, return the first video file in this folder
   if (episodeNumber === 1 && videoFiles.length > 0) {
+    const mp4 = videoFiles.find((v) => v.name.toLowerCase().endsWith(".mp4"));
+    if (mp4) return await mp4.handle.getFile();
     return await videoFiles[0].handle.getFile();
   }
 

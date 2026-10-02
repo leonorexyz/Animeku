@@ -26,6 +26,7 @@ import {
   FolderOpen,
   FileVideo,
   AlertCircle,
+  AlertTriangle,
 } from "lucide-react";
 import { Anime } from "@/types/anime";
 import { ExtendedEpisode } from "@/data/mockEpisodes";
@@ -97,8 +98,9 @@ export default function AnimePlayer({
     type: "local_unreachable" | "playback_error";
     message: string;
   } | null>(null);
+  const [isCodecUnsupported, setIsCodecUnsupported] = useState(false);
   const [localFileObjectUrl, setLocalFileObjectUrl] = useState<string | null>(null);
-  const [localFilesCache, setLocalFilesCache] = useState<Map<number, File>>(new Map());
+  const [localFilesCache, setLocalFilesCache] = useState<Map<string, File>>(new Map());
   const [savedMasterFolder, setSavedMasterFolder] = useState<string | null>(null);
   const [savedMasterFoldersList, setSavedMasterFoldersList] = useState<string[]>([]);
   const [isResolvingFile, setIsResolvingFile] = useState(false);
@@ -256,7 +258,7 @@ export default function AnimePlayer({
   const activeVideoUrl = localFileObjectUrl || currentEp.sourceUrl;
 
   const tryAutoResolveLocalFile = useCallback(
-    async (epNumber: number, interactive: boolean = false): Promise<boolean> => {
+    async (episode: ExtendedEpisode, interactive: boolean = false): Promise<boolean> => {
       setIsResolvingFile(true);
       try {
         const handles = await getAllDirectoryHandles();
@@ -291,8 +293,8 @@ export default function AnimePlayer({
         const file = await resolveEpisodeFile(
           handles,
           anime.title,
-          epNumber,
-          currentEp.sourceUrl
+          episode.episodeNumber,
+          episode.sourceUrl
         );
 
         if (file) {
@@ -300,10 +302,11 @@ export default function AnimePlayer({
           setLocalFileObjectUrl(blobUrl);
           setLocalFilesCache((prev) => {
             const m = new Map(prev);
-            m.set(epNumber, file);
+            m.set(episode.id, file);
             return m;
           });
           setVideoError(null);
+          setIsCodecUnsupported(false);
           setTimeout(() => {
             if (videoRef.current) {
               videoRef.current.play().catch(() => {});
@@ -319,27 +322,28 @@ export default function AnimePlayer({
       setIsResolvingFile(false);
       return false;
     },
-    [anime.title, currentEp.sourceUrl]
+    [anime.title]
   );
 
   useEffect(() => {
-    // When switching episode, check cache first
-    if (localFilesCache.has(currentEp.episodeNumber)) {
-      const file = localFilesCache.get(currentEp.episodeNumber)!;
+    setIsCodecUnsupported(false);
+    // When switching episode, check cache first by episode ID
+    if (localFilesCache.has(currentEp.id)) {
+      const file = localFilesCache.get(currentEp.id)!;
       const url = URL.createObjectURL(file);
       setLocalFileObjectUrl(url);
       setVideoError(null);
     } else {
       setLocalFileObjectUrl(null);
       // Attempt silent auto-resolve from stored master directory handle
-      tryAutoResolveLocalFile(currentEp.episodeNumber, false);
+      tryAutoResolveLocalFile(currentEp, false);
     }
-  }, [currentEp.id, currentEp.episodeNumber, tryAutoResolveLocalFile]);
+  }, [currentEp.id, tryAutoResolveLocalFile]);
 
   const handleVideoError = async () => {
     console.warn("Video failed to play:", activeVideoUrl);
     // Attempt silent auto-resolve if not yet loaded
-    const resolved = await tryAutoResolveLocalFile(currentEp.episodeNumber, false);
+    const resolved = await tryAutoResolveLocalFile(currentEp, false);
     if (resolved) return;
 
     setVideoError({
@@ -377,7 +381,7 @@ export default function AnimePlayer({
             setLocalFileObjectUrl(url);
             setLocalFilesCache((prev) => {
               const m = new Map(prev);
-              m.set(currentEp.episodeNumber, file);
+              m.set(currentEp.id, file);
               return m;
             });
             setVideoError(null);
@@ -408,7 +412,7 @@ export default function AnimePlayer({
   };
 
   const handleActivateExistingMasterDirectory = async () => {
-    const success = await tryAutoResolveLocalFile(currentEp.episodeNumber, true);
+    const success = await tryAutoResolveLocalFile(currentEp, true);
     if (!success) {
       await handleConnectMasterDirectory();
     }
@@ -426,7 +430,7 @@ export default function AnimePlayer({
       setLocalFileObjectUrl(url);
       setLocalFilesCache((prev) => {
         const m = new Map(prev);
-        m.set(currentEp.episodeNumber, file);
+        m.set(currentEp.id, file);
         return m;
       });
       setVideoError(null);
@@ -442,7 +446,7 @@ export default function AnimePlayer({
   const handleFolderSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     if (files.length > 0) {
-      const newMap = new Map<number, File>(localFilesCache);
+      const newMap = new Map<string, File>(localFilesCache);
       for (const f of files) {
         const ext = f.name.slice(f.name.lastIndexOf(".")).toLowerCase();
         if ([".mp4", ".mkv", ".webm", ".avi", ".flv", ".mov", ".ts"].includes(ext)) {
@@ -450,13 +454,25 @@ export default function AnimePlayer({
           const match = base.match(/(?:ep|episode|e)?\s*0*(\d{1,4})/i);
           if (match && match[1]) {
             const num = parseInt(match[1], 10);
-            newMap.set(num, f);
+            const matchedEp = currentEpisodesList.find(
+              (ep) =>
+                ep.episodeNumber === num &&
+                (drawerSeason ? ep.seasonNumber === drawerSeason : true)
+            );
+            if (matchedEp) {
+              newMap.set(matchedEp.id, f);
+            }
+            newMap.set(`${drawerSeason || 1}_${num}`, f);
+            newMap.set(String(num), f);
           }
         }
       }
       setLocalFilesCache(newMap);
 
-      const curFile = newMap.get(currentEp.episodeNumber);
+      const curFile =
+        newMap.get(currentEp.id) ||
+        newMap.get(`${currentEp.seasonNumber || 1}_${currentEp.episodeNumber}`) ||
+        newMap.get(String(currentEp.episodeNumber));
       if (curFile) {
         const url = URL.createObjectURL(curFile);
         setLocalFileObjectUrl(url);
@@ -486,7 +502,7 @@ export default function AnimePlayer({
           await saveMasterDirectoryHandle(dirHandle);
           setSavedMasterFolder(dirHandle.name);
 
-          const newMap = new Map<number, File>(localFilesCache);
+          const newMap = new Map<string, File>(localFilesCache);
           for await (const entry of dirHandle.values()) {
             if (entry.kind === "file") {
               const ext = entry.name.slice(entry.name.lastIndexOf(".")).toLowerCase();
@@ -496,14 +512,27 @@ export default function AnimePlayer({
                 if (match && match[1]) {
                   const num = parseInt(match[1], 10);
                   const file = await entry.getFile();
-                  newMap.set(num, file);
+                  const matchedEp = currentEpisodesList.find(
+                    (ep) =>
+                      ep.episodeNumber === num &&
+                      (drawerSeason ? ep.seasonNumber === drawerSeason : true)
+                  );
+                  if (matchedEp) {
+                    newMap.set(matchedEp.id, file);
+                  }
+                  newMap.set(`${drawerSeason || 1}_${num}`, file);
+                  newMap.set(String(num), file);
                 }
               }
             }
           }
           if (newMap.size > 0) {
             setLocalFilesCache(newMap);
-            const curFile = newMap.get(currentEp.episodeNumber) || Array.from(newMap.values())[0];
+            const curFile =
+              newMap.get(currentEp.id) ||
+              newMap.get(`${currentEp.seasonNumber || 1}_${currentEp.episodeNumber}`) ||
+              newMap.get(String(currentEp.episodeNumber)) ||
+              Array.from(newMap.values())[0];
             if (curFile) {
               const url = URL.createObjectURL(curFile);
               setLocalFileObjectUrl(url);
@@ -693,6 +722,18 @@ export default function AnimePlayer({
       setBufferedPercent((bufferedEnd / duration) * 100);
     }
 
+    // Codec unsupported / black screen detection (e.g. MKV with HEVC video)
+    if (videoRef.current && cur > 1.5 && !isCodecUnsupported) {
+      const v = videoRef.current;
+      const quality = (v as any).getVideoPlaybackQuality?.();
+      if (
+        (v.videoWidth === 0 && v.videoHeight === 0 && (duration > 0 || v.duration > 0)) ||
+        (quality && quality.totalVideoFrames === 0 && cur > 2.5)
+      ) {
+        setIsCodecUnsupported(true);
+      }
+    }
+
     // Auto next episode trigger when 8 seconds remain if autoplay is active
     if (autoplayNext && duration > 20 && duration - cur <= 8 && nextEp && nextEpCountdown === null) {
       setNextEpCountdown(8);
@@ -752,6 +793,14 @@ export default function AnimePlayer({
     setDuration(dur);
     videoRef.current.playbackRate = playbackRate;
     videoRef.current.volume = isMuted ? 0 : volume;
+
+    if (videoRef.current.videoWidth === 0 && dur > 0) {
+      setTimeout(() => {
+        if (videoRef.current && videoRef.current.videoWidth === 0) {
+          setIsCodecUnsupported(true);
+        }
+      }, 1200);
+    }
 
     // Check localStorage for saved watch progress
     const saved = getWatchProgressForAnime(anime.id);
@@ -917,6 +966,54 @@ export default function AnimePlayer({
         className="w-full h-full object-contain cursor-pointer"
         playsInline
       />
+
+      {/* Codec Unsupported / Black Screen Overlay */}
+      {isCodecUnsupported && (
+        <div className="absolute inset-0 z-35 bg-black/85 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-300 pointer-events-auto">
+          <div className="max-w-md w-full bg-zinc-900/95 border border-amber-500/40 rounded-3xl p-6 sm:p-8 space-y-4 shadow-2xl">
+            <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-400 shadow-lg">
+              <AlertTriangle className="w-8 h-8" />
+            </div>
+            <div className="space-y-2">
+              <h2 className="text-lg sm:text-xl font-black text-white">
+                Format Video Tidak Didukung Browser
+              </h2>
+              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                Berkas ini menggunakan format <strong>MKV / HEVC (H.265)</strong> yang tidak dapat didecode secara native oleh player bawaan browser (menghasilkan layar hitam).
+              </p>
+              <div className="p-3 bg-zinc-800/80 rounded-xl text-left border border-white/5 space-y-1.5 text-xs">
+                <p className="font-semibold text-zinc-200">Rekomendasi Pemutaran:</p>
+                <p className="text-zinc-400">
+                  • Sistem telah mengonversi berkas ke format MP4 (H.264) untuk serial ini. Klik tombol di bawah untuk memuat versi MP4.
+                </p>
+                <p className="text-zinc-400">
+                  • Atau buka berkas langsung menggunakan pemutar eksternal seperti <strong>VLC Media Player</strong>.
+                </p>
+              </div>
+            </div>
+            <div className="space-y-2.5 pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsCodecUnsupported(false);
+                  tryAutoResolveLocalFile(currentEp, true);
+                }}
+                className="w-full py-3 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
+              >
+                <RotateCcw className="w-4 h-4" />
+                <span>Muat Versi MP4 / Refresh</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsCodecUnsupported(false)}
+                className="w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white text-xs font-semibold rounded-xl border border-zinc-700 transition-all cursor-pointer"
+              >
+                Tutup Peringatan (Lanjutkan Audio Saja)
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Hidden File & Folder Pickers for Local Media */}
       <input
