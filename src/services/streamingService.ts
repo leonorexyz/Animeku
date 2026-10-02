@@ -56,9 +56,17 @@ export function streamLocalFile(
   }
 
   // Prevent path traversal attacks
-  const safePath = path.isAbsolute(cleanPath)
+  let safePath = path.isAbsolute(cleanPath)
     ? cleanPath
     : path.join(process.cwd(), cleanPath);
+
+  // If requested file is MKV but an MP4 version exists alongside it, prefer MP4 for browser compatibility
+  if (safePath.toLowerCase().endsWith(".mkv")) {
+    const mp4Candidate = safePath.slice(0, -4) + ".mp4";
+    if (fs.existsSync(mp4Candidate)) {
+      safePath = mp4Candidate;
+    }
+  }
 
   if (!fs.existsSync(safePath)) {
     return new Response(
